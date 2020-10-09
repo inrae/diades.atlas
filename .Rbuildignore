@@ -12,3 +12,4 @@ $run_dev.*
 ^pkgdown$
 ^app\.R$
 ^rsconnect$
+^deliverables$

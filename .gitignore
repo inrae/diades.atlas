@@ -3,3 +3,7 @@
 .Rproj.user
 inst/doc
 docs
+docs/rsconnect
+inst/docs/rsconnect
+deliverables/pkgdown
+rsconnect

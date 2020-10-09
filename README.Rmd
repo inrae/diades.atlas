@@ -24,6 +24,8 @@ remotes::install_git('https://git.thinkr.fr/ThinkR/Missions/aztidiades')
 ```
 
 
-# Application :
+# Websites for validations :
 
-<https://connect.thinkr.fr/azti-diades/>
+- Package documentation : https://connect.thinkr.fr/pkgdown-azti-diades/
+- Shiny App : https://connect.thinkr.fr/azti-diades/
+
