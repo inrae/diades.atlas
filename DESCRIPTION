@@ -1,0 +1,27 @@
+Package: azti.diades
+Title: The Diades Shiny App
+Description: A Shiny application to explore data.
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Sébastien",
+           family = "Rochette",
+           role = c("cre", "aut"),
+           email = "sebastien@thinkr.fr")
+License: MIT + file LICENSE
+URL: https://git.thinkr.fr/ThinkR/Missions/azti.diades
+BugReports: https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/issues
+Imports: 
+    config,
+    golem,
+    shinipsum,
+    shiny,
+    shinythemes,
+    pkgload
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1

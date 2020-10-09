@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+dev_history.R
+^dev$
+$run_dev.*
+^README\.Rmd$
+^\.gitlab-ci\.yml$
+^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^app\.R$
+^rsconnect$
