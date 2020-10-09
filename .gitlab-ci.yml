@@ -58,6 +58,7 @@ integration:
         - dev
         - test-ci
     script:
+        - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_github("ThinkR-open/thinkrtemplate")'
         - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_local();pkgdown::build_site()'
     artifacts:
         paths:
