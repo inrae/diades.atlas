@@ -23,7 +23,7 @@ building:
     - apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
     - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));source("renv/activate.R")'
     - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));renv::restore(library = Sys.getenv("R_LIBS_USER"))'
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));install.packages("remotes");remotes::install_cran(c("pkgdown", "DT"), lib = Sys.getenv("R_LIBS_USER"))'
+    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));install.packages(c("pkgdown", "DT"), lib = Sys.getenv("R_LIBS_USER"))'
     - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));devtools::check()'
 
 # To have the coverage percentage appear as a gitlab badge follow these
