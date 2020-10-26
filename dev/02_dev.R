@@ -18,6 +18,9 @@
 # usethis::use_package( "thinkr" )
 attachment::att_amend_desc(extra.suggests = "pkgload")
 
+## Add data for reprex
+usethis::use_data_raw()
+
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "name_of_module1" ) # Name of the module

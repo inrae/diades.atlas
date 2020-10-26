@@ -11,6 +11,8 @@ License: MIT + file LICENSE
 URL: https://git.thinkr.fr/ThinkR/Missions/azti.diades
 BugReports: 
     https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/issues
+Depends: 
+    R (>= 2.10)
 Imports: 
     config,
     golem,
