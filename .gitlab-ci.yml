@@ -20,12 +20,12 @@ building:
   script:
     - mkdir -p $R_LIBS_USER
     # - apt update -qq && apt install -y libgdal-dev libproj-dev libgeos-dev libudunits2-dev libnode-dev libcairo2-dev libnetcdf-dev libharfbuzz-dev libfribidi-dev
-    - apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));source("renv/activate.R")'
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));renv::restore(library = Sys.getenv("R_LIBS_USER"))'
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));install.packages(c("pkgdown", "DT", "devtools", "remotes"))'
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_local()'
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));devtools::check()'
+    - apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev r-cran-pacman
+    - Rscript -e 'source("renv/activate.R")'
+    - Rscript -e 'renv::restore(library = Sys.getenv("R_LIBS_USER", .libPaths()))'
+    - Rscript -e 'install.packages(c("pkgdown", "DT", "devtools", "remotes"), lib = Sys.getenv("R_LIBS_USER", .libPaths()))'
+    - Rscript -e 'library("remotes", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));install_local()'
+    - Rscript -e 'library("devtools", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));check()'
 
 # To have the coverage percentage appear as a gitlab badge follow these
 # instructions:
@@ -42,7 +42,7 @@ coverage:
         - dev
         - test-ci
     script:
-        - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));covr::gitlab(quiet = FALSE);'
+        - Rscript -e 'install.packages("covr", lib = Sys.getenv("R_LIBS_USER", .libPaths()));library("covr", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));gitlab(quiet = FALSE);'
     artifacts:
         paths:
             - public
@@ -60,8 +60,9 @@ integration:
         - dev
         - test-ci
     script:
-        - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_github("ThinkR-open/thinkrtemplate")'
-        - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_local();pkgdown::build_site()'
+        - Rscript -e 'library("remotes", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));install_github("ThinkR-open/thinkrtemplate")'
+        - Rscript -e 'library("remotes", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));install_local()'
+        - Rscript -e 'library("pkgdown", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));build_site()()'
     artifacts:
         paths:
             - docs
