@@ -18,11 +18,9 @@ case, a \code{global.R} file can be used for this purpose.}
 about the ideal height/width for the app.}
 
 \item{enableBookmarking}{Can be one of \code{"url"}, \code{"server"}, or
-\code{"disable"}. This is equivalent to calling the
-\code{\link[shiny:enableBookmarking]{enableBookmarking()}} function just before calling
-\code{shinyApp()}. With the default value (\code{NULL}), the app will
-respect the setting from any previous calls to \code{enableBookmarking()}.
-See \code{\link[shiny:enableBookmarking]{enableBookmarking()}} for more information.}
+\code{"disable"}. The default value, \code{NULL}, will respect the setting from
+any previous calls to  \code{\link[shiny:enableBookmarking]{enableBookmarking()}}. See \code{\link[shiny:enableBookmarking]{enableBookmarking()}}
+for more information on bookmarking your app.}
 
 \item{...}{arguments to pass to golem_opts}
 }
