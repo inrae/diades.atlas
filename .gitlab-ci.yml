@@ -65,6 +65,9 @@ integration:
         - test-ci
     script:
         - Rscript -e 'install.packages("pacman")'
+        - Rscript -e 'source("renv/activate.R")'
+        - Rscript -e 'renv::restore()'
+        - Rscript -e 'pacman::p_load("remotes");install_local()'
         - Rscript -e 'pacman::p_load("covr");gitlab(quiet = FALSE)'
         - Rscript -e 'pacman::p_load("remotes");install_github("ThinkR-open/thinkrtemplate")'
         - Rscript -e 'pacman::p_load("remotes");install_local()'
