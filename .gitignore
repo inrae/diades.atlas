@@ -7,3 +7,6 @@ docs/rsconnect
 inst/docs/rsconnect
 deliverables/pkgdown
 rsconnect
+rstudio_dotrstudio
+rstudio_dotconfig
+renv_instructions.Rmd
