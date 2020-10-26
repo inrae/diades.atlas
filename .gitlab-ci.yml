@@ -61,7 +61,6 @@ integration:
         - dev
         - test-ci
     script:
-        script:
         - Rscript -e 'install.packages("pacman")'
         - Rscript -e 'pacman::p_load("covr");gitlab(quiet = FALSE)'
         - Rscript -e 'pacman::p_load("remotes");install_github("ThinkR-open/thinkrtemplate")'
