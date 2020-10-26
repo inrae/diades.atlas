@@ -21,6 +21,7 @@ building:
     - mkdir -p $R_LIBS_USER
     # - apt update -qq && apt install -y libgdal-dev libproj-dev libgeos-dev libudunits2-dev libnode-dev libcairo2-dev libnetcdf-dev libharfbuzz-dev libfribidi-dev
     - apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
+    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));install.packages("remotes", lib = Sys.getenv("R_LIBS_USER"))'
     - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_deps(dependencies = TRUE, lib = Sys.getenv("R_LIBS_USER"))'
     - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_cran(c("pkgdown", "DT"), lib = Sys.getenv("R_LIBS_USER"))'
     - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));devtools::check()'
