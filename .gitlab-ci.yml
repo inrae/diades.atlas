@@ -22,10 +22,10 @@ building:
     # - apt update -qq && apt install -y libgdal-dev libproj-dev libgeos-dev libudunits2-dev libnode-dev libcairo2-dev libnetcdf-dev libharfbuzz-dev libfribidi-dev
     - apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
     - Rscript -e 'source("renv/activate.R")'
-    - Rscript -e 'renv::restore(library = Sys.getenv("R_LIBS_USER", .libPaths()))'
-    - Rscript -e 'install.packages(c("pkgdown", "DT", "devtools", "remotes"), lib = Sys.getenv("R_LIBS_USER", .libPaths()))'
-    - Rscript -e 'library("remotes", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));install_local()'
-    - Rscript -e 'library("devtools", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));check()'
+    - Rscript -e 'renv::restore()'
+    - Rscript -e 'install.packages("pacman")'
+    - Rscript -e 'pacman::p_load("remotes");install_local()'
+    - Rscript -e 'pacman::p_load("devtools");check()'
 
 # To have the coverage percentage appear as a gitlab badge follow these
 # instructions:
@@ -42,7 +42,8 @@ coverage:
         - dev
         - test-ci
     script:
-        - Rscript -e 'install.packages("covr", lib = Sys.getenv("R_LIBS_USER", .libPaths()));library("covr", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));gitlab(quiet = FALSE);'
+        - Rscript -e 'install.packages("pacman")'
+        - Rscript -e 'pacman::p_load("covr");gitlab(quiet = FALSE)'
     artifacts:
         paths:
             - public
@@ -60,9 +61,12 @@ integration:
         - dev
         - test-ci
     script:
-        - Rscript -e 'library("remotes", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));install_github("ThinkR-open/thinkrtemplate")'
-        - Rscript -e 'library("remotes", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));install_local()'
-        - Rscript -e 'library("pkgdown", lib.loc = Sys.getenv("R_LIBS_USER", .libPaths()));build_site()()'
+        script:
+        - Rscript -e 'install.packages("pacman")'
+        - Rscript -e 'pacman::p_load("covr");gitlab(quiet = FALSE)'
+        - Rscript -e 'pacman::p_load("remotes");install_github("ThinkR-open/thinkrtemplate")'
+        - Rscript -e 'pacman::p_load("remotes");install_local()'
+        - Rscript -e 'pacman::p_load("pkgdown");build_site()'
     artifacts:
         paths:
             - docs
