@@ -38,7 +38,7 @@ coverage:
     allow_failure: true
     when: on_success
     only:
-        - master
+        - main
         - dev
         - test-ci
     script:
@@ -60,7 +60,7 @@ integration:
     allow_failure: true
     when: on_success
     only:
-        - master
+        - main
         - dev
         - test-ci
     script:
@@ -85,12 +85,12 @@ integration-test:
         - test-ci
     script:
         - mkdir -p public/test
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/master/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/master/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied master artifacts" ||
           echo "copied master artifacts failed"
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/dev/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/dev/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied dev artifacts" ||
@@ -109,7 +109,7 @@ integration-dev:
         - dev
     script:
         - mkdir -p public/dev
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/master/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/master/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied master artifacts" ||
@@ -125,10 +125,10 @@ integration-master:
     dependencies:
         - integration
     only:
-        - master
+        - main
     script:
         - mkdir -p public
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/dev/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/dev/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied dev artifacts" ||
@@ -147,7 +147,7 @@ pages:
         paths:
             - public
     only:
-        - master
+        - main
         - dev
         - test-ci
         

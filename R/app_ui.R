@@ -12,7 +12,7 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # List the first level UI elements here 
     navbarPage(
-      title = "azti.diades",
+      title = "diades.atlas",
       theme = shinythemes::shinytheme("cerulean"),
       tabPanel("Home",
                h1(random_text(nwords = 3)),
@@ -51,7 +51,7 @@ golem_add_external_resources <- function(){
     favicon(),
     bundle_resources(
       path = app_sys('app/www'),
-      app_title = 'azti.diades'
+      app_title = 'diades.atlas'
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 
