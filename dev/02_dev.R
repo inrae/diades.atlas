@@ -63,26 +63,27 @@ usethis::use_coverage()
 usethis::use_github()
 
 # GitHub Actions
-usethis::use_github_action() 
+usethis::use_github_action("pkgdown") 
+usethis::use_github_action("test-coverage") 
 # Chose one of the three
 # See https://usethis.r-lib.org/reference/use_github_action.html
-usethis::use_github_action_check_release() 
+# usethis::use_github_action_check_release() 
 usethis::use_github_action_check_standard() 
-usethis::use_github_action_check_full() 
+# usethis::use_github_action_check_full() 
 # Add action for PR
 usethis::use_github_action_pr_commands()
 
 # Travis CI
-usethis::use_travis() 
-usethis::use_travis_badge() 
-
-# AppVeyor 
-usethis::use_appveyor() 
-usethis::use_appveyor_badge()
-
-# Circle CI
-usethis::use_circleci()
-usethis::use_circleci_badge()
+# usethis::use_travis() 
+# usethis::use_travis_badge() 
+# 
+# # AppVeyor 
+# usethis::use_appveyor() 
+# usethis::use_appveyor_badge()
+# 
+# # Circle CI
+# usethis::use_circleci()
+# usethis::use_circleci_badge()
 
 # Jenkins
 usethis::use_jenkins()
