@@ -21,3 +21,4 @@ renv\_instructions\.Rmd
 ^renv_instructions\.Rmd$
 ^\.github$
 ^codecov\.yml$
+^creds\.R$

@@ -4,7 +4,7 @@ on:
       - dev
       - rename-project
 
-name: pkgdown
+name: pkgdown-dev
 
 jobs:
   pkgdown:
@@ -50,12 +50,16 @@ jobs:
           install.packages("pkgdown")
           pacman::p_load("remotes");install_local()
           pacman::p_load("remotes");install_github("ThinkR-open/thinkrtemplate")
+          file.rename("docs", "docs_tmp")
           pacman::p_load("pkgdown");build_site()
           dir.create("devdir");file.copy("docs", "devdir", recursive = TRUE)
-          unlink("docs", recursive = TRUE);dir.create("docs", recursive = TRUE)
+          unlink("docs", recursive = TRUE)
+          file.rename("docs_tmp", "docs")
+          dir.create("docs/docs")
           file.copy("devdir/docs", "docs", recursive = TRUE)
           file.rename("docs/docs", "docs/dev")
           unlink("devdir", recursive = TRUE)
+          unlink("docs_tmp", recursive = TRUE)
         shell: Rscript {0}
 
       - name: Install package

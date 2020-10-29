@@ -34,6 +34,10 @@ usethis::use_code_of_conduct()
 usethis::use_lifecycle_badge( "Experimental" )
 usethis::use_news_md( open = FALSE )
 
+## Hide extra files
+usethis::use_build_ignore("creds.R")
+usethis::use_git_ignore("creds.R")
+
 ## Use git ----
 usethis::use_git()
 
