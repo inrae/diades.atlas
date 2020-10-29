@@ -38,8 +38,8 @@ rsconnect::deployApp(
   appFiles = list.files(".", recursive = TRUE), # the list of files to include as dependencies (all of them)
   appPrimaryDoc = "index.html",                 # the primary file
   appId = 350,
-  appName = "pkgdown-azti-diades",                   # name of the endpoint (unique to your account on Connect)
-  appTitle = "pkgdown.azti.diades",                  # display name for the content
+  appName = "pkgdown-diades.atlas",                   # name of the endpoint (unique to your account on Connect)
+  appTitle = "pkgdown.diades.atlas",                  # display name for the content
   account = account_name,                # your Connect username
   server = account_server#,                    # the Connect server, see rsconnect::accounts()
   # forceUpdate = TRUE

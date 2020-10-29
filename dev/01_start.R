@@ -14,13 +14,13 @@
 ## Fill the DESCRIPTION ----
 ## Add meta data about your application
 golem::fill_desc(
-  pkg_name = "azti.diades", # The Name of the package containing the App 
-  pkg_title = "The Diades Shiny App", # The Title of the package containing the App 
+  pkg_name = "diades.atlas", # The Name of the package containing the App 
+  pkg_title = "The Diades Atlas Shiny App", # The Title of the package containing the App 
   pkg_description = "A Shiny application to explore data.", # The Description of the package containing the App 
   author_first_name = "Sébastien", # Your First Name
   author_last_name = "Rochette", # Your Last Name
   author_email = "sebastien@thinkr.fr", # Your Email
-  repo_url = "https://git.thinkr.fr/ThinkR/Missions/azti.diades" # The URL of the GitHub Repo (optional) 
+  repo_url = "https://github.com/inrae/diades.atlas" # The URL of the GitHub Repo (optional) 
 )     
 
 ## Set {golem} options ----
