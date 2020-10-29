@@ -31,7 +31,7 @@ remotes::install_github('inrae/diades.atlas')
 
 # Websites for validations :
 
-- Package documentation : https://inrea.github.io/diades.atlas/ 
+- Package documentation : https://inrae.github.io/diades.atlas/ 
 - Package documentation (development version) : https://inrea.github.io/diades.atlas/dev/ 
 - Shiny App (private access) : https://connect.thinkr.fr/azti-diades/
 
