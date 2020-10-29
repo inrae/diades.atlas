@@ -19,3 +19,5 @@ rstudio\_dotconfig
 rstudio\_dotrstudio
 renv\_instructions\.Rmd
 ^renv_instructions\.Rmd$
+^\.github$
+^codecov\.yml$
