@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+html{
+  background-image: url(wave.svg);
+  font-family: Poppins, Helvetica, Arial, sans-serif !important;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: white;
+}
+
+.w3-content, .w3-auto {
+  max-width:unset !important;
+  margin: 1em !important;
+  padding-top: 2em;
+  flex: 1 0 auto;
+}
+
+.page_caption {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  color: #84d0f5;
+  background-color: #f9f9f9;
+  padding: 0.5em;
+}
+
+.w3-footer{
+  /*position:fixed;*/
+  bottom:0;
+  width: 100%;
+  background-color: unset!important;
+  flex-shrink: 0;
+}
+.focused{
+  color: #000!important;
+  background-color: #ccc!important;
+}
+
+h1, h2, h3, h4, h5, h6, p{
+  font-family: Poppins, Helvetica, Arial, sans-serif !important;
+}
+
+.shiny-input-container{
+      margin: auto;
+}
