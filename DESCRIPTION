@@ -32,7 +32,8 @@ Imports:
     shiny,
     shinythemes,
     emo (>= 0.0.0.9000),
-    maps
+    maps,
+    mapproj
 Suggests: 
     knitr,
     pkgload,
