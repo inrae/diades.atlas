@@ -86,11 +86,11 @@ app_ui <- function(request) {
             id = "lg",
             tags$option(
               value = "en", 
-              "🇬🇧 English"
+              sprintf("%s English", emo::ji("uk"))
             ),
             tags$option(
               value = "fr",
-              "🇫🇷 French"
+              sprintf("%s French", emo::ji("france"))
             )
           )
         )

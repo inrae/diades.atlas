@@ -1,5 +1,5 @@
 utils::globalVariables(
-  c('long','lat','group','region')
+  c('long','lat','group','region', ".")
 )
 # library(magrittr)
 # stringr::str_extract_all("   build_language_json: no visible global function definition for
