@@ -1,6 +1,6 @@
 Package: diades.atlas
 Title: The Diades Atlas Shiny App
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     c(person(given = "Sébastien",
              family = "Rochette",
@@ -20,7 +20,14 @@ Depends:
     R (>= 2.10)
 Imports: 
     config,
+    dplyr,
+    DT,
+    ggplot2,
+    glue,
     golem,
+    jsonlite,
+    magrittr,
+    purrr,
     shinipsum,
     shiny,
     shinythemes

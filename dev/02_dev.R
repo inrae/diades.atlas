@@ -15,7 +15,7 @@
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-# usethis::use_package( "thinkr" )
+#usethis::use_package( "thinkr" )
 attachment::att_amend_desc(extra.suggests = "pkgload")
 
 ## Add data for reprex
@@ -23,12 +23,14 @@ usethis::use_data_raw()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "name_of_module1" ) # Name of the module
-golem::add_module( name = "name_of_module2" ) # Name of the module
+golem::add_module( name = "first" ) # Name of the module
+golem::add_module( name = "second" ) # Name of the module
+golem::add_module( name = "third" ) # Name of the module
+golem::add_module( name = "fourth" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
-golem::add_fct( "helpers" ) 
+golem::add_fct( "ui" ) 
 golem::add_utils( "helpers" )
 
 ## External resources
