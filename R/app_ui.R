@@ -7,27 +7,93 @@
 #' @importFrom shinythemes shinytheme
 #' @noRd
 app_ui <- function(request) {
+  
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    # List the first level UI elements here 
-    navbarPage(
-      title = "diades.atlas",
-      theme = shinythemes::shinytheme("cerulean"),
-      tabPanel("Home",
-               h1(random_text(nwords = 3)),
-               p(random_text(nwords = 250)),
-               p(random_text(nwords = 150))
+    htmlTemplate(
+      app_sys("app/www/template.html"),
+      translate = build_language_json(),
+      welcomemodal = modal(
+        inputId = "welcome",
+        title = tagList(
+          tags$h2("Hello!"),
+          tags$p("Welcome to the app")
+        ),
+        body = tagList(
+          tags$div(
+            align = "center", 
+            tags$img(
+              src = "www/diadesblack.png"
+            )
+          )
+        ),
+        footer = tagList(
+          tags$div(
+            align = "center", 
+            tags$h3("We assess and enhance ecosystem services provided by diadromous fishes in a climate change context")
+          )
+          
+        ),
+        color = "teal",
+        display = "block"
       ),
-      tabPanel("Analyse",
-               p(random_text(nwords = 10)),
-               plotOutput("fake1"),
-               plotOutput("fake2"),
-      ),
-      tabPanel("Synthese",
-               p(random_text(nwords = 10)),
-               tableOutput("fake3"),
-               plotOutput("fake4"),
+      menu = menu(
+        menuItem(
+          "a", "Lorem", i18n = "nav-lorem"
+        ),
+        menuItem(
+          "b", "Ipsum", i18n = "nav-ipsum"
+        ),
+        menuItem(
+          "c", "Dolor", i18n = "nav-dolor"
+        ),
+        menuItem(
+          "d", "Sit", i18n = "nav-sit"
+        )
+      ), 
+      content = tabItems(
+        tabItem(
+          "a", 
+          mod_first_ui("first_ui_1")
+        ),
+        tabItem(
+          "b", 
+          mod_second_ui("second_ui_1")
+        ),
+        tabItem(
+          "c", 
+          mod_third_ui("third_ui_1")
+        ),
+        tabItem(
+          "d", 
+          mod_fourth_ui("fourth_ui_1")
+        )
+      ), 
+      footer = tagList(
+        tags$img(
+          src = "www/DiadES.jpg", 
+          height="50px"
+        ), 
+        HTML("<div>&nbsp;</div>"),
+        div(
+          tags$label(
+            `for` = "lg",
+            with_i18("Choose a language:", "select-language")
+          ),
+          tags$select(
+            name = "pets",
+            id = "lg",
+            tags$option(
+              value = "en", 
+              "🇬🇧 English"
+            ),
+            tags$option(
+              value = "fr",
+              "🇫🇷 French"
+            )
+          )
+        )
       )
     )
   )
