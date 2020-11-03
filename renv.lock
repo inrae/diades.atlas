@@ -446,6 +446,13 @@
       "Repository": "RSPM",
       "Hash": "1bb58822a20301cee84a41678e25d9b7"
     },
+    "maps": {
+      "Package": "maps",
+      "Version": "3.3.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "392212982257ea03c37b63547dc871b4"
+    },
     "markdown": {
       "Package": "markdown",
       "Version": "1.1",

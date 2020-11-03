@@ -31,7 +31,8 @@ Imports:
     shinipsum,
     shiny,
     shinythemes,
-    emo (>= 0.0.0.9000)
+    emo (>= 0.0.0.9000),
+    maps
 Suggests: 
     knitr,
     pkgload,
@@ -41,5 +42,5 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-Remotes:  
+Remotes: 
     hadley/emo
