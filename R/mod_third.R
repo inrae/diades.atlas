@@ -10,7 +10,7 @@
 mod_third_ui <- function(id){
   ns <- NS(id)
   tagList(
-    h1("third", class = "page_caption") %>% with_i18("titles-third"), 
+    h1("third", class = "page_caption") %>% with_i18("title-third"), 
     container(
       quarter(
         h3("Define anthropogenic mortalities") %>% with_i18("h3-anthropogenic"),
