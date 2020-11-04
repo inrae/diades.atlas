@@ -24,7 +24,8 @@ app_ui <- function(request) {
           tags$div(
             align = "center", 
             tags$img(
-              src = "www/diadesblack.png"
+              src = "www/diades_vertical.jpg",
+              class = "hello-img"
             )
           )
         ),
