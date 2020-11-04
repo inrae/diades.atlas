@@ -22,3 +22,4 @@ renv\_instructions\.Rmd
 ^\.github$
 ^codecov\.yml$
 ^creds\.R$
+^manifest\.json$

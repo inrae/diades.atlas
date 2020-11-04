@@ -50,14 +50,19 @@ jobs:
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
         
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
+      - name: Install system dependencies Linux
+        if: startsWith(runner.os, 'Linux')
         run: |
           while read -r cmd
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))') &&
           sudo apt-get install -y libharfbuzz-dev libfribidi-dev 
+          
+      - name: Install system dependencies MacOS
+        if: startsWith(runner.os, 'macOS')
+        run: |
+          brew install harfbuzz fribidi 
 
       - uses: actions/cache@v2
         if: startsWith(runner.os, 'Linux')

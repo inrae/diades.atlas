@@ -13,10 +13,29 @@
 
 # Engineering
 
+# Hide files
+usethis::use_build_ignore("manifest.json")
+
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
 #usethis::use_package( "thinkr" )
+
+# Before sending to git external server
+# _deps
 attachment::att_amend_desc(extra.suggests = "pkgload")
+# _renv
+custom_packages <- c(attachment::att_from_description(),
+                     "renv",
+                     "devtools", "roxygen2", "usethis",
+                     "testthat", "covr", "attachment",
+                     "pkgdown")
+renv::snapshot(packages = custom_packages)
+# _check
+devtools::check()
+
+# After pull and/or rebase
+renv::restore()
+
 
 ## Add data for reprex
 usethis::use_data_raw()
