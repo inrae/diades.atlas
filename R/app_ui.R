@@ -17,9 +17,8 @@ app_ui <- function(request) {
       welcomemodal = modal(
         inputId = "welcome",
         title = tagList(
-          tags$h2("Hello!"),
-          tags$p("Welcome to the app")
-        ),
+          tags$h2("Welcome on DiadES Atlas!")
+          ),
         body = tagList(
           tags$div(
             align = "center", 
@@ -32,7 +31,8 @@ app_ui <- function(request) {
         footer = tagList(
           tags$div(
             align = "center", 
-            tags$h3("We assess and enhance ecosystem services provided by diadromous fishes in a climate change context")
+            tags$h3("Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.")
+            # tags$h3("We assess and enhance ecosystem services provided by diadromous fishes in a climate change context")
           )
           
         ),
