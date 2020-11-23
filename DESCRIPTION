@@ -28,6 +28,7 @@ Imports:
     golem,
     jsonlite,
     magrittr,
+    maps,
     purrr,
     shinipsum,
     shiny,

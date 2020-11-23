@@ -96,6 +96,7 @@ mod_third_ui <- function(id){
 #' third Server Functions
 #'
 #' @noRd 
+#' @importFrom maps france
 mod_third_server <- function(id, r = r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
