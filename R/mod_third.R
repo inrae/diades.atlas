@@ -15,39 +15,39 @@ mod_third_ui <- function(id){
       quarter(
         h3("Define anthropogenic mortalities") %>% with_i18("h3-anthropogenic"),
         sliderInput(
-          ns("ir"), 
-          "IR", 
-          min = 1950, 
-          max = 2100, 
-          value = c(1950, 2100)
+          ns("ie"), 
+          "IE", 
+          min = 0.1, 
+          max = 2, 
+          value = 0.2
         ),
         sliderInput(
           ns("uk"), 
           "UK", 
-          min = 1950, 
-          max = 2100, 
-          value = c(1950, 2100)
+          min = 0.1, 
+          max = 2, 
+          value = 0.2
         ),
         sliderInput(
           ns("fr"), 
           "FR", 
-          min = 1950, 
-          max = 2100, 
-          value = c(1950, 2100)
+          min = 0.1, 
+          max = 2, 
+          value = 0.2
         ),
         sliderInput(
           ns("es"), 
           "ES", 
-          min = 1950, 
-          max = 2100, 
-          value = c(1950, 2100)
+          min = 0.1, 
+          max = 2, 
+          value = 0.2
         ),
         sliderInput(
-          ns("po"), 
-          "PO", 
-          min = 1950, 
-          max = 2100, 
-          value = c(1950, 2100)
+          ns("pt"), 
+          "PT", 
+          min = 0.1, 
+          max = 2, 
+          value = 0.2
         ) 
       ),
       quarter(
@@ -82,9 +82,11 @@ mod_third_ui <- function(id){
         )
       ),
       quarter(
-        plotOutput(ns("plot"))
+        h4("Abundance in river basins") %>% with_i18("map-abundance"),
+        plotOutput(ns("map"))
       ), 
       quarter(
+        h4("Ecosystem services listing")  %>% with_i18("h3-ecosystem"),
         DT::dataTableOutput(ns("dt"))
       )
     )
@@ -97,7 +99,7 @@ mod_third_ui <- function(id){
 mod_third_server <- function(id, r = r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    output$plot <- renderPlot({
+    output$map <- renderPlot({
       input$go
       ggplot(map_data("france"), aes(long,lat, group=group)) +
         geom_polygon() +

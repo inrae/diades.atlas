@@ -30,7 +30,7 @@ mod_first_ui <- function(id){
       ),
       tags$div(
         class = "w3-col m5",
-        h3("Ecosystem services")  %>% with_i18("h3-ecosystem"),
+        h3("Ecosystem services listing")  %>% with_i18("h3-ecosystem"),
         DT::dataTableOutput(ns("dt"))
       )
     )

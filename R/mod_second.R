@@ -43,11 +43,14 @@ mod_second_ui <- function(id){
         )
       )
     ), 
+    hr(),
     container(
       half(
+        h4("Abundance in river basins") %>% with_i18("map-abundance"),
         plotOutput(ns("map"))
       ), 
       half(
+        h4("Evolution of abundance") %>% with_i18("plot-evolution"),
         plotOutput(ns("prediction"))
       )
     )
