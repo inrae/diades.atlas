@@ -22,7 +22,8 @@ mod_fourth_ui <- function(id){
       )
     ), 
     half(
-      plotOutput(ns("map"), click = ns("map_click"))
+      h4("Catch and bycatch at sea") %>% with_i18("map-bycatch"),
+      plotOutput(ns("raster"), click = ns("map_click"))
     ), 
     quarter(
       uiOutput(ns("source"))
@@ -36,24 +37,14 @@ mod_fourth_ui <- function(id){
 mod_fourth_server <- function(id, r = r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    output$map <- renderPlot({
-      input$species
-      ggplot(map_data("france"), aes(long,lat, group=group)) +
-        geom_polygon() +
-        geom_polygon(
-          data = map_data("france") %>%
-            dplyr::filter(region %in% sample(
-              unique(map_data("france")$region), 
-              3
-            )), 
-          aes(fill = region)
-        ) +
-        coord_map() +
-        theme_void() + 
-        guides(
-          fill = FALSE
-        ) 
-    })
+    output$raster <- renderImage({
+      # input$species
+      # When input$n is 1, filename is ./images/image1.jpeg
+      rasterimg <- system.file("app/www/raster_crop.jpg", package = "diades.atlas")
+      # Return a list containing the filename
+      list(src = normalizePath(rasterimg),
+           height = 350)
+    }, deleteFile = FALSE) # Do not delete inside the package installation
     
     output$source <- renderUI({
       input$map_click
