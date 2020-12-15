@@ -45,6 +45,7 @@ all_schemas <- DBI::dbGetQuery(con, "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.
 all_schemas
 
 casestudy <- tbl(con, dbplyr::in_schema("diadesatlas", "casestudy"))
+casestudy
 ```
 
 ### Create connection
