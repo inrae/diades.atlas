@@ -1,0 +1,79 @@
+# Manage Postgres database for development
+
+Utiliser : Ctrl/Cmd + Alt + Entree
+Pour envoyer les lignes une par une dans le **Terminal**
+
+## Create database for development and add data
+
+Ubuntu n'est pas en PostGres 13 par défaut.
+Ici on installe les outils uniquement pour créer la base de données. 
+Les outils systèmes ne sont a priori plus nécessaires pour utiliser {DBI} dans R.
+
+```sh
+# Install pgsql 13
+sudo apt -y install vim bash-completion wget gnupg
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+sudo apt update
+sudo apt install -y postgresql-13 postgresql-client-13
+
+# Check
+sudo dpkg -l | grep systemd
+sudo apt-get install --reinstall -y systemd
+systemctl is-enabled postgresql
+# systemctl status postgresql@13-main.service 
+# systemctl status postgresql.service 
+psql --version
+
+# Check tables dans la base
+PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+
+# Add data in database
+cd /home/rstudio/data/database
+
+# PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log
+# create database diades;
+# CREATE ROLE diadesatlas_owner WITH;
+# CREATE ROLE diadesatlas_r WITH 
+# 	LOGIN
+# 	ENCRYPTED PASSWORD 'diadesPassword';
+# \c diades;
+# \i eurodiad_diadesatlas.sql
+# \q
+
+
+PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log -f new_database_commands >& out.log
+```
+
+
+## Update database with new data
+```bash
+PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+
+cd /home/rstudio/data/database
+# PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log
+# drop schema diadesatlas cascade;
+# \i eurodiad_diadesatlas.sql
+# \q
+
+PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log -f update_database >& out.log
+```
+
+
+## Drop tables and users to start with a clean state
+```bash
+PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+
+cd /home/rstudio/data/database
+# PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis
+# DROP DATABASE diades;
+# DROP USER diadesatlas_owner;
+# DROP USER diadesatlas_r;
+# SELECT schema_name FROM information_schema.schemata;
+# \q
+
+PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log -f delete_database_users >& out_delete.log
+
+PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+```
+
