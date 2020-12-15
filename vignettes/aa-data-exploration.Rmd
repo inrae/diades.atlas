@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 library(diades.atlas)
 # renv::install("dm")
 library(dm)
+library(dplyr)
 ```
 
 ## Data exploration
@@ -31,19 +32,25 @@ postgis_host <- Sys.getenv("POSTGIS_HOST")
 con <- DBI::dbConnect(
   RPostgres::Postgres(), 
   host = postgis_host,
-  dbname = "gis",
+  dbname = "diades",
   port = 5432,
-  user = "postgis",
-  password = "thinkrpassword"
+  user = "diadesatlas_r",
+  password = "diadesPassword"
 )
 # Listtables
 # DBI::dbListTables(con)
+# DBI::dbListObjects(con)
+
+all_schemas <- DBI::dbGetQuery(con, "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA")
+all_schemas
+
+casestudy <- tbl(con, dbplyr::in_schema("diadesatlas", "casestudy"))
 ```
 
 ### Create connection
 
 ```{r}
-my_dm <- dm_from_src(con)
+my_dm <- dm_from_src(con, schema = "diadesatlas", learn_keys = TRUE)
 my_dm
 ```
 

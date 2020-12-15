@@ -33,6 +33,11 @@ jobs:
           key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
             ${{ runner.os }}-renv-
+            
+      - name: Install system dependencies MacOS
+        if: startsWith(runner.os, 'macOS')
+        run: |
+          brew install harfbuzz fribidi libgit2
           
       - name: Install system dependencies
         if: runner.os == 'Linux'
@@ -41,7 +46,7 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))') &&
-          sudo apt-get install -y libharfbuzz-dev libfribidi-dev
+          sudo apt-get install -y libharfbuzz-dev libfribidi-dev libgit2-dev
           
       - name: Install dependencies
         run: |

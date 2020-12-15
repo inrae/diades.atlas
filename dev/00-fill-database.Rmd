@@ -21,17 +21,15 @@ sudo apt install -y postgresql-13 postgresql-client-13
 sudo dpkg -l | grep systemd
 sudo apt-get install --reinstall -y systemd
 systemctl is-enabled postgresql
-# systemctl status postgresql@13-main.service 
-# systemctl status postgresql.service 
 psql --version
 
 # Check tables dans la base
-PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
 
 # Add data in database
 cd /home/rstudio/data/database
 
-# PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log
+# PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log
 # create database diades;
 # CREATE ROLE diadesatlas_owner WITH;
 # CREATE ROLE diadesatlas_r WITH 
@@ -42,38 +40,36 @@ cd /home/rstudio/data/database
 # \q
 
 
-PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log -f new_database_commands >& out.log
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log -f new_database_commands >& out.log
 ```
 
 
 ## Update database with new data
 ```bash
-PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
 
 cd /home/rstudio/data/database
-# PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log
+# PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log
 # drop schema diadesatlas cascade;
 # \i eurodiad_diadesatlas.sql
 # \q
 
-PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log -f update_database >& out.log
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log -f update_database >& out.log
 ```
-
 
 ## Drop tables and users to start with a clean state
 ```bash
-PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
 
 cd /home/rstudio/data/database
-# PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis
+# PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades
 # DROP DATABASE diades;
 # DROP USER diadesatlas_owner;
 # DROP USER diadesatlas_r;
-# SELECT schema_name FROM information_schema.schemata;
 # \q
 
-PGPASSWORD=thinkrpassword psql -h postgis -U postgis -d gis -L pglog.log -f delete_database_users >& out_delete.log
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log -f delete_database_users >& out_delete.log
 
-PGPASSWORD=thinkrpassword psql -h postgis -U postgis -l
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
 ```
 
