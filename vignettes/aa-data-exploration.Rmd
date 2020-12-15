@@ -10,12 +10,46 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE # Set to TRUE when data OK for test, but not on GitHub
 )
 ```
 
 ```{r setup}
 library(diades.atlas)
+# renv::install("dm")
+library(dm)
 ```
 
-### Exploration des données
+## Data exploration
+
+### Connect to database
+```{r}
+Sys.setenv(POSTGIS_HOST = "postgis")
+postgis_host <- Sys.getenv("POSTGIS_HOST")
+
+con <- DBI::dbConnect(
+  RPostgres::Postgres(), 
+  host = postgis_host,
+  dbname = "gis",
+  port = 5432,
+  user = "postgis",
+  password = "thinkrpassword"
+)
+# Listtables
+# DBI::dbListTables(con)
+```
+
+### Create connection
+
+```{r}
+my_dm <- dm_from_src(con)
+my_dm
+```
+
+### Stop connection
+
+```{r}
+DBI::dbDisconnect(con)
+```
+

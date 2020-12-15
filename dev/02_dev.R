@@ -15,6 +15,7 @@
 
 # Hide files
 usethis::use_build_ignore("manifest.json")
+usethis::use_git_ignore("dev/00-fill-database.html")
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
@@ -29,9 +30,11 @@ custom_packages <- c(attachment::att_from_description(),
                      "devtools", "roxygen2", "usethis",
                      "testthat", "covr", "attachment",
                      "pkgdown")
-renv::snapshot(packages = custom_packages)
 # _check
 devtools::check()
+# _snapshot when check ok
+renv::snapshot(packages = custom_packages)
+
 
 # After pull and/or rebase
 renv::restore()
