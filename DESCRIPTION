@@ -37,6 +37,8 @@ Imports:
 Suggests: 
     DBI,
     dbplyr,
+    DiagrammeR,
+    DiagrammeRsvg,
     dm,
     knitr,
     pkgload,

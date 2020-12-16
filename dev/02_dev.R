@@ -23,13 +23,14 @@ usethis::use_git_ignore("dev/00-fill-database.html")
 
 # Before sending to git external server
 # _deps
-attachment::att_amend_desc(extra.suggests = "pkgload")
+attachment::att_amend_desc(extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg"))
 # _renv
 custom_packages <- c(attachment::att_from_description(),
                      "renv",
                      "devtools", "roxygen2", "usethis",
                      "testthat", "covr", "attachment",
-                     "pkgdown")
+                     "pkgdown"
+                     )
 # _check
 devtools::check()
 # _snapshot when check ok
