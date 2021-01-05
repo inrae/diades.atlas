@@ -120,16 +120,59 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas">diades.atlas</a></span><span class="op">)</span></pre></div>
-<div id="exploration-des-données" class="section level3">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas">diades.atlas</a></span><span class="op">)</span>
+<span class="co"># renv::install("dm")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://krlmlr.github.io/dm/">dm</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></pre></div>
+<div id="data-exploration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-exploration" class="anchor"></a>Data exploration</h2>
+<div id="connect-to-database" class="section level3">
 <h3 class="hasAnchor">
-<a href="#exploration-des-donn%C3%A9es" class="anchor"></a>Exploration des données</h3>
+<a href="#connect-to-database" class="anchor"></a>Connect to database</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span>POSTGIS_HOST <span class="op">=</span> <span class="st">"postgis"</span><span class="op">)</span>
+<span class="va">postgis_host</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGIS_HOST"</span><span class="op">)</span>
+
+<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span>
+  <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html">Postgres</a></span><span class="op">(</span><span class="op">)</span>, 
+  host <span class="op">=</span> <span class="va">postgis_host</span>,
+  dbname <span class="op">=</span> <span class="st">"diades"</span>,
+  port <span class="op">=</span> <span class="fl">5432</span>,
+  user <span class="op">=</span> <span class="st">"diadesatlas_r"</span>,
+  password <span class="op">=</span> <span class="st">"diadesPassword"</span>
+<span class="op">)</span>
+<span class="co"># Listtables</span>
+<span class="co"># DBI::dbListTables(con)</span>
+<span class="co"># DBI::dbListObjects(con)</span>
+
+<span class="va">all_schemas</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA"</span><span class="op">)</span>
+<span class="va">all_schemas</span>
+
+<span class="va">casestudy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">casestudy</span></pre></div>
+</div>
+<div id="create-connection" class="section level3">
+<h3 class="hasAnchor">
+<a href="#create-connection" class="anchor"></a>Create connection</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">my_dm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://krlmlr.github.io/dm//reference/dm_from_src.html">dm_from_src</a></span><span class="op">(</span><span class="va">con</span>, schema <span class="op">=</span> <span class="st">"diadesatlas"</span>, learn_keys <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">my_dm</span></pre></div>
+</div>
+<div id="stop-connection" class="section level3">
+<h3 class="hasAnchor">
+<a href="#stop-connection" class="anchor"></a>Stop connection</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></pre></div>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
