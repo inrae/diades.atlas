@@ -27,6 +27,11 @@ html{
   flex: 1 0 auto;
 }
 
+.w3-top {
+    top: 0;
+    z-index: 99999;
+}
+
 .page_caption {
   font-weight: 700;
   /*text-transform: uppercase;*/
@@ -64,4 +69,8 @@ h1, h2, h3, h4, h5, h6, p{
 
 .hello-img {
   max-width: 80%;
+}
+
+.w3-modal-content{
+  z-index:999;
 }
