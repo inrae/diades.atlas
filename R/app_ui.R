@@ -56,7 +56,13 @@ app_ui <- function(request) {
       content = tabItems(
         tabItem(
           "a", 
-          mod_first_ui("first_ui_1")
+          htmlTemplate(
+            app_sys("app/www/main.html"),
+            geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))), 
+            species = glue::glue_collapse(readLines(app_sys("species.json"))),
+            services = glue::glue_collapse(readLines(app_sys("services.json"))),
+            ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json")))
+          )
         ),
         tabItem(
           "b", 

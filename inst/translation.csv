@@ -18,3 +18,4 @@ select-species,Choose a Species,Choisir une espèce
 select-scenario,Choose a Scenario,Choisir un scenario
 select-daterange,Choose a Daterange,Choisir une durée
 button-launch,Launch,Lancer
+button-unselectall,Undo all selections,Retirer les sélections
