@@ -34,15 +34,21 @@ con <- DBI::dbConnect(
   host = postgis_host,
   dbname = "diades",
   port = 5432,
-  user = "diadesatlas_r",
-  password = "diadesPassword"
+  user = askpass::askpass("Please enter the user"),
+  password = askpass::askpass("Please enter the password")
 )
 # Listtables
 # DBI::dbListTables(con)
 # DBI::dbListObjects(con)
 
-all_schemas <- DBI::dbGetQuery(con, "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA")
+# Get the names of all the tables in the schema
+all_schemas <- dbGetQuery(con, "SELECT table_name FROM information_schema.tables WHERE table_schema='diadesatlas'")
 all_schemas
+
+# Display the head of all 
+for (i in all_schemas$table_name){
+  print(dplyr::tbl(con, dbplyr::in_schema("diadesatlas", i)))
+}
 
 casestudy <- tbl(con, dbplyr::in_schema("diadesatlas", "casestudy"))
 casestudy
@@ -55,9 +61,117 @@ my_dm <- dm_from_src(con, schema = "diadesatlas", learn_keys = TRUE)
 my_dm
 ```
 
+```{r}
+library(dplyr)
+# empty
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices51")) %>% collect()
+# services ?
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices")) %>% collect()
+# geometry of all basin
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_outlet")) %>% collect()
+# Model results over the years
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "hybrid_model_result")) %>% collect()
+# Abundance of species in a given basin ove the years 
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "abundance")) %>% collect()
+# ?
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "climatic_model")) %>% collect()
+# List of all basins
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin")) %>% collect()
+
+# List of basin for case_study
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% collect()
+# List of basins id for case_study
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
+# List of ecosystem services
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
+# List of species
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
+```
+
+```{r}
+library(dplyr)
+# List of case studies
+casestudy <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% collect()
+# List of the corresponding basins
+casestudy_basin <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
+# Put them two together
+cstd <- full_join(casestudy, casestudy_basin)
+
+# Get the features for drawing the polygons on the map
+qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom, basin_id as basin_id FROM diadesatlas.basin_outlet"
+
+# i then read as an sf object
+pols <- sf::st_read(con, query=qry, geom="geom") %>% 
+  filter(basin_id %in% casestudy_basin$basin_id) %>%
+  left_join(cstd)
+pols %>% geojson::as.geojson() %>% geojson::geo_write("inst/casestudy.json")
+
+# List of ecosystem services
+ecosystems <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
+ecosystems %>%
+  filter(presence == 1) %>%
+  jsonlite::write_json("inst/ecosystems.json")
+#Services 
+services <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices")) %>% collect()
+services %>%
+  jsonlite::write_json("inst/services.json")
+
+eco_and_services <- full_join(ecosystems, services)
+
+# Species
+
+species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
+species %>%
+  filter(species_id %in% ecosystems$species_id) %>%
+  jsonlite::write_json("inst/species.json")
+
+
+```
+
+
+```{r}
+# set query and reproject to EPSG:4326 for GeoJSON creation 
+# (the real query is more involved with a bounding box etc)
+qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom FROM diadesatlas.basin_outlet"
+
+# i then read as an sf object
+pols <- sf::st_read(con, query=qry, geom="geom")
+
+# and convert to GeoJSON
+pols.js <- geojsonio::geojson_json(pols)
+pols %>% geojson::as.geojson() %>% geojson::geo_write("plop.json")
+
+
+library(leaflet)
+library(dplyr)
+library(ggplot2)
+
+options(readr.default_locale=readr::locale(tz="Europe/Berlin"))
+df60 <- get_eurostat_geospatial(resolution = 60)
+
+CE.sf <- df60 %>%   
+  dplyr::filter(LEVL_CODE == 2 & CNTR_CODE %in% c("AT","CZ","DE","HU","PL","SK")) %>% 
+  dplyr::select(NUTS_ID) 
+
+plot(pols)
+
+pols %>% 
+  ggplot() +
+  geom_sf(color = "black", size = 0.4)
+
+CE = sf::as_Spatial(pols)
+
+leaflet() %>% 
+  addProviderTiles("CartoDB.Positron") %>% 
+  addPolygons(data= CE, color = "green")
+```
+
+
 ### Stop connection
 
 ```{r}
 DBI::dbDisconnect(con)
 ```
+
+
 
