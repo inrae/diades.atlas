@@ -34,15 +34,16 @@ jobs:
           path: ~/.local/share/renv
           key: ubuntu-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ubuntu-renv-
+            ubuntu-latest-renv-
           
       - name: Install dependencies
         run: |
           source("renv/activate.R")
           renv::restore()
-          install.packages("pacman")
-          pacman::p_load("remotes");install_local()
-          pacman::p_load("remotes");install_cran("rcmdcheck")
+          library(sf)
+          renv::install("remotes")
+          remotes::install_local(upgrade = "never")
+          remotes::install_cran("rcmdcheck", upgrade = "never")
         shell: Rscript {0}
         
       - name: Check

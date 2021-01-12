@@ -35,16 +35,17 @@ jobs:
           path: ~/.local/share/renv
           key: ubuntu-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ubuntu-renv-
+            ubuntu-latest-renv-pkgdown-
           
       - name: Install dependencies
         run: |
           source("renv/activate.R")
           renv::restore()
-          install.packages("pacman")
-          pacman::p_load("remotes");install_local()
-          pacman::p_load("remotes");install_github("ThinkR-open/thinkrtemplate")
-          pacman::p_load("pkgdown");build_site()
+          renv::install("remotes")
+          renv::install("pkgdown")
+          remotes::install_local(upgrade = "never")
+          remotes::install_github("ThinkR-open/thinkrtemplate", upgrade = "never")
+          pkgdown::build_site()
         shell: Rscript {0}
         
       - name: Install package
