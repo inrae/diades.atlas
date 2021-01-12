@@ -26,6 +26,15 @@ file.copy("inst/docs", "deliverables", recursive = TRUE)
 file.rename("deliverables/docs", down_dir)
 unlink("inst/docs", recursive = TRUE)
 
+# pkgdown::build_site()
+pkgdown::build_site(override = list(development = list(mode = "devel")))
+debugonce(pkgdown:::build_site_local)
+pkgdown::deploy_to_branch(new_process = FALSE, override = list(development = list(mode = "devel")))
+# aa <- pkgdown::as_pkgdown()
+# aa$version
+# aa$meta
+# pkgdown:::meta_development(aa$meta, aa$version)
+# aa$meta$destination
 
 # Deploy {pkgdown} on rsconnect ----
 usethis::use_git_ignore("docs/rsconnect")
