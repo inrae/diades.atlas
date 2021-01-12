@@ -2,6 +2,6 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  aa-data-exploration: aa-data-exploration.html
-last_built: 2021-01-05T10:35Z
+  aa-data-exploration-compiled: aa-data-exploration-compiled.html
+last_built: 2021-01-12T11:08Z
 
