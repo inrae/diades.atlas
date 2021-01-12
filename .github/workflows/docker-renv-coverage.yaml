@@ -12,16 +12,17 @@ on:
       - dev
 
 
-name: R-CMD-check-docker-renv
+name: pkgdown-docker-renv
 
 jobs:
-  R-CMD-check-docker-renv:
+  pkgdown-docker-renv:
     runs-on: ubuntu-latest
     
     container: rocker/geospatial:4.0.1
     
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       
     steps:
       - uses: actions/checkout@v2
@@ -29,33 +30,23 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.local/share/renv
-          key: ubuntu-latest-renv-${{ hashFiles('**/renv.lock') }}
+          key: ubuntu-latest-renv-coverage-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ubuntu-latest-renv-
-      
+            ubuntu-latest-renv-coverage-
+
       - name: Install system dependencies Linux
-        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
+        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
         
       - name: Install dependencies
         run: |
           source("renv/activate.R")
           renv::restore()
-          library(sf)
           renv::install("remotes")
+          renv::install("covr")
           remotes::install_local(upgrade = "never")
-          remotes::install_cran("rcmdcheck", upgrade = "never")
         shell: Rscript {0}
         
-      - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+      - name: Test coverage
+        run: covr::codecov()
         shell: Rscript {0}
-        
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          name: ubuntu-r-results
-          path: check
           

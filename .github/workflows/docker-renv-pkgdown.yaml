@@ -26,17 +26,17 @@ jobs:
       
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Install system dependencies Linux
-        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
 
       - uses: actions/cache@v2
         with:
           path: ~/.local/share/renv
-          key: ubuntu-renv-${{ hashFiles('**/renv.lock') }}
+          key: ubuntu-latest-renv-pkgdown-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
             ubuntu-latest-renv-pkgdown-
-          
+      
+      - name: Install system dependencies Linux
+        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
+        
       - name: Install dependencies
         run: |
           source("renv/activate.R")
