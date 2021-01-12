@@ -1,0 +1,60 @@
+on:
+  push:
+    branches:
+      - main
+      - master
+      - dev
+      - test-docker-ci
+  pull_request:
+    branches:
+      - main
+      - master
+      - dev
+
+
+name: R-CMD-check-docker-renv
+
+jobs:
+  R-CMD-check-docker-renv:
+    runs-on: ubuntu-latest
+    
+    container: rocker/geospatial:4.0.1
+    
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install system dependencies Linux
+        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.local/share/renv
+          key: ubuntu-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ubuntu-renv-
+          
+      - name: Install dependencies
+        run: |
+          source("renv/activate.R")
+          renv::restore()
+          install.packages("pacman")
+          pacman::p_load("remotes");install_local()
+          pacman::p_load("remotes");install_cran("rcmdcheck")
+        shell: Rscript {0}
+        
+      - name: Check
+        env:
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+        
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: ubuntu-r-results
+          path: check
+          

@@ -1,4 +1,4 @@
-image: thinkr/rstudio4_0_2_geo_rs1.3.1056
+image: rocker/geospatial:4.0.1
 
 variables:
   R_LIBS_USER: "ci/lib"
