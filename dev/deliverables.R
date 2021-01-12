@@ -28,6 +28,8 @@ unlink("inst/docs", recursive = TRUE)
 
 # pkgdown::build_site()
 pkgdown::build_site(override = list(development = list(mode = "devel")))
+debugonce(pkgdown:::build_site_local)
+pkgdown::deploy_to_branch(new_process = FALSE, override = list(development = list(mode = "devel")))
 # aa <- pkgdown::as_pkgdown()
 # aa$version
 # aa$meta

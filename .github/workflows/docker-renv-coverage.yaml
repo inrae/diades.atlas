@@ -30,9 +30,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.local/share/renv
-          key: ubuntu-latest-renv-coverage-${{ hashFiles('**/renv.lock') }}
+          key: ubuntu-latest-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ubuntu-latest-renv-coverage-
+            ubuntu-latest-renv-
 
       - name: Install system dependencies Linux
         run: sudo apt-get update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev

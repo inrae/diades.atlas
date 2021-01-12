@@ -30,9 +30,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.local/share/renv
-          key: ubuntu-latest-renv-pkgdown-${{ hashFiles('**/renv.lock') }}
+          key: ubuntu-latest-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ubuntu-latest-renv-pkgdown-
+            ubuntu-latest-renv-
       
       - name: Install system dependencies Linux
         run: sudo apt-get update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
@@ -64,5 +64,5 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE, override = list(development = list(mode = "devel")))'
           
