@@ -48,12 +48,12 @@ jobs:
         shell: Rscript {0}
         
       - name: Build site main
-        if: {{ github.ref == 'ref/head/master' || github.ref == 'ref/head/main' }}
+        if: github.ref == 'ref/head/master' || github.ref == 'ref/head/main'
         run: pkgdown::build_site()
         shell: Rscript {0}
         
       - name: Build site dev
-        if: {{ github.ref != 'ref/head/master' && github.ref!== 'ref/head/main'  }}
+        if: github.ref != 'ref/head/master' && github.ref != 'ref/head/main'
         run: pkgdown::build_site(override = list(development = list(mode = "devel")))
         shell: Rscript {0}
         
