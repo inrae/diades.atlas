@@ -23,3 +23,4 @@ renv\_instructions\.Rmd
 ^codecov\.yml$
 ^creds\.R$
 ^manifest\.json$
+^\.Renviron$

@@ -16,6 +16,8 @@
 # Hide files
 usethis::use_build_ignore("manifest.json")
 usethis::use_git_ignore("dev/00-fill-database.html")
+usethis::use_git_ignore(".Renviron")
+usethis::use_build_ignore(".Renviron")
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
@@ -74,6 +76,7 @@ usethis::use_test( "app" )
 
 ## Vignette ----
 usethis::use_vignette("aa-data-exploration")
+usethis::use_vignette("aa-data-exploration-compiled")
 devtools::build_vignettes()
 
 ## Code Coverage ----

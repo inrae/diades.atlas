@@ -1,0 +1,27 @@
+---
+title: "Exploration (vignette précompilée)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{aa-data-exploration-compiled}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<!-- 
+Compile "vignettes/compile_manually/aa-data-exploration.Rmd" manually using
+  rmarkdown::render(input = here::here("data-raw/aa-data-exploration-and-preparation.Rmd"),
+                    output_format = "rmarkdown::html_vignette",
+                    output_options = list(toc = TRUE),
+                    output_file = here::here("vignettes/explo-manual.html"))
+-->
+```{r, echo=FALSE}
+htmltools::includeHTML("explo-manual.html")
+```
+

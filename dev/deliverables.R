@@ -3,6 +3,12 @@ dir.create("deliverables")
 usethis::use_build_ignore("deliverables")
 
 ## _pkgdown ----
+# _Compile manual vignette
+rmarkdown::render(input = here::here("data-raw/aa-data-exploration-and-preparation.Rmd"),
+                  output_format = "rmarkdown::html_vignette",
+                  output_options = list(toc = TRUE),
+                  output_file = here::here("vignettes/explo-manual.html"))
+
 # remotes::install_github("ThinkR-open/chameleon")
 # remotes::install_github("ThinkR-open/thinkrtemplate")
 # remotes::install_github("r-lib/pkgdown", ref = "v1.3.0")
@@ -45,3 +51,6 @@ rsconnect::deployApp(
   # forceUpdate = TRUE
 )
 setwd(origwd)
+
+
+# Clone on Irstea GitLab
