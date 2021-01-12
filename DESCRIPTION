@@ -33,14 +33,16 @@ Imports:
     shinipsum,
     shiny,
     shinythemes,
-    utils
+    utils,
+    processx
 Suggests: 
     DiagrammeR,
     DiagrammeRsvg,
     htmltools,
     knitr,
     pkgload,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: 
     knitr
 Remotes: 
