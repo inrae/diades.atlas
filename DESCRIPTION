@@ -35,15 +35,12 @@ Imports:
     shinythemes,
     utils
 Suggests: 
-    DBI,
-    dbplyr,
     DiagrammeR,
     DiagrammeRsvg,
-    dm,
+    htmltools,
     knitr,
     pkgload,
-    rmarkdown,
-    RPostgres
+    rmarkdown
 VignetteBuilder: 
     knitr
 Remotes: 

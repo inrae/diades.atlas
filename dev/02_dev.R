@@ -27,12 +27,15 @@ usethis::use_build_ignore(".Renviron")
 # _deps
 attachment::att_amend_desc(extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg"))
 # _renv
-custom_packages <- c(attachment::att_from_description(),
-                     "renv",
-                     "devtools", "roxygen2", "usethis",
-                     "testthat", "covr", "attachment",
-                     "pkgdown"
-                     )
+custom_packages <- setdiff(
+  c(attachment::att_from_description(),
+    attachment::att_from_rmds("data-raw"),
+    "renv",
+    "devtools", "roxygen2", "usethis",
+    "testthat", "covr", "attachment",
+    "pkgdown"
+  ), "diades.atlas")
+
 # _check
 devtools::check()
 # _snapshot when check ok
