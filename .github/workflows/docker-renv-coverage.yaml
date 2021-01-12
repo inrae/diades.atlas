@@ -12,10 +12,10 @@ on:
       - dev
 
 
-name: pkgdown-docker-renv
+name: coverage-docker-renv
 
 jobs:
-  pkgdown-docker-renv:
+  coverage-docker-renv:
     runs-on: ubuntu-latest
     
     container: rocker/geospatial:4.0.1
@@ -35,7 +35,7 @@ jobs:
             ubuntu-latest-renv-coverage-
 
       - name: Install system dependencies Linux
-        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
+        run: sudo apt-get update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
         
       - name: Install dependencies
         run: |

@@ -35,7 +35,7 @@ jobs:
             ubuntu-latest-renv-pkgdown-
       
       - name: Install system dependencies Linux
-        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
+        run: sudo apt-get update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
         
       - name: Install dependencies
         run: |
@@ -45,7 +45,16 @@ jobs:
           renv::install("pkgdown")
           remotes::install_local(upgrade = "never")
           remotes::install_github("ThinkR-open/thinkrtemplate", upgrade = "never")
-          pkgdown::build_site()
+        shell: Rscript {0}
+        
+      - name: Build site main
+        if: {{ github.ref == 'ref/head/master' || github.ref == 'ref/head/main' }}
+        run: pkgdown::build_site()
+        shell: Rscript {0}
+        
+      - name: Build site dev
+        if: {{ github.ref != 'ref/head/master' && github.ref!== 'ref/head/main'  }}
+        run: pkgdown::build_site(override = list(development = list(mode = "devel")))
         shell: Rscript {0}
         
       - name: Install package

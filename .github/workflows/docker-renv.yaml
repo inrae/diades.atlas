@@ -34,13 +34,12 @@ jobs:
             ubuntu-latest-renv-
       
       - name: Install system dependencies Linux
-        run: sudo apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
+        run: sudo apt-get update -qq && apt install -y libharfbuzz-dev libfribidi-dev
         
       - name: Install dependencies
         run: |
           source("renv/activate.R")
           renv::restore()
-          library(sf)
           renv::install("remotes")
           remotes::install_local(upgrade = "never")
           remotes::install_cran("rcmdcheck", upgrade = "never")
