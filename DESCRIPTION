@@ -33,7 +33,8 @@ Imports:
     shinipsum,
     shiny,
     shinythemes,
-    utils
+    utils,
+    RPostgres
 Suggests: 
     DiagrammeR,
     DiagrammeRsvg,

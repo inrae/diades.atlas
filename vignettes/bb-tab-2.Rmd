@@ -1,0 +1,220 @@
+---
+title: "bb-tab-2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bb-tab-2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(dplyr)
+```
+
+## Managing the connection
+
+```{r}
+post_gis_connect <-function(
+  postgis_user,
+  postgis_password
+){
+  DBI::dbConnect(
+    RPostgres::Postgres(), 
+    host = "localhost",
+    dbname = "diades",
+    port = 5432,
+    user = postgis_user,
+    password = postgis_password
+  )
+}
+
+con <- post_gis_connect(
+  postgis_user = Sys.getenv("POSTGRES_USER"), 
+  postgis_password = Sys.getenv("POSTGRES_PASS")
+)
+```
+
+## Getting the list of available Species 
+
+```{r}
+casestudy <- dplyr::tbl(
+  con, 
+  dbplyr::in_schema(
+    "diadesatlas", 
+    "casestudy"
+  )
+)%>% collect()
+
+basin_casestudy <- tbl(
+  con, 
+  dbplyr::in_schema(
+    "diadesatlas", 
+    "casestudy_basin"
+  )
+) %>% collect()
+
+# List of ecosystem services
+ecosystem_service <- dplyr::tbl(
+  con, 
+  dbplyr::in_schema(
+    "diadesatlas", 
+    "ecosystem_service"
+  )
+) %>% collect()
+
+# List of species
+species <- dplyr::tbl(
+  con, 
+  dbplyr::in_schema(
+    "diadesatlas", 
+    "species"
+  )
+) %>% collect()
+
+
+```
+
+
+
+```{r}
+# Linking to the model result DB
+# We'll keep only the basin_id that are in the 
+# basin_casestudy table
+hybrid_model_result <- tbl(
+  con, 
+  dbplyr::in_schema(
+    "diadesatlas", 
+    "hybrid_model_result"
+  )
+)
+
+hybrid_model_result %>%
+  count(
+    species_id
+  )  %>% collect()
+
+# !! All the basin_id are not in the hybrid_model_result ?
+basin_id <- hybrid_model_result %>%
+  distinct(basin_id) %>%
+  collect()
+
+all(basin_casestudy$basin_id %in% basin_id$basin_id) 
+```
+
+```{r}
+hybrid_model_result %>%
+  distinct(basin_id) %>%
+  collect()
+hybrid_model_result %>%
+  distinct(species_id) %>%
+  collect()
+hybrid_model_result %>%
+  distinct(climatic_model_id) %>%
+  collect()
+```
+
+
+
+```{r}
+filter_scenario <- function(
+  tbl,
+  scenario
+){
+  tbl %>%
+    filter(climatic_scenario == scenario)
+}
+
+hybrid_model_result %>%
+  filter_scenario(
+    scenario = "RCP 8.5"
+  )
+
+filter_time <- function(
+  tbl, 
+  min, 
+  max
+){
+  tbl %>%
+    filter(year <= max && year >= min)
+}
+
+
+hybrid_model_result %>%
+  filter_scenario(
+    scenario = "RCP 8.5"
+  ) %>%
+  filter_time(
+    1950, 
+    2015
+  )
+
+filter_basin <- function(
+  tbl, 
+  basin
+){
+  tbl %>%
+    filter(basin_id == basin)
+}
+
+hybrid_model_result %>%
+  filter_scenario(
+    scenario = "RCP 8.5"
+  ) %>%
+  filter_time(
+    1950, 
+    2015
+  ) %>%
+  filter_basin(
+    20
+  )
+```
+
+```{r}
+results <- hybrid_model_result %>%
+  filter_scenario(
+    scenario = "RCP 8.5"
+  ) %>%
+  filter_time(
+    1950, 
+    2015
+  )
+```
+
+```{r}
+get_uniq_basin <- function(
+  df
+){
+  hybrid_model_result %>%
+    distinct(basin_id)
+}
+get_uniq_basin(
+  results
+) %>% collect()
+```
+
+
+
+```{r}
+library(ggplot2)
+results %>% 
+  filter_basin(382) %>%
+  collect() %>%
+  left_join(species) %>%
+  ggplot() + 
+  aes(
+    x = year, 
+    y = nit, 
+    color = as.factor(climatic_model_id)
+  ) +
+  geom_line() + 
+  facet_grid(climatic_model_id ~ .)
+```
+
+
