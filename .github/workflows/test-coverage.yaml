@@ -22,6 +22,9 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
 
       - uses: r-lib/actions/setup-pandoc@v1
+      
+      - name: Install system dependencies
+        run: brew install libgit2 harfbuzz fribidi 
 
       - name: Query dependencies
         run: |
@@ -38,26 +41,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
 
-      - name: Install system dependencies MacOS
-        if: startsWith(runner.os, 'macOS')
-        run: |
-          brew install harfbuzz fribidi libgit2
-          
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))') &&
-          sudo apt-get install -y libharfbuzz-dev libfribidi-dev libgit2-dev
-          
       - name: Install dependencies
         run: |
+          install.packages("renv")
           source("renv/activate.R")
           renv::restore()
-          install.packages("pacman")
-          pacman::p_load("remotes");install_local()
+          install.packages('remotes')
+          remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
         shell: Rscript {0}
 

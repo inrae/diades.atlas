@@ -93,6 +93,7 @@ jobs:
           install.packages("renv")
           source("renv/activate.R")
           renv::restore()
+          install.packages('remotes')
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
