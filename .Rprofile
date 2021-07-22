@@ -9,7 +9,9 @@ source("renv/activate.R")
 renv::activate()
 
 # cache ----
-if (dir.exists("/opt/local/renv/cache")) {
+if (Sys.getenv("RENV_PATHS_CACHE") != "") {
+  renv::settings$use.cache(TRUE)
+} else if (dir.exists("/opt/local/renv/cache")) {
   # Cache inside the docker container with persistent drive
   # shared on host
   Sys.setenv(RENV_PATHS_CACHE = "/opt/local/renv/cache")
