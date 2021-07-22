@@ -1,0 +1,52 @@
+on:
+  push:
+    branches:
+      - main
+      - master
+      - dev
+      - test-docker-ci
+  pull_request:
+    branches:
+      - main
+      - master
+      - dev
+
+
+name: coverage-docker-renv
+
+jobs:
+  coverage-docker-renv:
+    runs-on: ubuntu-latest
+    
+    container: rocker/geospatial:4.0.1
+    
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.local/share/renv
+          key: ubuntu-latest-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ubuntu-latest-renv-
+
+      - name: Install system dependencies Linux
+        run: sudo apt-get update -qq && apt install -y libharfbuzz-dev libfribidi-dev libgit2-dev
+        
+      - name: Install dependencies
+        run: |
+          source("renv/activate.R")
+          renv::restore()
+          renv::install("remotes")
+          renv::install("covr")
+          remotes::install_local(upgrade = "never")
+        shell: Rscript {0}
+        
+      - name: Test coverage
+        run: covr::codecov()
+        shell: Rscript {0}
+          

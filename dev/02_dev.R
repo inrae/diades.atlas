@@ -74,11 +74,12 @@ usethis::use_data_raw( name = "db_to_json", open = FALSE )
 ## Tests ----
 ## Add one line by test you want to create
 usethis::use_test( "app" )
+golem::use_recommended_tests(spellcheck = FALSE)
 
 # Documentation
 
 ## Vignette ----
-usethis::use_vignette("aa-data-exploration")
+usethis::use_vignette("aa-data-exploration") # moved to "data-raw/"
 usethis::use_vignette("aa-data-exploration-compiled")
 devtools::build_vignettes()
 
@@ -94,15 +95,15 @@ usethis::use_coverage()
 usethis::use_github()
 
 # GitHub Actions
-usethis::use_github_action("pkgdown") 
-usethis::use_github_action("test-coverage") 
+# usethis::use_github_action("pkgdown") 
+# usethis::use_github_action("test-coverage") 
 # Chose one of the three
 # See https://usethis.r-lib.org/reference/use_github_action.html
 # usethis::use_github_action_check_release() 
-usethis::use_github_action_check_standard() 
+# usethis::use_github_action_check_standard() 
 # usethis::use_github_action_check_full() 
 # Add action for PR
-usethis::use_github_action_pr_commands()
+# usethis::use_github_action_pr_commands()
 
 # Travis CI
 # usethis::use_travis() 
