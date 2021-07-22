@@ -90,13 +90,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages("pacman")
+          install.packages("renv")
           source("renv/activate.R")
           renv::restore()
-          pacman::p_load("remotes");install_local()
-          pacman::p_load("remotes");install_github("ThinkR-open/thinkrtemplate")
-          pacman::p_load("pkgdown");build_site()
-          pacman::p_load("remotes");install_cran("rcmdcheck")
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
       - name: Check
