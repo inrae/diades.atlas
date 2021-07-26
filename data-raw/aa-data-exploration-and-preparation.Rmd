@@ -72,12 +72,15 @@ casestudy
 my_dm <- dm_from_src(con, schema = "diadesatlas", learn_keys = TRUE)
 my_dm
 ```
+
 ### Function to collect data
 ```{r, eval=FALSE}
 # empty
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices51")) %>% collect()
+# dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices51")) %>% collect()
 # services ?
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices")) %>% collect()
+# dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices")) %>% collect()
+# services new
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "es_diades")) %>% collect()
 # geometry of all basin
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_outlet")) %>% collect()
 # Model results over the years
@@ -95,6 +98,7 @@ dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% collect()
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
 # List of ecosystem services
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service_new")) %>% collect()
 # List of species
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
 ```
