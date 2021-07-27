@@ -21,7 +21,8 @@ usethis::use_build_ignore(".Renviron")
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-#usethis::use_package( "thinkr" )
+usethis::use_package("DBI")
+usethis::use_package("RPostgres")
 
 # Before sending to git external server
 # _deps
@@ -58,7 +59,7 @@ golem::add_module( name = "fourth" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
-golem::add_fct( "ui" ) 
+golem::add_fct( "db" ) 
 golem::add_utils( "helpers" )
 
 ## External resources

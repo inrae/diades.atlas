@@ -8,5 +8,8 @@ golem::detach_all_attached()
 # Document and reload your package
 golem::document_and_reload()
 
+Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
+Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
+
 # Run the application
 run_app()
