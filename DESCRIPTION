@@ -34,8 +34,6 @@ Imports:
     shiny,
     shinythemes,
     utils,
-    processx,
-    units,
     DBI,
     RPostgres
 Suggests: 
