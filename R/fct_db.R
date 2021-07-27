@@ -16,8 +16,8 @@ connect <- function(
     host = get_golem_config("POSTGRES_HOST"),
     dbname = get_golem_config("POSTGRES_DBNAME"),
     port = get_golem_config("POSTGRES_PORT"),
-    user = Sys.getenv("POSTGRES_USER", "diadesatlas_owner"),
-    password = Sys.getenv("POSTGRES_PASS", "thinkrpassword")
+    user = Sys.getenv("POSTGRES_USER", "diadesatlas_r"),
+    password = Sys.getenv("POSTGRES_PASS", "diadesPassword")
   )
 }
 
