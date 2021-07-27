@@ -8,7 +8,7 @@ golem::detach_all_attached()
 # Document and reload your package
 golem::document_and_reload()
 
-Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
+Sys.setenv("POSTGRES_USER" = "diadesatlas_r")
 Sys.setenv("POSTGRES_PASS" = "diadesPassword")
 
 # Run the application
