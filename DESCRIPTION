@@ -34,7 +34,10 @@ Imports:
     shiny,
     shinythemes,
     utils,
-    processx
+    processx,
+    units,
+    DBI,
+    RPostgres
 Suggests: 
     DiagrammeR,
     DiagrammeRsvg,
