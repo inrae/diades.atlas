@@ -74,7 +74,7 @@ usethis::use_data_raw( name = "db_to_json", open = FALSE )
 
 ## Tests ----
 ## Add one line by test you want to create
-usethis::use_test( "app" )
+usethis::use_test( "fct_db" )
 golem::use_recommended_tests(spellcheck = FALSE)
 
 # Documentation
