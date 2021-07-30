@@ -11,95 +11,77 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    htmlTemplate(
-      app_sys("app/www/template.html"),
-      translate = build_language_json(),
-      welcomemodal = modal(
-        inputId = "welcome",
-        title = tagList(
-          tags$h2("Welcome on DiadES Atlas!")
+    w3css::w3_page(
+      shiny:::bootstrapLib(),
+      htmlTemplate(
+        app_sys("app/www/template.html"),
+        translate = build_language_json(),
+        welcomemodal = modal(
+          inputId = "welcome",
+          title = tagList(
+            tags$h2("Welcome on DiadES Atlas!")
           ),
-        body = tagList(
-          tags$div(
-            align = "center", 
-            tags$img(
-              src = "www/diades_vertical.jpg",
-              class = "hello-img"
+          body = tagList(
+            tags$div(
+              align = "center", 
+              tags$img(
+                src = "www/diades_vertical.jpg",
+                class = "hello-img"
+              )
             )
+          ),
+          footer = tagList(
+            tags$div(
+              align = "center", 
+              tags$h3("Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.")
+              # tags$h3("We assess and enhance ecosystem services provided by diadromous fishes in a climate change context")
+            )
+            
+          ),
+          color = "teal",
+          display = "block"
+        ),
+        menu = menu(
+          menuItem(
+            "d", "Sit", i18n = "nav-sit"
+          ),
+          menuItem(
+            "a", "Lorem", i18n = "nav-lorem"
+          ),
+          menuItem(
+            "b", "Ipsum", i18n = "nav-ipsum"
+          ),
+          menuItem(
+            "c", "Dolor", i18n = "nav-dolor"
           )
         ),
-        footer = tagList(
-          tags$div(
-            align = "center", 
-            tags$h3("Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.")
-            # tags$h3("We assess and enhance ecosystem services provided by diadromous fishes in a climate change context")
+        content = tabItems(
+          tabItem(
+            "d", 
+            mod_fourth_ui("fourth_ui_1") 
+          ),
+          tabItem(
+            "a", 
+            # htmlTemplate(
+            #   app_sys("app/www/main.html"),
+            #   geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))), 
+            #   species = glue::glue_collapse(readLines(app_sys("species.json"))),
+            #   services = glue::glue_collapse(readLines(app_sys("services.json"))),
+            #   ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json")))
+            # )
+            mod_first_ui("first_ui_1")
+          ),
+          tabItem(
+            "b", 
+            mod_second_ui("second_ui_1")
+          ),
+          tabItem(
+            "c", 
+            mod_third_ui("third_ui_1")
           )
-          
-        ),
-        color = "teal",
-        display = "block"
-      ),
-      menu = menu(
-        menuItem(
-          "a", "Lorem", i18n = "nav-lorem"
-        ),
-        menuItem(
-          "b", "Ipsum", i18n = "nav-ipsum"
-        ),
-        menuItem(
-          "c", "Dolor", i18n = "nav-dolor"
-        ),
-        menuItem(
-          "d", "Sit", i18n = "nav-sit"
-        )
-      ), 
-      content = tabItems(
-        tabItem(
-          "a", 
-          htmlTemplate(
-            app_sys("app/www/main.html"),
-            geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))), 
-            species = glue::glue_collapse(readLines(app_sys("species.json"))),
-            services = glue::glue_collapse(readLines(app_sys("services.json"))),
-            ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json")))
-          )
-        ),
-        tabItem(
-          "b", 
-          mod_second_ui("second_ui_1")
-        ),
-        tabItem(
-          "c", 
-          mod_third_ui("third_ui_1")
-        ),
-        tabItem(
-          "d", 
-          mod_fourth_ui("fourth_ui_1")
-        )
-      ), 
-      footer = tagList(
-        tags$img(
-          src = "www/DiadES.jpg", 
-          height="50px"
         ), 
-        HTML("<div>&nbsp;</div>"),
-        div(
-          tags$label(
-            `for` = "lg",
-            with_i18("Choose a language:", "select-language")
-          ),
-          tags$select(
-            name = "pets",
-            id = "lg",
-            tags$option(
-              value = "en", 
-              sprintf("%s English", emo::ji("uk"))
-            ),
-            tags$option(
-              value = "fr",
-              sprintf("%s French", emo::ji("france"))
-            )
-          )
+        footer = htmlTemplate(
+          app_sys("app/www/footer.html")
         )
       )
     )
