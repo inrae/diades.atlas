@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+
+<style>
+    #mapid {
+        height: 180px;
+        z-index: 1;
+    }
+</style>
+
+<!--<h1 class="page_caption" data-i18n="title-first">Situation in present time</h1>-->
+<div class="w3-row-padding w3-padding-16 w3-center">
+    <button onclick = "blueishalllayers()" data-i18n="button-unselectall">Unselect All</button>
+    <div>&nbsp;</div>
+    <div id="mapid"></div>
+</div>
+
+<script>
+    const get_map_size = function() {
+
+        // top of the map
+        let maptop = $('#mapid').offset().top;
+
+        // footer Top
+        let footer_top = $('.w3-footer').first().offset().top;
+
+        let top_of_map = footer_top - 72;
+        let size_of_map = top_of_map - maptop;
+        return size_of_map
+    }
+
+    const changemapheight = function() {
+        $("#mapid").css("height", get_map_size() + "px");
+    }
+
+
+    var geojsonFeature = {{geojsonFeature}};
+
+    var services = {{services}};
+
+    var ecosystems = {{ecosystems}};
+    
+    var selected_basins = [];
+    var selected_cs = [];
+
+    var geojsonLayer = L.geoJSON(geojsonFeature, {
+        style: {
+            color: "blue"
+        },
+        onEachFeature: function(feature, layer) {
+            layer.on({
+                click: (function(ev) {
+                    selected_basins.push(feature.properties.basin_id);
+                    selected_basins = [...new Set(selected_basins)]
+                    selected_cs.push(feature.properties.casestudy_id);
+                    selected_cs = [...new Set(selected_cs)]
+                    
+                    Shiny.setInputValue("{{basin_shiny_id}}", selected_basins);
+                    Shiny.setInputValue("{{casestudy_shiny_id}}", selected_cs);
+                    // Change the current layer to red
+                    // blueishalllayers();
+                    layer.setStyle({
+                        color: "red"
+                    });
+                }).bind(feature)
+            })
+        }
+    })
+
+    function blueishalllayers() {
+        geojsonLayer.eachLayer(function(layer) {
+            layer.setStyle({
+                color: "blue"
+            })
+        });
+        selected_basins = [];
+        Shiny.setInputValue("{{basin_shiny_id}}", selected_basins);
+        Shiny.setInputValue("{{casestudy_shiny_id}}", selected_cs);
+    }
+
+    function clearall() {
+        unselectall();
+        blueishalllayers();
+        greyallrows();
+    }
+
+    function get_cices_id(eco_filtered) {
+        return _.uniq(eco_filtered.map(x => x.cices_id));
+    }
+
+    var map;
+    
+    $(document).ready(function() {
+
+        map = L.map('mapid').setView([46.160329,-1.151139], 5);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        geojsonLayer.addTo(map);
+        
+        map.invalidateSize();
+        changemapheight();
+
+
+    });
+    
+$("#{{button_id}}").hover(function(x){
+    map.invalidateSize();
+    map.setView([46.160329,-1.151139], 5)
+    changemapheight();
+})
+</script>
