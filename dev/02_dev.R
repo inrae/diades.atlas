@@ -48,7 +48,7 @@ renv::restore()
 
 
 ## Add data for reprex
-usethis::use_data_raw()
+usethis::use_data_raw("World")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -56,6 +56,7 @@ golem::add_module( name = "first" ) # Name of the module
 golem::add_module( name = "second" ) # Name of the module
 golem::add_module( name = "third" ) # Name of the module
 golem::add_module( name = "fourth" ) # Name of the module
+golem::add_module( name = "species" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
@@ -67,6 +68,12 @@ golem::add_utils( "helpers" )
 golem::add_js_file( "script" )
 golem::add_js_handler( "handlers" )
 golem::add_css_file( "custom" )
+
+golem::use_external_js_file("https://bossanova.uk/jspreadsheet/v4/jexcel.js", "jexcel.js")
+golem::use_external_js_file("https://jsuites.net/v4/jsuites.js", "jsuites.js")
+golem::use_external_js_file("https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js", "notify.js")
+golem::use_external_css_file("https://jsuites.net/v4/jsuites.css", "jsuites.css")
+golem::use_external_css_file("https://bossanova.uk/jspreadsheet/v4/jexcel.css", "jexcel.css")
 
 ## Add internal datasets ----
 ## If you have data in your package
