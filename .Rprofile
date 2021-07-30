@@ -1,24 +1,31 @@
 # If needed
-# source("~/.Rprofile")
+source("~/.Rprofile")
+# 
+
 
 if (Sys.getenv("RENV_PATHS_LIBRARY_ROOT") != "") {
   Sys.setenv(RENV_PATHS_LIBRARY_ROOT = "/home/rstudio/.renv/library")
 }
 
+lock_ <- renv:::lockfile(file = "renv.lock")
+
+# # Fix CRAN version
+if (Sys.info()["sysname"] == "Linux") {
+  lock_$repos(CRAN = "https://packagemanager.rstudio.com/all/__linux__/focal/latest")
+} else {
+  lock_$repos(CRAN = "https://cran.rstudio.com")
+}
+
+lock_$write(file = "renv.lock")
+rm(lock_)
+
+renv::settings$use.cache(TRUE)
+
 source("renv/activate.R")
-renv::activate()
+
+# renv::activate()
 
 # cache ----
-if (Sys.getenv("RENV_PATHS_CACHE") != "") {
-  renv::settings$use.cache(TRUE)
-} else if (dir.exists("/opt/local/renv/cache")) {
-  # Cache inside the docker container with persistent drive
-  # shared on host
-  Sys.setenv(RENV_PATHS_CACHE = "/opt/local/renv/cache")
-  renv::settings$use.cache(TRUE)
-} else {
-  # No cache
-  renv::settings$use.cache(FALSE)
-}
+
 
 # file.copy(".Rprofile", to = "~/.Rprofile")
