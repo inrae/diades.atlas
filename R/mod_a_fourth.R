@@ -100,7 +100,7 @@ mod_fourth_server <- function(id, r = r){
                 .[[1]] %>%
                 sample(50) %>% 
                 paste(collapse = " ")
-            ) |> as.character())
+            ) %>% as.character())
           }
         )
       )
@@ -115,7 +115,7 @@ mod_fourth_server <- function(id, r = r){
                 .[[1]] %>%
                 sample(50) %>% 
                 paste(collapse = " ")
-            ) |> as.character())
+            ) %>% as.character())
           }
         )
       )
