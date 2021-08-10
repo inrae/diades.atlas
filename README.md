@@ -19,6 +19,13 @@ A Shiny application to explore data.
 remotes::install_github('inrae/diades.atlas')
 ```
 
+# Websites for validations :
+
+-   Package documentation : <https://inrae.github.io/diades.atlas/>
+-   Package documentation (development version) :
+    <https://inrae.github.io/diades.atlas/dev/>
+-   Shiny App : <https://connect.thinkr.fr/diadesatlasui18n/>
+
 # Backend requirement
 
 The apps needs to connect to a db:
@@ -78,9 +85,45 @@ system(
 )
 ```
 
-# Websites for validations :
+# Dev - vignettes
 
--   Package documentation : <https://inrae.github.io/diades.atlas/>
--   Package documentation (development version) :
-    <https://inrae.github.io/diades.atlas/dev/>
--   Shiny App : <https://connect.thinkr.fr/diadesatlasui18n/>
+Vignettes are compiled manually by developers. Raw vignettes are stored
+in “data-raw”. Instructions to compile them are in the vignette itself.
+
+However, they can all be prepared from this script:
+
+``` r
+remotes::install_local(upgrade = "never")
+
+all_vignettes <- c("aa-data-exploration-and-preparation")
+
+for (vignette_name in all_vignettes) {
+  # vignette_name <- "aa-data-exploration-and-preparation"
+  vignette_file <- paste0(vignette_name, ".Rmd")
+  
+  rmarkdown::render(
+    input = here::here(file.path("data-raw", vignette_file)),
+    output_format = "rmarkdown::html_vignette",
+    output_options = list(toc = TRUE),
+    output_file = here::here(file.path("vignettes", vignette_file))
+  )
+  
+  # Add header for title
+  lines <- readLines(here::here(file.path("vignettes", vignette_file)))
+  
+  cat(
+    glue::glue('---
+title: ".{vignette_name}."
+output: rmarkdown::html_vignette
+vignette: >
+  %\\VignetteIndexEntry{.{vignette_name}.}
+  %\\VignetteEngine{knitr::rmarkdown}
+  %\\VignetteEncoding{UTF-8}
+---
+', .open = ".{", .close = "}."),
+lines,
+sep = "\n", 
+file = here::here(file.path("vignettes", vignette_file))
+  )
+}
+```
