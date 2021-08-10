@@ -1,5 +1,7 @@
 # If needed
-source("~/.Rprofile")
+if (file.exists("~/.Rprofile")) {
+  source("~/.Rprofile")
+}
 # 
 
 
