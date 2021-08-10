@@ -20,33 +20,40 @@ Depends:
     R (>= 2.10)
 Imports: 
     config,
+    DBI,
     dplyr,
     DT,
-    emo (>= 0.0.0.9000),
     ggplot2,
     glue,
     golem,
     jsonlite,
     magrittr,
     maps,
+    patchwork,
     purrr,
+    RPostgres,
     shinipsum,
     shiny,
     shinythemes,
+    tmap,
     utils,
-    processx
+    w3css (>= 0.0.0.9002)
 Suggests: 
+    crosstalk,
     DiagrammeR,
     DiagrammeRsvg,
     htmltools,
     knitr,
+    leaflet,
     pkgload,
+    plotly,
     rmarkdown,
-    testthat
+    testthat,
+    tibble
 VignetteBuilder: 
     knitr
 Remotes: 
-    hadley/emo
+    thinkr-open/w3css
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

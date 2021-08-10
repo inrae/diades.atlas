@@ -75,27 +75,6 @@ container <- function(...){
   )
 }
 
-half <- function(...){
-  tags$div(
-    class = "w3-half",
-    ...
-  )
-}
-
-third <- function(...){
-  tags$div(
-    class = "w3-third",
-    ...
-  )
-}
-
-quarter <- function(...){
-  tags$div(
-    class = "w3-quarter  w3-left",
-    ...
-  )
-}
-
 with_i18 <- function(
   tag,
   i18n
@@ -107,4 +86,93 @@ with_i18 <- function(
     tagAppendAttributes(
       `data-i18n` = i18n
     )
+}
+
+w3_hover_button <- function(
+  button_text = "Hover Over Me!",
+  content = list(), 
+  button_id = NULL,
+  button_class = NULL,
+  content_style = NULL
+){
+  tags$div(
+    class = "w3-dropdown-hover w3-border",
+    class = button_class,
+    tags$button(
+      class = "w3-button",
+      button_text,
+      id = button_id
+    ),
+    tags$div(
+      class = "w3-dropdown-content w3-bar-block w3-border",
+      style = content_style,
+      content
+    )
+  )
+}
+
+ecosystem_hover_content <- function(basin){
+  if (length(basin) == 0 | length(basin) > 1 ){
+    paste(
+      "Select an Ecosystem Service" %>% with_i18("select-ecosystem"), 
+      "(", 
+      length(basin),
+      "selected" %>% with_i18("selecteeed"),
+      ")"
+    )
+  } else if (length(basin) == 1){
+    paste(
+      "Select an Ecosystem Service" %>% with_i18("select-ecosystem"), 
+      "(", 
+      "selected" %>% with_i18("selecteeeed"),
+      ":",
+      basin,
+      ")"
+    )
+  } 
+}
+
+date_hover_content <- function(date){
+  paste(
+    "Select a Date" %>% with_i18("select-daterange"),
+    "(",
+    "selected" %>% with_i18("selecteed"),
+    ":",
+    date[1], 
+    "/",
+    date[2],
+    ")"
+  )
+}
+
+scenario_hover_content <- function(scenario){
+  paste(
+    "Select a scenario" %>% with_i18("select-scenario"),
+    "(",
+    "selected" %>% with_i18("selecteed"),
+    ":",
+    scenario, 
+    ")"
+  )
+}
+
+case_study_hover_content <- function(case_study){
+  if (length(case_study) == 0 | length(case_study) > 1 ){
+    paste(
+      "Select a Case Study" %>% with_i18("select-case_study"), 
+      "(", 
+      length(case_study),
+      "selected" %>% with_i18("selecteeed"),
+      ")"
+    )
+  } else if (length(case_study) == 1){
+    paste(
+      "Select a Case Study" %>% with_i18("select-case_study"), 
+      "(", 
+      "selected" %>% with_i18("selecteeeed"),
+      ":",
+      case_study,
+      ")"
+    )
+  } 
 }

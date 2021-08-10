@@ -17,8 +17,17 @@ select-language,Choose a Language,Choisir une langue
 select-species,Choose a Species,Choisir une espèce
 select-scenario,Choose a Scenario,Choisir un scenario
 select-daterange,Choose a Date range,Choisir une période
+select-ecosystem,Select an Ecosystem,Sélectionner un écosystème
+select-case_study,Select a Case Study,Sélectionner une étude de cas
 button-launch,Launch,Lancer
 map-abundance,Abundance in river basins,Abondance dans les bassins versants
 plot-evolution,Evolution of abundance,Évolution de l'abondance
 map-bycatch,Catch and bycatch at sea,Captures et captures accessoires en mer
-button-unselectall,Undo all selections,Retirer les sélections
+button-unselectall,Undo selection,Retirer la sélection
+selected,selected,sélectionnée(s)
+selecteed,selected,sélectionnée
+selecteeed,selected,sélectionnée(s)
+selecteeeed,selected,sélectionnée(s)
+show-conservation-status,Show Conservation Status,Voir le status de conservation
+show-source,Show Source,Montrer la source
+show-result,Show Results,Montrer les résultats

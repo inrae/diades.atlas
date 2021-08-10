@@ -2,6 +2,9 @@ default:
   golem_name: diades.atlas
   golem_version: 0.0.0.9000
   app_prod: no
+  POSTGRES_DBNAME: diades
+  POSTGRES_HOST: localhost
+  POSTGRES_PORT: 5432.0
 production:
   app_prod: yes
 dev:

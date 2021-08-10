@@ -153,3 +153,50 @@ PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d postgres -L pg
 PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
 ```
 
+### 2021-07-22 - Temporary create / update new data before next complete dump
+
+```{r}
+library(dplyr)
+pkgload::load_all()
+## Connect as root
+con <- DBI::dbConnect(
+  RPostgres::Postgres(), 
+  host = get_golem_config("POSTGRES_HOST"),
+  dbname = get_golem_config("POSTGRES_DBNAME"),
+  port = get_golem_config("POSTGRES_PORT"),
+  user = Sys.getenv("POSTGRES_USER","diadesatlas_owner"),
+  password = Sys.getenv("POSTGRES_PASS","thinkrpassword")
+)
+# new ES for Diades ----
+es_diades <- readr::read_rds("data-raw/es_diades_trad.rds")
+
+DBI::dbWriteTable(
+  con, 
+  name = DBI::Id(
+    schema = "diadesatlas", 
+    table = "es_diades"
+  ),
+  value = es_diades, 
+  overwrite = TRUE
+)
+
+# List of ecosystem services ----
+ecosystem_service_new <- readr::read_rds("data-raw/ecosystem_service_light.RDS")
+
+DBI::dbWriteTable(
+  con, 
+  name = DBI::Id(
+    schema = "diadesatlas", 
+    table = "ecosystem_service_new"
+  ),
+  value = ecosystem_service_new, 
+  overwrite = TRUE
+)
+
+# GRANT privileges ----
+DBI::dbSendQuery(con, "GRANT SELECT ON ALL TABLES IN SCHEMA diadesatlas TO PUBLIC;")
+
+
+DBI::dbDisconnect(con)
+```
+
