@@ -1,0 +1,108 @@
+---
+title: "bb-page1-catch-bycatch"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bb-page1-catch-bycatch}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE # Set to TRUE when data OK for test, but not on GitHub
+)
+# To compile manually (run in the console directly)
+if (FALSE) {
+  vignette_name <- "bb-page1-catch-bycatch"
+  vignette_file <- paste0(vignette_name, ".Rmd")
+  
+  rmarkdown::render(
+    input = here::here(file.path("data-raw", vignette_file)),
+    output_format = "rmarkdown::html_vignette",
+    output_options = list(toc = TRUE),
+    output_file = here::here(file.path("vignettes", vignette_file))
+  )
+  
+  # Add header for title
+  lines <- readLines(here::here(file.path("vignettes", vignette_file)))
+  
+  cat(
+    glue::glue('---
+title: ".{vignette_name}."
+output: rmarkdown::html_vignette
+vignette: >
+  %\\VignetteIndexEntry{.{vignette_name}.}
+  %\\VignetteEngine{knitr::rmarkdown}
+  %\\VignetteEncoding{UTF-8}
+---
+', .open = ".{", .close = "}."),
+lines,
+sep = "\n", 
+file = here::here(file.path("vignettes", vignette_file))
+  )
+}
+```
+
+```{r setup}
+library(diades.atlas)
+# renv::install("dm")
+# library(dm)
+library(dplyr)
+library(leaflet)
+library(tmap)
+```
+
+## Connect to database
+
+Do not forget to set environment variables in .Renviron
+```{r}
+# Connect to database
+con <- connect()
+
+# Listtables
+# DBI::dbListTables(con)
+# DBI::dbListObjects(con)
+
+```
+
+## Data necessary
+
+- Map of basins
+- Map of ICES square observation with occurence
+
+We join in the database and get sf output
+
+```{r}
+# Map of basins
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin"))
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin"))
+# _geometry
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_outlet"))
+
+casestudy <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy"))
+# List of the corresponding basins
+casestudy_basin <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin"))
+# Put them two together
+cstd <- full_join(casestudy, casestudy_basin)
+
+# Map of ICES square observation with occurence
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "abundance"))
+```
+
+## Create map
+
+- Choose a species
+- Draw the map 
+
+```{r}
+
+```
+
+
+## Stop connection
+
+```{r}
+DBI::dbDisconnect(con)
+```

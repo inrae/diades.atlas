@@ -1,0 +1,75 @@
+---
+title: "be-page4-future"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{be-page4-future}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE # Set to TRUE when data OK for test, but not on GitHub
+)
+# To compile manually (run in the console directly)
+if (FALSE) {
+  vignette_name <- "be-page4-future"
+  vignette_file <- paste0(vignette_name, ".Rmd")
+  
+  rmarkdown::render(
+    input = here::here(file.path("data-raw", vignette_file)),
+    output_format = "rmarkdown::html_vignette",
+    output_options = list(toc = TRUE),
+    output_file = here::here(file.path("vignettes", vignette_file))
+  )
+  
+  # Add header for title
+  lines <- readLines(here::here(file.path("vignettes", vignette_file)))
+  
+  cat(
+    glue::glue('---
+title: ".{vignette_name}."
+output: rmarkdown::html_vignette
+vignette: >
+  %\\VignetteIndexEntry{.{vignette_name}.}
+  %\\VignetteEngine{knitr::rmarkdown}
+  %\\VignetteEncoding{UTF-8}
+---
+', .open = ".{", .close = "}."),
+lines,
+sep = "\n", 
+file = here::here(file.path("vignettes", vignette_file))
+  )
+}
+```
+
+```{r setup}
+library(diades.atlas)
+# renv::install("dm")
+# library(dm)
+library(dplyr)
+library(leaflet)
+library(ggplot2)
+```
+
+### Connect to database
+
+Do not forget to set environment variables in .Renviron
+```{r}
+# Connect to database
+con <- connect()
+
+# Listtables
+# DBI::dbListTables(con)
+# DBI::dbListObjects(con)
+
+```
+
+
+### Stop connection
+
+```{r}
+DBI::dbDisconnect(con)
+```

@@ -8,7 +8,7 @@
 [![R build
 status](https://github.com/inrae/diades.atlas/workflows/R-CMD-check/badge.svg)](https://github.com/inrae/diades.atlas/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/inrae/diades.atlas/branch/master/graph/badge.svg)](https://codecov.io/gh/inrae/diades.atlas?branch=master)
+coverage](https://codecov.io/gh/inrae/diades.atlas/branch/main/graph/badge.svg)](https://codecov.io/gh/inrae/diades.atlas?branch=main)
 <!-- badges: end -->
 
 A Shiny application to explore data.
@@ -95,7 +95,11 @@ However, they can all be prepared from this script:
 ``` r
 remotes::install_local(upgrade = "never")
 
-all_vignettes <- c("aa-data-exploration-and-preparation")
+all_vignettes <- c("aa-data-exploration-and-preparation",
+                   "bb-page1-catch-bycatch",
+                   "bc-page2-present",
+                   "bd-page3-climate-change",
+                   "be-page4-future")
 
 for (vignette_name in all_vignettes) {
   # vignette_name <- "aa-data-exploration-and-preparation"
