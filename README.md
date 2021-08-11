@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/inrae/diades.atlas/workflows/R-CMD-check/badge.svg)](https://github.com/inrae/diades.atlas/actions)
+status](https://github.com/inrae/diades.atlas/workflows/R-CMD-check-docker-renv/badge.svg)](https://github.com/inrae/diades.atlas/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/inrae/diades.atlas/branch/main/graph/badge.svg)](https://codecov.io/gh/inrae/diades.atlas?branch=main)
 <!-- badges: end -->
