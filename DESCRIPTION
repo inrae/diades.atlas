@@ -1,6 +1,6 @@
 Package: diades.atlas
 Title: The Diades Atlas Shiny App
-Version: 0.0.0.9001
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Sébastien",
              family = "Rochette",

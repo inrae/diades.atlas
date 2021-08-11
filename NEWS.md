@@ -1,4 +1,4 @@
-# diades.atlas 0.0.0.9000
+# diades.atlas 0.1.0
 
-* First UI proposition
+* First UI proposition using {w3css}
 * Added a `NEWS.md` file to track changes to the package.
