@@ -1,4 +1,4 @@
-image: rocker/geospatial
+image: rocker/geospatial:4.0.1
 
 variables:
   R_LIBS_USER: "ci/lib"
@@ -20,10 +20,12 @@ building:
   script:
     - mkdir -p $R_LIBS_USER
     # - apt update -qq && apt install -y libgdal-dev libproj-dev libgeos-dev libudunits2-dev libnode-dev libcairo2-dev libnetcdf-dev libharfbuzz-dev libfribidi-dev
-    - apt update -qq && apt install -y libharfbuzz-dev libfribidi-dev
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_deps(dependencies = TRUE, lib = Sys.getenv("R_LIBS_USER"))'
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_cran(c("pkgdown", "DT"), lib = Sys.getenv("R_LIBS_USER"))'
-    - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));devtools::check()'
+    - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
+    - Rscript -e 'source("renv/activate.R")'
+    - Rscript -e 'renv::restore()'
+    - Rscript -e 'install.packages("pacman")'
+    - Rscript -e 'pacman::p_load("remotes");install_local()'
+    - Rscript -e 'pacman::p_load("devtools");check()'
 
 # To have the coverage percentage appear as a gitlab badge follow these
 # instructions:
@@ -36,11 +38,15 @@ coverage:
     allow_failure: true
     when: on_success
     only:
-        - master
+        - main
         - dev
         - test-ci
     script:
-        - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));covr::gitlab(quiet = FALSE);'
+        - Rscript -e 'install.packages("pacman")'
+        - Rscript -e 'source("renv/activate.R")'
+        - Rscript -e 'renv::restore()'
+        - Rscript -e 'pacman::p_load("remotes");install_local()'
+        - Rscript -e 'pacman::p_load("covr");gitlab(quiet = FALSE)'
     artifacts:
         paths:
             - public
@@ -54,12 +60,18 @@ integration:
     allow_failure: true
     when: on_success
     only:
-        - master
+        - main
         - dev
         - test-ci
     script:
-        - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_github("ThinkR-open/thinkrtemplate")'
-        - Rscript -e '.libPaths(c(Sys.getenv("R_LIBS_USER"), .libPaths()));remotes::install_local();pkgdown::build_site()'
+        - Rscript -e 'install.packages("pacman")'
+        - Rscript -e 'source("renv/activate.R")'
+        - Rscript -e 'renv::restore()'
+        - Rscript -e 'pacman::p_load("remotes");install_local()'
+        - Rscript -e 'pacman::p_load("covr");gitlab(quiet = FALSE)'
+        - Rscript -e 'pacman::p_load("remotes");install_github("ThinkR-open/thinkrtemplate")'
+        - Rscript -e 'pacman::p_load("remotes");install_local()'
+        - Rscript -e 'pacman::p_load("pkgdown");build_site()'
     artifacts:
         paths:
             - docs
@@ -73,12 +85,12 @@ integration-test:
         - test-ci
     script:
         - mkdir -p public/test
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/master/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/master/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied master artifacts" ||
           echo "copied master artifacts failed"
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/dev/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/dev/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied dev artifacts" ||
@@ -97,7 +109,7 @@ integration-dev:
         - dev
     script:
         - mkdir -p public/dev
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/master/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/master/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied master artifacts" ||
@@ -113,10 +125,10 @@ integration-master:
     dependencies:
         - integration
     only:
-        - master
+        - main
     script:
         - mkdir -p public
-        - wget https://git.thinkr.fr/ThinkR/Missions/azti.diades/-/jobs/artifacts/dev/download?job=pages &&
+        - wget https://gitlab.irstea.fr/diades/diades.atlas/-/jobs/artifacts/dev/download?job=pages &&
           unzip -o download?job=pages &&
           rm download?job=pages &&
           echo "copied dev artifacts" ||
@@ -135,7 +147,7 @@ pages:
         paths:
             - public
     only:
-        - master
+        - main
         - dev
         - test-ci
         

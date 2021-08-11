@@ -1,0 +1,202 @@
+# Manage Postgres database for development
+
+Utiliser : Ctrl/Cmd + Alt + Entree
+Pour envoyer les lignes une par une dans le **Terminal**
+
+## Fill database from here (outside container)
+
+Execute code line by line in Terminal using Ctrl/Cmd + Alt + Enter
+
+*Note that there are info to run this from inside the RSTudio container, but it is not recommended : `"dev/00-fill-database.Rmd"`*
+(Same info as in 'templates/postgresql-postgis-manage-dump.Rmd')*
+
+### Create database
+```bash
+# Passer en bach dans le Docker
+docker exec -it postgis bash
+
+# Se mettre dans le volume adéquat
+cd /home/postgis/data/database
+
+# List tables : Verify "diades" table is here
+psql -h postgis -U diadesatlas_owner -l
+thinkrpassword
+
+# Populate database with dump
+psql -h postgis -U diadesatlas_owner -d diades -f /home/postgis/data/database/new_database_commands >& /home/postgis/data/database/out_create.log
+thinkrpassword
+
+# List schema : Verify diadesatlas is here
+psql -h postgis -U diadesatlas_owner -d diades -c "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA"
+thinkrpassword
+
+# Sortir de bash
+exit
+```
+
+### Update data
+
+```bash
+# Passer en bach dans le Docker
+docker exec -it postgis bash
+
+# Se mettre dans le volume adéquat
+cd /home/postgis/data/database
+
+# Delete schema and update using dump
+psql -h postgis -U diadesatlas_owner -d diades -f /home/postgis/data/database/update_database >& /home/postgis/data/database/out_update.log
+thinkrpassword
+
+# List schema : Verify "diadesatlas" is here
+psql -h postgis -U diadesatlas_owner -d diades -c "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA"
+thinkrpassword
+
+# Sortir de bash
+exit
+```
+
+### Delete data
+```bash
+# Passer en bach dans le Docker
+docker exec -it postgis bash
+
+# Se mettre dans le volume adéquat
+cd /home/postgis/data/database
+
+psql -h postgis -U diadesatlas_owner -d diades -f /home/postgis/data/database/delete_database_users >& /home/postgis/data/database/out_delete.log
+thinkrpassword
+
+# List schema : Verify "diadesatlas" is deleted
+psql -h postgis -U diadesatlas_owner -d diades -c "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA"
+thinkrpassword
+
+# Sortir de bash
+exit
+```
+
+It is also possible to delete directly the persistent database on your disk.
+Stop the Docker container.
+Delete the directory in `db_path`
+
+
+
+## Create database for development from inside the RStudio container
+
+**It is better to do this from outside the container using `docker exec` directly in the Postgres container**
+
+Ubuntu 20.04 n'est pas en PostGres 13 par défaut.
+Ici on installe les outils uniquement pour créer la base de données. 
+Les outils systèmes ne sont a priori plus nécessaires pour utiliser {DBI} dans R.
+
+### Create database
+```sh
+# Install pgsql 13
+sudo apt -y install vim bash-completion wget gnupg
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+sudo apt update
+sudo apt install -y postgresql-13 postgresql-client-13
+
+# Check
+sudo dpkg -l | grep systemd
+sudo apt-get install --reinstall -y systemd
+systemctl is-enabled postgresql
+psql --version
+
+# Check tables dans la base
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
+
+# Add data in database
+cd /home/rstudio/data/database
+
+# PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log
+# create database diades;
+# CREATE ROLE diadesatlas_owner WITH;
+# CREATE ROLE diadesatlas_r WITH 
+# 	LOGIN
+# 	ENCRYPTED PASSWORD 'diadesPassword';
+# \c diades;
+# \i eurodiad_diadesatlas.sql
+# \q
+
+
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log -f new_database_commands >& out.log
+```
+
+
+## Update database with new data
+```bash
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
+
+cd /home/rstudio/data/database
+# PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log
+# drop schema diadesatlas cascade;
+# \i eurodiad_diadesatlas.sql
+# \q
+
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades -L pglog.log -f update_database >& out.log
+```
+
+## Drop tables and users to start with a clean state
+```bash
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
+
+cd /home/rstudio/data/database
+# PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d diades
+# DROP DATABASE diades;
+# DROP USER diadesatlas_owner;
+# DROP USER diadesatlas_r;
+# \q
+
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -d postgres -L pglog.log -f delete_database_users >& out_delete.log
+
+PGPASSWORD=thinkrpassword psql -h postgis -U diadesatlas_owner -l
+```
+
+### 2021-07-22 - Temporary create / update new data before next complete dump
+
+```{r}
+library(dplyr)
+pkgload::load_all()
+## Connect as root
+con <- DBI::dbConnect(
+  RPostgres::Postgres(), 
+  host = get_golem_config("POSTGRES_HOST"),
+  dbname = get_golem_config("POSTGRES_DBNAME"),
+  port = get_golem_config("POSTGRES_PORT"),
+  user = Sys.getenv("POSTGRES_USER","diadesatlas_owner"),
+  password = Sys.getenv("POSTGRES_PASS","thinkrpassword")
+)
+# new ES for Diades ----
+es_diades <- readr::read_rds("data-raw/es_diades_trad.rds")
+
+DBI::dbWriteTable(
+  con, 
+  name = DBI::Id(
+    schema = "diadesatlas", 
+    table = "es_diades"
+  ),
+  value = es_diades, 
+  overwrite = TRUE
+)
+
+# List of ecosystem services ----
+ecosystem_service_new <- readr::read_rds("data-raw/ecosystem_service_light.RDS")
+
+DBI::dbWriteTable(
+  con, 
+  name = DBI::Id(
+    schema = "diadesatlas", 
+    table = "ecosystem_service_new"
+  ),
+  value = ecosystem_service_new, 
+  overwrite = TRUE
+)
+
+# GRANT privileges ----
+DBI::dbSendQuery(con, "GRANT SELECT ON ALL TABLES IN SCHEMA diadesatlas TO PUBLIC;")
+
+
+DBI::dbDisconnect(con)
+```
+

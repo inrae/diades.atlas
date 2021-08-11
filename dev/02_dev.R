@@ -13,19 +13,54 @@
 
 # Engineering
 
+# Hide files
+usethis::use_build_ignore("manifest.json")
+usethis::use_git_ignore("dev/00-fill-database.html")
+usethis::use_git_ignore(".Renviron")
+usethis::use_build_ignore(".Renviron")
+
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-# usethis::use_package( "thinkr" )
-attachment::att_amend_desc(extra.suggests = "pkgload")
+usethis::use_package("DBI")
+usethis::use_package("RPostgres")
+
+# Before sending to git external server
+# _deps
+attachment::att_amend_desc(extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg"))
+# _renv
+custom_packages <- setdiff(
+  c(attachment::att_from_description(),
+    attachment::att_from_rmds("data-raw"),
+    "renv",
+    "devtools", "roxygen2", "usethis",
+    "testthat", "covr", "attachment",
+    "pkgdown"
+  ), "diades.atlas")
+
+# _check
+devtools::check()
+# _snapshot when check ok
+renv::snapshot(packages = custom_packages)
+
+
+# After pull and/or rebase
+renv::restore()
+
+
+## Add data for reprex
+usethis::use_data_raw("World")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "name_of_module1" ) # Name of the module
-golem::add_module( name = "name_of_module2" ) # Name of the module
+golem::add_module( name = "first" ) # Name of the module
+golem::add_module( name = "second" ) # Name of the module
+golem::add_module( name = "third" ) # Name of the module
+golem::add_module( name = "fourth" ) # Name of the module
+golem::add_module( name = "species" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
-golem::add_fct( "helpers" ) 
+golem::add_fct( "db" ) 
 golem::add_utils( "helpers" )
 
 ## External resources
@@ -34,18 +69,26 @@ golem::add_js_file( "script" )
 golem::add_js_handler( "handlers" )
 golem::add_css_file( "custom" )
 
+golem::use_external_js_file("https://bossanova.uk/jspreadsheet/v4/jexcel.js", "jexcel.js")
+golem::use_external_js_file("https://jsuites.net/v4/jsuites.js", "jsuites.js")
+golem::use_external_js_file("https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js", "notify.js")
+golem::use_external_css_file("https://jsuites.net/v4/jsuites.css", "jsuites.css")
+golem::use_external_css_file("https://bossanova.uk/jspreadsheet/v4/jexcel.css", "jexcel.css")
+
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw( name = "my_dataset", open = FALSE ) 
+usethis::use_data_raw( name = "db_to_json", open = FALSE ) 
 
 ## Tests ----
 ## Add one line by test you want to create
-usethis::use_test( "app" )
+usethis::use_test( "fct_db" )
+golem::use_recommended_tests(spellcheck = FALSE)
 
 # Documentation
 
 ## Vignette ----
-usethis::use_vignette("aa-data-exploration")
+usethis::use_vignette("aa-data-exploration") # moved to "data-raw/"
+usethis::use_vignette("aa-data-exploration-compiled")
 devtools::build_vignettes()
 
 ## Code Coverage ----
@@ -60,26 +103,27 @@ usethis::use_coverage()
 usethis::use_github()
 
 # GitHub Actions
-usethis::use_github_action() 
+# usethis::use_github_action("pkgdown") 
+# usethis::use_github_action("test-coverage") 
 # Chose one of the three
 # See https://usethis.r-lib.org/reference/use_github_action.html
-usethis::use_github_action_check_release() 
-usethis::use_github_action_check_standard() 
-usethis::use_github_action_check_full() 
+# usethis::use_github_action_check_release() 
+# usethis::use_github_action_check_standard() 
+# usethis::use_github_action_check_full() 
 # Add action for PR
-usethis::use_github_action_pr_commands()
+# usethis::use_github_action_pr_commands()
 
 # Travis CI
-usethis::use_travis() 
-usethis::use_travis_badge() 
-
-# AppVeyor 
-usethis::use_appveyor() 
-usethis::use_appveyor_badge()
-
-# Circle CI
-usethis::use_circleci()
-usethis::use_circleci_badge()
+# usethis::use_travis() 
+# usethis::use_travis_badge() 
+# 
+# # AppVeyor 
+# usethis::use_appveyor() 
+# usethis::use_appveyor_badge()
+# 
+# # Circle CI
+# usethis::use_circleci()
+# usethis::use_circleci_badge()
 
 # Jenkins
 usethis::use_jenkins()

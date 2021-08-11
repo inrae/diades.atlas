@@ -7,27 +7,82 @@
 #' @importFrom shinythemes shinytheme
 #' @noRd
 app_ui <- function(request) {
+  
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    # List the first level UI elements here 
-    navbarPage(
-      title = "azti.diades",
-      theme = shinythemes::shinytheme("cerulean"),
-      tabPanel("Home",
-               h1(random_text(nwords = 3)),
-               p(random_text(nwords = 250)),
-               p(random_text(nwords = 150))
-      ),
-      tabPanel("Analyse",
-               p(random_text(nwords = 10)),
-               plotOutput("fake1"),
-               plotOutput("fake2"),
-      ),
-      tabPanel("Synthese",
-               p(random_text(nwords = 10)),
-               tableOutput("fake3"),
-               plotOutput("fake4"),
+    w3css::w3_page(
+      shiny:::bootstrapLib(),
+      htmlTemplate(
+        app_sys("app/www/template.html"),
+        translate = build_language_json(),
+        welcomemodal = modal(
+          inputId = "welcome",
+          title = tagList(
+            tags$h2("Welcome on DiadES Atlas!")
+          ),
+          body = tagList(
+            tags$div(
+              align = "center", 
+              tags$img(
+                src = "www/diades_vertical.jpg",
+                class = "hello-img"
+              )
+            )
+          ),
+          footer = tagList(
+            tags$div(
+              align = "center", 
+              tags$h3("Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.")
+              # tags$h3("We assess and enhance ecosystem services provided by diadromous fishes in a climate change context")
+            )
+            
+          ),
+          color = "teal",
+          display = "block"
+        ),
+        menu = menu(
+          menuItem(
+            "d", "Sit", i18n = "nav-sit"
+          ),
+          menuItem(
+            "a", "Lorem", i18n = "nav-lorem"
+          ),
+          menuItem(
+            "b", "Ipsum", i18n = "nav-ipsum"
+          ),
+          menuItem(
+            "c", "Dolor", i18n = "nav-dolor"
+          )
+        ),
+        content = tabItems(
+          tabItem(
+            "d", 
+            mod_fourth_ui("fourth_ui_1") 
+          ),
+          tabItem(
+            "a", 
+            # htmlTemplate(
+            #   app_sys("app/www/main.html"),
+            #   geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))), 
+            #   species = glue::glue_collapse(readLines(app_sys("species.json"))),
+            #   services = glue::glue_collapse(readLines(app_sys("services.json"))),
+            #   ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json")))
+            # )
+            mod_first_ui("first_ui_1")
+          ),
+          tabItem(
+            "b", 
+            mod_second_ui("second_ui_1")
+          ),
+          tabItem(
+            "c", 
+            mod_third_ui("third_ui_1")
+          )
+        ), 
+        footer = htmlTemplate(
+          app_sys("app/www/footer.html")
+        )
       )
     )
   )
@@ -51,7 +106,7 @@ golem_add_external_resources <- function(){
     favicon(),
     bundle_resources(
       path = app_sys('app/www'),
-      app_title = 'azti.diades'
+      app_title = 'diades.atlas'
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 

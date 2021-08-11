@@ -5,20 +5,19 @@
 #' @import shiny
 #' @noRd
 app_server <- function( input, output, session ) {
-  # List the first level callModules here
-  output$fake1 <- renderPlot({
-    random_ggplot()
-  })
+  r <- reactiveValues(
+    lg = "en"
+  )
   
-  output$fake2 <- renderPlot({
-    random_ggplot()
-  })
+  observeEvent(
+    input$i18n,{
+      print(input$i18n)
+      r$lg <- input$i18n
+    }
+  )
   
-  output$fake3 <- renderTable({
-    random_table(ncol = 6, nrow = 20)
-  })
-  
-  output$fake4 <- renderPlot({
-    random_ggplot()
-  })
+  mod_first_server("first_ui_1", r = r)
+  mod_second_server("second_ui_1", r = r)
+  mod_third_server("third_ui_1", r = r)
+  mod_fourth_server("fourth_ui_1", r = r)
 }

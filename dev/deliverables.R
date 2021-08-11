@@ -3,6 +3,12 @@ dir.create("deliverables")
 usethis::use_build_ignore("deliverables")
 
 ## _pkgdown ----
+# _Compile manual vignette
+rmarkdown::render(input = here::here("data-raw/aa-data-exploration-and-preparation.Rmd"),
+                  output_format = "rmarkdown::html_vignette",
+                  output_options = list(toc = TRUE),
+                  output_file = here::here("vignettes/explo-manual.html"))
+
 # remotes::install_github("ThinkR-open/chameleon")
 # remotes::install_github("ThinkR-open/thinkrtemplate")
 # remotes::install_github("r-lib/pkgdown", ref = "v1.3.0")
@@ -20,6 +26,15 @@ file.copy("inst/docs", "deliverables", recursive = TRUE)
 file.rename("deliverables/docs", down_dir)
 unlink("inst/docs", recursive = TRUE)
 
+# pkgdown::build_site()
+pkgdown::build_site(override = list(development = list(mode = "devel")))
+debugonce(pkgdown:::build_site_local)
+pkgdown::deploy_to_branch(new_process = FALSE, override = list(development = list(mode = "devel")))
+# aa <- pkgdown::as_pkgdown()
+# aa$version
+# aa$meta
+# pkgdown:::meta_development(aa$meta, aa$version)
+# aa$meta$destination
 
 # Deploy {pkgdown} on rsconnect ----
 usethis::use_git_ignore("docs/rsconnect")
@@ -38,10 +53,13 @@ rsconnect::deployApp(
   appFiles = list.files(".", recursive = TRUE), # the list of files to include as dependencies (all of them)
   appPrimaryDoc = "index.html",                 # the primary file
   appId = 350,
-  appName = "pkgdown-azti-diades",                   # name of the endpoint (unique to your account on Connect)
-  appTitle = "pkgdown.azti.diades",                  # display name for the content
+  appName = "pkgdown-diades.atlas",                   # name of the endpoint (unique to your account on Connect)
+  appTitle = "pkgdown.diades.atlas",                  # display name for the content
   account = account_name,                # your Connect username
   server = account_server#,                    # the Connect server, see rsconnect::accounts()
   # forceUpdate = TRUE
 )
 setwd(origwd)
+
+
+# Clone on Irstea GitLab

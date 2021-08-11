@@ -1,0 +1,73 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+<div class="w3-row-padding w3-padding-16 w3-center">
+    <div class="w3-col m12">
+        <button onclick='cleardt()' data-i18n="button-unselectall">Unselect all selections</button>
+    </div>
+
+    <div class="w3-col m12">
+        <h3 data-i18n="h3-ecosystem">Ecosystem services</h3>
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                </tr>
+            </thead>
+            <tbody id="innerservice"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+
+    var services = {{services}};
+    
+    const cleardt = function(){
+        selected_ecosys = [];
+        Shiny.setInputValue("{{shiny_input}}", selected_ecosys);
+        $(".servicestd").css("color", "");
+    }
+
+    $(document).ready(function() {
+        var bod = $("#innerservice")
+
+        for (var i = 0; i < services.length; i++) {
+            bod.append(
+                `<tr id="cices_id_${services[i].cices_id}" class = "servicestd"><td>${services[i].mea}</td><td>${services[i].cices}</td><td>${services[i].expert_knowledge}</td></tr>`
+            )
+        }
+
+        const table = $('#table_id').DataTable({
+            "scrollY": 400,
+            "paging": false,
+            "info": false
+        });
+        
+        var selected_ecosys = [];
+        
+        $('#table_id tbody').on('click', 'tr', function() {
+            var table = $('#table_id').DataTable();
+            var data = table.row(this).data();
+            // Get the cices_id
+            debugger;
+            $("#" + this.id).css("color", "orange");
+            // get the cices_id using the row id
+            //var cices_id = parseInt(this.id.split("_")[2]);
+            selected_ecosys.push(this.id)
+            Shiny.setInputValue("{{shiny_input}}", selected_ecosys)
+        });
+
+
+    });
+    
+    
+    
+$("#{{button_id}}").hover(function(x){
+   $( "th[aria-controls='table_id']" ).first().click();
+   $( "th[aria-controls='table_id']" ).first().click();
+})
+</script>

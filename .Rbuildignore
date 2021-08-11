@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
@@ -13,3 +15,12 @@ $run_dev.*
 ^app\.R$
 ^rsconnect$
 ^deliverables$
+rstudio\_dotconfig
+rstudio\_dotrstudio
+renv\_instructions\.Rmd
+^renv_instructions\.Rmd$
+^\.github$
+^codecov\.yml$
+^creds\.R$
+^manifest\.json$
+^\.Renviron$
