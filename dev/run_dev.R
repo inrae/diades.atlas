@@ -11,5 +11,8 @@ golem::document_and_reload()
 Sys.setenv("POSTGRES_USER" = "diadesatlas_r")
 Sys.setenv("POSTGRES_PASS" = "diadesPassword")
 
+se <- new.env()
+connect(se)
+
 # Run the application
-run_app()
+run_app(species_list = get_active_species(se))

@@ -31,10 +31,7 @@ mod_species_ui <- function(id, multiple = FALSE){
             f(
               ns("species"),
               NULL, 
-              choices = paste(
-                "Species",
-                letters[1:11]
-              )
+              choices = golem::get_golem_options("species_list")$english_name
             )
           )
           

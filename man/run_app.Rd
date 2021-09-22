@@ -4,7 +4,12 @@
 \alias{run_app}
 \title{Run the Shiny Application}
 \usage{
-run_app(onStart = NULL, options = list(), enableBookmarking = NULL, ...)
+run_app(
+  onStart = NULL,
+  options = list(),
+  enableBookmarking = NULL,
+  species_list = c()
+)
 }
 \arguments{
 \item{onStart}{A function that will be called before the app is actually run.

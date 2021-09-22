@@ -6,7 +6,7 @@
 #' @importFrom DBI dbConnect
 #' @importFrom RPostgres Postgres
 #'
-#' @noRd
+#' @export
 connect <- function(
   session = shiny::getDefaultReactiveDomain()
 ){
@@ -17,7 +17,8 @@ connect <- function(
     dbname = get_golem_config("POSTGRES_DBNAME"),
     port = get_golem_config("POSTGRES_PORT"),
     user = Sys.getenv("POSTGRES_USER", "diadesatlas_r"),
-    password = Sys.getenv("POSTGRES_PASS", "diadesPassword")
+    password = Sys.getenv("POSTGRES_PASS", "diadesPassword"),
+    options="-c search_path=diadesatlas"
   )
 }
 
