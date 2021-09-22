@@ -30,18 +30,19 @@ mod_fourth_ui <- function(id){
             content_style = "width:25em"
           )
         ),
-        w3css::w3_quarter(
-          w3_hover_button(
-            "Show Source" %>% with_i18("show-source"),
-            content = tagList(
-              tags$div(
-                id = ns("conservation_source"),
-                "lorem_ipsum"
-              )
-            ),
-            content_style = "width:25em"
-          )
-        ),
+        # w3css::w3_quarter(
+        #   w3_hover_button(
+        #     "Show Source" %>% with_i18("show-source"),
+        #     content = tagList(
+        #       tags$div(
+        #         id = ns("conservation_source"),
+        #         "lorem_ipsum"
+        #       )
+        #     ),
+        #     content_style = "width:25em"
+        #   )
+        # ),
+        
         w3css::w3_quarter()
         
       )
