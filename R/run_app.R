@@ -1,6 +1,6 @@
 #' Run the Shiny Application
 #'
-#' @param ... arguments to pass to golem_opts
+#' @param species_list list of species to use in the app
 #' @inheritParams shiny::shinyApp
 #'
 #' @export

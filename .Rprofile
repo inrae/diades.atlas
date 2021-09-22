@@ -1,16 +1,11 @@
-# If needed
-if (file.exists("~/.Rprofile")) {
+if (file.exists("~/.Rprofile")){
   source("~/.Rprofile")
 }
-# 
 
 
 if (Sys.getenv("RENV_PATHS_LIBRARY_ROOT") != "") {
   Sys.setenv(RENV_PATHS_LIBRARY_ROOT = "/home/rstudio/.renv/library")
 }
-
-# renv needs to be installed before used
-source("renv/activate.R")
 
 lock_ <- renv:::lockfile(file = "renv.lock")
 
@@ -26,9 +21,7 @@ rm(lock_)
 
 renv::settings$use.cache(TRUE)
 
+source("renv/activate.R")
 renv::activate()
-
-# cache ----
-
 
 # file.copy(".Rprofile", to = "~/.Rprofile")

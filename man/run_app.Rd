@@ -27,7 +27,7 @@ about the ideal height/width for the app.}
 any previous calls to  \code{\link[shiny:enableBookmarking]{enableBookmarking()}}. See \code{\link[shiny:enableBookmarking]{enableBookmarking()}}
 for more information on bookmarking your app.}
 
-\item{...}{arguments to pass to golem_opts}
+\item{species_list}{list of species to use in the app}
 }
 \description{
 Run the Shiny Application

@@ -6,6 +6,8 @@
 #' @importFrom DBI dbConnect
 #' @importFrom RPostgres Postgres
 #'
+#' @param session The Shiny Session object
+#'
 #' @export
 connect <- function(
   session = shiny::getDefaultReactiveDomain()

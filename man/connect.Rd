@@ -6,6 +6,9 @@
 \usage{
 connect(session = shiny::getDefaultReactiveDomain())
 }
+\arguments{
+\item{session}{The Shiny Session object}
+}
 \value{
 The return value, if any, from executing the function.
 }
