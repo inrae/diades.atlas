@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run the Shiny Application — run_app • diades.atlas</title>
+<title>db — connect • diades.atlas</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
-<meta property="og:title" content="Run the Shiny Application — run_app" />
-<meta property="og:description" content="Run the Shiny Application" />
+<meta property="og:title" content="db — connect" />
+<meta property="og:description" content="A fct function" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -143,52 +143,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Run the Shiny Application</h1>
-    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/run_app.R'><code>R/run_app.R</code></a></small>
-    <div class="hidden name"><code>run_app.Rd</code></div>
+    <h1>db</h1>
+    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/fct_db.R'><code>R/fct_db.R</code></a></small>
+    <div class="hidden name"><code>connect.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Run the Shiny Application</p>
+    <p>A fct function</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_app</span><span class='op'>(</span>
-  onStart <span class='op'>=</span> <span class='cn'>NULL</span>,
-  options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  enableBookmarking <span class='op'>=</span> <span class='cn'>NULL</span>,
-  species_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>connect</span><span class='op'>(</span>session <span class='op'>=</span> <span class='fu'>shiny</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/shiny/man/domains.html'>getDefaultReactiveDomain</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>onStart</th>
-      <td><p>A function that will be called before the app is actually run.
-This is only needed for <code>shinyAppObj</code>, since in the <code>shinyAppDir</code>
-case, a <code>global.R</code> file can be used for this purpose.</p></td>
-    </tr>
-    <tr>
-      <th>options</th>
-      <td><p>Named options that should be passed to the <code>runApp</code> call
-(these can be any of the following: "port", "launch.browser", "host", "quiet",
-"display.mode" and "test.mode"). You can also specify <code>width</code> and
-<code>height</code> parameters which provide a hint to the embedding environment
-about the ideal height/width for the app.</p></td>
-    </tr>
-    <tr>
-      <th>enableBookmarking</th>
-      <td><p>Can be one of <code>"url"</code>, <code>"server"</code>, or
-<code>"disable"</code>. The default value, <code>NULL</code>, will respect the setting from
-any previous calls to  <code><a href='https://rdrr.io/pkg/shiny/man/enableBookmarking.html'>enableBookmarking()</a></code>. See <code><a href='https://rdrr.io/pkg/shiny/man/enableBookmarking.html'>enableBookmarking()</a></code>
-for more information on bookmarking your app.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments to pass to golem_opts</p></td>
-    </tr>
-    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The return value, if any, from executing the function.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
