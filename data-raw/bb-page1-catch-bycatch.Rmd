@@ -46,63 +46,126 @@ file = here::here(file.path("vignettes", vignette_file))
 ```
 
 ```{r setup}
-library(diades.atlas)
-# renv::install("dm")
-# library(dm)
+# Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
+# Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
+pkgload::load_all()
 library(dplyr)
-library(leaflet)
+session <- new.env()
+connect(session)
+con <- get_con(session)
+library(rworldmap)
+library(rworldxtra)
 library(tmap)
+library(sf)
+library(DBI)
 ```
 
-## Connect to database
+# Liste des espèces 
 
-Do not forget to set environment variables in .Renviron
 ```{r}
-# Connect to database
-con <- connect()
-
-# Listtables
-# DBI::dbListTables(con)
-# DBI::dbListObjects(con)
-
+get_active_species(
+  session = session
+)
 ```
 
-## Data necessary
-
-- Map of basins
-- Map of ICES square observation with occurence
-
-We join in the database and get sf output
+## Conservation status
 
 ```{r}
-# Map of basins
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin"))
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin"))
-# _geometry
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_outlet"))
+species <- get_active_species(
+  session = session
+)
+for (i in species$species_id){
+  cli::cat_rule(i)
+  print(
+      get_conservation_status(
+      6,
+      con
+    )
+  )
+  cli::cat_line()
+}
 
-casestudy <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy"))
-# List of the corresponding basins
-casestudy_basin <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin"))
-# Put them two together
-cstd <- full_join(casestudy, casestudy_basin)
-
-# Map of ICES square observation with occurence
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "abundance"))
-```
-
-## Create map
-
-- Choose a species
-- Draw the map 
-
-```{r}
 
 ```
+## Tmap code 
 
-
-## Stop connection
 
 ```{r}
-DBI::dbDisconnect(con)
+dataCatchment <-  dbReadTable(
+  con,  
+  "v_abundance"
+) %>% 
+  inner_join(
+    tribble(~abundance_level_id, ~abundance_interpretation,
+            1, 'Not recorded in the period',
+            2, 'Occasional vagrants',
+            3, 'Functional populations',
+            4, 'Abundant functional populations') %>% 
+      mutate(abundance_interpretation = factor(abundance_interpretation,
+                                               levels = .$abundance_interpretation)), 
+    by = "abundance_level_id")
+
+catchment_geom <- st_read(
+  con, 
+  query =   "SELECT * FROM diadesatlas.v_basin vb"
+) %>%
+  rmapshaper::ms_simplify()
+
+dataALL <- dbGetQuery(
+  con, 
+  "SELECT * from diadesatlas.v_species_ices_occurence vsio "
+) %>% 
+  #tibble() %>% 
+  mutate(nb_occurence = as.integer(nb_occurence))
+
+ices_geom <- st_read(
+  con, 
+  query = "SELECT * FROM diadesatlas.v_ices_geom;"
+) %>% 
+  st_transform("+proj=eqearth +wktext") %>%
+  rmapshaper::ms_simplify()
+
+
+# NOTE: the species are passed with the latin name in the foreground. 
+# In the front of the app, the user will have to select an english/french name
+tm_draw(
+  species_latin_name = "Salmo trutta",
+  spatial_type = 'rectangle',
+  con = con,
+  dataCatchment = dataCatchment,
+  catchment_geom = catchment_geom,
+  dataALL = dataALL,
+  ices_geom = ices_geom
+)
+
+tm_draw(
+  species_latin_name = "Salmo trutta" ,
+  spatial_type = 'division',
+  con = con,
+  dataCatchment = dataCatchment,
+  catchment_geom = catchment_geom,
+  dataALL = dataALL,
+  ices_geom = ices_geom
+)
+
+tm_draw(
+  species_latin_name = "Chelon ramada" ,
+  spatial_type = 'rectangle', 
+  con = con, 
+  dataCatchment = dataCatchment, 
+  catchment_geom = catchment_geom, 
+  dataALL = dataALL, 
+  ices_geom = ices_geom
+)
+
+tm_draw(
+  species_latin_name = "Chelon ramada",
+  spatial_type = 'division',
+  con = con,
+  dataCatchment = dataCatchment,
+  catchment_geom = catchment_geom,
+  dataALL = dataALL,
+  ices_geom = ices_geom
+)
+
 ```
