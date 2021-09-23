@@ -19,7 +19,7 @@ BugReports: https://github.com/inrae/diades.atlas/-/issues
 Depends: 
     R (>= 2.10)
 Imports: 
-    cli,
+    cli (>= 3.0.1),
     config (>= 0.3.1),
     DBI (>= 1.1.1),
     dplyr (>= 1.0.7),
@@ -38,6 +38,7 @@ Imports:
     shinythemes (>= 1.2.0),
     tmap (>= 3.3.2),
     utils,
+    zeallot (>= 0.1.0),
     w3css (>= 0.0.0.9002)
 Suggests: 
     DiagrammeR (>= 1.0.6.1),

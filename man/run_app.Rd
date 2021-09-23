@@ -8,7 +8,11 @@ run_app(
   onStart = NULL,
   options = list(),
   enableBookmarking = NULL,
-  species_list = c()
+  species_list = c(),
+  dataCatchment = dataCatchment,
+  catchment_geom = catchment_geom,
+  dataALL = dataALL,
+  ices_geom = ices_geom
 )
 }
 \arguments{
