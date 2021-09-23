@@ -31,7 +31,7 @@ mod_species_ui <- function(id, multiple = FALSE){
             f(
               ns("species"),
               NULL, 
-              choices = golem::get_golem_options("species_list")$english_name
+              choices = unique(golem::get_golem_options("species_list")$latin_name)
             )
           )
           
@@ -76,14 +76,8 @@ mod_species_server <- function(id, r, entry = "species"){
           }
         )
       )
-      r[[entry]]<- sample(
-        c(
-          "pop_est", "pop_est_dens", "economy", "income_grp", 
-          "gdp_cap_est", "life_exp", "well_being", "footprint", 
-          "inequality", "HPI"
-        ),
-        1
-      )
+      req(input$species)
+      r[[entry]] <- input$species
     }, ignoreNULL = FALSE)
     
     observeEvent( input$undo , {
