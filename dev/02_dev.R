@@ -23,6 +23,7 @@ usethis::use_build_ignore(".Renviron")
 ## Add one line by package you want to add as dependency
 usethis::use_package("DBI")
 usethis::use_package("RPostgres")
+usethis::use_package("sf")
 
 # Before sending to git external server
 # _deps

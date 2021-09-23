@@ -429,13 +429,6 @@
       "Repository": "CRAN",
       "Hash": "77bd60a6157420d4ffa93b27cf6a58b8"
     },
-    "fontawesome": {
-      "Package": "fontawesome",
-      "Version": "0.2.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "55624ed409e46c5f358b2c060be87f67"
-    },
     "foreign": {
       "Package": "foreign",
       "Version": "0.8-81",
@@ -1096,10 +1089,10 @@
     },
     "shiny": {
       "Package": "shiny",
-      "Version": "1.7.0",
+      "Version": "1.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "72bf551406bb75a182df55090dc5a25a"
+      "Hash": "6e3b6ae7fe02b5859e4bb277f218b8ae"
     },
     "shinythemes": {
       "Package": "shinythemes",
@@ -1364,6 +1357,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "2826c5d9efb0a88f657c7a679c7106db"
+    },
+    "zeallot": {
+      "Package": "zeallot",
+      "Version": "0.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ee9b643aa8331c45d8d82eb3a137c9bc"
     },
     "zip": {
       "Package": "zip",

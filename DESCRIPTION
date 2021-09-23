@@ -39,7 +39,8 @@ Imports:
     tmap (>= 3.3.2),
     utils,
     zeallot (>= 0.1.0),
-    w3css (>= 0.0.0.9002)
+    w3css (>= 0.0.0.9002),
+    sf (>= 1.0.2)
 Suggests: 
     DiagrammeR (>= 1.0.6.1),
     DiagrammeRsvg (>= 0.1),
