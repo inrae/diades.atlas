@@ -78,6 +78,7 @@ golem::use_external_css_file("https://bossanova.uk/jspreadsheet/v4/jexcel.css", 
 ## Add internal datasets ----
 ## If you have data in your package
 usethis::use_data_raw( name = "db_to_json", open = FALSE ) 
+usethis::use_data_raw( name = "frontiers", open = FALSE ) 
 
 ## Tests ----
 ## Add one line by test you want to create

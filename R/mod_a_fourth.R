@@ -31,18 +31,6 @@ mod_fourth_ui <- function(id){
             content_style = "width:25em"
           )
         ),
-        # w3css::w3_quarter(
-        #   w3_hover_button(
-        #     "Show Source" %>% with_i18("show-source"),
-        #     content = tagList(
-        #       tags$div(
-        #         id = ns("conservation_source"),
-        #         "lorem_ipsum"
-        #       )
-        #     ),
-        #     content_style = "width:25em"
-        #   )
-        # ),
         w3css::w3_quarter(
           w3_hover_button(
             "Change Map geometry", # %>% with_i18("show-conservation-status"),
@@ -52,7 +40,7 @@ mod_fourth_ui <- function(id){
                 w3css::w3_radioButton(
                   ns("square_or_division"), 
                   NULL,
-                  choices = c("Division", "Rectangle")
+                  choices = c("Division" = "division", "Rectangle" = "rectangle")
                 )
               )
             ),
@@ -68,8 +56,7 @@ mod_fourth_ui <- function(id){
     ),
     container(
       h4("Catch and bycatch at sea") %>% with_i18("map-bycatch"),
-      #plotOutput(ns("raster"), click = ns("map_click"))
-      tmap::tmapOutput(ns("raster"), width = "80%") 
+      tmap::tmapOutput(ns("raster"), width = "70%",height = "750px") 
     )
   )
   
@@ -77,18 +64,11 @@ mod_fourth_ui <- function(id){
 
 #' fourth Server Functions
 #' @import tmap
+#' @import dplyr
 #' @noRd 
 mod_fourth_server <- function(id, r = r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    # output$raster <- renderImage({
-    #   # input$species
-    #   # When input$n is 1, filename is ./images/image1.jpeg
-    #   rasterimg <- system.file("app/www/raster_crop.jpg", package = "diades.atlas")
-    #   # Return a list containing the filename
-    #   list(src = normalizePath(rasterimg),
-    #        height = 350)
-    # }, deleteFile = FALSE) # Do not delete inside the package installation
     
     loco <- reactiveValues(
       species = NULL
@@ -101,8 +81,17 @@ mod_fourth_server <- function(id, r = r){
     
     output$raster <- tmap::renderTmap({
       req(loco$species)
-      tm_shape(World) +
-        tm_polygons(loco$species )
+      
+      tm_draw(
+        species_latin_name = loco$species,
+        spatial_type = input$square_or_division, 
+        con = con, 
+        dataCatchment = golem::get_golem_options("dataCatchment"), 
+        catchment_geom = golem::get_golem_options("catchment_geom"), 
+        dataALL = golem::get_golem_options("dataALL"), 
+        ices_geom = golem::get_golem_options("ices_geom")
+      )
+      
     })
     
     observeEvent( loco$species , {

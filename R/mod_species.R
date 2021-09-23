@@ -14,6 +14,8 @@ mod_species_ui <- function(id, multiple = FALSE){
     f <- w3css::w3_radioButton
   }
   ns <- NS(id)
+  choices <- unique(golem::get_golem_options("species_list")$latin_name)
+  names(choices) <- unique(golem::get_golem_options("species_list")$english_name)
   tagList(
     w3_hover_button(
       "Select a Species" %>% with_i18("select-species"),
@@ -31,7 +33,7 @@ mod_species_ui <- function(id, multiple = FALSE){
             f(
               ns("species"),
               NULL, 
-              choices = unique(golem::get_golem_options("species_list")$latin_name)
+              choices = choices
             )
           )
           
