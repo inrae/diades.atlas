@@ -137,15 +137,10 @@
 <div id="backend-requirement" class="section level1">
 <h1 class="hasAnchor">
 <a href="#backend-requirement" class="anchor"></a>Backend requirement</h1>
-<p>The apps needs to connect to a db:</p>
+<p>The apps needs to connect to a db.</p>
+<p>It can be set via :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Launch MySQL container ----</span>
-<span class="va">db_docker</span> <span class="op">&lt;-</span> <span class="st">"kartoza/postgis:13.0"</span>
-<span class="va">persistant_db</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/path_math.html">path_abs</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw/db"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span><span class="op">(</span><span class="va">persistant_db</span><span class="op">)</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git_ignore.html">use_git_ignore</a></span><span class="op">(</span><span class="st">"data-raw/db"</span><span class="op">)</span>
-
-<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
   <span class="st">"POSTGRES_DBNAME"</span>,
   <span class="st">"diades"</span>
 <span class="op">)</span>
@@ -159,42 +154,14 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span> <span class="op">=</span> <span class="st">"diadesatlas_owner"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PASS"</span> <span class="op">=</span> <span class="st">"thinkrpassword"</span><span class="op">)</span></code></pre></div>
-<p>For dev purpose</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Databases container</span>
-<span class="co">## Pull image</span>
-<span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">load_all</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"docker pull"</span>, <span class="va">db_docker</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">dump_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span><span class="op">(</span><span class="st">"~/diades.atlas.data/"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span>
-    <span class="st">'docker run --rm'</span>,
-    <span class="st">' --name=postgis -d '</span>,
-    <span class="st">' -p '</span>,<span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_PORT"</span><span class="op">)</span>,<span class="st">':5432 '</span>,
-    <span class="st">' -e POSTGRES_USER='</span>,<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span>,<span class="st">"diadesatlas_owner"</span><span class="op">)</span>,
-    <span class="st">' -e POSTGRES_PASS='</span>,<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PASS"</span>,<span class="st">"thinkrpassword"</span><span class="op">)</span>,
-    <span class="st">' -e POSTGRES_DBNAME='</span>, <span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_DBNAME"</span><span class="op">)</span>,
-    <span class="st">' -v "'</span>, <span class="va">persistant_db</span>, <span class="st">':/var/lib/postgresql" '</span>,
-    <span class="st">' -v "'</span>, <span class="va">dump_path</span>, <span class="st">':/home/postgis/data" '</span>,
-    <span class="va">db_docker</span>
-  <span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># integrate the dataset </span>
-
-<span class="co"># Killing the db</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.html">system</a></span><span class="op">(</span>
-  <span class="st">"docker kill postgis"</span>
-<span class="op">)</span></code></pre></div>
+<p>For dev purpose, please refer to the doc in the diadesdata repo on ThinkR’s forge (restricted access).</p>
 </div>
 <div id="dev---vignettes" class="section level1">
 <h1 class="hasAnchor">
 <a href="#dev---vignettes" class="anchor"></a>Dev - vignettes</h1>
 <p>Vignettes are compiled manually by developers. Raw vignettes are stored in “data-raw”. Instructions to compile them are in the vignette itself.</p>
 <p>However, they can all be prepared from this script:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span>
 
 <span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aa-data-exploration-and-preparation"</span>,
