@@ -22,8 +22,8 @@ get_active_species <- function(
 
 #' Title
 #'
-#' @param species_id 
-#' @param con 
+#' @param species_id Id of the species to look for.
+#' @param con The Connection object
 #'
 #' @return
 #' @export

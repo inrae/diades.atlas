@@ -1,14 +1,10 @@
 #' Title
 #'
-#' @param species_latin_name 
-#' @param spatial_type 
-#' @param con 
-#' @param yearStart 
-#' @param yearEnd 
-#' @param dataCatchment 
-#' @param catchment_geom 
-#' @param dataALL 
-#' @param ices_geom 
+#' @param species_latin_name The latin name of the species
+#' @param spatial_type Geom to use in the map
+#' @param con The Connection object
+#' @param yearStart,yearEnd date used
+#' @param dataCatchment,catchment_geom,dataALL,ices_geom  internal datasets
 #'
 #' @return
 #' @export

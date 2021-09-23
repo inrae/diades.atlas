@@ -32,6 +32,8 @@ any previous calls to  \code{\link[shiny:enableBookmarking]{enableBookmarking()}
 for more information on bookmarking your app.}
 
 \item{species_list}{list of species to use in the app}
+
+\item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
 }
 \description{
 Run the Shiny Application

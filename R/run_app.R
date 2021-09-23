@@ -2,7 +2,8 @@
 #'
 #' @param species_list list of species to use in the app
 #' @inheritParams shiny::shinyApp
-#'
+#' @param dataCatchment,catchment_geom,dataALL,ices_geom  internal datasets
+#' 
 #' @export
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options

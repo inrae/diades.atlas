@@ -17,23 +17,15 @@ tm_draw(
 )
 }
 \arguments{
-\item{species_latin_name}{}
+\item{species_latin_name}{The latin name of the species}
 
-\item{spatial_type}{}
+\item{spatial_type}{Geom to use in the map}
 
-\item{con}{}
+\item{con}{The Connection object}
 
-\item{yearStart}{}
+\item{yearStart, yearEnd}{date used}
 
-\item{yearEnd}{}
-
-\item{dataCatchment}{}
-
-\item{catchment_geom}{}
-
-\item{dataALL}{}
-
-\item{ices_geom}{}
+\item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
 }
 \value{
 

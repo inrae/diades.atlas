@@ -7,7 +7,7 @@
 generate_datasets(con)
 }
 \arguments{
-\item{con}{}
+\item{con}{The DB connection object}
 }
 \value{
 

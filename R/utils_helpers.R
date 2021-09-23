@@ -43,7 +43,7 @@ get_dt_lg <- function(lg){
 
 #' Title
 #'
-#' @param con 
+#' @param con The DB connection object
 #'
 #' @return
 #' @export

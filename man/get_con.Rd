@@ -7,7 +7,7 @@
 get_con(session = shiny::getDefaultReactiveDomain())
 }
 \arguments{
-\item{session}{}
+\item{session}{Shiny session object}
 }
 \value{
 

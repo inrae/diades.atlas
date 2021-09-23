@@ -7,9 +7,9 @@
 get_conservation_status(species_id, con)
 }
 \arguments{
-\item{species_id}{}
+\item{species_id}{Id of the species to look for.}
 
-\item{con}{}
+\item{con}{The Connection object}
 }
 \value{
 
