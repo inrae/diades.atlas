@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "locale": "en_US",
+  "locale": "en_GB",
   "platform": "4.1.0",
   "metadata": {
     "appmode": "shiny",
@@ -1132,6 +1132,40 @@
         "Built": "R 4.1.0; ; 2021-05-20 14:18:19 UTC; unix"
       }
     },
+    "crul": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "crul",
+        "Title": "HTTP Client",
+        "Description": "A simple HTTP client, with tools for making HTTP requests,\n    and mocking HTTP requests. The package is built on R6, and takes\n    inspiration from Ruby's 'faraday' gem (<https://rubygems.org/gems/faraday>).\n    The package name is a play on curl, the widely used command line tool\n    for HTTP, and this package is built on top of the R package 'curl', an\n    interface to 'libcurl' (<https://curl.se/libcurl/>).",
+        "Version": "1.1.0",
+        "License": "MIT + file LICENSE",
+        "Authors@R": "c(\n    person(\"Scott\", \"Chamberlain\", role = c(\"aut\", \"cre\"),\n    email = \"myrmecocystus@gmail.com\",\n    comment = c(ORCID = \"0000-0003-1444-9135\"))\n    )",
+        "URL": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)",
+        "BugReports": "https://github.com/ropensci/crul/issues",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "Imports": "curl (>= 3.3), R6 (>= 2.2.0), urltools (>= 1.6.0), httpcode\n(>= 0.2.0), jsonlite, mime",
+        "Suggests": "testthat, roxygen2 (>= 7.1.1), fauxpas (>= 0.1.0), webmockr\n(>= 0.1.0), knitr, rmarkdown",
+        "VignetteBuilder": "knitr",
+        "RoxygenNote": "7.1.1",
+        "X-schema.org-applicationCategory": "Web",
+        "X-schema.org-keywords": "http, https, API, web-services, curl, download,\nlibcurl, async, mocking, caching",
+        "X-schema.org-isPartOf": "https://ropensci.org",
+        "NeedsCompilation": "no",
+        "Packaged": "2021-02-08 19:38:26 UTC; sckott",
+        "Author": "Scott Chamberlain [aut, cre] (<https://orcid.org/0000-0003-1444-9135>)",
+        "Maintainer": "Scott Chamberlain <myrmecocystus@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2021-02-15 16:10:10 UTC",
+        "Built": "R 4.1.0; ; 2021-05-26 18:40:59 UTC; unix"
+      }
+    },
     "curl": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -1617,6 +1651,40 @@
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-20 09:43:38 UTC; unix"
       }
     },
+    "foreign": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "foreign",
+        "Priority": "recommended",
+        "Version": "0.8-81",
+        "Date": "2020-12-22",
+        "Title": "Read Data Stored by 'Minitab', 'S', 'SAS', 'SPSS', 'Stata',\n'Systat', 'Weka', 'dBase', ...",
+        "Depends": "R (>= 4.0.0)",
+        "Imports": "methods, utils, stats",
+        "Authors@R": "c(\n   person(\"R Core Team\",\n      email = \"R-core@R-project.org\", role = c(\"aut\", \"cph\", \"cre\")),\n    person(\"Roger\", \"Bivand\", role = c(\"ctb\", \"cph\")),\n    person(c(\"Vincent\", \"J.\"), \"Carey\", role = c(\"ctb\", \"cph\")),\n    person(\"Saikat\", \"DebRoy\", role = c(\"ctb\", \"cph\")),\n    person(\"Stephen\", \"Eglen\", role = c(\"ctb\", \"cph\")),\n    person(\"Rajarshi\", \"Guha\", role = c(\"ctb\", \"cph\")),\n    person(\"Swetlana\", \"Herbrandt\", role = \"ctb\"),\n    person(\"Nicholas\", \"Lewin-Koh\", role = c(\"ctb\", \"cph\")),\n    person(\"Mark\", \"Myatt\", role = c(\"ctb\", \"cph\")),\n    person(\"Michael\", \"Nelson\", role = \"ctb\"),\n    person(\"Ben\", \"Pfaff\", role = \"ctb\"),\n    person(\"Brian\", \"Quistorff\", role = \"ctb\"),\n    person(\"Frank\", \"Warmerdam\", role = c(\"ctb\", \"cph\")),\n    person(\"Stephen\", \"Weigand\", role = c(\"ctb\", \"cph\")),\n    person(\"Free Software Foundation, Inc.\", role = \"cph\"))",
+        "Contact": "see 'MailingList'",
+        "Copyright": "see file COPYRIGHTS",
+        "Description": "Reading and writing data stored by some versions of\n\t'Epi Info', 'Minitab', 'S', 'SAS', 'SPSS', 'Stata', 'Systat', 'Weka',\n\tand for reading and writing some 'dBase' files.",
+        "ByteCompile": "yes",
+        "Biarch": "yes",
+        "License": "GPL (>= 2)",
+        "BugReports": "https://bugs.r-project.org",
+        "MailingList": "R-help@r-project.org",
+        "URL": "https://svn.r-project.org/R-packages/trunk/foreign/",
+        "NeedsCompilation": "yes",
+        "Packaged": "2020-12-22 13:59:32 UTC; hornik",
+        "Author": "R Core Team [aut, cph, cre],\n  Roger Bivand [ctb, cph],\n  Vincent J. Carey [ctb, cph],\n  Saikat DebRoy [ctb, cph],\n  Stephen Eglen [ctb, cph],\n  Rajarshi Guha [ctb, cph],\n  Swetlana Herbrandt [ctb],\n  Nicholas Lewin-Koh [ctb, cph],\n  Mark Myatt [ctb, cph],\n  Michael Nelson [ctb],\n  Ben Pfaff [ctb],\n  Brian Quistorff [ctb],\n  Frank Warmerdam [ctb, cph],\n  Stephen Weigand [ctb, cph],\n  Free Software Foundation, Inc. [cph]",
+        "Maintainer": "R Core Team <R-core@R-project.org>",
+        "Repository": "CRAN",
+        "Date/Publication": "2020-12-22 14:59:20 UTC",
+        "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-19 20:55:51 UTC; unix"
+      }
+    },
     "fs": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -1682,6 +1750,111 @@
         "Repository": "CRAN",
         "Date/Publication": "2020-10-31 06:10:15 UTC",
         "Built": "R 4.1.0; ; 2021-05-20 09:44:52 UTC; unix"
+      }
+    },
+    "geojson": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "geojson",
+        "Type": "Package",
+        "Title": "Classes for 'GeoJSON'",
+        "Description": "Classes for 'GeoJSON' to make working with 'GeoJSON' easier.\n    Includes S3 classes for 'GeoJSON' classes with brief summary output,\n    and a few methods such as extracting and adding bounding boxes,\n    properties, and coordinate reference systems; working with \n    newline delimited 'GeoJSON'; linting through the 'geojsonlint' \n    package; and serializing to/from 'Geobuf' binary 'GeoJSON' \n    format.",
+        "Version": "0.3.4",
+        "Authors@R": "c(\n    person(\"Scott\", \"Chamberlain\", role = c(\"aut\", \"cre\"), \n        email = \"myrmecocystus@gmail.com\",\n        comment = c(ORCID=\"0000-0003-1444-9135\")),\n    person(\"Jeroen\", \"Ooms\", role = \"aut\")\n    )",
+        "License": "MIT + file LICENSE",
+        "URL": "https://docs.ropensci.org/geojson,\nhttps://github.com/ropensci/geojson",
+        "BugReports": "https://github.com/ropensci/geojson/issues",
+        "LazyData": "true",
+        "VignetteBuilder": "knitr",
+        "Encoding": "UTF-8",
+        "Imports": "methods, sp, jsonlite (>= 1.6), protolite (>= 1.8), jqr (>=\n1.1.0), magrittr, lazyeval",
+        "Suggests": "geojsonlint (>= 0.2.0), tibble, testthat, knitr, rmarkdown,\nsf, stringi",
+        "RoxygenNote": "7.1.0",
+        "X-schema.org-applicationCategory": "Geospatial",
+        "X-schema.org-keywords": "geojson, geospatial, conversion, data,\ninput-output, bbox, polygon, geobuf",
+        "X-schema.org-isPartOf": "https://ropensci.org",
+        "NeedsCompilation": "no",
+        "Packaged": "2020-06-23 19:36:13 UTC; sckott",
+        "Author": "Scott Chamberlain [aut, cre] (<https://orcid.org/0000-0003-1444-9135>),\n  Jeroen Ooms [aut]",
+        "Maintainer": "Scott Chamberlain <myrmecocystus@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2020-06-23 20:00:03 UTC",
+        "Built": "R 4.1.0; ; 2021-05-26 12:38:38 UTC; unix"
+      }
+    },
+    "geojsonio": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "geojsonio",
+        "Title": "Convert Data from and to 'GeoJSON' or 'TopoJSON'",
+        "Description": "Convert data to 'GeoJSON' or 'TopoJSON' from various R classes,\n    including vectors, lists, data frames, shape files, and spatial classes.\n    'geojsonio' does not aim to replace packages like 'sp', 'rgdal', 'rgeos',\n    but rather aims to be a high level client to simplify conversions of data\n    from and to 'GeoJSON' and 'TopoJSON'.",
+        "Version": "0.9.4",
+        "License": "MIT + file LICENSE",
+        "Authors@R": "c(\n    person(\"Scott\", \"Chamberlain\", role = c(\"aut\", \"cre\"), email = \"myrmecocystus@gmail.com\"),\n    person(\"Andy\", \"Teucher\", role = \"aut\", email = \"andy.teucher@gmail.com\")\n    )",
+        "URL": "https://github.com/ropensci/geojsonio (devel),\nhttps://docs.ropensci.org/geojsonio/ (docs)",
+        "BugReports": "https://github.com/ropensci/geojsonio/issues",
+        "LazyData": "true",
+        "Encoding": "UTF-8",
+        "Depends": "R (>= 2.10)",
+        "Imports": "methods, sp, sf (>= 0.6), geojsonsf, rgeos, crul, maptools,\njsonlite (>= 0.9.21), magrittr, readr (>= 0.2.2), V8, geojson\n(>= 0.2.0), jqr",
+        "Suggests": "gistr, testthat, leaflet, maps, DBI, RPostgres",
+        "Enhances": "RColorBrewer",
+        "RoxygenNote": "7.1.1",
+        "X-schema.org-applicationCategory": "Geospatial",
+        "X-schema.org-keywords": "geojson, topojson, geospatial, conversion, data,\ninput-output",
+        "X-schema.org-isPartOf": "https://ropensci.org",
+        "NeedsCompilation": "no",
+        "Packaged": "2021-01-13 16:20:27 UTC; sckott",
+        "Author": "Scott Chamberlain [aut, cre],\n  Andy Teucher [aut]",
+        "Maintainer": "Scott Chamberlain <myrmecocystus@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2021-01-13 17:30:05 UTC",
+        "Built": "R 4.1.0; ; 2021-05-27 06:43:12 UTC; unix"
+      }
+    },
+    "geojsonlint": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "geojsonlint",
+        "Title": "Tools for Validating 'GeoJSON'",
+        "Description": "Tools for linting 'GeoJSON'. Includes tools for interacting with the\n    online tool <http://geojsonlint.com>, the 'Javascript' library 'geojsonhint'\n    (<https://www.npmjs.com/package/geojsonhint>), and validating against a\n    'GeoJSON' schema via the 'Javascript' library\n    (<https://www.npmjs.com/package/is-my-json-valid>). Some tools work locally\n    while others require an internet connection.",
+        "Version": "0.4.0",
+        "License": "MIT + file LICENSE",
+        "Authors@R": "c(\n    person(\"Scott\", \"Chamberlain\", role = c(\"aut\", \"cre\"),\n        email = \"myrmecocystus@gmail.com\",\n        comment = c(ORCID=\"0000-0003-1444-9135\")),\n    person(\"Andy\", \"Teucher\", role = \"aut\",\n        email = \"andy.teucher@gmail.com\"),\n    person(\"Tom\", \"MacWright\", role = \"cph\",\n        comment = \"geojsonhint Javascript library\"),\n    person(\"Mads\", \"Kristensen\", role = \"cph\",\n        comment = \"geojson schema\")\n    )",
+        "URL": "https://github.com/ropensci/geojsonlint (devel)\nhttps://docs.ropensci.org/geojsonlint (docs)",
+        "BugReports": "https://github.com/ropensci/geojsonlint/issues",
+        "LazyData": "true",
+        "VignetteBuilder": "knitr",
+        "Encoding": "UTF-8",
+        "Depends": "R (>= 2.10)",
+        "Imports": "crul (>= 0.7.0), jsonlite (>= 0.9.19), jsonvalidate (>=\n1.0.0), V8",
+        "Suggests": "testthat, knitr, rmarkdown",
+        "RoxygenNote": "7.0.2",
+        "X-schema.org-applicationCategory": "Geospatial",
+        "X-schema.org-keywords": "geojson, geospatial, lint, hint, data, schema",
+        "X-schema.org-isPartOf": "https://ropensci.org",
+        "NeedsCompilation": "no",
+        "Packaged": "2020-02-13 01:16:25 UTC; sckott",
+        "Author": "Scott Chamberlain [aut, cre] (<https://orcid.org/0000-0003-1444-9135>),\n  Andy Teucher [aut],\n  Tom MacWright [cph] (geojsonhint Javascript library),\n  Mads Kristensen [cph] (geojson schema)",
+        "Maintainer": "Scott Chamberlain <myrmecocystus@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2020-02-13 06:20:11 UTC",
+        "Built": "R 4.1.0; ; 2021-05-27 01:11:01 UTC; unix"
       }
     },
     "geojsonsf": {
@@ -2168,6 +2341,35 @@
         "Built": "R 4.1.0; ; 2021-09-09 12:26:42 UTC; unix"
       }
     },
+    "httpcode": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "httpcode",
+        "Title": "'HTTP' Status Code Helper",
+        "Description": "Find and explain the meaning of 'HTTP' status codes.\n    Functions included for searching for codes by full or partial number,\n    by message, and get appropriate dog and cat images for many\n    status codes.",
+        "Version": "0.3.0",
+        "Authors@R": "person(\"Scott\", \"Chamberlain\", role = c(\"aut\",\"cre\"),\n    email = \"myrmecocystus@gmail.com\", \n    comment = c(ORCID = \"0000-0003-1444-9135\"))",
+        "License": "MIT + file LICENSE",
+        "URL": "https://github.com/sckott/httpcode",
+        "BugReports": "https://github.com/sckott/httpcode/issues",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "Suggests": "testthat",
+        "RoxygenNote": "7.1.0",
+        "NeedsCompilation": "no",
+        "Packaged": "2020-04-10 03:18:28 UTC; sckott",
+        "Author": "Scott Chamberlain [aut, cre] (<https://orcid.org/0000-0003-1444-9135>)",
+        "Maintainer": "Scott Chamberlain <myrmecocystus@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2020-04-10 06:20:02 UTC",
+        "Built": "R 4.1.0; ; 2021-05-25 21:50:04 UTC; unix"
+      }
+    },
     "httpuv": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -2353,6 +2555,39 @@
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-07-13 11:56:15 UTC; unix"
       }
     },
+    "jqr": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "jqr",
+        "Title": "Client for 'jq', a 'JSON' Processor",
+        "Description": "Client for 'jq', a 'JSON' processor (<https://stedolan.github.io/jq/>), \n    written in C. 'jq' allows the following with 'JSON' data: index into, parse, \n    do calculations, cut up and filter, change key names and values, perform \n    conditionals and comparisons, and more.",
+        "Version": "1.2.1",
+        "Depends": "R (>= 3.1.2)",
+        "License": "MIT + file LICENSE",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "LazyData": "true",
+        "Authors@R": "c(person(\"Rich\", \"FitzJohn\", role = \"aut\", email = \"rich.fitzjohn@gmail.com\"),\n    person(\"Jeroen\", \"Ooms\", role = \"aut\", email = \"jeroen@berkeley.edu\"),\n    person(\"Scott\", \"Chamberlain\", role = c(\"aut\", \"cre\"), email = \"myrmecocystus@gmail.com\"),\n    person(\"Stefan Milton Bache\", role = \"aut\", email = \"stefan@stefanbache.dk\"))",
+        "URL": "https://docs.ropensci.org/jqr/ (docs),\nhttps://github.com/ropensci/jqr (devel)",
+        "BugReports": "https://github.com/ropensci/jqr/issues",
+        "SystemRequirements": "libjq: jq-devel (rpm) or libjq-dev (deb)",
+        "Imports": "magrittr, lazyeval",
+        "Suggests": "jsonlite, testthat",
+        "RoxygenNote": "7.1.1",
+        "NeedsCompilation": "yes",
+        "Packaged": "2021-05-06 14:07:52 UTC; sckott",
+        "Author": "Rich FitzJohn [aut],\n  Jeroen Ooms [aut],\n  Scott Chamberlain [aut, cre],\n  Stefan Milton Bache [aut]",
+        "Maintainer": "Scott Chamberlain <myrmecocystus@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2021-05-06 14:30:02 UTC",
+        "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-25 21:51:37 UTC; unix"
+      }
+    },
     "jquerylib": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -2442,6 +2677,37 @@
         "Repository": "CRAN",
         "Date/Publication": "2020-12-09 17:40:03 UTC",
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-20 09:43:24 UTC; unix"
+      }
+    },
+    "jsonvalidate": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "jsonvalidate",
+        "Title": "Validate 'JSON'",
+        "Version": "1.1.0",
+        "Authors@R": "c(person(\"Rich\", \"FitzJohn\", role = c(\"aut\", \"cre\"),\n    email = \"rich.fitzjohn@gmail.com\"),\n    person(\"Ian\", \"Lyttle\", role = \"ctb\"),\n    person(\"Kara\", \"Woo\", role = \"ctb\"),\n    person(\"Mathias\", \"Buus\", role = \"cph\"),\n    person(\"Evgeny\", \"Poberezkin\", role = \"cph\"))",
+        "Maintainer": "Rich FitzJohn <rich.fitzjohn@gmail.com>",
+        "Description": "Uses the node library 'is-my-json-valid' or 'ajv' to\n    validate 'JSON' against a 'JSON' schema.  Drafts 04, 06 and 07 of\n    'JSON' schema are supported.",
+        "License": "MIT + file LICENSE",
+        "LazyData": "true",
+        "URL": "https://github.com/ropensci/jsonvalidate",
+        "BugReports": "https://github.com/ropensci/jsonvalidate/issues",
+        "Imports": "V8",
+        "Suggests": "knitr, rmarkdown, testthat",
+        "RoxygenNote": "6.1.1",
+        "VignetteBuilder": "knitr",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "no",
+        "Packaged": "2019-06-25 07:13:19 UTC; rfitzjoh",
+        "Author": "Rich FitzJohn [aut, cre],\n  Ian Lyttle [ctb],\n  Kara Woo [ctb],\n  Mathias Buus [cph],\n  Evgeny Poberezkin [cph]",
+        "Repository": "CRAN",
+        "Date/Publication": "2019-06-25 09:00:03 UTC",
+        "Built": "R 4.1.0; ; 2021-05-25 21:51:31 UTC; unix"
       }
     },
     "knitr": {
@@ -2885,6 +3151,37 @@
         "Packaged": "2018-04-03 07:33:40 UTC; dalex",
         "Date/Publication": "2018-04-03 08:24:49 UTC",
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-07-12 07:06:58 UTC; unix"
+      }
+    },
+    "maptools": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "maptools",
+        "Version": "1.1-1",
+        "Date": "2021-03-14",
+        "Title": "Tools for Handling Spatial Objects",
+        "Authors@R": "c(\n\tperson(\"Roger\", \"Bivand\", role = c(\"cre\", \"aut\"), email = \"Roger.Bivand@nhh.no\", comment=c(ORCID=\"0000-0003-2392-6140\")),\n\tperson(\"Nicholas\", \"Lewin-Koh\", role = \"aut\"),\n\tperson(\"Edzer\", \"Pebesma\", role = \"ctb\"),\n\tperson(\"Eric\", \"Archer\", role = \"ctb\"),\n\tperson(\"Adrian\", \"Baddeley\", role = \"ctb\"),\n\tperson(\"Nick\", \"Bearman\", role = \"ctb\"),\n\tperson(\"Hans-Jörg\", \"Bibiko\", role = \"ctb\"),\n\tperson(\"Steven\", \"Brey\", role = \"ctb\"),\n\tperson(\"Jonathan\", \"Callahan\", role = \"ctb\"),\n\tperson(\"German\", \"Carrillo\", role = \"ctb\"),\n\tperson(\"Stéphane\", \"Dray\", role = \"ctb\"),\n\tperson(\"David\", \"Forrest\", role = \"ctb\"),\n\tperson(\"Michael\", \"Friendly\", role = \"ctb\"),\n\tperson(\"Patrick\", \"Giraudoux\", role = \"ctb\"),\n\tperson(\"Duncan\", \"Golicher\", role = \"ctb\"),\n\tperson(\"Virgilio\", \"Gómez Rubio\", role = \"ctb\"),\n\tperson(\"Patrick\", \"Hausmann\", role = \"ctb\"),\n\tperson(\"Karl Ove\", \"Hufthammer\", role = \"ctb\"),\n\tperson(\"Thomas\", \"Jagger\", role = \"ctb\"),\n\tperson(\"Kent\", \"Johnson\", role = \"ctb\"),\n        person(\"Matthew\", \"Lewis\", role = \"ctb\", comment=c(ORCID=\"0000-0003-2244-4078\")),\n\tperson(\"Sebastian\", \"Luque\", role = \"ctb\"),\n\tperson(\"Don\", \"MacQueen\", role = \"ctb\"),\n\tperson(\"Andrew\", \"Niccolai\", role = \"ctb\"),\n\tperson(\"Edzer\", \"Pebesma\", role = \"ctb\"),\n\tperson(\"Oscar\", \"Perpiñán Lamigueiro\", role = \"ctb\"),\n        person(\"Ethan\", \"Plunkett\", role = \"ctb\"),\n\tperson(\"Ege\", \"Rubak\", role = \"ctb\", comment=c(ORCID=\"0000-0002-6675-533X\")),\n\tperson(\"Tom\", \"Short\", role = \"ctb\"),\n\tperson(\"Greg\", \"Snow\", role = \"ctb\"),\n\tperson(\"Ben\", \"Stabler\", role = \"ctb\"),\n\tperson(\"Murray\", \"Stokely\", role = \"ctb\"),\n\tperson(\"Rolf\", \"Turner\", role = \"ctb\"))",
+        "Encoding": "UTF-8",
+        "Depends": "R (>= 2.10), sp (>= 1.0-11)",
+        "Imports": "foreign (>= 0.8), methods, grid, lattice, stats, utils,\ngrDevices",
+        "Suggests": "rgeos (>= 0.1-8), spatstat.geom (>= 1.65-0), PBSmapping,\nmaps, RColorBrewer, raster, polyclip, plotrix, spatstat.linnet\n(>= 1.65-3), spatstat.utils (>= 1.19.0), spatstat (>= 2.0-0)",
+        "Enhances": "gpclib",
+        "Description": "Set of tools for manipulating geographic data. It includes binary access to 'GSHHG' shoreline files. The package also provides interface wrappers for exchanging spatial objects with packages such as 'PBSmapping', 'spatstat.geom', 'maps', and others.",
+        "License": "GPL (>= 2)",
+        "URL": "http://maptools.r-forge.r-project.org/,\nhttp://r-forge.r-project.org/projects/maptools/",
+        "RoxygenNote": "6.1.1",
+        "NeedsCompilation": "yes",
+        "Packaged": "2021-03-14 10:19:52 UTC; rsb",
+        "Author": "Roger Bivand [cre, aut] (<https://orcid.org/0000-0003-2392-6140>),\n  Nicholas Lewin-Koh [aut],\n  Edzer Pebesma [ctb],\n  Eric Archer [ctb],\n  Adrian Baddeley [ctb],\n  Nick Bearman [ctb],\n  Hans-Jörg Bibiko [ctb],\n  Steven Brey [ctb],\n  Jonathan Callahan [ctb],\n  German Carrillo [ctb],\n  Stéphane Dray [ctb],\n  David Forrest [ctb],\n  Michael Friendly [ctb],\n  Patrick Giraudoux [ctb],\n  Duncan Golicher [ctb],\n  Virgilio Gómez Rubio [ctb],\n  Patrick Hausmann [ctb],\n  Karl Ove Hufthammer [ctb],\n  Thomas Jagger [ctb],\n  Kent Johnson [ctb],\n  Matthew Lewis [ctb] (<https://orcid.org/0000-0003-2244-4078>),\n  Sebastian Luque [ctb],\n  Don MacQueen [ctb],\n  Andrew Niccolai [ctb],\n  Edzer Pebesma [ctb],\n  Oscar Perpiñán Lamigueiro [ctb],\n  Ethan Plunkett [ctb],\n  Ege Rubak [ctb] (<https://orcid.org/0000-0002-6675-533X>),\n  Tom Short [ctb],\n  Greg Snow [ctb],\n  Ben Stabler [ctb],\n  Murray Stokely [ctb],\n  Rolf Turner [ctb]",
+        "Maintainer": "Roger Bivand <Roger.Bivand@nhh.no>",
+        "Repository": "CRAN",
+        "Date/Publication": "2021-03-15 10:20:02 UTC",
+        "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-26 12:25:05 UTC; unix"
       }
     },
     "markdown": {
@@ -3427,6 +3724,38 @@
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-20 14:18:20 UTC; unix"
       }
     },
+    "protolite": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "protolite",
+        "Type": "Package",
+        "Title": "Highly Optimized Protocol Buffer Serializers",
+        "Author": "Jeroen Ooms",
+        "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
+        "Description": "Pure C++ implementations for reading and writing several common data \n    formats based on Google protocol-buffers. Currently supports 'rexp.proto' for \n    serialized R objects, 'geobuf.proto' for binary geojson, and 'mvt.proto' for \n    vector tiles. This package uses the auto-generated C++ code by protobuf-compiler, \n    hence the entire serialization is optimized at compile time. The 'RProtoBuf' \n    package on the other hand uses the protobuf runtime library to provide a general-\n    purpose toolkit for reading and writing arbitrary protocol-buffer data in R.",
+        "Version": "2.1",
+        "License": "MIT + file LICENSE",
+        "URL": "https://jeroen.cran.dev/protolite (website)\nhttps://github.com/jeroen/protolite (devel)",
+        "BugReports": "https://github.com/jeroen/protolite/issues",
+        "SystemRequirements": "libprotobuf and protobuf-compiler",
+        "LinkingTo": "Rcpp",
+        "Imports": "Rcpp (>= 0.12.12), jsonlite",
+        "Suggests": "spelling, curl, testthat, RProtoBuf, sf",
+        "RoxygenNote": "6.1.99.9001",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "NeedsCompilation": "yes",
+        "Packaged": "2020-01-11 16:51:57 UTC; jeroen",
+        "Repository": "CRAN",
+        "Date/Publication": "2020-01-13 10:10:02 UTC",
+        "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-25 21:52:08 UTC; unix"
+      }
+    },
     "proxy": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -3711,6 +4040,38 @@
         "Built": "R 4.1.0; ; 2021-07-15 07:54:40 UTC; unix"
       }
     },
+    "rgeos": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "rgeos",
+        "Title": "Interface to Geometry Engine - Open Source ('GEOS')",
+        "Version": "0.5-5",
+        "Date": "2020-09-01",
+        "Depends": "R (>= 3.3.0), methods, sp (>= 1.1-0)",
+        "Imports": "utils, stats, graphics",
+        "LinkingTo": "sp",
+        "Suggests": "maptools (>= 0.8-5), testthat, XML, maps, rgdal",
+        "NeedsCompilation": "yes",
+        "LazyLoad": "yes",
+        "Description": "Interface to Geometry Engine - Open Source ('GEOS') using the C 'API' for topology operations on geometries. The 'GEOS' library is external to the package, and, when installing the package from source, must be correctly installed first. Windows and Mac Intel OS X binaries are provided on 'CRAN'. ('rgeos' >= 0.5-1): Up to and including 'GEOS' 3.7.1, topological operations succeeded with some invalid geometries for which the same operations fail from and including 'GEOS' 3.7.2. The 'checkValidity=' argument defaults and structure have been changed, from default FALSE to integer default '0L' for 'GEOS' < 3.7.2 (no check), '1L' 'GEOS' >= 3.7.2 (check and warn). A value of '2L' is also provided that may be used, assigned globally using 'set_RGEOS_CheckValidity(2L)', or locally using the 'checkValidity=2L' argument, to attempt zero-width buffer repair if invalid geometries are found. The previous default (FALSE, now '0L') is fastest and used for 'GEOS' < 3.7.2, but will not warn users of possible problems before the failure of topological operations that previously succeeded. From 'GEOS' 3.8.0, repair of geometries may also be attempted using 'gMakeValid()', which may, however, return a collection of geometries of different types.",
+        "Authors@R": "c(\n\tperson(\"Roger\", \"Bivand\", role = c(\"cre\", \"aut\"), email = \"Roger.Bivand@nhh.no\", comment=c(ORCID=\"0000-0003-2392-6140\")),\n\tperson(\"Colin\", \"Rundel\", role = \"aut\"),\n\tperson(\"Edzer\", \"Pebesma\", role = \"ctb\"),\n\tperson(\"Rainer\", \"Stuetz\", role = \"ctb\"),\n\tperson(\"Karl Ove\", \"Hufthammer\", role = \"ctb\"),\n        person(\"Patrick\", \"Giraudoux\", role = \"ctb\"),\n        person(\"Martin\", \"Davis\", role = c(\"cph\", \"ctb\")),\n        person(\"Sandro\", \"Santilli\", role = c(\"cph\", \"ctb\")))",
+        "License": "GPL (>= 2)",
+        "URL": "https://r-forge.r-project.org/projects/rgeos/\nhttps://trac.osgeo.org/geos/\nhttp://rgeos.r-forge.r-project.org/index.html",
+        "SystemRequirements": "GEOS (>= 3.2.0); for building from source: GEOS\nfrom http://trac.osgeo.org/geos/; GEOS OSX frameworks built by\nWilliam Kyngesburye at http://www.kyngchaos.com/ may be used\nfor source installs on OSX.",
+        "RoxygenNote": "6.1.1",
+        "Packaged": "2020-09-02 08:53:02 UTC; rsb",
+        "Author": "Roger Bivand [cre, aut] (<https://orcid.org/0000-0003-2392-6140>),\n  Colin Rundel [aut],\n  Edzer Pebesma [ctb],\n  Rainer Stuetz [ctb],\n  Karl Ove Hufthammer [ctb],\n  Patrick Giraudoux [ctb],\n  Martin Davis [cph, ctb],\n  Sandro Santilli [cph, ctb]",
+        "Maintainer": "Roger Bivand <Roger.Bivand@nhh.no>",
+        "Repository": "CRAN",
+        "Date/Publication": "2020-09-07 11:50:03 UTC",
+        "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-07-12 06:58:11 UTC; unix"
+      }
+    },
     "rlang": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -3743,6 +4104,37 @@
         "Repository": "CRAN",
         "Date/Publication": "2021-04-30 23:20:02 UTC",
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-20 09:43:25 UTC; unix"
+      }
+    },
+    "rmapshaper": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Type": "Package",
+        "Package": "rmapshaper",
+        "Title": "Client for 'mapshaper' for 'Geospatial' Operations",
+        "Version": "0.4.5",
+        "Authors@R": "\n    c(person(given = \"Andy\",\n             family = \"Teucher\",\n             role = c(\"aut\", \"cre\"),\n             email = \"andy.teucher@gmail.com\"),\n      person(given = \"Kenton\",\n             family = \"Russell\",\n             role = \"aut\",\n             email = \"kent.russell@timelyportfolio.com\",\n             comment = \"JavaScript support\"),\n      person(given = \"Matthew\",\n             family = \"Bloch\",\n             role = \"cph\",\n             comment = \"mapshaper Javascript library\"))",
+        "Description": "Edit and simplify 'geojson', 'Spatial', and 'sf'\n    objects.  This is wrapper around the 'mapshaper' 'JavaScript' library\n    by Matthew Bloch <https://github.com/mbloch/mapshaper/> to perform\n    topologically-aware polygon simplification, as well as other\n    operations such as clipping, erasing, dissolving, and converting\n    'multi-part' to 'single-part' geometries.  It relies on the\n    'geojsonio' package for working with 'geojson' objects, the 'sf'\n    package for working with 'sf' objects, and the 'sp' and 'rgdal'\n    packages for working with 'Spatial' objects.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://github.com/ateucher/rmapshaper",
+        "BugReports": "https://github.com/ateucher/rmapshaper/issues",
+        "Imports": "geojsonio (>= 0.9.4), geojsonlint (>= 0.4.0), jsonlite (>=\n1.7.0), methods, readr (>= 1.4.0), sf (>= 0.9-0), sp (>=\n1.4-0), V8 (>= 3.4.2)",
+        "Suggests": "knitr, magrittr, rgdal, rgeos, rmarkdown, testthat (>=\n2.1.0), covr",
+        "VignetteBuilder": "knitr",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.1.1",
+        "NeedsCompilation": "no",
+        "Packaged": "2021-05-26 18:21:43 UTC; ateucher",
+        "Author": "Andy Teucher [aut, cre],\n  Kenton Russell [aut] (JavaScript support),\n  Matthew Bloch [cph] (mapshaper Javascript library)",
+        "Maintainer": "Andy Teucher <andy.teucher@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2021-05-26 18:50:02 UTC",
+        "Built": "R 4.1.0; ; 2021-06-01 18:23:23 UTC; unix"
       }
     },
     "rmarkdown": {
@@ -4549,6 +4941,38 @@
         "Built": "R 4.1.0; ; 2021-05-27 01:44:41 UTC; unix"
       }
     },
+    "triebeard": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "triebeard",
+        "Type": "Package",
+        "Title": "'Radix' Trees in 'Rcpp'",
+        "Version": "0.3.0",
+        "Author": "Oliver Keyes [aut, cre], Drew Schmidt [aut], Yuuki Takano [cph]",
+        "Maintainer": "Oliver Keyes <ironholds@gmail.com>",
+        "Description": "'Radix trees', or 'tries', are key-value data structures optimised for efficient lookups, similar in purpose\n             to hash tables. 'triebeard' provides an implementation of 'radix trees' for use in R programming and in\n             developing packages with 'Rcpp'.",
+        "License": "MIT + file LICENSE",
+        "LazyData": "TRUE",
+        "LinkingTo": "Rcpp",
+        "Imports": "Rcpp",
+        "RoxygenNote": "5.0.1",
+        "Suggests": "knitr, rmarkdown, testthat",
+        "VignetteBuilder": "knitr",
+        "URL": "https://github.com/Ironholds/triebeard/",
+        "BugReports": "https://github.com/Ironholds/triebeard/issues",
+        "Date": "2016-08-03",
+        "NeedsCompilation": "yes",
+        "Packaged": "2016-08-03 21:32:42 UTC; ironholds",
+        "Repository": "CRAN",
+        "Date/Publication": "2016-08-04 00:57:37",
+        "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-07-27 05:46:54 UTC; unix"
+      }
+    },
     "units": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -4581,6 +5005,40 @@
         "Repository": "CRAN",
         "Date/Publication": "2021-06-08 15:00:02 UTC",
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-07-12 06:58:51 UTC; unix"
+      }
+    },
+    "urltools": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "urltools",
+        "Type": "Package",
+        "Title": "Vectorised Tools for URL Handling and Parsing",
+        "Version": "1.7.3",
+        "Date": "2019-04-14",
+        "Author": "Os Keyes [aut, cre], Jay Jacobs [aut, cre], Drew Schmidt [aut],\n    Mark Greenaway [ctb], Bob Rudis [ctb], Alex Pinto [ctb], Maryam Khezrzadeh [ctb], Peter Meilstrup [ctb],\n    Adam M. Costello [cph], Jeff Bezanson [cph], Peter Meilstrup [ctb], Xueyuan Jiang [ctb]",
+        "Maintainer": "Os Keyes <ironholds@gmail.com>",
+        "Description": "A toolkit for all URL-handling needs, including encoding and decoding,\n    parsing, parameter extraction and modification. All functions are\n    designed to be both fast and entirely vectorised. It is intended to be\n    useful for people dealing with web-related datasets, such as server-side\n    logs, although may be useful for other situations involving large sets of\n    URLs.",
+        "License": "MIT + file LICENSE",
+        "LazyData": "TRUE",
+        "LinkingTo": "Rcpp",
+        "Imports": "Rcpp, methods, triebeard",
+        "Suggests": "testthat, knitr",
+        "URL": "https://github.com/Ironholds/urltools/",
+        "BugReports": "https://github.com/Ironholds/urltools/issues",
+        "VignetteBuilder": "knitr",
+        "RoxygenNote": "6.1.1",
+        "Encoding": "UTF-8",
+        "Depends": "R (>= 2.10)",
+        "NeedsCompilation": "yes",
+        "Packaged": "2019-04-14 22:25:08 UTC; ironholds",
+        "Repository": "CRAN",
+        "Date/Publication": "2019-04-14 23:02:47 UTC",
+        "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-26 12:36:52 UTC; unix"
       }
     },
     "usethis": {
@@ -5225,10 +5683,10 @@
       "checksum": "356dae50b0e66b55db2d6beeeeb1896f"
     },
     ".RData": {
-      "checksum": "611a2606819b7fe5791aaaa17ac291a4"
+      "checksum": "11e595188b46aa45fde8f50980543ca9"
     },
     ".Rprofile": {
-      "checksum": "77ad72ca435c63c6aecc80c3940980cd"
+      "checksum": "6bcc20dc37c6baecaa253c66c70bda2b"
     },
     "app.R": {
       "checksum": "c358fd7200cd065f7e59a485d11f0f67"
@@ -5243,7 +5701,7 @@
       "checksum": "36b8a96a9326fc2e34f6fc0e4c3c09b8"
     },
     "data-raw/bb-page1-catch-bycatch.Rmd": {
-      "checksum": "04012d7ecf907c51a5db8d536568ea54"
+      "checksum": "d9409aa93d53f073cd2100b75877f4f2"
     },
     "data-raw/bc-page2-present.Rmd": {
       "checksum": "b433dc1e666a5db18f5d6e8c8d823806"
@@ -9065,7 +9523,7 @@
       "checksum": "a42670e45933e9edaca1491f30c1989c"
     },
     "DESCRIPTION": {
-      "checksum": "601818a2e9e3492f7ef57a2798d25f0b"
+      "checksum": "253e7aeae6a77e91581ffe004020d868"
     },
     "dev/00-fill-database.Rmd": {
       "checksum": "c41cb5825cbec1ed05c6611c44cf2645"
@@ -9074,7 +9532,7 @@
       "checksum": "57e224106ee3a7f3bbb666649dbf233f"
     },
     "dev/02_dev.R": {
-      "checksum": "f18eb6372d61ea2203cf6c0c4dec779b"
+      "checksum": "3b6cd75da87b1475542ec32e2d299046"
     },
     "dev/03_deploy.R": {
       "checksum": "a56b8565a14dbd263cfd92245723e718"
@@ -9227,7 +9685,7 @@
       "checksum": "783f3bd84c7cfbfe22c187ec6760903f"
     },
     "R/fct_db.R": {
-      "checksum": "eb23a465c2ecfc9a7aa7cebff9843bd7"
+      "checksum": "379bd282df46d7e6344d8c5c1b051608"
     },
     "R/fct_species.R": {
       "checksum": "488e1baabba2da1b0d13e2c6ae9fcf83"
@@ -9281,7 +9739,7 @@
       "checksum": "225e3812b897786befc574f805c96dc2"
     },
     "tests/testthat/test-fct_db.R": {
-      "checksum": "238fc1d6999c99b76444a3aa360c8211"
+      "checksum": "081709aaa7713313ff58b2d2a9a95f5d"
     },
     "tests/testthat/test-golem-recommended.R": {
       "checksum": "c8db95ad65ecdf8b615257fbf15c5879"

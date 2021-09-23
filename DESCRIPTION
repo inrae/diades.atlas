@@ -40,7 +40,8 @@ Imports:
     utils,
     zeallot (>= 0.1.0),
     w3css (>= 0.0.0.9002),
-    sf (>= 1.0.2)
+    sf (>= 1.0.2),
+    rmapshaper (>= 0.4.5)
 Suggests: 
     DiagrammeR (>= 1.0.6.1),
     DiagrammeRsvg (>= 0.1),
