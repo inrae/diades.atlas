@@ -497,6 +497,33 @@
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-20 13:13:14 UTC; unix"
       }
     },
+    "assertthat": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "assertthat",
+        "Title": "Easy Pre and Post Assertions",
+        "Version": "0.2.1",
+        "Authors@R": "\n  person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", c(\"aut\", \"cre\"))",
+        "Description": "An extension to stopifnot() that makes it easy to declare \n    the pre and post conditions that you code should satisfy, while also \n    producing friendly error messages so that your users know what's gone\n    wrong.",
+        "License": "GPL-3",
+        "Imports": "tools",
+        "Suggests": "testthat, covr",
+        "RoxygenNote": "6.0.1",
+        "Collate": "'assert-that.r' 'on-failure.r' 'assertions-file.r'\n'assertions-scalar.R' 'assertions.r' 'base.r'\n'base-comparison.r' 'base-is.r' 'base-logical.r' 'base-misc.r'\n'utils.r' 'validate-that.R'",
+        "NeedsCompilation": "no",
+        "Packaged": "2019-03-21 13:11:01 UTC; hadley",
+        "Author": "Hadley Wickham [aut, cre]",
+        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2019-03-21 14:53:46 UTC",
+        "Built": "R 4.1.0; ; 2021-05-20 09:51:21 UTC; unix"
+      }
+    },
     "attempt": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -1228,6 +1255,41 @@
         "Repository": "CRAN",
         "Date/Publication": "2021-02-21 06:00:02 UTC",
         "Built": "R 4.1.0; x86_64-apple-darwin17.0; 2021-05-20 09:44:59 UTC; unix"
+      }
+    },
+    "dbplyr": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Type": "Package",
+        "Package": "dbplyr",
+        "Title": "A 'dplyr' Back End for Databases",
+        "Version": "2.1.1",
+        "Authors@R": "\n    c(person(given = \"Hadley\",\n             family = \"Wickham\",\n             role = c(\"aut\", \"cre\"),\n             email = \"hadley@rstudio.com\"),\n      person(given = \"Maximilian\",\n             family = \"Girlich\",\n             role = \"aut\"),\n      person(given = \"Edgar\",\n             family = \"Ruiz\",\n             role = \"aut\"),\n      person(given = \"RStudio\",\n             role = c(\"cph\", \"fnd\")))",
+        "Description": "A 'dplyr' back end for databases that allows you to\n    work with remote database tables as if they are in-memory data frames.\n    Basic features works with any database that has a 'DBI' back end; more\n    advanced features require 'SQL' translation to be provided by the\n    package author.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://dbplyr.tidyverse.org/, https://github.com/tidyverse/dbplyr",
+        "BugReports": "https://github.com/tidyverse/dbplyr/issues",
+        "Depends": "R (>= 3.1)",
+        "Imports": "assertthat (>= 0.2.0), blob (>= 1.2.0), DBI (>= 1.0.0), dplyr\n(>= 1.0.4), ellipsis, glue (>= 1.2.0), lifecycle (>= 1.0.0),\nmagrittr, methods, purrr (>= 0.2.5), R6 (>= 2.2.2), rlang (>=\n0.2.0), tibble (>= 1.4.2), tidyselect (>= 0.2.4), utils, vctrs,\nwithr",
+        "Suggests": "bit64, covr, knitr, Lahman, nycflights13, odbc, RMariaDB (>=\n1.0.2), rmarkdown, RPostgres (>= 1.1.3), RPostgreSQL, RSQLite\n(>= 2.1.0), testthat (>= 3.0.2), tidyr",
+        "VignetteBuilder": "knitr",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "Language": "en-gb",
+        "RoxygenNote": "7.1.1",
+        "Collate": "'utils.R' 'sql.R' 'escape.R' 'translate-sql-quantile.R'\n'translate-sql-string.R' 'translate-sql-paste.R'\n'translate-sql-helpers.R' 'translate-sql-window.R'\n'translate-sql-conditional.R' 'backend-.R' 'backend-access.R'\n'backend-hana.R' 'backend-hive.R' 'backend-impala.R'\n'backend-mssql.R' 'backend-mysql.R' 'backend-odbc.R'\n'backend-oracle.R' 'backend-postgres.R'\n'backend-postgres-old.R' 'backend-redshift.R'\n'backend-snowflake.R' 'backend-sqlite.R' 'backend-teradata.R'\n'build-sql.R' 'data-cache.R' 'data-lahman.R'\n'data-nycflights13.R' 'db-escape.R' 'db-io.R' 'db-sql.R' 'db.R'\n'dbplyr.R' 'explain.R' 'ident.R' 'lazy-ops.R' 'memdb.R'\n'partial-eval.R' 'progress.R' 'query-join.R' 'query-select.R'\n'query-semi-join.R' 'query-set-op.R' 'query.R' 'reexport.R'\n'remote.R' 'schema.R' 'simulate.R' 'sql-build.R' 'sql-clause.R'\n'sql-expr.R' 'src-sql.R' 'src_dbi.R' 'tbl-lazy.R' 'tbl-sql.R'\n'test-frame.R' 'testthat.R' 'translate-sql.R' 'utils-format.R'\n'verb-arrange.R' 'verb-compute.R' 'verb-copy-to.R'\n'verb-count.R' 'verb-distinct.R' 'verb-do-query.R' 'verb-do.R'\n'verb-expand.R' 'verb-fill.R' 'verb-filter.R' 'verb-group_by.R'\n'verb-head.R' 'verb-joins.R' 'verb-mutate.R'\n'verb-pivot-longer.R' 'verb-pivot-wider.R' 'verb-pull.R'\n'verb-select.R' 'verb-set-ops.R' 'verb-slice.R'\n'verb-summarise.R' 'verb-uncount.R' 'verb-window.R' 'zzz.R'",
+        "NeedsCompilation": "no",
+        "Packaged": "2021-04-06 11:29:51 UTC; hadley",
+        "Author": "Hadley Wickham [aut, cre],\n  Maximilian Girlich [aut],\n  Edgar Ruiz [aut],\n  RStudio [cph, fnd]",
+        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2021-04-06 12:50:02 UTC",
+        "Built": "R 4.1.0; ; 2021-05-27 06:52:34 UTC; unix"
       }
     },
     "desc": {
@@ -5686,7 +5748,7 @@
       "checksum": "11e595188b46aa45fde8f50980543ca9"
     },
     ".Rprofile": {
-      "checksum": "6bcc20dc37c6baecaa253c66c70bda2b"
+      "checksum": "4ece75e17ff5b14dc91980e61edf7980"
     },
     "app.R": {
       "checksum": "c358fd7200cd065f7e59a485d11f0f67"
@@ -9523,7 +9585,7 @@
       "checksum": "a42670e45933e9edaca1491f30c1989c"
     },
     "DESCRIPTION": {
-      "checksum": "253e7aeae6a77e91581ffe004020d868"
+      "checksum": "dc1fe36c4f696333c9110e723fab7e59"
     },
     "dev/00-fill-database.Rmd": {
       "checksum": "c41cb5825cbec1ed05c6611c44cf2645"

@@ -41,7 +41,8 @@ Imports:
     zeallot (>= 0.1.0),
     w3css (>= 0.0.0.9002),
     sf (>= 1.0.2),
-    rmapshaper (>= 0.4.5)
+    rmapshaper (>= 0.4.5),
+    dbplyr (>= 2.1.1)
 Suggests: 
     DiagrammeR (>= 1.0.6.1),
     DiagrammeRsvg (>= 0.1),
