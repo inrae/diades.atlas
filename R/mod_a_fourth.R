@@ -24,6 +24,7 @@ mod_fourth_ui <- function(id){
             content = tagList(
               tags$div(
                 id = ns("conservation_status"),
+                style = "padding:1em;",
                 "lorem_ipsum"
               )
             ),
@@ -115,7 +116,7 @@ mod_fourth_server <- function(id, r = r){
           id = ns("conservation_status"), 
           content = {
             HTML(get_conservation_status(
-              species_id,
+              as.numeric(species_id),
               get_con()
             )$array_to_string)
           }
