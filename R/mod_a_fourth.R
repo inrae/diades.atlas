@@ -105,18 +105,19 @@ mod_fourth_server <- function(id, r = r){
     })
     
     observeEvent( loco$species , {
+      req(loco$species)
+      species_id <- get_active_species() %>%
+        dplyr::filter(latin_name == loco$species) %>%
+        dplyr::pull(species_id)
       
       golem::invoke_js(
         "changeinnerhtmlwithid", list(
           id = ns("conservation_status"), 
           content = {
-            HTML(container(
-              shinipsum::random_text(nwords = 1000) %>%
-                strsplit(" ") %>%
-                .[[1]] %>%
-                sample(50) %>% 
-                paste(collapse = " ")
-            ) %>% as.character())
+            HTML(get_conservation_status(
+              species_id,
+              get_con()
+            )$array_to_string)
           }
         )
       )

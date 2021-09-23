@@ -16,6 +16,8 @@ app_server <- function( input, output, session ) {
     }
   )
   
+  connect(session)
+  
   mod_first_server("first_ui_1", r = r)
   mod_second_server("second_ui_1", r = r)
   mod_third_server("third_ui_1", r = r)

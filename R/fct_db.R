@@ -24,6 +24,14 @@ connect <- function(
   )
 }
 
+#' Title
+#'
+#' @param session 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get_con <- function(
   session = shiny::getDefaultReactiveDomain()
 ){
