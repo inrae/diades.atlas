@@ -7,6 +7,8 @@ if (Sys.getenv("RENV_PATHS_LIBRARY_ROOT") != "") {
   Sys.setenv(RENV_PATHS_LIBRARY_ROOT = "/home/rstudio/.renv/library")
 }
 
+source("renv/activate.R")
+
 lock_ <- renv:::lockfile(file = "renv.lock")
 
 # # Fix CRAN version
@@ -21,7 +23,6 @@ rm(lock_)
 
 renv::settings$use.cache(TRUE)
 
-source("renv/activate.R")
 renv::activate()
 
 # file.copy(".Rprofile", to = "~/.Rprofile")
