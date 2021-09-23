@@ -92,6 +92,9 @@ mod_fourth_server <- function(id, r = r){
         ices_geom = golem::get_golem_options("ices_geom")
       )
       
+    }) %>% bindCache({
+      loco$species
+      input$square_or_division
     })
     
     observeEvent( loco$species , {
