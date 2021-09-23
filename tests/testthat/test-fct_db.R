@@ -1,7 +1,13 @@
-shiny::testServer(app_server, {
+test_that("db connection works", {
+  #readLines("http://localhost:5432")
   skip_on_ci()
-  connect()
-  con_object <- get_con()
+  session <- new.env()
+  x <- try({
+    connect(session)
+  }, silent = TRUE)
+  skip_if(inherits(x, "try-error"))
+  
+  con_object <- get_con(session)
   expect_true(
     inherits(con_object, "PqConnection")
   )
