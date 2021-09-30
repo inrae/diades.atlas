@@ -32,6 +32,7 @@ connect <- function(
 #' @export
 #'
 #' @examples
+#' get_con()
 get_con <- function(
   session = shiny::getDefaultReactiveDomain()
 ){

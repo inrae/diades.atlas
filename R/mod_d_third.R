@@ -141,7 +141,7 @@ mod_third_server <- function(id, r = r){
             )), 
           aes(fill = region)
         ) +
-        coord_map() +
+        # coord_map() +
         theme_void() + 
         guides(
           fill = FALSE

@@ -20,7 +20,8 @@ states = c("Portugal", "Spain","France", "United Kingdom", "Ireland", "United Ki
 frontiers <- worldMap %>%  select(NAME, geometry) %>% filter(NAME %in% states)
 
 bbox <- st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = st_crs(4326)) 
-world_map_crs <- "+proj=eqearth +wktext"
+# world_map_crs <- "+proj=eqearth +wktext"
+world_map_crs <- "+proj=wintri"
 
 frontiers <- frontiers %>% 
   st_transform(world_map_crs)  %>%

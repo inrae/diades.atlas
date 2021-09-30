@@ -8,4 +8,4 @@ default:
 production:
   app_prod: yes
 dev:
-  golem_wd: !expr here::here()
+  golem_wd: /mnt/Data/ThinkR/Gitlab_Forge/ThinkR/Missions/diades.atlas

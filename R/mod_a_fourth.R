@@ -81,7 +81,7 @@ mod_fourth_server <- function(id, r = r){
     
     output$raster <- tmap::renderTmap({
       req(loco$species)
-      
+
       tm_draw(
         species_latin_name = loco$species,
         spatial_type = input$square_or_division, 
@@ -92,10 +92,10 @@ mod_fourth_server <- function(id, r = r){
         ices_geom = golem::get_golem_options("ices_geom")
       )
       
-    }) %>% bindCache({
-      loco$species
-      input$square_or_division
-    })
+    }) # %>% bindCache({
+    #   loco$species
+    #   input$square_or_division
+    # })
     
     observeEvent( loco$species , {
       req(loco$species)

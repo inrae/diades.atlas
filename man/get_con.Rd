@@ -15,3 +15,6 @@ get_con(session = shiny::getDefaultReactiveDomain())
 \description{
 Title
 }
+\examples{
+get_con()
+}

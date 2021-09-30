@@ -29,6 +29,9 @@ get_active_species <- function(
 #' @export
 #'
 #' @examples
+#' if (interactive()){
+#'   get_conservation_status()
+#' }
 get_conservation_status <- function(
   species_id, 
   con

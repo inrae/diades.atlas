@@ -41,7 +41,7 @@ The apps needs to connect to a db.
 
 It can be set via : 
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 golem::amend_golem_config(
   "POSTGRES_DBNAME",
   "diades"
@@ -59,6 +59,18 @@ Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
 ```
 
 For dev purpose, please refer to the doc in the diadesdata repo on ThinkR's forge (restricted access).
+
+Verify connexion works
+```{r, eval=FALSE}
+pkgload::load_all()
+session <- new.env()
+connect(session)
+con <- get_con(session)
+
+DBI::dbListTables(con)
+DBI::dbDisconnect(con)
+```
+
 
 # Dev - vignettes
 

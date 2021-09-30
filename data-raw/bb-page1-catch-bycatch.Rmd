@@ -48,7 +48,7 @@ file = here::here(file.path("vignettes", vignette_file))
 ```{r setup}
 # Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
 # Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
-pkgload::load_all()
+pkgload::load_all(here::here())
 library(dplyr)
 session <- new.env()
 connect(session)
@@ -109,7 +109,8 @@ catchment_geom <- st_read(
   con, 
   query =   "SELECT * FROM diadesatlas.v_basin vb"
 ) %>%
-  rmapshaper::ms_simplify()
+  rmapshaper::ms_simplify() %>% 
+  st_transform("+proj=wintri")
 
 dataALL <- dbGetQuery(
   con, 
@@ -122,7 +123,8 @@ ices_geom <- st_read(
   con, 
   query = "SELECT * FROM diadesatlas.v_ices_geom;"
 ) %>% 
-  st_transform("+proj=eqearth +wktext") %>%
+  # st_transform("+proj=eqearth +wktext") %>%
+  st_transform("+proj=wintri") %>%
   rmapshaper::ms_simplify()
 
 
@@ -169,3 +171,9 @@ tm_draw(
 )
 
 ```
+
+## Disconnect db
+```{r}
+DBI::dbDisconnect(con)
+```
+

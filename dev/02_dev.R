@@ -27,7 +27,12 @@ usethis::use_package("sf")
 
 # Before sending to git external server
 # _deps
-attachment::att_amend_desc(extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg"))
+renv::install("ThinkR-open/attachment")
+# [-] 7 package(s) removed: ggplot2, magrittr, maps, RPostgres, shinythemes, zeallot, dbplyr.
+
+attachment::att_amend_desc(
+  extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg", "dbplyr"))
+
 # _renv
 custom_packages <- setdiff(
   c(attachment::att_from_description(),

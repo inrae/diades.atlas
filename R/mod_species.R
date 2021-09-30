@@ -89,7 +89,6 @@ mod_species_server <- function(id, r, entry = "species"){
         selected = ''
       )
     })
-    
   })
 }
 

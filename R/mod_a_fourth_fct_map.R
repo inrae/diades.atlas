@@ -11,7 +11,6 @@
 #' @import sf
 #' @import tmap
 #'
-#' @examples
 tm_draw <- function(
   species_latin_name,
   spatial_type, 

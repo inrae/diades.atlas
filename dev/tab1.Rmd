@@ -115,7 +115,8 @@ states = c("Portugal", "Spain","France", "United Kingdom", "Ireland", "United Ki
            'Albania', 'Bosnia and Herz.', 'Serbia', 'Montenegro', 'Macedonia', 'Kosovo',
            'Tunisia',  'Libya' ,  'Algeria' , 'Morocco' )
 
-world_map_crs <- "+proj=eqearth +wktext"
+# world_map_crs <- "+proj=eqearth +wktext"
+world_map_crs <- "+proj=wintri"
 frontiers <- worldMap %>%  
   select(NAME, geometry) %>% 
   filter(NAME %in% states) %>% 
@@ -268,7 +269,8 @@ ices_geom <- st_read(
   con, 
   query = "SELECT * FROM diadesatlas.v_ices_geom;"
 ) %>% 
-  st_transform("+proj=eqearth +wktext") %>%
+  # st_transform("+proj=eqearth +wktext") %>%
+  st_transform("+proj=wintri") %>%
   rmapshaper::ms_simplify()
 
 tm_draw(
