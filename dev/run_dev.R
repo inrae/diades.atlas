@@ -11,5 +11,26 @@ golem::document_and_reload()
 Sys.setenv("POSTGRES_USER" = "diadesatlas_r")
 Sys.setenv("POSTGRES_PASS" = "diadesPassword")
 
+se <- new.env()
+connect(se)
+library(zeallot)
+c(
+  dataCatchment,
+  catchment_geom, 
+  dataALL, 
+  ices_geom, 
+  species_list
+) %<-% generate_datasets(
+  get_con(
+    se
+  )
+)
+
 # Run the application
-run_app()
+run_app(      
+  species_list = species_list,
+  dataCatchment = dataCatchment, 
+  catchment_geom = catchment_geom, 
+  dataALL = dataALL, 
+  ices_geom = ices_geom
+)

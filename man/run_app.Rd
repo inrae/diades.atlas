@@ -4,7 +4,16 @@
 \alias{run_app}
 \title{Run the Shiny Application}
 \usage{
-run_app(onStart = NULL, options = list(), enableBookmarking = NULL, ...)
+run_app(
+  onStart = NULL,
+  options = list(),
+  enableBookmarking = NULL,
+  species_list = c(),
+  dataCatchment = dataCatchment,
+  catchment_geom = catchment_geom,
+  dataALL = dataALL,
+  ices_geom = ices_geom
+)
 }
 \arguments{
 \item{onStart}{A function that will be called before the app is actually run.
@@ -22,7 +31,9 @@ about the ideal height/width for the app.}
 any previous calls to  \code{\link[shiny:enableBookmarking]{enableBookmarking()}}. See \code{\link[shiny:enableBookmarking]{enableBookmarking()}}
 for more information on bookmarking your app.}
 
-\item{...}{arguments to pass to golem_opts}
+\item{species_list}{list of species to use in the app}
+
+\item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
 }
 \description{
 Run the Shiny Application

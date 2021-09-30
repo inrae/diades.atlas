@@ -23,10 +23,16 @@ usethis::use_build_ignore(".Renviron")
 ## Add one line by package you want to add as dependency
 usethis::use_package("DBI")
 usethis::use_package("RPostgres")
+usethis::use_package("sf")
 
 # Before sending to git external server
 # _deps
-attachment::att_amend_desc(extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg"))
+renv::install("ThinkR-open/attachment")
+# [-] 7 package(s) removed: ggplot2, magrittr, maps, RPostgres, shinythemes, zeallot, dbplyr.
+
+attachment::att_amend_desc(
+  extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg", "dbplyr"))
+
 # _renv
 custom_packages <- setdiff(
   c(attachment::att_from_description(),
@@ -78,6 +84,7 @@ golem::use_external_css_file("https://bossanova.uk/jspreadsheet/v4/jexcel.css", 
 ## Add internal datasets ----
 ## If you have data in your package
 usethis::use_data_raw( name = "db_to_json", open = FALSE ) 
+usethis::use_data_raw( name = "frontiers", open = FALSE ) 
 
 ## Tests ----
 ## Add one line by test you want to create

@@ -40,3 +40,66 @@ get_dt_lg <- function(lg){
     )
   )
 }
+
+#' Title
+#'
+#' @param con The DB connection object
+#'
+#' @return
+#' @export
+#'
+generate_datasets <- function(
+  con
+){
+  cli::cat_rule("generate_datasets")
+  dataCatchment <-  DBI::dbReadTable(
+    con,  
+    "v_abundance"
+  ) %>% 
+    dplyr::inner_join(
+      dplyr::tribble(~abundance_level_id, ~abundance_interpretation,
+              1, 'Not recorded in the period',
+              2, 'Occasional vagrants',
+              3, 'Functional populations',
+              4, 'Abundant functional populations') %>% 
+        dplyr::mutate(abundance_interpretation = factor(abundance_interpretation,
+                                                 levels = .$abundance_interpretation)), 
+      by = "abundance_level_id")
+  
+  catchment_geom <- sf::st_read(
+    con, 
+    query =   "SELECT * FROM diadesatlas.v_basin vb"
+  ) %>%
+    rmapshaper::ms_simplify()
+  
+  dataALL <- DBI::dbGetQuery(
+    con, 
+    "SELECT * from diadesatlas.v_species_ices_occurence vsio "
+  ) %>% 
+    #tibble() %>% 
+    dplyr::mutate(nb_occurence = as.integer(nb_occurence))
+  
+  ices_geom <- sf::st_read(
+    con, 
+    query = "SELECT * FROM diadesatlas.v_ices_geom;"
+  ) %>% 
+    # sf::st_transform("+proj=eqearth +wktext") %>%
+    sf::st_transform("+proj=wintri") %>%
+    rmapshaper::ms_simplify()
+  
+  species_list <- con %>%
+    dplyr::tbl( "species" ) %>% 
+    dplyr::filter(active) %>%
+    dplyr::collect()
+  
+  return(
+    list(
+      dataCatchment = dataCatchment,
+      catchment_geom = catchment_geom, 
+      dataALL = dataALL,
+      ices_geom = ices_geom, 
+      species_list = species_list
+    )
+  )
+  
+}

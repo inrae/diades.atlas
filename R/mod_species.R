@@ -14,6 +14,8 @@ mod_species_ui <- function(id, multiple = FALSE){
     f <- w3css::w3_radioButton
   }
   ns <- NS(id)
+  choices <- unique(golem::get_golem_options("species_list")$latin_name)
+  names(choices) <- unique(golem::get_golem_options("species_list")$english_name)
   tagList(
     w3_hover_button(
       "Select a Species" %>% with_i18("select-species"),
@@ -31,10 +33,7 @@ mod_species_ui <- function(id, multiple = FALSE){
             f(
               ns("species"),
               NULL, 
-              choices = paste(
-                "Species",
-                letters[1:11]
-              )
+              choices = choices
             )
           )
           
@@ -79,14 +78,8 @@ mod_species_server <- function(id, r, entry = "species"){
           }
         )
       )
-      r[[entry]]<- sample(
-        c(
-          "pop_est", "pop_est_dens", "economy", "income_grp", 
-          "gdp_cap_est", "life_exp", "well_being", "footprint", 
-          "inequality", "HPI"
-        ),
-        1
-      )
+      req(input$species)
+      r[[entry]] <- input$species
     }, ignoreNULL = FALSE)
     
     observeEvent( input$undo , {
@@ -96,7 +89,6 @@ mod_species_server <- function(id, r, entry = "species"){
         selected = ''
       )
     })
-    
   })
 }
 

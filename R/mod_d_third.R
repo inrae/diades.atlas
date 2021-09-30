@@ -14,7 +14,7 @@ mod_third_ui <- function(id){
     container(
       w3css::w3_quarter(
         tagList(
-          mod_species_ui(ns("species_ui_1"), multiple = FALSE)
+          mod_species_ui(ns("species_ui_1"))
         )
       ),
       w3css::w3_quarter(
@@ -141,7 +141,7 @@ mod_third_server <- function(id, r = r){
             )), 
           aes(fill = region)
         ) +
-        coord_map() +
+        # coord_map() +
         theme_void() + 
         guides(
           fill = FALSE
