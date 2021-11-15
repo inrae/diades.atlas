@@ -4,13 +4,13 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
-#' @noRd 
+#' @noRd
 #'
-#' @importFrom shiny NS tagList 
-mod_fourth_ui <- function(id){
+#' @importFrom shiny NS tagList
+mod_fourth_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("fourth", class = "page_caption") %>% with_i18("title-fourth"), 
+    h1("fourth", class = "page_caption") %>% with_i18("title-fourth"),
     container(
       tagList(
         w3css::w3_quarter(
@@ -38,7 +38,7 @@ mod_fourth_ui <- function(id){
               tags$div(
                 id = ns("square_or_division"),
                 w3css::w3_radioButton(
-                  ns("square_or_division"), 
+                  ns("square_or_division"),
                   NULL,
                   choices = c("Division" = "division", "Rectangle" = "rectangle")
                 )
@@ -48,7 +48,6 @@ mod_fourth_ui <- function(id){
           )
         ),
         w3css::w3_quarter()
-        
       )
     ),
     w3css::w3_col(
@@ -56,56 +55,58 @@ mod_fourth_ui <- function(id){
     ),
     container(
       h4("Catch and bycatch at sea") %>% with_i18("map-bycatch"),
-      tmap::tmapOutput(ns("raster"), width = "70%",height = "750px") 
+      tmap::tmapOutput(ns("raster"), width = "70%", height = "750px")
     )
   )
-  
 }
 
 #' fourth Server Functions
 #' @import tmap
 #' @import dplyr
-#' @noRd 
-mod_fourth_server <- function(id, r = r){
-  moduleServer( id, function(input, output, session){
+#' @noRd
+mod_fourth_server <- function(id, r = r) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
+
     loco <- reactiveValues(
       species = NULL
     )
 
     mod_species_server(
-      "species_ui_1", 
+      "species_ui_1",
       r = loco
     )
-    
+
     output$raster <- tmap::renderTmap({
       req(loco$species)
 
       tm_draw(
         species_latin_name = loco$species,
-        spatial_type = input$square_or_division, 
-        con = con, 
-        dataCatchment = golem::get_golem_options("dataCatchment"), 
-        catchment_geom = golem::get_golem_options("catchment_geom"), 
-        dataALL = golem::get_golem_options("dataALL"), 
+        spatial_type = input$square_or_division,
+        con = con,
+        dataCatchment = golem::get_golem_options("dataCatchment"),
+        catchment_geom = golem::get_golem_options("catchment_geom"),
+        dataALL = golem::get_golem_options("dataALL"),
         ices_geom = golem::get_golem_options("ices_geom")
       )
-      
-    }) # %>% bindCache({
-    #   loco$species
-    #   input$square_or_division
-    # })
-    
-    observeEvent( loco$species , {
+    }) %>% bindCache(
+      list(
+        loco$species,
+        input$square_or_division
+      )
+    )
+
+
+
+    observeEvent(loco$species, {
       req(loco$species)
       species_id <- get_active_species() %>%
         dplyr::filter(latin_name == loco$species) %>%
         dplyr::pull(species_id)
-      
+
       golem::invoke_js(
         "changeinnerhtmlwithid", list(
-          id = ns("conservation_status"), 
+          id = ns("conservation_status"),
           content = {
             HTML(get_conservation_status(
               as.numeric(species_id),
@@ -114,25 +115,22 @@ mod_fourth_server <- function(id, r = r){
           }
         )
       )
-      
+
       golem::invoke_js(
         "changeinnerhtmlwithid", list(
-          id = ns("conservation_source"), 
+          id = ns("conservation_source"),
           content = {
             HTML(container(
               shinipsum::random_text(nwords = 1000) %>%
                 strsplit(" ") %>%
                 .[[1]] %>%
-                sample(50) %>% 
+                sample(50) %>%
                 paste(collapse = " ")
             ) %>% as.character())
           }
         )
       )
-      
     })
-    
-    
   })
 }
 
