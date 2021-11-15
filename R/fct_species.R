@@ -6,16 +6,14 @@
 #' @export
 #'
 #' @examples
-#' if (interactive()){
+#' if (interactive()) {
 #'   get_active_species()
 #' }
-get_active_species <- function(
-  session = shiny::getDefaultReactiveDomain()
-){
+get_active_species <- function(session = shiny::getDefaultReactiveDomain()) {
   get_con(
     session = session
-  ) %>% 
-    dplyr::tbl( "species" ) %>% 
+  ) %>%
+    dplyr::tbl("species") %>%
     dplyr::filter(active) %>%
     dplyr::collect()
 }
@@ -29,14 +27,12 @@ get_active_species <- function(
 #' @export
 #'
 #' @examples
-#' if (interactive()){
+#' if (interactive()) {
 #'   get_conservation_status()
 #' }
-get_conservation_status <- function(
-  species_id, 
-  con
-){
-  sql <-"select species_id, diadesatlas.translate(english_name, 'fr') as fish_name,
+get_conservation_status <- function(species_id,
+                                    con) {
+  sql <- "select species_id, diadesatlas.translate(english_name, 'fr') as fish_name,
 array_to_string (
 array_agg(
 diadesatlas.translate(iucn_classification_code, 'fr') || ': ' || diadesatlas.translate(iucn_level_name,'fr'))
@@ -46,7 +42,7 @@ where species_id = ?id
 group by species_id, fish_name
 ;"
   DBI::dbGetQuery(
-    con, 
+    con,
     DBI::sqlInterpolate(con, sql, id = species_id)
   )
 }
