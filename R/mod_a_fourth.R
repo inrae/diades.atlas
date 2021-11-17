@@ -18,22 +18,9 @@ mod_fourth_ui <- function(id) {
             mod_species_ui(ns("species_ui_1"))
           )
         ),
-        # w3css::w3_quarter(
-        #   w3_hover_button(
-        #     "Show Conservation status" %>% with_i18("show-conservation-status"),
-        #     content = tagList(
-        #       tags$div(
-        #         id = ns("conservation_status"),
-        #         style = "padding:1em;",
-        #         "lorem_ipsum"
-        #       )
-        #     ),
-        #     content_style = "width:25em"
-        #   )
-        # ),
         w3css::w3_quarter(
           w3_hover_button(
-            "Change Map geometry", # %>% with_i18("show-conservation-status"),
+            "Change Map geometry" %>% with_i18("change-geometry"),
             content = tagList(
               tags$div(
                 id = ns("square_or_division"),
@@ -64,6 +51,7 @@ mod_fourth_ui <- function(id) {
         h4("Conservation status") %>% with_i18("show-conservation-status"),
         tagList(
           tags$div(
+            align = "left",
             id = ns("conservation_status"),
             style = "padding:1em;",
             " "
@@ -95,7 +83,11 @@ mod_fourth_server <- function(id, r = r) {
       req(loco$species)
 
       tm_draw(
-        species_latin_name = loco$species,
+        species_latin_name = {
+          golem::get_golem_options("species_list") %>%
+            filter(local_name == loco$species) %>%
+            pull(latin_name)
+        },
         spatial_type = input$square_or_division,
         con = con,
         dataCatchment = golem::get_golem_options("dataCatchment"),
@@ -114,18 +106,41 @@ mod_fourth_server <- function(id, r = r) {
 
     observeEvent(loco$species, {
       req(loco$species)
+      # browser()
       species_id <- get_active_species() %>%
-        dplyr::filter(latin_name == loco$species) %>%
+        dplyr::filter(local_name == loco$species) %>%
         dplyr::pull(species_id)
 
       golem::invoke_js(
         "changeinnerhtmlwithid", list(
           id = ns("conservation_status"),
           content = {
-            HTML(get_conservation_status(
+            # browser()
+            status <- get_conservation_status(
               as.numeric(species_id),
               get_con()
-            )$array_to_string)
+            )
+            status$iucn_level_code <- mapply(
+              function(x, y) {
+                as.character(with_i18(x, y))
+              },
+              x = status$english_name,
+              y = status$iucn_level_code,
+              SIMPLIFY = FALSE,
+              USE.NAMES = FALSE
+            ) %>% unlist()
+            as.character(tags$ul(
+              HTML(
+                paste0(
+                  "<li>",
+                  status$iucn_classification_code,
+                  " - ",
+                  status$iucn_level_code,
+                  "</li>",
+                  collapse = " "
+                )
+              )
+            ))
           }
         )
       )
