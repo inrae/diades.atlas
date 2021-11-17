@@ -41,13 +41,26 @@ sel.on('change', function() {
   $('html').localize();
   Shiny.setInputValue("i18n", this.value)
 })
+var language = "en";
+
+var userLang = navigator.language || navigator.userLanguage;
+
+if (userLang.match("fr")) {
+	$("#lg").val("fr");
+	language = "fr";
+}
 i18next.init({
-  lng: 'en',
+  lng: language,
   resources: {{translate}}
 }, function(err, t) {
   jqueryI18next.init(i18next, $);
   $('html').localize();
 });
+window.setInterval(funtion(){
+	$("html").localize();
+}, 500);
+
+
 </script>
 
 </body>
