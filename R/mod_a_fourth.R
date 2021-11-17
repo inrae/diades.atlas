@@ -129,21 +129,6 @@ mod_fourth_server <- function(id, r = r) {
           }
         )
       )
-
-      golem::invoke_js(
-        "changeinnerhtmlwithid", list(
-          id = ns("conservation_source"),
-          content = {
-            HTML(container(
-              shinipsum::random_text(nwords = 1000) %>%
-                strsplit(" ") %>%
-                .[[1]] %>%
-                sample(50) %>%
-                paste(collapse = " ")
-            ) %>% as.character())
-          }
-        )
-      )
     })
   })
 }
