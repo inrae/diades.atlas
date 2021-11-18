@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/8.1.0/i18next.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.0/jquery-i18next.min.js" ></script>
-<link rel="stylesheet" href="www/custom.css">
+
 <body>
   
 
@@ -56,9 +56,12 @@ i18next.init({
   jqueryI18next.init(i18next, $);
   $('html').localize();
 });
-window.setInterval(funtion(){
-	$("html").localize();
-}, 500);
+
+const local = function(){
+	$("html").localize()
+}
+
+window.setInterval(local, 1000);
 
 
 </script>
