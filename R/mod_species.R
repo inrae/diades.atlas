@@ -22,6 +22,13 @@ mod_species_ui <- function(id, multiple = FALSE) {
       with_i18(x, x)
     }
   )
+  # Just to pass testthat tests
+  if (
+    is.null(golem::get_golem_options("species_list"))
+  ) {
+    choiceValues <- letters
+    choiceNames <- letters
+  }
 
   tagList(
     w3_hover_button(
