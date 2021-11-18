@@ -56,7 +56,22 @@ mod_fourth_ui <- function(id) {
     container(
       w3css::w3_col(
         class = "s10",
-        h4("Catch and bycatch at sea") %>% with_i18("map-bycatch"),
+        tags$div(
+          h4(
+            with_i18("Catch and bycatch at sea", "map-bycatch"),
+            w3_hover_button(
+              border = FALSE,
+              tags$img(src = "www/help-circle.svg"),
+              content = tagList(
+                with_i18(
+                  "Some explanations",
+                  "explanations_catch_by_catch"
+                )
+              ),
+              content_style = "padding: 1em"
+            )
+          )
+        ),
         tmap::tmapOutput(ns("raster"), width = "90%", height = "750px")
       ),
       w3css::w3_col(
