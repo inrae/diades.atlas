@@ -103,6 +103,12 @@ DBI::dbGetQuery(
 + `inst/translation.csv` est le fichier à compléter à la main. 
 Il peut être ouvert avec Excel et __doit__ être sauvegardé en `.csv`.
 
+Vous pouvez vérifier l'intégriter du csv via : 
+
+```{r}
+check_translation_csv("inst/translation.csv")
+```
+
 ## Notes pour les dévelopeurs 
 
 Comment créer un nouvel élément "traductible" dans l'UI?
