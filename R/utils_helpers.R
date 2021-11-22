@@ -4,6 +4,15 @@ build_language_json <- function() {
     app_sys("translation.csv")
   )
 
+  lg <- dplyr::bind_rows(
+    read.csv(
+      app_sys("translation.csv")
+    ),
+    read.csv(
+      app_sys("translation_help.csv")
+    )
+  )
+
   build_entry <- function(subset) {
     x <- list(
       translation = as.list(lg[[subset]])
