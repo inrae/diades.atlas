@@ -21,7 +21,7 @@ menuItem <- function(id,
                      i18n) {
   tags$div(
     class = "w3-col",
-    style = "width:23%",
+    # style = "width:25%;min-width",
     tags$a(
       href = "javascript:void(0)",
       class = "w3-button w3-block w3navbar",

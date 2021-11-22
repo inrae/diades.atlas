@@ -40,6 +40,17 @@ app_ui <- function(request) {
           display = "block"
         ),
         menu = menu(
+          tags$div(
+            class = "w3-col",
+            # style = "width:8%",
+            HTML('<div id = "language_selector">
+                  <!--<label for="lg"><span data-i18n="select-language">Choose a language:</span></label>-->
+                    <select name="pets" id="lg">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="fr">🇫🇷 French</option>
+                    </select>
+                  </div>')
+          ),
           menuItem(
             "d", "Sit",
             i18n = "nav-sit"
@@ -55,18 +66,18 @@ app_ui <- function(request) {
           menuItem(
             "c", "Dolor",
             i18n = "nav-dolor"
-          ),
-          tags$div(
-            class = "w3-col",
-            style = "width:8%",
-            HTML('<div id = "language_selector">
-                  <!--<label for="lg"><span data-i18n="select-language">Choose a language:</span></label>-->
-                    <select name="pets" id="lg">
-                        <option value="en">🇬🇧 English</option>
-                        <option value="fr">🇫🇷 French</option>
-                    </select>
-                  </div>')
-          )
+          )#,
+          # tags$div(
+          #   class = "w3-col",
+          #   # style = "width:8%",
+          #   HTML('<div id = "language_selector">
+          #         <!--<label for="lg"><span data-i18n="select-language">Choose a language:</span></label>-->
+          #           <select name="pets" id="lg">
+          #               <option value="en">🇬🇧 English</option>
+          #               <option value="fr">🇫🇷 French</option>
+          #           </select>
+          #         </div>')
+          # )
         ),
         content = tabItems(
           tabItem(
