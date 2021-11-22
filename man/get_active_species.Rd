@@ -16,7 +16,7 @@ a tbl with active species
 Get Active species
 }
 \examples{
-if (interactive()){
+if (interactive()) {
   get_active_species()
 }
 }

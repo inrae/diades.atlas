@@ -18,7 +18,7 @@ get_conservation_status(species_id, con)
 Title
 }
 \examples{
-if (interactive()){
+if (interactive()) {
   get_conservation_status()
 }
 }

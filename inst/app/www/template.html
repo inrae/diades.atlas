@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/8.1.0/i18next.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.0/jquery-i18next.min.js" ></script>
-<link rel="stylesheet" href="www/custom.css">
+
 <body>
   
 
@@ -41,13 +41,29 @@ sel.on('change', function() {
   $('html').localize();
   Shiny.setInputValue("i18n", this.value)
 })
+var language = "en";
+
+var userLang = navigator.language || navigator.userLanguage;
+
+if (userLang.match("fr")) {
+	$("#lg").val("fr");
+	language = "fr";
+}
 i18next.init({
-  lng: 'en',
+  lng: language,
   resources: {{translate}}
 }, function(err, t) {
   jqueryI18next.init(i18next, $);
   $('html').localize();
 });
+
+const local = function(){
+	$("html").localize()
+}
+
+window.setInterval(local, 1000);
+
+
 </script>
 
 </body>
