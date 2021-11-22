@@ -32,19 +32,25 @@ mod_fourth_ui <- function(id) {
         #   )
         # ),
         w3css::w3_quarter(
-          w3_hover_button(
-            "Change Map geometry", # %>% with_i18("show-conservation-status"),
-            content = tagList(
-              tags$div(
-                id = ns("square_or_division"),
-                w3css::w3_radioButton(
-                  ns("square_or_division"),
-                  NULL,
-                  choices = c("Division" = "division", "Rectangle" = "rectangle")
+          tags$span(
+            w3_hover_button(
+              "Change Map geometry", # %>% with_i18("show-conservation-status"),
+              content = tagList(
+                tags$div(
+                  id = ns("square_or_division"),
+                  w3css::w3_radioButton(
+                    ns("square_or_division"),
+                    NULL,
+                    choices = c("Division" = "division", "Rectangle" = "rectangle")
+                  )
                 )
-              )
+              ),
+              content_style = "width:25em"
             ),
-            content_style = "width:25em"
+            w3_help_button(
+              "Some explanations",
+              "map_geometrie_help"
+            )
           )
         ),
         w3css::w3_quarter()
@@ -58,17 +64,10 @@ mod_fourth_ui <- function(id) {
         class = "s10",
         tags$div(
           h4(
-            with_i18("Catch and bycatch at sea", "map-bycatch"),
-            w3_hover_button(
-              border = FALSE,
-              tags$img(src = "www/help-circle.svg"),
-              content = tagList(
-                with_i18(
-                  "Some explanations",
-                  "explanations_catch_by_catch"
-                )
-              ),
-              content_style = "padding: 1em"
+            with_i18("Catch and bycatch at sea", "[html]map-bycatch"),
+            w3_help_button(
+              "Explanation Species",
+              "catch_bycatch_help"
             )
           )
         ),
@@ -76,7 +75,16 @@ mod_fourth_ui <- function(id) {
       ),
       w3css::w3_col(
         class = "s2",
-        h4("Conservation status") %>% with_i18("show-conservation-status"),
+        h4(
+          with_i18(
+            "Conservation status",
+            "show-conservation-status"
+          ),
+          w3_help_button(
+            "Explanation Species",
+            "conservation_status_help"
+          )
+        ),
         tagList(
           tags$div(
             id = ns("conservation_status"),
