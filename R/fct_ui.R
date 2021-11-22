@@ -103,6 +103,23 @@ w3_hover_button <- function(button_text = "Hover Over Me!",
   )
 }
 
+w3_help_button <- function(content,
+                           i18n_tag) {
+  w3_hover_button(
+    border = FALSE,
+    tags$img(src = "www/help-circle.svg"),
+    content = tagList(
+      with_i18(
+        content,
+        sprintf("[html]%s", i18n_tag)
+      )
+    ),
+    content_style = "padding: 1em;right:0em"
+  )
+}
+
+
+
 ecosystem_hover_content <- function(basin) {
   if (length(basin) == 0 | length(basin) > 1) {
     paste(
