@@ -105,6 +105,16 @@ w3_hover_button <- function(button_text = "Hover Over Me!",
 
 w3_help_button <- function(content,
                            i18n_tag) {
+  if (
+    length(
+      list.files(
+        app_sys("translation_help"),
+        pattern = i18n_tag
+      )
+    ) == 0
+  ) {
+    return(NULL)
+  }
   w3_hover_button(
     border = FALSE,
     tags$img(src = "www/help-circle.svg"),
