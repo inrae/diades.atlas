@@ -42,7 +42,7 @@ mod_species_ui <- function(id, multiple = FALSE) {
         button_id = ns("species_hover")
       ),
       w3_help_button(
-        "Explanation Species",
+        "Select a species",
         "species_modal_help"
       )
     )

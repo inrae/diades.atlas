@@ -30,7 +30,7 @@ mod_second_ui <- function(id) {
             button_id = ns("scenario_hover")
           ),
           w3_help_button(
-            "Explanation Species",
+            "Select a scenario",
             "choose_a_scenario_help"
           )
         )
@@ -51,7 +51,7 @@ mod_second_ui <- function(id) {
             button_id = ns("date_hover")
           ),
           w3_help_button(
-            "Explanation Species",
+            "Select a daterange",
             "choose_a_daterange_help"
           )
         )
@@ -64,7 +64,7 @@ mod_second_ui <- function(id) {
             class = "w3-border"
           ),
           w3_help_button(
-            "Explanation Species",
+            "Display the results",
             "show_results_help"
           )
         )
@@ -78,7 +78,7 @@ mod_second_ui <- function(id) {
         h4(
           with_i18("Abundance in river basins", "map-abundance"),
           w3_help_button(
-            "Explanation Species",
+            "Abundance map",
             "map_abundance_help"
           )
         ),
@@ -88,7 +88,7 @@ mod_second_ui <- function(id) {
         h4(
           with_i18("Evolution of abundance", "plot-evolution"),
           w3_help_button(
-            "Explanation Species",
+            "Abundance evolution",
             "plot_evolution_help"
           )
         ),

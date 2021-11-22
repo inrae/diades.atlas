@@ -38,7 +38,7 @@ mod_first_ui <- function(id) {
               )
             ),
             w3_help_button(
-              "Explanation Species",
+              "Select an ecosystem",
               "select_ecosystem_help"
             )
           )
@@ -63,7 +63,7 @@ mod_first_ui <- function(id) {
               button_id = ns("case_study_hover_button")
             ),
             w3_help_button(
-              "Explanation Species",
+              "Select a case study",
               "select_casestudy_help"
             )
           )
@@ -76,7 +76,7 @@ mod_first_ui <- function(id) {
               class = "w3-border"
             ),
             w3_help_button(
-              "Explanation Species",
+              "Show the result",
               "show_results_help"
             )
           )
@@ -91,7 +91,7 @@ mod_first_ui <- function(id) {
       tags$span(
         "Situation",
         w3_help_button(
-          "Explanation Species",
+          "Results",
           "situation_table_help"
         )
       ),

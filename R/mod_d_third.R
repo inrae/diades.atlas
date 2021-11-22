@@ -30,7 +30,7 @@ mod_third_ui <- function(id) {
             button_id = ns("scenario_hover")
           ),
           w3_help_button(
-            "Explanation Species",
+            "Select a scenario",
             "choose_a_scenario_help"
           )
         )
@@ -80,7 +80,7 @@ mod_third_ui <- function(id) {
             button_id = ns("scenario_hover")
           ),
           w3_help_button(
-            "Explanation Species",
+            "Define the anthropogenic mortalities",
             "define_anthropo_help"
           )
         )
@@ -101,7 +101,7 @@ mod_third_ui <- function(id) {
             button_id = ns("date_hover")
           ),
           w3_help_button(
-            "Explanation Species",
+            "Select a date range",
             "choose_a_daterange_help"
           )
         )
@@ -118,7 +118,7 @@ mod_third_ui <- function(id) {
               class = "w3-border"
             ),
             w3_help_button(
-              "Explanation Species",
+              "Launch the simulation",
               "run_simulation_help"
             )
           )
@@ -127,7 +127,7 @@ mod_third_ui <- function(id) {
           h4(
             with_i18("Abundance in river basins", "map-abundance"),
             w3_help_button(
-              "Explanation Species",
+              "Predicted abundance map:",
               "prediction_map_abundance_help"
             )
           ),
@@ -137,7 +137,7 @@ mod_third_ui <- function(id) {
           h4(
             with_i18("Evolution of abundance", "plot-evolution"),
             w3_help_button(
-              "Explanation Species",
+              "Predicted abundance evolution:",
               "prediction_plot_abundance_help"
             )
           ),

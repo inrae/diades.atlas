@@ -48,7 +48,7 @@ mod_fourth_ui <- function(id) {
               content_style = "width:25em"
             ),
             w3_help_button(
-              "Some explanations",
+              "Change the geometry of the map",
               "map_geometrie_help"
             )
           )
@@ -66,7 +66,7 @@ mod_fourth_ui <- function(id) {
           h4(
             with_i18("Catch and bycatch at sea", "[html]map-bycatch"),
             w3_help_button(
-              "Explanation Species",
+              "Select a species",
               "catch_bycatch_help"
             )
           )
@@ -81,7 +81,7 @@ mod_fourth_ui <- function(id) {
             "show-conservation-status"
           ),
           w3_help_button(
-            "Explanation Species",
+            "Select a conservation Status",
             "conservation_status_help"
           )
         ),
