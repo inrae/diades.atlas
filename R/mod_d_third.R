@@ -144,7 +144,7 @@ mod_third_server <- function(id, r = r){
         # coord_map() +
         theme_void() + 
         guides(
-          fill = FALSE
+          fill = "none"
         ) 
     })
     
