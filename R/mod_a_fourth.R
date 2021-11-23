@@ -30,9 +30,9 @@ mod_fourth_ui <- function(id) {
                   NULL,
                   choices = c("Division" = "division", "Rectangle" = "rectangle")
                 )
-              ),
+              )
+            ),
               content_style = "width:25em"
-            )
           ),
             w3_help_button(
               "Change the geometry of the map",
