@@ -1,12 +1,17 @@
 #' @importFrom utils read.csv
-build_language_json <- function() {
-  lg <- read.csv(
-    app_sys("translation.csv")
-  )
-
+build_language_json <- function(session = shiny::getDefaultReactiveDomain()) {
   lg <- dplyr::bind_rows(
     read.csv(
       app_sys("translation.csv")
+    ),
+    read.csv(
+      app_sys("translation_species.csv")
+    ),
+    read.csv(
+      app_sys("translation_iucn.csv")
+    ),
+    read.csv(
+      app_sys("translation_abundance_level.csv")
     ),
     read.csv(
       app_sys("translation_help.csv")
@@ -110,10 +115,10 @@ generate_datasets <- function(con) {
     "Platichthys flesus"
   )
 
-  species_list <- con %>%
-    dplyr::tbl("species") %>%
-    dplyr::filter(active) %>%
-    dplyr::collect()
+  species_list <- DBI::dbGetQuery(
+    con,
+    "SELECT *, diadesatlas.translate(english_name, 'fr') AS french_name from diadesatlas.species WHERE active=TRUE"
+  )
 
   species_list <- species_list[
     match(
@@ -121,7 +126,6 @@ generate_datasets <- function(con) {
       species_list$latin_name
     ),
   ]
-
   return(
     list(
       dataCatchment = dataCatchment,

@@ -11,40 +11,49 @@ mod_species_ui <- function(id, multiple = FALSE) {
   if (multiple) {
     f <- shiny::checkboxGroupInput
   } else {
-    f <- w3css::w3_radioButton
+    f <- shiny::radioButtons
   }
   ns <- NS(id)
-  choices <- unique(golem::get_golem_options("species_list")$latin_name)
-  names(choices) <- unique(golem::get_golem_options("species_list")$english_name)
+
+  choiceValues <- unique(golem::get_golem_options("species_list")$local_name)
+  choiceNames <- lapply(
+    unique(golem::get_golem_options("species_list")$local_name),
+    function(x) {
+      with_i18(x, x)
+    }
+  )
+  # Just to pass testthat tests
+  if (
+    is.null(golem::get_golem_options("species_list"))
+  ) {
+    choiceValues <- letters
+    choiceNames <- letters
+  }
+
   tagList(
-    tags$span(
-      w3_hover_button(
-        "Select a Species" %>% with_i18("select-species"),
-        content = tagList(
-          if (multiple) {
-            container(
-              w3css::w3_actionButton(
-                class = "w3-border",
-                ns("undo"),
-                "Undo all selection" %>% with_i18("button-unselectall")
-              )
-            )
-          },
+    w3_hover_button(
+      "Select a Species" %>% with_i18("select-species"),
+      content = tagList(
+        if (multiple) {
           container(
-            f(
-              ns("species"),
-              NULL,
-              choices = choices
+            w3css::w3_actionButton(
+              class = "w3-border",
+              ns("undo"),
+              "Undo all selection" %>% with_i18("button-unselectall")
             )
           )
-        ),
-        content_style = "width:25em",
-        button_id = ns("species_hover")
+        },
+        container(
+          f(
+            ns("species"),
+            NULL,
+            choiceValues = choiceValues,
+            choiceNames = choiceNames
+          )
+        )
       ),
-      w3_help_button(
-        "Select a species",
-        "species_modal_help"
-      )
+      content_style = "width:25em",
+      button_id = ns("species_hover")
     )
   )
 }

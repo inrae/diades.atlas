@@ -18,7 +18,7 @@ app_ui <- function(request) {
         welcomemodal = modal(
           inputId = "welcome",
           title = tagList(
-            tags$h2("Welcome on DiadES Atlas!")
+            tags$h2("Welcome on DiadES Atlas!") %>% with_i18("welcome")
           ),
           body = tagList(
             tags$div(
@@ -32,7 +32,7 @@ app_ui <- function(request) {
           footer = tagList(
             tags$div(
               align = "center",
-              tags$h3("Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.")
+              tags$h3("Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.") %>% with_i18("explore")
               # tags$h3("We assess and enhance ecosystem services provided by diadromous fishes in a climate change context")
             )
           ),
@@ -40,6 +40,17 @@ app_ui <- function(request) {
           display = "block"
         ),
         menu = menu(
+          tags$div(
+            class = "w3-col",
+            # style = "width:8%",
+            HTML('<div id = "language_selector">
+                  <!--<label for="lg"><span data-i18n="select-language">Choose a language:</span></label>-->
+                    <select name="pets" id="lg">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="fr">🇫🇷 French</option>
+                    </select>
+                  </div>')
+          ),
           menuItem(
             "d", "Sit",
             i18n = "nav-sit"
