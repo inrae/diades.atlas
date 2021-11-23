@@ -85,9 +85,11 @@ w3_hover_button <- function(button_text = "Hover Over Me!",
                             content = list(),
                             button_id = NULL,
                             button_class = NULL,
-                            content_style = NULL) {
+                            content_style = NULL,
+                            border = TRUE) {
+  class <- if (border) "w3-dropdown-hover w3-border" else "w3-dropdown-hover"
   tags$div(
-    class = "w3-dropdown-hover w3-border",
+    class = class,
     class = button_class,
     tags$button(
       class = "w3-button",
@@ -101,6 +103,33 @@ w3_hover_button <- function(button_text = "Hover Over Me!",
     )
   )
 }
+
+w3_help_button <- function(content,
+                           i18n_tag) {
+  if (
+    length(
+      list.files(
+        app_sys("translation_help"),
+        pattern = i18n_tag
+      )
+    ) == 0
+  ) {
+    return(NULL)
+  }
+  w3_hover_button(
+    border = FALSE,
+    tags$img(src = "www/help-circle.svg"),
+    content = tagList(
+      with_i18(
+        content,
+        sprintf("[html]%s", i18n_tag)
+      )
+    ),
+    content_style = "padding: 1em;right:0em"
+  )
+}
+
+
 
 ecosystem_hover_content <- function(basin) {
   if (length(basin) == 0 | length(basin) > 1) {

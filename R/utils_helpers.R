@@ -12,9 +12,11 @@ build_language_json <- function(session = shiny::getDefaultReactiveDomain()) {
     ),
     read.csv(
       app_sys("translation_abundance_level.csv")
+    ),
+    read.csv(
+      app_sys("translation_help.csv")
     )
   )
-
 
   build_entry <- function(subset) {
     x <- list(
