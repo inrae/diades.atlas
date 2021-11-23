@@ -103,17 +103,24 @@ DBI::dbGetQuery(
 + `inst/translation.csv` est le fichier à compléter à la main. 
 Il peut être ouvert avec Excel et __doit__ être sauvegardé en `.csv`.
 
-Vous pouvez vérifier l'intégriter du csv via : 
+Vous devez vérifier l'intégrité du csv via et indiquer avec quel encodage vous avez créé le fichier : 
+
+- `source_encoding = "UTF-8"` a priori, si créé sous Linux/MacOS
+- `source_encoding = "latin1"` a priori, si créé sur Excel/LibreOffice avec Windows
+
+Ainsi, si vous rencontrez des problèmes d'encodage sur l'application, vous pouvez modifier de nouveau le csv et changer le paramètre ci-dessous.
+Vous pouvez aussi le vérifier en regardant le fichier lu avec `output` ci-dessous.
 
 ```{r}
-check_translation_csv("inst/translation.csv")
+output <- check_translation_csv("inst/translation.csv", source_encoding = "latin1")
+head(output)
 ```
 
 ## Notes pour les dévelopeurs 
 
 Comment créer un nouvel élément "traductible" dans l'UI?
 
-+ La traduction est assurée par le module JS `i18n` et la fonction `with_i18` dans l'app
++ La traduction est assurée par le module JS `i18n` et la fonction `with_i18()` dans l'app
 
 ```{r}
 with_i18(

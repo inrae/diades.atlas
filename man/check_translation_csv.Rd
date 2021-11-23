@@ -4,7 +4,14 @@
 \alias{check_translation_csv}
 \title{csv_check}
 \usage{
-check_translation_csv(path)
+check_translation_csv(path, source_encoding = "latin1", new_path = path)
+}
+\arguments{
+\item{path}{path to file to check}
+
+\item{source_encoding}{Encoding of the source file}
+
+\item{new_path}{Where to save the modified file}
 }
 \value{
 The return value, if any, from executing the utility.
