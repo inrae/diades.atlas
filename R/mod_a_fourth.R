@@ -19,7 +19,8 @@ mod_fourth_ui <- function(id) {
           )
         ),
         w3css::w3_quarter(
-          w3_hover_button(
+          tags$span(
+            w3_hover_button(
             "Change Map geometry" %>% with_i18("change-geometry"),
             content = tagList(
               tags$div(
@@ -31,12 +32,14 @@ mod_fourth_ui <- function(id) {
                 )
               ),
               content_style = "width:25em"
-            ),
+            )
+          ),
             w3_help_button(
               "Change the geometry of the map",
               "map_geometrie_help"
             )
           )
+          
         ),
         w3css::w3_quarter()
       )
