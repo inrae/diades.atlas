@@ -12,6 +12,9 @@ build_language_json <- function(session = shiny::getDefaultReactiveDomain()) {
     ),
     read.csv(
       app_sys("translation_abundance_level.csv")
+    ),
+    read.csv(
+      app_sys("translation_v_ecosystemic_services.csv")
     )
   )
 
