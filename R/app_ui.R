@@ -42,19 +42,19 @@ app_ui <- function(request) {
         menu = menu(
           menuItem(
             "d", "Sit",
-            i18n = "nav-sit"
+            i18n = "nav-catch"
           ),
           menuItem(
             "a", "Lorem",
-            i18n = "nav-lorem"
+            i18n = "nav-present"
           ),
           menuItem(
             "b", "Ipsum",
-            i18n = "nav-ipsum"
+            i18n = "nav-climate"
           ),
           menuItem(
             "c", "Dolor",
-            i18n = "nav-dolor"
+            i18n = "nav-future"
           )
         ),
         content = tabItems(

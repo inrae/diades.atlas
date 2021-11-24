@@ -1,0 +1,146 @@
+---
+title: "Tab 1"
+author: "Colin Fay"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+pkgload::load_all(attach_testthat = FALSE)
+se <- new.env()
+connect(se)
+library(dplyr)
+```
+
+## Comment est organisée la traduction
+
+### Pour le front-end 
+
+Pour l'interface utilisateur, l'application met ensemble 4 fichiers CSV, contenus dans le dossier `inst/`. 
+Trois de ces fichiers sont automatiquement générés, un est à modifier à la main. 
+
+Tous ces fichiers contiennent au moins 3 colonnes: 
+
++ `entry` : la clé d'entrée dans le front pour i18n
++ `en` : la traduction en anglais
++ `fr` : la traduction en français
+
+### Fichiers générés automatiquement 
+
++ `translation_abundance_level.csv` : contient les traductions pour les éléments de niveau d'abondance. 
+Se génère via le code suivant : 
+
+```{r}
+# TODO écrire depuis la base
+
+DBI::dbGetQuery(
+  get_con(se),
+  "select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"
+  # "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr from abundance_level"
+) %>%
+  # Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,
+  # via le code SQL commenté
+  mutate(
+    fr = c(
+      "Non enregistré sur la période",
+      "Présence occasionnelle",
+      "Populations fonctionnelles",
+      "Populations fonctionnelles abondante"
+    )
+  ) %>%
+  readr::write_csv(
+    here::here("inst/translation_abundance_level.csv")
+  )
+```
+
++ `translation_iucn.csv` : contient les traductions pour status IUCN. 
+Se génère via le code suivant : 
+
+```{r}
+# TODO : get the translation inside the DB
+# On utilise ici la description trouvée sur
+# https://uicn.fr/liste-rouge-mondiale/
+desc <- strsplit(
+  "Éteinte (EX), Éteinte à l’état sauvage (EW), En danger critique (CR), En danger (EN), Vulnérable (VU), Quasi menacée (NT), Préoccupation mineure (LC), Données insuffisantes (DD), Non évaluée (NE)",
+  split = ", "
+)[[1]]
+
+french_iucn <- data.frame(
+  fr_vals = gsub(
+    "([^\\(]+) \\(([^\\(]+)\\)",
+    "\\1,\\2",
+    desc
+  )
+) %>%
+  tidyr::separate(
+    fr_vals,
+    into = c("fr", "entry"), sep = ","
+  )
+
+en_iucn <- DBI::dbGetQuery(
+  get_con(se),
+  "SELECT distinct iucn_level_code AS entry,iucn_level_name AS en FROM v_iucn"
+)
+
+en_iucn %>%
+  dplyr::full_join(french_iucn) %>%
+  readr::write_csv("inst/translation_iucn.csv")
+```
+
++ `translation_abundance_level.csv` : contient les traductions pour les éléments de niveau d'abondance. 
+Se génère via le code suivant : 
+
+```{r}
+DBI::dbGetQuery(
+  get_con(se),
+  "SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr from diadesatlas.species WHERE active=TRUE"
+) %>%
+  readr::write_csv("inst/translation_species.csv")
+```
+
+### Fichier à compléter à la main 
+
++ `inst/translation.csv` est le fichier à compléter à la main. 
+Il peut être ouvert avec Excel et __doit__ être sauvegardé en `.csv`.
+
+Vous devez vérifier l'intégrité du csv via et indiquer avec quel encodage vous avez créé le fichier : 
+
+- `source_encoding = "UTF-8"` a priori, si créé sous Linux/MacOS
+- `source_encoding = "latin1"` a priori, si créé sur Excel/LibreOffice avec Windows
+
+Ainsi, si vous rencontrez des problèmes d'encodage sur l'application, vous pouvez modifier de nouveau le csv et changer le paramètre ci-dessous.
+Vous pouvez aussi le vérifier en regardant le fichier lu avec `output` ci-dessous.
+
+```{r}
+output <- check_translation_csv("inst/translation.csv", source_encoding = "latin1")
+head(output)
+```
+
+## Notes pour les dévelopeurs 
+
+Comment créer un nouvel élément "traductible" dans l'UI?
+
++ La traduction est assurée par le module JS `i18n` et la fonction `with_i18()` dans l'app
+
+```{r}
+with_i18(
+  "Text de base",
+  "text_de_base"
+)
+```
+
+Va créer `<span data-i18n="text_de_base">Text de base</span>`. 
+
++ L'élément `Text de base` est affiché si `i18n` plante
++ L'élément `data-i18n="text_de_base"` correspond à la clé d'entrée dans le data.frame de traduction, i.e. la valeur dans la colonne entry. 
+
+Schématiquement, lorsque le JavaScript va traduire la page, il va aller chercher pour chaque tag l'entrée `data-i18n`, en tirer la valeur, et aller chercher la traduction correspondante. 
+
+Par exemple, si nous traduisons en "fr", la localisation fait (en JavaScript) l'action suivante 
+
+```{r eval = FALSE}
+df_traduction %>%
+  filter(entry == "text_de_base") %>%
+  pull(fr)
+```
+
