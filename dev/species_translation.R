@@ -1,4 +1,4 @@
-pkgload::load_all(export_all = FALSE, helpers = FALSE, attach_testthat = FALSE)
+pkgload::load_all(helpers = FALSE, attach_testthat = FALSE)
 options("golem.app.prod" = FALSE)
 
 se <- new.env()
@@ -10,7 +10,8 @@ species_list <- DBI::dbGetQuery(
 )
 
 species_list %>%
-    dplyr::select(entry = local_name, en = english_name, fr = french_name) %>%
+    dplyr::mutate(latin_name = low_and_sub(latin_name)) %>%
+    dplyr::select(entry = latin_name, en = english_name, fr = french_name) %>%
     readr::write_csv("inst/translation_species.csv")
 
 # IUCN
