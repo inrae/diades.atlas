@@ -2,6 +2,7 @@
 
 export("%>%")
 export(connect)
+export(ecosystem_table)
 export(generate_datasets)
 export(get_active_species)
 export(get_con)
