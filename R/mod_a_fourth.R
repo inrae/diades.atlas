@@ -19,7 +19,8 @@ mod_fourth_ui <- function(id) {
           )
         ),
         w3css::w3_quarter(
-          w3_hover_button(
+          tags$span(
+            w3_hover_button(
             "Change Map geometry" %>% with_i18("change-geometry"),
             content = tagList(
               tags$div(
@@ -31,8 +32,14 @@ mod_fourth_ui <- function(id) {
                 )
               )
             ),
-            content_style = "width:25em"
+              content_style = "width:25em"
+          ),
+            w3_help_button(
+              "Change the geometry of the map",
+              "map_geometrie_help"
+            )
           )
+          
         ),
         w3css::w3_quarter()
       )
@@ -43,12 +50,29 @@ mod_fourth_ui <- function(id) {
     container(
       w3css::w3_col(
         class = "s10",
-        h4("Catch and bycatch at sea") %>% with_i18("map-bycatch"),
+        tags$div(
+          h4(
+            with_i18("Catch and bycatch at sea", "[html]map-bycatch"),
+            w3_help_button(
+              "Select a species",
+              "catch_bycatch_help"
+            )
+          )
+        ),
         tmap::tmapOutput(ns("raster"), width = "90%", height = "750px")
       ),
       w3css::w3_col(
         class = "s2",
-        h4("Conservation status") %>% with_i18("show-conservation-status"),
+        h4(
+          with_i18(
+            "Conservation status",
+            "show-conservation-status"
+          ),
+          w3_help_button(
+            "Select a conservation Status",
+            "conservation_status_help"
+          )
+        ),
         tagList(
           tags$div(
             align = "left",

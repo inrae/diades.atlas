@@ -24,6 +24,7 @@ usethis::use_build_ignore(".Renviron")
 usethis::use_package("DBI")
 usethis::use_package("RPostgres")
 usethis::use_package("sf")
+remotes::install_github("miraisolutions/compareWith@feature/46-compare-git")
 
 # Before sending to git external server
 # _deps

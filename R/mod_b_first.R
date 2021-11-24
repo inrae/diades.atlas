@@ -48,7 +48,9 @@ mod_first_ui <- function(id) {
                   shiny_input = ns("ecosystem"),
                   button_id = ns("ecoservice_hover_button")
                 )
-              )
+              ),
+              content_style = "width:50em",
+              button_id = ns("case_study_hover_button")
             ),
             content_style = "width:50em",
             button_id = ns("ecoservice_hover_button")
@@ -225,7 +227,7 @@ mod_first_server <- function(id, r = r) {
       },
       ignoreNULL = FALSE
     )
-
+ 
     observeEvent(input$ecosystem,
       {
         golem::invoke_js(

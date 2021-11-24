@@ -33,6 +33,7 @@ mod_species_ui <- function(id, multiple = FALSE) {
   }
 
   tagList(
+    tags$span(
     w3_hover_button(
       "Select a Species" %>% with_i18("select-species"),
       content = tagList(
@@ -65,6 +66,11 @@ mod_species_ui <- function(id, multiple = FALSE) {
       ),
       content_style = "width:25em",
       button_id = ns("species_hover")
+    ),
+     w3_help_button(
+        "Select a species",
+        "species_modal_help"
+      )
     )
   )
 }

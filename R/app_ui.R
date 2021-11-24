@@ -14,7 +14,7 @@ app_ui <- function(request) {
       shiny:::bootstrapLib(),
       htmlTemplate(
         app_sys("app/www/template.html"),
-        translate = build_language_json(),
+        translate = HTML(build_language_json()),
         welcomemodal = modal(
           inputId = "welcome",
           title = tagList(
@@ -46,8 +46,8 @@ app_ui <- function(request) {
             HTML('<div id = "language_selector">
                   <!--<label for="lg"><span data-i18n="select-language">Choose a language:</span></label>-->
                     <select name="pets" id="lg">
-                        <option value="en">🇬🇧 English</option>
-                        <option value="fr">🇫🇷 French</option>
+                        <option value="en">\U0001f1ec\U0001f1e7 English</option>
+                        <option value="fr">\U0001f1eb\U0001f1f7 French</option>
                     </select>
                   </div>')
           ),
