@@ -15,9 +15,11 @@ mod_species_ui <- function(id, multiple = FALSE) {
   }
   ns <- NS(id)
 
-  choiceValues <- unique(golem::get_golem_options("species_list")$local_name)
+  choiceValues <- unique(golem::get_golem_options("species_list")$latin_name)
   choiceNames <- lapply(
-    unique(golem::get_golem_options("species_list")$local_name),
+    low_and_sub(
+      unique(golem::get_golem_options("species_list")$latin_name)
+    ),
     function(x) {
       with_i18(x, x)
     }
@@ -36,10 +38,19 @@ mod_species_ui <- function(id, multiple = FALSE) {
       content = tagList(
         if (multiple) {
           container(
-            w3css::w3_actionButton(
-              class = "w3-border",
-              ns("undo"),
-              "Undo all selection" %>% with_i18("button-unselectall")
+            w3css::w3_half(
+              w3css::w3_actionButton(
+                class = "w3-border",
+                ns("select_all"),
+                "Select All" %>% with_i18("button-selectall")
+              )
+            ),
+            w3css::w3_half(
+              w3css::w3_actionButton(
+                class = "w3-border",
+                ns("undo"),
+                "Undo all selection" %>% with_i18("button-unselectall")
+              )
             )
           )
         },
@@ -66,6 +77,7 @@ mod_species_server <- function(id, r, entry = "species") {
     ns <- session$ns
     observeEvent(input$species,
       {
+        # browser()
         golem::invoke_js(
           "changeinnerhtmlwithid",
           list(
@@ -85,7 +97,7 @@ mod_species_server <- function(id, r, entry = "species") {
                   "(",
                   "selected" %>% with_i18("selecteed"),
                   ":",
-                  input$species,
+                  with_i18(input$species, low_and_sub(input$species)),
                   ")"
                 )
               }
@@ -99,10 +111,20 @@ mod_species_server <- function(id, r, entry = "species") {
     )
 
     observeEvent(input$undo, {
+      req(input$undo > 0)
       updateSelectInput(
         session,
         inputId = "species",
         selected = ""
+      )
+    })
+
+    observeEvent(input$select_all, {
+      req(input$select_all > 0)
+      updateSelectInput(
+        session,
+        inputId = "species",
+        selected = unique(golem::get_golem_options("species_list")$latin_name)
       )
     })
   })
