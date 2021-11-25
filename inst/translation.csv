@@ -16,7 +16,7 @@ h3-source,Source,Source
 select-language,Choose a Language,Choisir une langue
 select-species,Choose a Species,Choisir une espèce
 select-scenario,Choose a Scenario,Choisir un scenario
-select-daterange,Choose a Date range,Choisir une période
+select-daterange,Choose a Date,Choisir une date
 select-ecosystem,Select an Ecosystem,Sélectionner un écosystème
 select-case_study,Select a Case Study,Sélectionner une étude de cas
 button-launch,Launch,Lancer
