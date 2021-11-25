@@ -28,21 +28,27 @@ html {
     flex: 1 0 auto;
 }
 
-.w3-top, .w3-bottom {
+.w3-top,
+.w3-bottom {
     position: relative;
 }
+
 .w3-top {
     top: 35px;
     z-index: 99999;
 }
+
 .w3-top .w3-col {
     width: 24.99999%;
     min-width: 200px;
 }
-.w3-col.m3, .w3-quarter {
+
+.w3-col.m3,
+.w3-quarter {
     width: 24.99999%;
     min-width: 300px;
 }
+
 .page_caption {
     font-weight: 700;
     /*text-transform: uppercase;*/
@@ -90,7 +96,7 @@ p {
 }
 
 #welcome {
-  padding-top: 100px;
+    padding-top: 100px;
 }
 
 .w3-modal-content {
@@ -102,26 +108,20 @@ p {
     background-color: white!important;
 }
 
-
 .leaflet {
     margin: auto;
     z-index: 0;
 }
-
 
 .leaflet-tooltip-pane,
 .leaflet-popup-pane {
     display: none;
 }
 
-.leaflet-pane>svg path {
-    pointer-events: none!important;
-}
-
 #language_selector {
     margin: 0;
     position: absolute;
-    top:-35px;
+    top: -35px;
     width: 100%;
     background: #222;
     height: 35px;
@@ -131,6 +131,7 @@ p {
     transform: translateY(-50%);
     */
 }
+
 #language_selector #lg {
     right: 0;
     position: absolute;
