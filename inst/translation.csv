@@ -1,5 +1,5 @@
 entry,en,fr
-title-first,Situation in Present Time,Situation Présente
+title-first,Ecosystem services,Services Ecosystémiques
 title-second,Diadromous species distribution and climate change,Deuxième
 title-third,Diadromous species distribution and climate change,Troisieme
 title-fourth,Situation in Present Time,Quatrieme
@@ -24,6 +24,7 @@ map-abundance,Abundance in river basins,Abondance dans les bassins versants
 plot-evolution,Evolution of abundance,Évolution de l'abondance
 map-bycatch,Catch and bycatch at sea,Captures et captures accessoires en mer
 button-unselectall,Undo selection,Retirer la sélection
+button-selectall,Select all,Sélectionner tout
 selected,selected,sélectionnée(s)
 selecteed,selected,sélectionnée
 selecteeed,selected,sélectionnée(s)
@@ -37,3 +38,11 @@ explore,Explore the consequences of climate change on the distribution of diadro
 status_in_river_catchments,Status in river catchments (1951-2010),Statut dans les bassins versants (1951-2010)
 annual_prevalence,Annual prevalence in catches at sea,Prévalence annuelle des captures en mer
 missing,Missing,Données manquantes
+species_display,Species are displayed as,Montrer les espèces en
+rows,Rows,Lignes
+columns,Column,Colonnes
+no_data_in_dt,No data to return from the selection,Pas de données retournées pour cette combinaison de filtres
+fish_name,Fish,Espèces
+casestudy_name,CaseStudy,Études de cas
+category,Category,Catégories
+esvalue_code,ES Value,Valeurs ES

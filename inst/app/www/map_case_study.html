@@ -16,7 +16,8 @@ Make sure you put this AFTER Leaflet's CSS
 
 <!--<h1 class="page_caption" data-i18n="title-first">Situation in present time</h1>-->
 <div class="w3-row-padding w3-padding-16 w3-center">
-    <button onclick = "blueishalllayers()" data-i18n="button-unselectall">Unselect All</button>
+    <button onclick = "selectalllayers()" data-i18n="button-selectall" class="w3button w3-btn w3-border w3-border shiny-bound-input">Select All</button>
+    <button onclick = "blueishalllayers()" data-i18n="button-unselectall" class="w3button w3-btn w3-border w3-border shiny-bound-input">Unselect All</button>
     <div>&nbsp;</div>
     <div id="mapid"></div>
 </div>
@@ -56,30 +57,71 @@ Make sure you put this AFTER Leaflet's CSS
         onEachFeature: function(feature, layer) {
             layer.on({
                 click: (function(ev) {
-                    selected_basins.push(feature.properties.basin_id);
-                    selected_basins = [...new Set(selected_basins)]
-                    selected_cs.push(feature.properties.casestudy_id);
-                    selected_cs = [...new Set(selected_cs)]
+                    debugger;
+                    // Selection 
+                    if (layer._path.classList.contains("red")){
+                        // Anti selection  
+                        layer._path.classList.remove("red");
+                        selected_basins.pop(feature.properties.basin_id);
+                        selected_basins = [...new Set(selected_basins)]
+                        selected_cs.pop(feature.properties.casestudy_id);
+                        selected_cs = [...new Set(selected_cs)]
                     
-                    Shiny.setInputValue("{{basin_shiny_id}}", selected_basins);
-                    Shiny.setInputValue("{{casestudy_shiny_id}}", selected_cs);
-                    // Change the current layer to red
-                    // blueishalllayers();
-                    layer.setStyle({
-                        color: "red"
-                    });
+                        Shiny.setInputValue("{{basin_shiny_id}}", selected_basins);
+                        Shiny.setInputValue("{{casestudy_shiny_id}}", selected_cs);
+                       // Change the current layer to red
+                       // blueishalllayers();
+                        layer.setStyle({
+                            color: "blue"
+                        });
+                        
+                    } else {
+                        layer._path.classList.add("red");
+                        selected_basins.push(feature.properties.basin_id);
+                        selected_basins = [...new Set(selected_basins)]
+                        selected_cs.push(feature.properties.casestudy_id);
+                        selected_cs = [...new Set(selected_cs)]
+                    
+                        Shiny.setInputValue("{{basin_shiny_id}}", selected_basins);
+                        Shiny.setInputValue("{{casestudy_shiny_id}}", selected_cs);
+                       // Change the current layer to red
+                       // blueishalllayers();
+                        layer.setStyle({
+                            color: "red"
+                        }); 
+                    }
+                    
+                    
                 }).bind(feature)
             })
         }
     })
 
-    function blueishalllayers() {
+    function selectalllayers() {
+        selected_basins = [];
+        selected_cs = [];
+        // We send all the basin ids to shiny
+        geojsonFeature.features.map(x => selected_basins.push(x.properties.basin_id));
+        geojsonFeature.features.map(x => selected_cs.push(x.properties.casestudy_id));
+        selected_basins = [...new Set(selected_basins)]
+        selected_cs = [...new Set(selected_cs)]
+        Shiny.setInputValue("{{basin_shiny_id}}", selected_basins);
+        Shiny.setInputValue("{{casestudy_shiny_id}}", selected_cs);
+        geojsonLayer.eachLayer(function(layer) {
+            layer.setStyle({
+                color: "red"
+            })
+        });
+    }
+
+    function blueishalllayers(){
+        selected_basins = [];
+        selected_cs = [];
         geojsonLayer.eachLayer(function(layer) {
             layer.setStyle({
                 color: "blue"
             })
         });
-        selected_basins = [];
         Shiny.setInputValue("{{basin_shiny_id}}", selected_basins);
         Shiny.setInputValue("{{casestudy_shiny_id}}", selected_cs);
     }

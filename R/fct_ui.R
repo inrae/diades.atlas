@@ -132,7 +132,8 @@ w3_help_button <- function(content,
 
 
 ecosystem_hover_content <- function(basin) {
-  if (length(basin) == 0 | length(basin) > 1) {
+  # if (length(basin) == 0 | length(basin) > 1) {
+  if (TRUE) {
     paste(
       "Select an Ecosystem Service" %>% with_i18("select-ecosystem"),
       "(",
@@ -177,7 +178,8 @@ scenario_hover_content <- function(scenario) {
 }
 
 case_study_hover_content <- function(case_study) {
-  if (length(case_study) == 0 | length(case_study) > 1) {
+  # if (length(case_study) == 0 | length(case_study) > 1) {
+  if (TRUE) {
     paste(
       "Select a Case Study" %>% with_i18("select-case_study"),
       "(",

@@ -107,11 +107,7 @@ mod_fourth_server <- function(id, r = r) {
       req(loco$species)
 
       tm_draw(
-        species_latin_name = {
-          golem::get_golem_options("species_list") %>%
-            filter(local_name == loco$species) %>%
-            pull(latin_name)
-        },
+        species_latin_name = loco$species,
         spatial_type = input$square_or_division,
         con = con,
         dataCatchment = golem::get_golem_options("dataCatchment"),
@@ -132,7 +128,7 @@ mod_fourth_server <- function(id, r = r) {
       req(loco$species)
       # browser()
       species_id <- get_active_species() %>%
-        dplyr::filter(local_name == loco$species) %>%
+        dplyr::filter(latin_name == loco$species) %>%
         dplyr::pull(species_id)
 
       golem::invoke_js(
