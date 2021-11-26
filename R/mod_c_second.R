@@ -127,11 +127,9 @@ mod_second_server <- function(id, r = r) {
           )
           return(NULL)
         }
-        # TODO CHANGE AFTER MERGE, THE SPECIES MODULE
-        # HAS CHANGED ITS OUTPUT
         spc <- golem::get_golem_options("species_list")
         loco$model_res <- get_hybrid_model(
-          species_id = spc[spc$local_name == loco$species, "species_id"],
+          species_id = spc[spc$latin_name == loco$species, "species_id"],
           scenario = input$scenario,
           session = session
         )
