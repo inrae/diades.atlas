@@ -17,17 +17,17 @@ knitr::opts_chunk$set(
 if (FALSE) {
   vignette_name <- "bd-page3-climate-change"
   vignette_file <- paste0(vignette_name, ".Rmd")
-  
+
   rmarkdown::render(
     input = here::here(file.path("data-raw", vignette_file)),
     output_format = "rmarkdown::html_vignette",
     output_options = list(toc = TRUE),
     output_file = here::here(file.path("vignettes", vignette_file))
   )
-  
+
   # Add header for title
   lines <- readLines(here::here(file.path("vignettes", vignette_file)))
-  
+
   cat(
     glue::glue('---
 title: ".{vignette_name}."
@@ -38,9 +38,9 @@ vignette: >
   %\\VignetteEncoding{UTF-8}
 ---
 ', .open = ".{", .close = "}."),
-lines,
-sep = "\n", 
-file = here::here(file.path("vignettes", vignette_file))
+    lines,
+    sep = "\n",
+    file = here::here(file.path("vignettes", vignette_file))
   )
 }
 ```
@@ -58,13 +58,131 @@ library(ggplot2)
 
 Do not forget to set environment variables in .Renviron
 ```{r}
-# Connect to database
-con <- connect()
+pkgload::load_all(attach_testthat = FALSE)
+session <- new.env()
+connect(session)
+library(leaflet)
+library(shiny)
+library(tmap)
+library(dbplyr)
+library(dplyr)
+input <- new.env()
+# input$species <-
+species_id <- 6
+scenario <- "rcp85"
+date <- c(1970, 2010)
 
-# Listtables
-# DBI::dbListTables(con)
-# DBI::dbListObjects(con)
+hybrid_model_result <- tbl(get_con(se), "hybrid_model_result")
 
+get_hybrid_model <- function(species_id,
+                             scenario,
+                             session = shiny::getDefaultReactiveDomain()) {
+  tbl(
+    get_con(session),
+    "hybrid_model_result"
+  ) %>%
+    filter(
+      # On choisis un seul climatic_model_id (à terme, ce sera le 999)
+      # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
+      climatic_model_id == 2,
+      species_id %in% !!species_id,
+      climatic_scenario %in% !!scenario # ,
+      # year %in% !!seq(from = date[1], to = date[2], by = 1)
+    ) %>%
+    collect()
+}
+model_res <- get_hybrid_model(
+  species_id = 6,
+  scenario = "rcp85",
+  # date = c(1970, 2010),
+  session = session
+)
+
+# Available_bv
+bv_ids <- sort(
+  unique(model_res$basin_id)
+)
+
+get_bv_geoms <- function(bv_ids,
+                         session = shiny::getDefaultReactiveDomain()) {
+  sf::st_read(
+    get_con(session),
+    query = sprintf(
+      "select basin_id, verysimplified_geom from basin_outlet where basin_id IN %s",
+      dbplyr::translate_sql(!!bv_ids)
+    )
+  )
+}
+
+bv_df <- get_bv_geoms(
+  bv_ids,
+  session
+)
+
+draw_bv_leaflet <- function(bv_df,
+                            model_res,
+                            year) {
+  bv_df <- left_join(
+    bv_df,
+    filter(model_res, year == !!year),
+    by = "basin_id"
+  )
+  factpal <- colorNumeric(
+    palette = "Blues",
+    domain = bv_df$saturation_rate
+  )
+  leaflet() %>%
+    addTiles() %>%
+    addPolygons(data = bv_df, layerId = ~basin_id, color = ~ factpal(saturation_rate))
+}
+
+ui <- function(request) {
+  tagList(
+    leaflet::leafletOutput("plot")
+  )
+}
+
+server <- function(input,
+                   output,
+                   session) {
+  output$plot <- leaflet::renderLeaflet({
+    draw_bv_leaflet(bv_df, model_res, 1976)
+  })
+
+  observeEvent(input$plot_shape_click, { # update the location selectInput on map clicks
+    print(input$plot_shape_click)
+  })
+}
+
+shinyApp(ui, server)
+
+
+
+selected_bv <- 385
+selected_year <- 2002
+plot_hsi_nit <- function(model_res,
+                         selected_year,
+                         selected_bv) {
+  model_res_filtered <- model_res %>%
+    filter(
+      basin_id == selected_bv
+    )
+  hsi <- ggplot(
+    model_res_filtered,
+    aes(year, hsi)
+  ) +
+    geom_line() +
+    geom_vline(xintercept = selected_year, color = "red")
+  nit <- ggplot(
+    model_res_filtered,
+    aes(year, nit)
+  ) +
+    geom_line() +
+    geom_vline(xintercept = selected_year, color = "red")
+  patchwork:::`/.ggplot`(
+    hsi, nit
+  )
+}
 ```
 
 

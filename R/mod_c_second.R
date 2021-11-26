@@ -24,7 +24,10 @@ mod_second_ui <- function(id) {
             content = w3css::w3_radioButton(
               ns("scenario"),
               "Scenario",
-              choices = c("RCP 8.5", "The other one")
+              choices = c(
+                "RCP 8.5" = "rcp85",
+                "The other one" = "other"
+              )
             ),
             content_style = "width:25em",
             button_id = ns("scenario_hover")
@@ -45,7 +48,7 @@ mod_second_ui <- function(id) {
                 NULL,
                 min = 1950,
                 max = 2100,
-                value = c(1950, 2100)
+                value = 1950
               )
             ),
             button_id = ns("date_hover")
@@ -74,7 +77,7 @@ mod_second_ui <- function(id) {
       hr()
     ),
     container(
-      w3css::w3_half(
+      w3css::w3_third(
         h4(
           with_i18("Abundance in river basins", "map-abundance"),
           w3_help_button(
@@ -82,9 +85,9 @@ mod_second_ui <- function(id) {
             "map_abundance_help"
           )
         ),
-        plotOutput(ns("map"))
+        leafletOutput(ns("plot"), height = 600)
       ),
-      w3css::w3_half(
+      w3css::w3_twothird(
         h4(
           with_i18("Evolution of abundance", "plot-evolution"),
           w3_help_button(
@@ -92,7 +95,7 @@ mod_second_ui <- function(id) {
             "plot_evolution_help"
           )
         ),
-        plotOutput(ns("prediction"))
+        plotOutput(ns("prediction"), height = 600)
       )
     )
   )
@@ -114,32 +117,66 @@ mod_second_server <- function(id, r = r) {
       r = loco
     )
 
-    output$map <- renderPlot({
-      input$display
-      ggplot(map_data("france"), aes(long, lat, group = group)) +
-        geom_polygon() +
-        geom_polygon(
-          data = map_data("france") %>%
-            dplyr::filter(region %in% sample(
-              unique(map_data("france")$region),
-              3
-            )),
-          aes(fill = region)
-        ) +
-        # coord_map() +
-        theme_void() +
-        guides(
-          fill = "none"
-        ) 
-      
+    observeEvent(
+      input$display,
+      {
+        if (input$scenario != "rcp85") {
+          shiny::showNotification(
+            "Scenario not implemented",
+            type = "error"
+          )
+          return(NULL)
+        }
+        # TODO CHANGE AFTER MERGE, THE SPECIES MODULE
+        # HAS CHANGED ITS OUTPUT
+        spc <- golem::get_golem_options("species_list")
+        loco$model_res <- get_hybrid_model(
+          species_id = spc[spc$local_name == loco$species, "species_id"],
+          scenario = input$scenario,
+          session = session
+        )
+        loco$bv_df <- get_bv_geoms(
+          unique(loco$model_res$basin_id),
+          session
+        )
+        loco$selected_bv <- sample(
+          unique(loco$model_res$basin_id),
+          1
+        )
+      }
+    )
+
+    output$plot <- renderLeaflet({
+      req(
+        loco$bv_df,
+        loco$model_res,
+        input$date
+      )
+      draw_bv_leaflet(
+        loco$bv_df,
+        loco$model_res,
+        input$date
+      )
+    })
+
+    observeEvent(input$plot_shape_click, {
+      loco$selected_bv_id <- input$plot_shape_click$id
+      # Do we need that?
+      loco$selected_bv_name <- tbl(get_con(session), "basin") %>%
+        filter(basin_id == !!input$plot_shape_click$id) %>%
+        collect()
     })
 
     output$prediction <- renderPlot({
-      input$display
-      p1 <- shinipsum::random_ggplot(type = "line")
-      p2 <- shinipsum::random_ggplot(type = "line")
-      patchwork:::`/.ggplot`(
-        p1, p2
+      req(
+        loco$model_res,
+        input$date,
+        loco$selected_bv_id
+      )
+      plot_hsi_nit(
+        loco$model_res,
+        input$date,
+        loco$selected_bv_id
       )
     })
 

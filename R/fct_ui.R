@@ -159,9 +159,7 @@ date_hover_content <- function(date) {
     "(",
     "selected" %>% with_i18("selecteed"),
     ":",
-    date[1],
-    "/",
-    date[2],
+    date,
     ")"
   )
 }
