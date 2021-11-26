@@ -77,7 +77,7 @@ mod_second_ui <- function(id) {
       hr()
     ),
     container(
-      w3css::w3_half(
+      w3css::w3_third(
         h4(
           with_i18("Abundance in river basins", "map-abundance"),
           w3_help_button(
@@ -87,7 +87,7 @@ mod_second_ui <- function(id) {
         ),
         leafletOutput(ns("plot"), height = 600)
       ),
-      w3css::w3_half(
+      w3css::w3_twothird(
         h4(
           with_i18("Evolution of abundance", "plot-evolution"),
           w3_help_button(
@@ -95,7 +95,7 @@ mod_second_ui <- function(id) {
             "plot_evolution_help"
           )
         ),
-        plotOutput(ns("prediction"))
+        plotOutput(ns("prediction"), height = 600)
       )
     )
   )
