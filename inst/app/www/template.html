@@ -63,6 +63,10 @@ const local = function(){
 
 window.setInterval(local, 1000);
 
+$(document).on('shiny:connected', function(event) {
+  Shiny.setInputValue("i18n", language)
+});
+
 
 </script>
 

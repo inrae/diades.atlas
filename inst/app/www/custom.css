@@ -118,6 +118,10 @@ p {
     display: none;
 }
 
+#fourth_ui_1-raster {
+    pointer-events: none!important;
+}
+
 #language_selector {
     margin: 0;
     position: absolute;
@@ -135,4 +139,9 @@ p {
 #language_selector #lg {
     right: 0;
     position: absolute;
+}
+
+td,
+th {
+    text-align: center;
 }

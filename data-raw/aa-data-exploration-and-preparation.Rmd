@@ -17,17 +17,17 @@ knitr::opts_chunk$set(
 if (FALSE) {
   vignette_name <- "aa-data-exploration-and-preparation"
   vignette_file <- paste0(vignette_name, ".Rmd")
-  
+
   rmarkdown::render(
     input = here::here(file.path("data-raw", vignette_file)),
     output_format = "rmarkdown::html_vignette",
     output_options = list(toc = TRUE),
     output_file = here::here(file.path("vignettes", vignette_file))
   )
-  
+
   # Add header for title
   lines <- readLines(here::here(file.path("vignettes", vignette_file)))
-  
+
   cat(
     glue::glue('---
 title: ".{vignette_name}."
@@ -38,9 +38,9 @@ vignette: >
   %\\VignetteEncoding{UTF-8}
 ---
 ', .open = ".{", .close = "}."),
-lines,
-sep = "\n", 
-file = here::here(file.path("vignettes", vignette_file))
+    lines,
+    sep = "\n",
+    file = here::here(file.path("vignettes", vignette_file))
   )
 }
 ```
@@ -65,12 +65,13 @@ postgis_user <- Sys.getenv("POSTGIS_USER")
 postgis_password <- Sys.getenv("POSTGIS_PASSWORD")
 
 con <- DBI::dbConnect(
-  RPostgres::Postgres(), 
-  host = postgis_host,
-  dbname = "diades",
-  port = 5432,
-  user = postgis_user,
-  password = postgis_password
+  Postgres(),
+  host = Sys.getenv("POSTGRES_HOST", get_golem_config("POSTGRES_HOST")),
+  dbname = Sys.getenv("POSTGRES_DBNAME", get_golem_config("POSTGRES_DBNAME")),
+  port = Sys.getenv("POSTGRES_PORT", get_golem_config("POSTGRES_PORT")),
+  user = Sys.getenv("POSTGRES_USER", "diadesatlas_r"),
+  password = Sys.getenv("POSTGRES_PASS", "diadesPassword"),
+  options = "-c search_path=diadesatlas"
 )
 # Listtables
 # DBI::dbListTables(con)
@@ -80,8 +81,8 @@ con <- DBI::dbConnect(
 all_schemas <- DBI::dbGetQuery(con, "SELECT table_name FROM information_schema.tables WHERE table_schema='diadesatlas'")
 all_schemas
 
-# Display the head of all 
-for (i in all_schemas$table_name){
+# Display the head of all
+for (i in all_schemas$table_name) {
   print(dplyr::tbl(con, dbplyr::in_schema("diadesatlas", i)))
 }
 
@@ -108,7 +109,7 @@ dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "es_diades")) %>% collect()
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_outlet")) %>% collect()
 # Model results over the years
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "hybrid_model_result")) %>% collect()
-# Abundance of species in a given basin ove the years 
+# Abundance of species in a given basin ove the years
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "abundance")) %>% collect()
 # ?
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "climatic_model")) %>% collect()
@@ -135,25 +136,37 @@ casestudy <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% 
 # List of the corresponding basins
 casestudy_basin <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
 # Put them two together
-cstd <- full_join(casestudy, casestudy_basin)
+cstd <- full_join(casestudy, casestudy_basin) %>% filter(publishable)
 
 # Get the features for drawing the polygons on the map
 qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom, basin_id as basin_id FROM diadesatlas.basin_outlet"
 
 # i then read as an sf object
-pols <- sf::st_read(con, query=qry, geom="geom") %>% 
+pols <- sf::st_read(con, query = qry, geom = "geom") %>%
   filter(basin_id %in% casestudy_basin$basin_id) %>%
   left_join(cstd)
-pols %>% geojson::as.geojson() %>% geojson::geo_write(here::here("inst/casestudy.json"))
+pols %>%
+  geojson::as.geojson() %>%
+  geojson::geo_write(here::here("inst/casestudy.json"))
 
 # List of ecosystem services
 ecosystems <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
 ecosystems %>%
   filter(presence == 1) %>%
   jsonlite::write_json(here::here("inst/ecosystems.json"))
-#Services 
-services <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices")) %>% collect()
+# Services
+services <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "v_ecosystemic_services")) %>% collect()
 services %>%
+  distinct(category_id, subcategory_id, category_name, subcategory_name) %>%
+  mutate(
+    subcategory_id = gsub("99", "0", subcategory_id)
+  ) %>%
+  arrange(
+    category_id, subcategory_id
+  ) %>%
+  mutate(
+    subcategory_id = gsub("0", "99", subcategory_id)
+  ) %>%
   jsonlite::write_json(here::here("inst/services.json"))
 
 eco_and_services <- full_join(ecosystems, services)
@@ -164,17 +177,16 @@ species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% coll
 species %>%
   filter(species_id %in% ecosystems$species_id) %>%
   jsonlite::write_json(here::here("inst/species.json"))
-
 ```
 
 ### Prepare and test leaflet map
 ```{r}
-# set query and reproject to EPSG:4326 for GeoJSON creation 
+# set query and reproject to EPSG:4326 for GeoJSON creation
 # (the real query is more involved with a bounding box etc)
 qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom FROM diadesatlas.basin_outlet"
 
 # i then read as an sf object
-pols <- sf::st_read(con, query=qry, geom="geom")
+pols <- sf::st_read(con, query = qry, geom = "geom")
 
 # and convert to GeoJSON
 pols.js <- geojsonio::geojson_json(pols)
@@ -182,22 +194,22 @@ pols.js <- geojsonio::geojson_json(pols)
 
 # options(readr.default_locale=readr::locale(tz="Europe/Berlin"))
 # df60 <- get_eurostat_geospatial(resolution = 60)
-# 
-# CE.sf <- df60 %>%   
-#   dplyr::filter(LEVL_CODE == 2 & CNTR_CODE %in% c("AT","CZ","DE","HU","PL","SK")) %>% 
-#   dplyr::select(NUTS_ID) 
+#
+# CE.sf <- df60 %>%
+#   dplyr::filter(LEVL_CODE == 2 & CNTR_CODE %in% c("AT","CZ","DE","HU","PL","SK")) %>%
+#   dplyr::select(NUTS_ID)
 
 plot(pols)
 
-pols %>% 
+pols %>%
   ggplot() +
   geom_sf(color = "black", size = 0.4)
 
 # CE = sf::as_Spatial(pols)
 
-leaflet() %>% 
-  addProviderTiles("CartoDB.Positron") %>% 
-  addPolygons(data= pols, color = "green")
+leaflet() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data = pols, color = "green")
 ```
 
 
