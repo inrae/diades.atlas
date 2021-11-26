@@ -4,7 +4,7 @@ library(DBI)
 library(dplyr)
 library(dbplyr)
 con <- DBI::dbConnect(
-  RPostgres::Postgres(), 
+  RPostgres::Postgres(),
   host = "postgis",
   dbname = "diades",
   port = 5432,
@@ -25,13 +25,17 @@ cstd
 qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom, basin_id as basin_id FROM diadesatlas.basin_outlet"
 
 # Query it as an sf object,
-pols <- sf::st_read(con, query=qry, geom="geom") %>% 
-  # keep only the basin which are in the case study, 
+pols <- sf::st_read(con, query = qry, geom = "geom") %>%
+  # keep only the basin which are in the case study,
   filter(basin_id %in% casestudy_basin$basin_id) %>%
   # Then add the info from cstd
-  left_join(cstd)
+  left_join(cstd) %>%
+  filter(publishable)
+
 # Save it as a geojson, so that we can reuse it on the leaflet map
-pols %>% geojson::as.geojson() %>% geojson::geo_write("inst/casestudy.json")
+pols %>%
+  geojson::as.geojson() %>%
+  geojson::geo_write("inst/casestudy.json")
 
 # List of ecosystem services
 ecosystems <- tbl(con, in_schema("diadesatlas", "ecosystem_service")) %>% collect()
@@ -40,7 +44,7 @@ ecosystems %>%
   filter(presence == 1, casestudy_id %in% casestudy$casestudy_id) %>%
   jsonlite::write_json("inst/ecosystems.json")
 
-#Services 
+# Services
 # Getting the services as is
 services <- tbl(con, in_schema("diadesatlas", "cices")) %>% collect()
 services %>%

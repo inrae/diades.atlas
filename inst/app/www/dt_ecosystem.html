@@ -1,0 +1,88 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
+<div class="w3-row-padding w3-padding-16 w3-center">
+    <div class="w3-col m12">
+		<button onclick = "fulldt()" data-i18n="button-selectall" class="w3button w3-btn w3-border w3-border shiny-bound-input">Select All</button>
+		<button onclick = "cleardt()" data-i18n="button-unselectall" class="w3button w3-btn w3-border w3-border shiny-bound-input">Unselect All</button>
+    </div>
+
+    <div class="w3-col m12">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                </tr>
+            </thead>
+            <tbody id="innerservice"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var services = {{services}};
+    var selected_ecosys = [];
+    var table;
+
+    const fulldt = function() {
+        selected_ecosys = [];
+        $('.servicestd').each(function () {
+            selected_ecosys.push( $(this).attr('id') )
+        });
+        Shiny.setInputValue("{{shiny_input}}", selected_ecosys);
+		$(".servicestd").css("color", "orange");
+        $(".servicestd").addClass("orange");
+    }
+
+	const cleardt = function() {
+        selected_ecosys = [];
+        Shiny.setInputValue("{{shiny_input}}", selected_ecosys);
+        $(".servicestd").css("color", "");
+        $(".servicestd").removeClass("orange");
+    }
+
+    $(document).ready(function() {
+        var bod = $("#innerservice")
+
+        for (var i = 0; i < services.length; i++) {
+            bod.append(
+                `<tr id="${services[i].category_id}_${services[i].subcategory_id}" class = "servicestd"><td>${services[i].category_name}</td><td>${services[i].subcategory_name}</td></tr>`
+            )
+        }
+
+        table = $('#table_id').DataTable({
+            "scrollY": 600,
+            "paging": false,
+            "info": false,
+            "pageLength":12, 
+            "dom": "tr"
+            }
+        );
+
+        $('#table_id tbody').on('click', 'tr', function() {    
+            if ($("#" + this.id).hasClass("orange")) {
+                $("#" + this.id).css("color", "");
+                $("#" + this.id).removeClass("orange");
+                selected_ecosys.pop(this.id);
+            } else {
+                $("#" + this.id).css("color", "orange");
+                $("#" + this.id).addClass("orange");
+                selected_ecosys.push(this.id);
+            }
+
+            selected_ecosys = [...new Set(selected_ecosys)];
+            Shiny.setInputValue("{{shiny_input}}", selected_ecosys)
+        });
+
+
+    });
+
+
+
+    $("#{{button_id}}").hover(function(x) {
+        $("th[aria-controls='table_id']").first().click();
+        $("th[aria-controls='table_id']").first().click();
+    })
+</script>

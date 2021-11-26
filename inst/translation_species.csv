@@ -1,12 +1,12 @@
 entry,en,fr
-ASturio,European sturgeon,Esturgeon européen
-AAlosa,Allis shad,Grande alose
-AFallax,Twaite shad,Alose feinte
-AAnguilla,European eel,Anguille européenne
-LFluviatilis,River lamprey,Lamproie de rivière
-OEperlanus,European smelt,Éperlan
-PMarinus,Sea lamprey,Lamproie marine
-PFlesus,European flounder,Flet
-SSalar,Atlantic salmon,Saumon atlantique
-STrutta,Sea trout,Truite de mer
-LRamada,Thinlip grey mullet,Thinlip grey mullet
+acipenser-sturio,European sturgeon,Esturgeon européen
+alosa-alosa,Allis shad,Grande alose
+alosa-fallax,Twaite shad,Alose feinte
+anguilla-anguilla,European eel,Anguille européenne
+lampetra-fluviatilis,River lamprey,Lamproie de rivière
+osmerus-eperlanus,European smelt,Éperlan
+petromyzon-marinus,Sea lamprey,Lamproie marine
+platichthys-flesus,European flounder,Flet
+salmo-salar,Atlantic salmon,Saumon atlantique
+salmo-trutta,Sea trout,Truite de mer
+chelon-ramada,Thinlip grey mullet,Thinlip grey mullet
