@@ -143,20 +143,16 @@ mod_second_server <- function(id, r = r) {
           unique(loco$model_res$basin_id),
           1
         )
+        loco$leaflet <- draw_bv_leaflet(
+          loco$bv_df,
+          loco$model_res,
+          input$date
+        )
       }
     )
 
     output$plot <- renderLeaflet({
-      req(
-        loco$bv_df,
-        loco$model_res,
-        input$date
-      )
-      draw_bv_leaflet(
-        loco$bv_df,
-        loco$model_res,
-        input$date
-      )
+      loco$leaflet
     })
 
     observeEvent(input$plot_shape_click, {
@@ -165,19 +161,15 @@ mod_second_server <- function(id, r = r) {
       loco$selected_bv_name <- tbl(get_con(session), "basin") %>%
         filter(basin_id == !!input$plot_shape_click$id) %>%
         collect()
+      loco$plot <- plot_hsi_nit(
+        loco$model_res,
+        input$date,
+        loco$selected_bv_id
+      )
     })
 
     output$prediction <- renderPlot({
-      req(
-        loco$model_res,
-        input$date,
-        loco$selected_bv_id
-      )
-      plot_hsi_nit(
-        loco$model_res,
-        input$date,
-        loco$selected_bv_id
-      )
+      loco$plot
     })
 
     observeEvent(input$scenario, {
