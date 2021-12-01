@@ -19,17 +19,21 @@ BugReports: https://github.com/inrae/diades.atlas/-/issues
 Depends: 
     R (>= 2.10)
 Imports: 
+    bank,
     cli (>= 3.0.1),
     config (>= 0.3.1),
     DBI (>= 1.1.1),
+    dbplyr,
     dplyr (>= 1.0.7),
     DT (>= 0.19),
     ggplot2 (>= 3.3.5),
     glue (>= 1.4.2),
     golem (>= 0.3.1),
     jsonlite (>= 1.7.2),
+    leaflet,
     magrittr (>= 2.0.1),
     maps (>= 3.3.0),
+    mongolite,
     patchwork (>= 1.1.1),
     purrr (>= 0.3.4),
     rmapshaper (>= 0.4.5),
@@ -38,12 +42,13 @@ Imports:
     shinipsum (>= 0.1.0),
     shiny (>= 1.6.0),
     shinythemes (>= 1.2.0),
+    tidyr,
     tmap (>= 3.3.2),
+    tools,
     utils,
     w3css (>= 0.0.0.9002),
     zeallot (>= 0.1.0)
 Suggests: 
-    dbplyr,
     DiagrammeR (>= 1.0.6.1),
     DiagrammeRsvg (>= 0.1),
     knitr (>= 1.34),
