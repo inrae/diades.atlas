@@ -24,3 +24,5 @@ renv\_instructions\.Rmd
 ^creds\.R$
 ^manifest\.json$
 ^\.Renviron$
+^Dockerfile$
+^\.dockerignore$
