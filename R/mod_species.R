@@ -34,40 +34,40 @@ mod_species_ui <- function(id, multiple = FALSE) {
 
   tagList(
     tags$span(
-    w3_hover_button(
-      "Select a Species" %>% with_i18("select-species"),
-      content = tagList(
-        if (multiple) {
-          container(
-            w3css::w3_half(
-              w3css::w3_actionButton(
-                class = "w3-border",
-                ns("select_all"),
-                "Select All" %>% with_i18("button-selectall")
-              )
-            ),
-            w3css::w3_half(
-              w3css::w3_actionButton(
-                class = "w3-border",
-                ns("undo"),
-                "Undo all selection" %>% with_i18("button-unselectall")
+      w3_hover_button(
+        "Select a Species" %>% with_i18("select-species"),
+        content = tagList(
+          if (multiple) {
+            container(
+              w3css::w3_half(
+                w3css::w3_actionButton(
+                  class = "w3-border",
+                  ns("select_all"),
+                  "Select All" %>% with_i18("button-selectall")
+                )
+              ),
+              w3css::w3_half(
+                w3css::w3_actionButton(
+                  class = "w3-border",
+                  ns("undo"),
+                  "Undo all selection" %>% with_i18("button-unselectall")
+                )
               )
             )
+          },
+          container(
+            f(
+              ns("species"),
+              NULL,
+              choiceValues = choiceValues,
+              choiceNames = choiceNames
+            )
           )
-        },
-        container(
-          f(
-            ns("species"),
-            NULL,
-            choiceValues = choiceValues,
-            choiceNames = choiceNames
-          )
-        )
+        ),
+        content_style = "width:25em",
+        button_id = ns("species_hover")
       ),
-      content_style = "width:25em",
-      button_id = ns("species_hover")
-    ),
-     w3_help_button(
+      w3_help_button(
         "Select a species",
         "species_modal_help"
       )
@@ -83,7 +83,6 @@ mod_species_server <- function(id, r, entry = "species") {
     ns <- session$ns
     observeEvent(input$species,
       {
-        # browser()
         golem::invoke_js(
           "changeinnerhtmlwithid",
           list(

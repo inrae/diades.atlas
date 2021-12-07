@@ -17,9 +17,6 @@ ecosystem_table <- function(species,
         get_con(session),
         "v_ecosystemic_services"
     )
-
-    # browser()
-
     res <- res %>%
         filter(
             latin_name %in% !!species
