@@ -10,7 +10,7 @@
 mod_third_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("third", class = "page_caption") %>% with_i18("title-third"),
+    h1("third", class = "page_caption") %>% with_i18("title-fourth"),
     container(
       w3css::w3_quarter(
         tagList(
@@ -181,7 +181,7 @@ mod_third_server <- function(id, r = r) {
         theme_void() +
         guides(
           fill = "none"
-        ) 
+        )
     })
 
     output$prediction <- renderPlot({

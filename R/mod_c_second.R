@@ -10,7 +10,7 @@
 mod_second_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("second", class = "page_caption") %>% with_i18("title-second"),
+    h1("second", class = "page_caption") %>% with_i18("title-third"),
     container(
       w3css::w3_quarter(
         tagList(

@@ -10,7 +10,7 @@
 mod_first_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("Ecosystem services", class = "page_caption") %>% with_i18("title-first"),
+    h1("Ecosystem services", class = "page_caption") %>% with_i18("title-second"),
     container(
       tagList(
         w3css::w3_quarter(
@@ -156,38 +156,47 @@ mod_first_server <- function(id, r = r) {
             values_from = esvalue_code
           )
 
-          if (r$lg == "fr") {
-            res <- res %>%
-              rename(
-                '<span data-i18n="casestudy_name">Études de cas/span>' = casestudy_name,
-                '<span data-i18n="category">Catégories</span>' = category
-              )
-          } else {
-            res <- res %>%
-              rename(
-                '<span data-i18n="casestudy_name">Case Study</span>' = casestudy_name,
-                '<span data-i18n="category">Category</span>' = category
-              )
-          }
+          nms <- c("casestudy_name", "category")
+          names(nms) <- c(
+            sprintf(
+              '<span data-i18n="casestudy_name">%s</span>',
+              get_translation_entry("casestudy_name", r$lg)
+            ),
+            sprintf(
+              '<span data-i18n="category">%s</span>',
+              get_translation_entry("category", r$lg)
+            )
+          )
+
+          res <- res %>%
+            rename(
+              nms
+            )
         } else {
           res <- dt_to_show
-          if (r$lg == "fr") {
-            res <- res %>%
-              rename(
-                '<span data-i18n="fish_name">Espèces</span>' = fish_name,
-                '<span data-i18n="casestudy_name">Études de cas</span>' = casestudy_name,
-                '<span data-i18n="category">Catégories</span>' = category,
-                '<span data-i18n="esvalue_code">Valeurs ES</span>' = esvalue_code
-              )
-          } else {
-            res <- res %>%
-              rename(
-                '<span data-i18n="fish_name">Fish</span>' = fish_name,
-                '<span data-i18n="casestudy_name">Case Study</span>' = casestudy_name,
-                '<span data-i18n="category">Category</span>' = category,
-                '<span data-i18n="esvalue_code">ES Value</span>' = esvalue_code
-              )
-          }
+          nms <- c("fish_name", "casestudy_name", "category", "esvalue_code")
+          names(nms) <- c(
+            sprintf(
+              '<span data-i18n="fish_name">%s</span>',
+              get_translation_entry("fish_name", r$lg)
+            ),
+            sprintf(
+              '<span data-i18n="casestudy_name">%s</span>',
+              get_translation_entry("casestudy_name", r$lg)
+            ),
+            sprintf(
+              '<span data-i18n="category">%s</span>',
+              get_translation_entry("category", r$lg)
+            ),
+            sprintf(
+              '<span data-i18n="esvalue_code">%s</span>',
+              get_translation_entry("esvalue_code", r$lg)
+            )
+          )
+          res <- res %>%
+            rename(
+              nms
+            )
         }
         res
       },
@@ -198,7 +207,7 @@ mod_first_server <- function(id, r = r) {
         scrollY = 500,
         language = list(
           emptyTable = as.character(
-            with_i18("No data, please make a selection", "no_data_in_dt")
+            with_i18(get_translation_entry("no_data_in_dt", r$lg), "no_data_in_dt")
           )
         ),
         pageLength = {
@@ -227,7 +236,7 @@ mod_first_server <- function(id, r = r) {
       },
       ignoreNULL = FALSE
     )
- 
+
     observeEvent(input$ecosystem,
       {
         golem::invoke_js(
