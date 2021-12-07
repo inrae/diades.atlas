@@ -1,6 +1,9 @@
 #' Title
 #'
 #' Description
+#' 
+#' @param species_id,scenario internal param for SQL filter
+#' @param session Shiny session  object
 #'
 #' @export
 #'
@@ -35,6 +38,7 @@ get_bv_geoms <- function(bv_ids,
     )
 }
 #' @import leaflet
+#' @importFrom utils getFromNamespace
 draw_bv_leaflet <- function(bv_df,
                             model_res,
                             year) {
@@ -76,7 +80,7 @@ plot_hsi_nit <- function(model_res,
     ) +
         geom_line() +
         geom_vline(xintercept = selected_year, color = "red")
-    patchwork:::`/.ggplot`(
+    getFromNamespace("/.ggplot", "patchwork")(
         hsi, nit
     )
 }

@@ -28,7 +28,7 @@ connect <- function(
 #'
 #' @param session Shiny session object
 #'
-#' @return
+#' @return The connection object
 #' @export
 #'
 #' @examples

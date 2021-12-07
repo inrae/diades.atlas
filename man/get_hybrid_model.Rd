@@ -10,6 +10,11 @@ get_hybrid_model(
   session = shiny::getDefaultReactiveDomain()
 )
 }
+\arguments{
+\item{species_id, scenario}{internal param for SQL filter}
+
+\item{session}{Shiny session  object}
+}
 \description{
 Description
 }

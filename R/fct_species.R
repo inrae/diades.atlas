@@ -23,7 +23,7 @@ get_active_species <- function(session = shiny::getDefaultReactiveDomain()) {
 #' @param species_id Id of the species to look for.
 #' @param con The Connection object
 #'
-#' @return
+#' @return a table with the conservation status for a species
 #' @export
 #'
 #' @examples

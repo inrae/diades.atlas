@@ -152,6 +152,7 @@ mod_third_ui <- function(id) {
 #'
 #' @noRd
 #' @import maps
+#' @importFrom utils getFromNamespace
 mod_third_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -188,7 +189,7 @@ mod_third_server <- function(id, r = r) {
       input$display
       p1 <- shinipsum::random_ggplot(type = "line")
       p2 <- shinipsum::random_ggplot(type = "line")
-      patchwork:::`/.ggplot`(
+      getFromNamespace("/.ggplot", "patchwork")(
         p1, p2
       )
     })

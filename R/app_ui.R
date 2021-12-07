@@ -5,6 +5,7 @@
 #' @import shiny
 #' @import shinipsum
 #' @importFrom shinythemes shinytheme
+#' @importFrom utils getFromNamespace
 #' @noRd
 app_ui <- function(request) {
   sess <- new.env()
@@ -13,7 +14,7 @@ app_ui <- function(request) {
     # Leave this function for adding external resources
     golem_add_external_resources(),
     w3css::w3_page(
-      shiny:::bootstrapLib(),
+      getFromNamespace("bootstrapLib", "shiny")(),
       htmlTemplate(
         app_sys("app/www/template.html"),
         translate = HTML(build_language_json(session = sess)),

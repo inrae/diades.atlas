@@ -1,10 +1,8 @@
 #' Title
 #'
-#' @param species_latin_name The latin name of the species
-#' @param spatial_type Geom to use in the map
-#' @param con The Connection object
-#' @param yearStart,yearEnd date used
-#' @param dataCatchment,catchment_geom,dataALL,ices_geom  internal datasets
+#' @param species,case_study,ecosystem Param for file in SQL
+#' @param r reactiveValues
+#' @param session Shiny session object
 #'
 #' @export
 #'
