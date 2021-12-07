@@ -32,8 +32,9 @@ translation_species <- function(session = shiny::getDefaultReactiveDomain()) {
   )
 }
 
+#' @importFrom stats setNames
 translation_abundance_level <- function(session = shiny::getDefaultReactiveDomain()) {
-  # TODO écrire depuis la base
+  # TODO ecrire depuis la base
   DBI::dbGetQuery(
     get_con(session),
     "select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"
@@ -43,8 +44,9 @@ translation_abundance_level <- function(session = shiny::getDefaultReactiveDomai
     # via le code SQL commenté
     mutate(
       fr = c(
-        "Non enregistré sur la période",
-        "Présence occasionnelle",
+        # Make R CMD Check happy because we're in 1987
+        "Non enregistr\\u00e9 sur la p\\u00e9riode" %>% stringi::stri_unescape_unicode(),
+        "Pr\\u00e9sence occasionnelle" %>% stringi::stri_unescape_unicode(),
         "Populations fonctionnelles",
         "Populations fonctionnelles abondante"
       )
@@ -152,7 +154,7 @@ get_dt_lg <- function(lg) {
 #'
 #' @param con The DB connection object
 #'
-#' @return
+#' @return A list of data.frame
 #' @export
 #'
 generate_datasets <- function(con) {
