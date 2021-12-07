@@ -1,5 +1,5 @@
 ---
-title: "Tab 1"
+title: "Translation"
 author: "Colin Fay"
 date: "`r Sys.Date()`"
 output: html_document
@@ -7,54 +7,144 @@ output: html_document
 
 ```{r}
 pkgload::load_all(attach_testthat = FALSE)
-se <- new.env()
-connect(se)
+session <- new.env()
+connect(session)
 library(dplyr)
 ```
 
 ## Comment est organisée la traduction
 
+__Note importante__ : Pensez à être bien vigilant sur l'harmonisation des code-langues. 
+En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'applicatino. 
+
+### Pour les "help bubble"
+
+Les help bubbles sont les éléments d'aide lors du passage de la souris sur un élément `(?)`.
+
+Ils sont tous dans `inst/translation_help`. 
+Ce dossier contient des sous-dossiers, chacun correspondant à une bulle d'aide. 
+Chacun de ces  sous dossiers contient des `.md`, un par code-langue. 
+Vous pouvez utiliser du code Markdown afin de remplir ces éléments. 
+
+Ces contenus sont ensuite compilés dans `inst/translation_help.csv`, via le code ci-dessous, à relancer en cas de changement.  
+
+```{r}
+unlink("inst/translation_help.csv")
+
+purrr::map_df(
+  list.files(
+    "inst/translation_help",
+    full.names = TRUE
+  ), ~ {
+    data.frame(
+      entry = basename(.x),
+      en = htmltools::includeMarkdown(
+        file.path(.x, "en.md")
+      ),
+      fr = htmltools::includeMarkdown(
+        file.path(.x, "fr.md")
+      )
+    )
+  }
+) %>%
+  readr::write_csv("inst/translation_help.csv")
+```
+
 ### Pour le front-end 
 
-Pour l'interface utilisateur, l'application met ensemble 4 fichiers CSV, contenus dans le dossier `inst/`. 
-Trois de ces fichiers sont automatiquement générés, un est à modifier à la main. 
+Pour l'interface utilisateur, l'application met ensemble des fichiers CSV, contenus dans le dossier `inst/` et des tables contenues dans la base. 
+Certains de ces fichiers sont automatiquement générés, un est à modifier à la main. 
 
 Tous ces fichiers contiennent au moins 3 colonnes: 
 
-+ `entry` : la clé d'entrée dans le front pour i18n
++ `entry` : la clé d'entrée dans le front (pour i18n)
 + `en` : la traduction en anglais
 + `fr` : la traduction en français
 
-### Fichiers générés automatiquement 
+### Lus dans la base
 
-+ `translation_abundance_level.csv` : contient les traductions pour les éléments de niveau d'abondance. 
++ `abundance_level`
+```{r}
+translation_abundance_level <- function(session = shiny::getDefaultReactiveDomain()) {
+  # TODO écrire depuis la base
+  DBI::dbGetQuery(
+    get_con(session),
+    "select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"
+    # "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr from abundance_level"
+  ) %>%
+    # Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,
+    # via le code SQL commenté
+    mutate(
+      fr = c(
+        "Non enregistré sur la période",
+        "Présence occasionnelle",
+        "Populations fonctionnelles",
+        "Populations fonctionnelles abondante"
+      )
+    )
+}
+translation_abundance_level(se)
+```
+
++ `species` : contient les traductions pour les éléments de niveau d'abondance. 
 Se génère via le code suivant : 
 
 ```{r}
-# TODO écrire depuis la base
-
-DBI::dbGetQuery(
-  get_con(se),
-  "select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"
-  # "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr from abundance_level"
-) %>%
-  # Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,
-  # via le code SQL commenté
-  mutate(
-    fr = c(
-      "Non enregistré sur la période",
-      "Présence occasionnelle",
-      "Populations fonctionnelles",
-      "Populations fonctionnelles abondante"
-    )
-  ) %>%
-  readr::write_csv(
-    here::here("inst/translation_abundance_level.csv")
+translation_species <- function(session = shiny::getDefaultReactiveDomain()) {
+  DBI::dbGetQuery(
+    get_con(session),
+    "SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr from diadesatlas.species WHERE active=TRUE"
   )
+}
+translation_species(se)
 ```
 
++ `v_ecosystemic_services`
+
+```{r}
+translation_v_ecosystemic_services <- function(session = shiny::getDefaultReactiveDomain()) {
+  dplyr::bind_rows(
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(casestudy_name), ' ', '-') as entry,
+        casestudy_name as en,
+        diadesatlas.translate(casestudy_name, 'fr') as fr
+        from v_ecosystemic_services"
+    ),
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(category_name), ' ', '-') as entry,
+        category_name as en,
+        diadesatlas.translate(category_name, 'fr') as fr
+        from v_ecosystemic_services"
+    ),
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
+        subcategory_name as en,
+        diadesatlas.translate(subcategory_name, 'fr') as fr
+        from v_ecosystemic_services"
+    ),
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
+        subcategory_name as en,
+        diadesatlas.translate(subcategory_name, 'fr') as fr
+        from v_ecosystemic_services"
+    )
+  )
+}
+translation_v_ecosystemic_services(se)
+```
+
+### Fichiers générés automatiquement 
+
 + `translation_iucn.csv` : contient les traductions pour status IUCN. 
-Se génère via le code suivant : 
+Se génère via le code suivant __mais devra être mis dans la base__.
 
 ```{r}
 # TODO : get the translation inside the DB
@@ -87,38 +177,116 @@ en_iucn %>%
   readr::write_csv("inst/translation_iucn.csv")
 ```
 
-+ `translation_abundance_level.csv` : contient les traductions pour les éléments de niveau d'abondance. 
-Se génère via le code suivant : 
-
-```{r}
-DBI::dbGetQuery(
-  get_con(se),
-  "SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr from diadesatlas.species WHERE active=TRUE"
-) %>%
-  readr::write_csv("inst/translation_species.csv")
-```
-
 ### Fichier à compléter à la main 
 
-+ `inst/translation.csv` est le fichier à compléter à la main. 
-Il peut être ouvert avec Excel et __doit__ être sauvegardé en `.csv`.
+__IMPORTANT__ Merci de centraliser dans le Google Sheet. 
 
-Vous devez vérifier l'intégrité du csv via et indiquer avec quel encodage vous avez créé le fichier : 
-
-- `source_encoding = "UTF-8"` a priori, si créé sous Linux/MacOS
-- `source_encoding = "latin1"` a priori, si créé sur Excel/LibreOffice avec Windows
-
-Ainsi, si vous rencontrez des problèmes d'encodage sur l'application, vous pouvez modifier de nouveau le csv et changer le paramètre ci-dessous.
-Vous pouvez aussi le vérifier en regardant le fichier lu avec `output` ci-dessous.
++ On va lire le fichier Google Sheet de traduction. 
 
 ```{r}
-output <- check_translation_csv("inst/translation.csv", source_encoding = "latin1")
+library(googlesheets4)
+sheet_url <- readline("Enter the sheet url: ")
+translation <- read_sheet(sheet_url)
+
+translation$DESCRIPTION <- NULL
+
+translation
+```
+
+Vérifier (et manipulez) le dataframe au besoin. 
+Ce dernier doit posséder à minima : 
+
++ Une première colonne nommée 'entry'
++ Une seconde colonne nommée 'en'
++ Une troisisème colonne nommée 'fr'
++ D'autres langues (potentiellement)
++ PAS DE COLONNES VIDES SUR LA DROITE, pensez à l'anti-sélectionner au besoin
+
+```{r}
+readr::write_csv(
+  translation,
+  "inst/translation.csv"
+)
+```
+
+Vous pouvez vérifier l'intégrité du csv :
+
+```{r}
+output <- check_translation_csv("inst/translation.csv")
 head(output)
 ```
 
+## Ajouter une nouvelle langue 
+
+Ajouter une nouvelle langue doit se faire aux emplacements suivants:
+
+### Help bubbles
+
++ Pour chaque sous-dossiers, ajouter un fichier `.md` avec la traduction dans une nouvelle langue. 
+
++ Régénerer `translation_help.csv` : dans le code de génération de la première partie de ce Rmd, remplacer avec un code type
+
+```{r}
+data.frame(
+  entry = basename(.x),
+  en = htmltools::includeMarkdown(
+    file.path(.x, "en.md")
+  ),
+  fr = htmltools::includeMarkdown(
+    file.path(.x, "fr.md")
+  ),
+  # Code pour la nouvelle langue
+  es = htmltools::includeMarkdown(
+    file.path(.x, "es.md")
+  )
+)
+```
+
+### Data 
+
++ Fichier Google Sheet, ajouter une nouvelle colonne à droite (exemple `es`)
+
++ `translation_iucn.csv` : dans le code de génération du dessus, il faudra créer un nouveau data.frame, avec les traductions. 
+
+> Note : ces traductions devront à termes être intégrées à la base
+
+```{r}
+es_iucn <- data.frame(
+  entry = c("EX", "EW", "CR", "EN", "VU", "NT", "LC", "DD", "NE"),
+  es = c("", "", "", "", "", "", "", "", "")
+)
+```
+
+puis mettre à jour le code du début de ce Rmd.
+
+```{r}
+en_iucn %>%
+  dplyr::full_join(french_iucn) %>%
+  dplyr::full_join(es_iucn) %>%
+  readr::write_csv("inst/translation_iucn.csv")
+```
+
+### Fonction dbb
+
+Ces fonctions sont dans `R/utils_helpers.R`
+
+Les fonctions qui utilisent la traduction dans la bdd sont les suivantes : 
+
++ `translation_abundance_level()` : il faudra ajouter une partie au SQL type `diadesatlas.translate(abundance_level_interpretation_short, 'es') AS es`
+
++ `translation_species()` : il faudra ajouter une partie au SQL type `diadesatlas.translate(english_name, 'es') AS es`
+
++ `translation_v_ecosystemic_services()` pour chaque sous requête SQL, il faudra ajouter une partie au SQL type `diadesatlas.translate(subcategory_name, 'es') as es` 
+
+### Côté code de l'application
+
+- Si disponible, ajouter le langage dans `get_dt_lg()` , à vérifier sur https://cdn.datatables.net/plug-ins/1.10.11/i18n/
+
+- Dans `R/app_ui.R`, ajouter une entrée pour le sélecteur de langue. Si votre entrée de laangue est `es`, ajouter `<option value="en">\U0001f1ea\U0001f1f8 Espanol</option>`. Le code unicode s'obtient en utilisant l'émoji et `stringi::stri_escape_unicode("🇪🇸")`.
+
 ## Notes pour les dévelopeurs 
 
-Comment créer un nouvel élément "traductible" dans l'UI?
+### Comment créer un nouvel élément "traductible" dans l'UI
 
 + La traduction est assurée par le module JS `i18n` et la fonction `with_i18()` dans l'app
 
