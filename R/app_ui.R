@@ -7,6 +7,8 @@
 #' @importFrom shinythemes shinytheme
 #' @noRd
 app_ui <- function(request) {
+  sess <- new.env()
+  connect(sess)
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -14,7 +16,7 @@ app_ui <- function(request) {
       shiny:::bootstrapLib(),
       htmlTemplate(
         app_sys("app/www/template.html"),
-        translate = HTML(build_language_json()),
+        translate = HTML(build_language_json(session = sess)),
         welcomemodal = modal(
           inputId = "welcome",
           title = tagList(
