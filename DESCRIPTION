@@ -27,6 +27,7 @@ Imports:
     ggplot2 (>= 3.3.5),
     glue (>= 1.4.2),
     golem (>= 0.3.1),
+    leaflet,
     jsonlite (>= 1.7.2),
     magrittr (>= 2.0.1),
     maps (>= 3.3.0),
@@ -41,8 +42,12 @@ Imports:
     tmap (>= 3.3.2),
     utils,
     w3css (>= 0.0.0.9002),
-    zeallot (>= 0.1.0)
+    zeallot (>= 0.1.0),
+    rlang,
+    tidyr,
+    stringi
 Suggests: 
+    attempt,
     dbplyr,
     DiagrammeR (>= 1.0.6.1),
     DiagrammeRsvg (>= 0.1),
