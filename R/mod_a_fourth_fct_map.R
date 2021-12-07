@@ -1,3 +1,54 @@
+mongo_cache <- launch_mongo()
+
+data_ocean <- function(ices_geom,
+                       spatial_type,
+                       dataALL,
+                       species_latin_name) {
+  ices_geom %>%
+    filter(ices_type == spatial_type) %>%
+    inner_join(
+      dataALL %>%
+        filter(latin_name == species_latin_name),
+      by = c("ices_type", "gid")
+    ) %>%
+    mutate(prevalence = cut(
+      nb_occurence,
+      breaks = c(-Inf, 0, 3, 6, 9, 12, 15),
+      labels = c(
+        "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
+        "[1, 3]",
+        "[4, 6]",
+        "[7, 9]",
+        "[10, 12]",
+        "[13, 15]"
+      )
+    ))
+}
+
+data_continent <- function(catchment_geom,
+                           dataCatchment,
+                           species_latin_name) {
+  catchment_geom %>%
+    left_join(
+      dataCatchment %>%
+        filter(
+          latin_name == species_latin_name
+        ),
+      by = "basin_id"
+    )
+}
+
+
+data_ocean_m <- memoise::memoise(
+  data_ocean,
+  cache = mongo_cache
+)
+
+data_continent_m <- memoise::memoise(
+  data_continent,
+  cache = mongo_cache
+)
+
 #' Title
 #'
 #' @param species_latin_name The latin name of the species
@@ -26,25 +77,12 @@ tm_draw <- function(species_latin_name,
   # ----------------------------------------- country frontier
 
   #--------------------------- data in ocean
-  dataOcean <- ices_geom %>%
-    filter(ices_type == spatial_type) %>%
-    inner_join(
-      dataALL %>%
-        filter(latin_name == species_latin_name),
-      by = c("ices_type", "gid")
-    ) %>%
-    mutate(prevalence = cut(
-      nb_occurence,
-      breaks = c(-Inf, 0, 3, 6, 9, 12, 15),
-      labels = c(
-        "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
-        "[1, 3]",
-        "[4, 6]",
-        "[7, 9]",
-        "[10, 12]",
-        "[13, 15]"
-      )
-    ))
+  dataOcean <- data_ocean_m(
+    ices_geom,
+    spatial_type,
+    dataALL,
+    species_latin_name
+  )
 
   title <- "Annual prevalence in catches at sea" %>%
     with_i18("annual_prevalence") %>%
@@ -68,14 +106,12 @@ tm_draw <- function(species_latin_name,
 
   # -------------------------------------------------------- data in catchment
 
-  dataContinent <- catchment_geom %>%
-    left_join(
-      dataCatchment %>%
-        filter(
-          latin_name == species_latin_name
-        ),
-      by = "basin_id"
-    )
+  dataContinent <- data_continent_m(
+    catchment_geom,
+    dataCatchment,
+    species_latin_name
+  )
+
 
   # title_tmap <- .translations$df[
   #   .translations$df$entry == "status_in_river_catchments",

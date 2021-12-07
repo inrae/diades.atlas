@@ -15,12 +15,12 @@ launch_mongo <- function(session = getDefaultReactiveDomain()) {
         Sys.getenv("MONGOURL", get_golem_config("mongourl")),
         Sys.getenv("MONGOPORT", get_golem_config("mongoport"))
     )
-    session$userData$mongo_cache <- bank::cache_mongo$new(
+    bank::cache_mongo$new(
         db = get_golem_config("mongodb"),
         url = URI,
         prefix = "diades"
     )
 }
-get_mongo <- function(session = getDefaultReactiveDomain()) {
-    session$userData$mongo_cache
-}
+# get_mongo <- function(session = getDefaultReactiveDomain()) {
+#     session$userData$mongo_cache
+# }

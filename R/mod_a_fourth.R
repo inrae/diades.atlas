@@ -114,13 +114,14 @@ mod_fourth_server <- function(id, r = r) {
         dataALL = golem::get_golem_options("dataALL"),
         ices_geom = golem::get_golem_options("ices_geom")
       )
-    }) %>% bindCache(
-      list(
-        loco$species,
-        input$square_or_division
-      ),
-      cache = get_mongo()
-    )
+    }) 
+    # %>% bindCache(
+    #   list(
+    #     loco$species,
+    #     input$square_or_division
+    #   ),
+    #   cache = get_mongo()
+    # )
 
 
 
