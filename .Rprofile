@@ -1,8 +1,7 @@
-if (file.exists("~/.Rprofile")){
+if (file.exists("~/.Rprofile")) {
   source("~/.Rprofile")
 }
-if (Sys.info()["user"] != "rstudio-connect"){
-
+if (Sys.info()["user"] != "rstudio-connect") {
   if (Sys.getenv("RENV_PATHS_LIBRARY_ROOT") != "") {
     Sys.setenv(RENV_PATHS_LIBRARY_ROOT = "/home/rstudio/.renv/library")
   }
@@ -13,8 +12,10 @@ if (Sys.info()["user"] != "rstudio-connect"){
 
   # # Fix CRAN version
   if (Sys.info()["sysname"] == "Linux") {
+    cat("[renv] Setting repo to RSPM ----")
     lock_$repos(CRAN = "https://packagemanager.rstudio.com/all/__linux__/focal/latest")
   } else {
+    cat("[renv] Setting repo to cran.rstudio.com ----")
     lock_$repos(CRAN = "https://cran.rstudio.com")
   }
 

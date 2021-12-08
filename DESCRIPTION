@@ -33,6 +33,7 @@ Imports:
     leaflet,
     magrittr (>= 2.0.1),
     maps (>= 3.3.0),
+    memoise,
     mongolite,
     patchwork (>= 1.1.1),
     purrr (>= 0.3.4),
