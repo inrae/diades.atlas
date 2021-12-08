@@ -1,5 +1,3 @@
-mongo_cache <- launch_mongo()
-
 data_ocean <- function(ices_geom,
                        spatial_type,
                        dataALL,
@@ -25,6 +23,28 @@ data_ocean <- function(ices_geom,
     ))
 }
 
+
+tm_ocean <- function(dataOcean,
+                     title,
+                     yearStart,
+                     yearEnd) {
+  tm_shape(dataOcean, bbox = bbox) +
+    tm_polygons(
+      "prevalence",
+      title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
+      palette = "Blues",
+      n = 6,
+      labels = c(
+        "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
+        "[1, 3]",
+        "[4, 6]",
+        "[7, 9]",
+        "[10, 12]",
+        "[13, 15]"
+      )
+    )
+}
+
 data_continent <- function(catchment_geom,
                            dataCatchment,
                            species_latin_name) {
@@ -38,16 +58,26 @@ data_continent <- function(catchment_geom,
     )
 }
 
+tm_catchmment <- function(dataContinent) {
+  tm_shape(dataContinent) +
+    tm_polygons(
+      "abundance_interpretation",
+      title = "Status in river catchments (1951-2010)" %>% with_i18("status_in_river_catchments") %>% as.character(),
+      # "<span data-i18n='status_in_river_catchments'>Status in river catchments (1951-2010)</span>",
+      palette = "Reds",
+      n = 4,
+      textNA = "Missing" %>% with_i18("missing") %>% as.character(),
+      labels = c(
+        "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
+        "Occasional vagrants" %>% with_i18("rare") %>% as.character(),
+        "Functional populations" %>% with_i18("common") %>% as.character(),
+        "Abundant functional populations" %>% with_i18("abundant") %>% as.character()
+      )
+    )
+}
 
-data_ocean_m <- memoise::memoise(
-  data_ocean,
-  cache = mongo_cache
-)
-
-data_continent_m <- memoise::memoise(
-  data_continent,
-  cache = mongo_cache
-)
+# Do it once
+bbox <- st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = st_crs(4326))
 
 #' Title
 #'
@@ -70,14 +100,15 @@ tm_draw <- function(species_latin_name,
                     dataCatchment,
                     catchment_geom,
                     dataALL,
-                    ices_geom) {
+                    ices_geom,
+                    session = shiny::getDefaultReactiveDomain()) {
   # =====================================================================================
-  # spatial coverage
-  bbox <- st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = st_crs(4326))
   # ----------------------------------------- country frontier
 
   #--------------------------- data in ocean
-  dataOcean <- data_ocean_m(
+  dataOcean <- get_data_ocean_m(
+    session = session
+  )(
     ices_geom,
     spatial_type,
     dataALL,
@@ -88,51 +119,27 @@ tm_draw <- function(species_latin_name,
     with_i18("annual_prevalence") %>%
     as.character()
 
-  tm_ocean <- tm_shape(dataOcean, bbox = bbox) +
-    tm_polygons(
-      "prevalence",
-      title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
-      palette = "Blues",
-      n = 6,
-      labels = c(
-        "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
-        "[1, 3]",
-        "[4, 6]",
-        "[7, 9]",
-        "[10, 12]",
-        "[13, 15]"
-      )
-    )
+  tm_ocean <- get_tm_ocean_m(
+    session = session
+  )(
+    dataOcean,
+    title,
+    yearStart,
+    yearEnd
+  )
 
   # -------------------------------------------------------- data in catchment
-
-  dataContinent <- data_continent_m(
+  dataContinent <- get_data_continent_m(
+    session = session
+  )(
     catchment_geom,
     dataCatchment,
     species_latin_name
   )
 
-
-  # title_tmap <- .translations$df[
-  #   .translations$df$entry == "status_in_river_catchments",
-  #   language
-  # ]
-  tm_catchmment <- tm_shape(dataContinent) +
-    tm_polygons(
-      "abundance_interpretation",
-      title = "Status in river catchments (1951-2010)" %>% with_i18("status_in_river_catchments") %>% as.character(),
-      # "<span data-i18n='status_in_river_catchments'>Status in river catchments (1951-2010)</span>",
-      palette = "Reds",
-      n = 4,
-      textNA = "Missing" %>% with_i18("missing") %>% as.character(),
-      labels = c(
-        "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
-        "Occasional vagrants" %>% with_i18("rare") %>% as.character(),
-        "Functional populations" %>% with_i18("common") %>% as.character(),
-        "Abundant functional populations" %>% with_i18("abundant") %>% as.character()
-      )
-    )
-  # tm_text('abundance_level_id', size = .5)
+  tm_catchmment <- get_tm_catchmment_m(
+    session = session
+  )(dataContinent)
 
   # ------------------------------------------ display the map
   tm_graticules() +

@@ -112,7 +112,8 @@ mod_fourth_server <- function(id, r = r) {
         dataCatchment = golem::get_golem_options("dataCatchment"),
         catchment_geom = golem::get_golem_options("catchment_geom"),
         dataALL = golem::get_golem_options("dataALL"),
-        ices_geom = golem::get_golem_options("ices_geom")
+        ices_geom = golem::get_golem_options("ices_geom"), 
+        session = session
       )
     }) 
     # %>% bindCache(
