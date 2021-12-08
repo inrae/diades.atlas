@@ -38,6 +38,8 @@
 -->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -56,12 +58,6 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -97,7 +93,7 @@
 </div>
         </li>
         <li>
-  <a href="https://github.com/inrae/diades.atlas/">
+  <a href="https://github.com/inrae/diades.atlas/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -115,62 +111,62 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="diadesatlas" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#diadesatlas" class="anchor"></a>{diades.atlas}</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="diadesatlas">{diades.atlas}<a class="anchor" aria-label="anchor" href="#diadesatlas"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>A Shiny application to explore data.</p>
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
+<div class="section level1">
+<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">'inrae/diades.atlas'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'inrae/diades.atlas'</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="websites-for-validations-" class="section level1">
-<h1 class="hasAnchor">
-<a href="#websites-for-validations-" class="anchor"></a>Websites for validations :</h1>
+<div class="section level1">
+<h1 id="websites-for-validations-">Websites for validations :<a class="anchor" aria-label="anchor" href="#websites-for-validations-"></a>
+</h1>
 <ul>
-<li>Package documentation : <a href="https://inrae.github.io/diades.atlas/" class="uri">https://inrae.github.io/diades.atlas/</a>
+<li>Package documentation : <a href="https://inrae.github.io/diades.atlas/" class="external-link uri">https://inrae.github.io/diades.atlas/</a>
 </li>
-<li>Package documentation (development version) : <a href="https://inrae.github.io/diades.atlas/dev/" class="uri">https://inrae.github.io/diades.atlas/dev/</a>
+<li>Package documentation (development version) : <a href="https://inrae.github.io/diades.atlas/dev/" class="external-link uri">https://inrae.github.io/diades.atlas/dev/</a>
 </li>
-<li>Shiny App : <a href="https://connect.thinkr.fr/diadesatlasui18n/" class="uri">https://connect.thinkr.fr/diadesatlasui18n/</a>
+<li>Shiny App : <a href="https://connect.thinkr.fr/diadesatlasui18n/" class="external-link uri">https://connect.thinkr.fr/diadesatlasui18n/</a>
 </li>
 </ul>
 </div>
-<div id="backend-requirement" class="section level1">
-<h1 class="hasAnchor">
-<a href="#backend-requirement" class="anchor"></a>Backend requirement</h1>
+<div class="section level1">
+<h1 id="backend-requirement">Backend requirement<a class="anchor" aria-label="anchor" href="#backend-requirement"></a>
+</h1>
 <p>The apps needs to connect to a db.</p>
 <p>It can be set via :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html" class="external-link">amend_golem_config</a></span><span class="op">(</span>
   <span class="st">"POSTGRES_DBNAME"</span>,
   <span class="st">"diades"</span>
 <span class="op">)</span>
-<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
+<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html" class="external-link">amend_golem_config</a></span><span class="op">(</span>
   <span class="st">"POSTGRES_HOST"</span>,
   <span class="st">"localhost"</span>
 <span class="op">)</span>
-<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
+<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html" class="external-link">amend_golem_config</a></span><span class="op">(</span>
   <span class="st">"POSTGRES_PORT"</span>,
   <span class="fl">5432</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span> <span class="op">=</span> <span class="st">"diadesatlas_owner"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PASS"</span> <span class="op">=</span> <span class="st">"thinkrpassword"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span> <span class="op">=</span> <span class="st">"diadesatlas_owner"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PASS"</span> <span class="op">=</span> <span class="st">"thinkrpassword"</span><span class="op">)</span></code></pre></div>
 <p>For dev purpose, please refer to the doc in the diadesdata repo on ThinkR’s forge (restricted access).</p>
 </div>
-<div id="dev---vignettes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#dev---vignettes" class="anchor"></a>Dev - vignettes</h1>
+<div class="section level1">
+<h1 id="dev---vignettes">Dev - vignettes<a class="anchor" aria-label="anchor" href="#dev---vignettes"></a>
+</h1>
 <p>Vignettes are compiled manually by developers. Raw vignettes are stored in “data-raw”. Instructions to compile them are in the vignette itself.</p>
 <p>However, they can all be prepared from this script:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span>
 
-<span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aa-data-exploration-and-preparation"</span>,
+<span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aa-data-exploration-and-preparation"</span>,
                    <span class="st">"bb-page1-catch-bycatch"</span>,
                    <span class="st">"bc-page2-present"</span>,
                    <span class="st">"bd-page3-climate-change"</span>,
@@ -178,20 +174,20 @@
 
 <span class="kw">for</span> <span class="op">(</span><span class="va">vignette_name</span> <span class="kw">in</span> <span class="va">all_vignettes</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># vignette_name &lt;- "aa-data-exploration-and-preparation"</span>
-  <span class="va">vignette_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">vignette_name</span>, <span class="st">".Rmd"</span><span class="op">)</span>
+  <span class="va">vignette_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">vignette_name</span>, <span class="st">".Rmd"</span><span class="op">)</span>
   
-  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>
-    input <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>,
+  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span>
+    input <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>,
     output_format <span class="op">=</span> <span class="st">"rmarkdown::html_vignette"</span>,
-    output_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-    output_file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>
+    output_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    output_file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>
   
   <span class="co"># Add header for title</span>
-  <span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
   
-  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-    <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'---
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>
+    <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">'---
 title: ".{vignette_name}."
 output: rmarkdown::html_vignette
 vignette: &gt;
@@ -202,7 +198,7 @@ vignette: &gt;
 '</span>, .open <span class="op">=</span> <span class="st">".{"</span>, .close <span class="op">=</span> <span class="st">"}."</span><span class="op">)</span>,
 <span class="va">lines</span>,
 sep <span class="op">=</span> <span class="st">"\n"</span>, 
-file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>
+file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
@@ -211,48 +207,58 @@ file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/inrae/diades.atlas/">https://​github.com/​inrae/​diades.atlas/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/inrae/diades.atlas/-/issues">https://​github.com/​inrae/​diades.atlas/​-/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Sébastien Rochette <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-1565-9313" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Colin Fay <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7343-1846" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/inrae/diades.atlas/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/inrae/diades.atlas/-/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/inrae/diades.atlas/actions"><img src="https://github.com/inrae/diades.atlas/workflows/R-CMD-check-docker-renv/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/inrae/diades.atlas?branch=main"><img src="https://codecov.io/gh/inrae/diades.atlas/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing diades.atlas</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Sébastien Rochette <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-1565-9313" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Colin Fay <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7343-1846" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/inrae/diades.atlas/actions" class="external-link"><img src="https://github.com/inrae/diades.atlas/workflows/R-CMD-check-docker-renv/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/inrae/diades.atlas?branch=main" class="external-link"><img src="https://codecov.io/gh/inrae/diades.atlas/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="thinkr">
-  <p>diades.atlas is a  <strong>ThinkR</strong> package. Learn more at <a href="https://rtask.thinkr.fr">rtask.thinkr.fr</a>.</p>
+  <p></p>
+<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by Sébastien Rochette, Colin Fay.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -261,6 +267,8 @@ file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</
 
   
 
+
+  
 
   </body>
 </html>
