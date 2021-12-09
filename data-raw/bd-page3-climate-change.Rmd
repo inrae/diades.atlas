@@ -67,12 +67,24 @@ library(tmap)
 library(dbplyr)
 library(dplyr)
 input <- new.env()
-# input$species <-
-species_id <- 6
+c(
+  dataCatchment,
+  catchment_geom,
+  dataALL,
+  ices_geom,
+  species_list
+) %<-% generate_datasets(
+  get_con(
+    session
+  )
+)
+
+species_id <- species_list[species_list$latin_name == "alosa-fallax", "species_id"]
+
 scenario <- "rcp85"
 date <- c(1970, 2010)
 
-hybrid_model_result <- tbl(get_con(se), "hybrid_model_result")
+hybrid_model_result <- tbl(get_con(session), "hybrid_model_result")
 
 get_hybrid_model <- function(species_id,
                              scenario,
@@ -98,27 +110,42 @@ model_res <- get_hybrid_model(
   session = session
 )
 
+tbl(
+  get_con(session),
+  "hybrid_model_result"
+) %>% distinct(species_id)
+
 # Available_bv
 bv_ids <- sort(
   unique(model_res$basin_id)
 )
 
 get_bv_geoms <- function(bv_ids,
+                         lg,
                          session = shiny::getDefaultReactiveDomain()) {
-  sf::st_read(
+  res <- sf::st_read(
     get_con(session),
     query = sprintf(
-      "select basin_id, verysimplified_geom from basin_outlet where basin_id IN %s",
+      "select basin_id, verysimplified_geom, ccm_name from basin_outlet where basin_id IN %s",
       dbplyr::translate_sql(!!bv_ids)
     )
   )
+  basin <- tbl(get_con(session), "basin") %>%
+    filter(basin_id %in% !!res$basin_id) %>%
+    mutate(basin_name = diadesatlas.translate(basin_name, !!lg)) %>%
+    select(basin_id, basin_name) %>%
+    collect()
+  
+  res %>%
+  left_join(basin, by = "basin_id")
 }
 
 bv_df <- get_bv_geoms(
   bv_ids,
+  'fr',
   session
 )
-
+year <- 1951
 draw_bv_leaflet <- function(bv_df,
                             model_res,
                             year) {
@@ -128,12 +155,13 @@ draw_bv_leaflet <- function(bv_df,
     by = "basin_id"
   )
   factpal <- colorNumeric(
-    palette = "Blues",
-    domain = bv_df$saturation_rate
+    palette = "RdYlBu",
+    domain = bv_df$nit
   )
+
   leaflet() %>%
     addTiles() %>%
-    addPolygons(data = bv_df, layerId = ~basin_id, color = ~ factpal(saturation_rate))
+    addPolygons(data = bv_df, layerId = ~basin_id, color = ~ factpal(nit), label = ~basin_name)
 }
 
 ui <- function(request) {

@@ -46,9 +46,9 @@ mod_second_ui <- function(id) {
               sliderInput(
                 ns("date"),
                 NULL,
-                min = 1950,
+                min = 1951,
                 max = 2100,
-                value = 1950
+                value = 1951
               )
             ),
             button_id = ns("date_hover")
@@ -95,6 +95,7 @@ mod_second_ui <- function(id) {
             "plot_evolution_help"
           )
         ),
+        uiOutput(ns("selection")),
         plotOutput(ns("prediction"), height = 600)
       )
     )
@@ -109,7 +110,8 @@ mod_second_server <- function(id, r = r) {
     ns <- session$ns
 
     loco <- reactiveValues(
-      species = NULL
+      species = NULL,
+      bind_event = 0
     )
 
     mod_species_server(
@@ -122,7 +124,7 @@ mod_second_server <- function(id, r = r) {
       {
         if (input$scenario != "rcp85") {
           shiny::showNotification(
-            "Scenario not implemented",
+            h1("Scenario not implemented"),
             type = "error"
           )
           return(NULL)
@@ -133,37 +135,99 @@ mod_second_server <- function(id, r = r) {
           scenario = input$scenario,
           session = session
         )
+        if (nrow(loco$model_res) == 0) {
+          shiny::showNotification(
+            h1("No result for this species"),
+            type = "error",
+            duration = NULL
+          )
+          return(NULL)
+        }
         loco$bv_df <- get_bv_geoms(
           unique(loco$model_res$basin_id),
+          lg = r$lg,
           session
         )
-        loco$selected_bv <- sample(
-          unique(loco$model_res$basin_id),
-          1
-        )
+        if (is.null(loco$selected_bv_id)) {
+          loco$selected_bv_id <- sample(
+            unique(loco$model_res$basin_id),
+            1
+          )
+        }
+
+        loco$selected_bv_name <- tbl(get_con(session), "basin") %>%
+          filter(basin_id == !!loco$selected_bv_id) %>%
+          mutate(basin_name = diadesatlas.translate(basin_name, !!r$lg)) %>%
+          collect()
         loco$leaflet <- draw_bv_leaflet(
           loco$bv_df,
           loco$model_res,
           input$date
         )
+
+        loco$plot <- plot_hsi_nit(
+          loco$model_res,
+          input$date,
+          loco$selected_bv_id
+        )
+
+        loco$ui_summary <- HTML(
+          paste0("<span data-i18n='", low_and_sub(loco$species), "'>", loco$species, "</span>"),
+          "/",
+          input$date,
+          "/",
+          loco$selected_bv_name$basin_name,
+          "-",
+          loco$selected_bv_name$country
+        )
       }
     )
 
     output$plot <- renderLeaflet({
+      loco$bind_event <- rnorm(10000)
       loco$leaflet
     })
 
+    observeEvent(loco$bind_event,
+      {
+        req(loco$bind_event)
+        cli::cat_rule("bind_event")
+        golem::invoke_js("bindleaflettab3", list(id = ns("plot"), ns = loco$bind_event))
+      },
+      ignoreInit = TRUE
+    )
+
+
     observeEvent(input$plot_shape_click, {
       loco$selected_bv_id <- input$plot_shape_click$id
-      # Do we need that?
       loco$selected_bv_name <- tbl(get_con(session), "basin") %>%
         filter(basin_id == !!input$plot_shape_click$id) %>%
+        mutate(basin_name = diadesatlas.translate(basin_name, !!r$lg)) %>%
         collect()
       loco$plot <- plot_hsi_nit(
         loco$model_res,
         input$date,
         loco$selected_bv_id
       )
+
+      sp <- golem::get_golem_options("species_list")[
+        golem::get_golem_options("species_list")$latin_name == loco$species,
+        r$lg
+      ]
+      loco$ui_summary <- HTML(
+        paste0("<span data-i18n='", low_and_sub(loco$species), "'>", sp, "</span>"),
+        "/",
+        input$date,
+        "/",
+        loco$selected_bv_name$basin_name,
+        "-",
+        loco$selected_bv_name$country
+      )
+    })
+
+    output$selection <- renderUI({
+      golem::invoke_js("localize", TRUE)
+      req(loco$ui_summary)
     })
 
     output$prediction <- renderPlot({
