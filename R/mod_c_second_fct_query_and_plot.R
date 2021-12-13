@@ -60,17 +60,26 @@ draw_bv_leaflet <- function(bv_df,
         return(NULL)
     }
     factpal <- colorNumeric(
-        palette = "RdYlBu",
-        domain = bv_df$nit
+      palette = "YlOrRd",
+      domain = bv_df$nit,
+      reverse = FALSE
     )
     leaflet() %>%
         addTiles() %>%
         addPolygons(
             data = bv_df,
             layerId = ~basin_id,
-            color = ~ factpal(nit),
-            label = ~basin_name
-        )
+            fillColor = ~ factpal(nit),
+            color = "#525252",
+            weight = 1,
+            label = ~basin_name,
+            opacity = 0.8,
+            fillOpacity = 0.6
+        ) %>% 
+      addLegend(data = bv_df,
+                pal = factpal, values = ~nit,
+                title = "NIT",
+                opacity = 0.6)
 }
 
 plot_hsi_nit <- function(model_res,
@@ -86,6 +95,7 @@ plot_hsi_nit <- function(model_res,
     ) +
         geom_line() +
         geom_vline(xintercept = selected_year, color = "red") +
+        theme_classic() +
         theme(
             axis.text.x = element_text(size = 20),
             axis.text.y = element_text(size = 20),
@@ -98,6 +108,7 @@ plot_hsi_nit <- function(model_res,
     ) +
         geom_line() +
         geom_vline(xintercept = selected_year, color = "red") +
+        theme_classic() +
         theme(
             axis.text.x = element_text(size = 20),
             axis.text.y = element_text(size = 20),

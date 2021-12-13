@@ -155,13 +155,26 @@ draw_bv_leaflet <- function(bv_df,
     by = "basin_id"
   )
   factpal <- colorNumeric(
-    palette = "RdYlBu",
-    domain = bv_df$nit
+    palette = "YlOrRd",
+    domain = bv_df$nit,
+    reverse = FALSE
   )
 
   leaflet() %>%
     addTiles() %>%
-    addPolygons(data = bv_df, layerId = ~basin_id, color = ~ factpal(nit), label = ~basin_name)
+    addPolygons(data = bv_df, 
+                layerId = ~basin_id, 
+                fillColor = ~ factpal(nit),
+                color = "#525252",
+                weight = 1,
+                label = ~basin_name,
+                opacity = 0.8,
+                fillOpacity = 0.6
+                ) %>% 
+      addLegend(data = bv_df,
+                pal = factpal, values = ~nit,
+                title = "NIT",
+                opacity = 0.6)
 }
 
 ui <- function(request) {
@@ -185,6 +198,7 @@ server <- function(input,
 shinyApp(ui, server)
 
 
+# plot hsi nit ----
 
 selected_bv <- 385
 selected_year <- 2002
@@ -211,11 +225,20 @@ plot_hsi_nit <- function(model_res,
     hsi, nit
   )
 }
+
+# Plot leaflet
+bv_df <- get_bv_geoms(
+  bv_ids,
+  'fr',
+  session
+)
+draw_bv_leaflet(bv_df, model_res, 1976)
 ```
 
 
 ### Stop connection
 
 ```{r}
-DBI::dbDisconnect(con)
+# DBI::dbDisconnect(con)
+DBI::dbDisconnect(session$userData$con)
 ```

@@ -180,7 +180,7 @@ mod_third_server <- function(id, r = r) {
           aes(fill = region)
         ) +
         # coord_map() +
-        theme_void() +
+        theme_classic() +
         guides(
           fill = "none"
         )
