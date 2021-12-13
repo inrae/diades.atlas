@@ -151,7 +151,9 @@ Trois modes de traduction cohabitent:</p>
 <div class="section level1">
 <h1 id="backend-requirement">Backend requirement<a class="anchor" aria-label="anchor" href="#backend-requirement"></a>
 </h1>
-<p>The apps needs to connect to a db.</p>
+<div class="section level2">
+<h2 id="the-apps-needs-to-connect-to-a-db">The apps needs to connect to a db.<a class="anchor" aria-label="anchor" href="#the-apps-needs-to-connect-to-a-db"></a>
+</h2>
 <p>It can be set via :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html" class="external-link">amend_golem_config</a></span><span class="op">(</span>
@@ -179,12 +181,21 @@ Trois modes de traduction cohabitent:</p>
 <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html" class="external-link">dbListTables</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span>
 <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="dev---mongo">Dev - Mongo<a class="anchor" aria-label="anchor" href="#dev---mongo"></a>
+</h2>
+<p>The app requires a Mongo database. For dev, you need to run the following:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>docker run <span class="op">--</span>name=mongo <span class="op">--</span>rm <span class="op">-</span>p <span class="dv">2811</span><span class="op">:</span><span class="dv">27017</span> <span class="op">-</span>e MONGO_INITDB_ROOT_USERNAME=Colin <span class="op">-</span>e MONGO_INITDB_ROOT_PASSWORD=AsAboveSoBelow789123 mongo<span class="op">:</span><span class="fl">4.0</span></span></code></pre></div>
+<p>Stop it at the end</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>docker kill mongo</span></code></pre></div>
+</div>
+</div>
 <div class="section level1">
 <h1 id="dev---vignettes">Dev - vignettes<a class="anchor" aria-label="anchor" href="#dev---vignettes"></a>
 </h1>
 <p>Vignettes are compiled manually by developers. Raw vignettes are stored in “data-raw”. Instructions to compile them are in the vignette itself.</p>
 <p>However, they can all be prepared from this script:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span>
 
 <span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aa-data-exploration-and-preparation"</span>,
