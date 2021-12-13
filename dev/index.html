@@ -137,6 +137,18 @@
 </ul>
 </div>
 <div class="section level1">
+<h1 id="translation">Translation<a class="anchor" aria-label="anchor" href="#translation"></a>
+</h1>
+<p>Les instructions pour préparer la traduction sont dans “dev/translation.Rmd”.<br>
+Trois modes de traduction cohabitent:</p>
+<ul>
+<li>Traductions présentes dans la base de données</li>
+<li>Traductions à compléter dans des fichiers Markdown sous forme de Pull Request sur le projet</li>
+<li>Traductions à compléter dans un fichier Google Sheet partagé</li>
+</ul>
+<p>Dans tous les cas, les développeurs devront suivre le contenu de “dev/translation.Rmd” lors de chaque mises à jour.</p>
+</div>
+<div class="section level1">
 <h1 id="backend-requirement">Backend requirement<a class="anchor" aria-label="anchor" href="#backend-requirement"></a>
 </h1>
 <p>The apps needs to connect to a db.</p>
@@ -157,13 +169,22 @@
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span> <span class="op">=</span> <span class="st">"diadesatlas_owner"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PASS"</span> <span class="op">=</span> <span class="st">"thinkrpassword"</span><span class="op">)</span></code></pre></div>
 <p>For dev purpose, please refer to the doc in the diadesdata repo on ThinkR’s forge (restricted access).</p>
+<p>Verify connexion works</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
+<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
+
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html" class="external-link">dbListTables</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="dev---vignettes">Dev - vignettes<a class="anchor" aria-label="anchor" href="#dev---vignettes"></a>
 </h1>
 <p>Vignettes are compiled manually by developers. Raw vignettes are stored in “data-raw”. Instructions to compile them are in the vignette itself.</p>
 <p>However, they can all be prepared from this script:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span>
 
 <span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aa-data-exploration-and-preparation"</span>,
