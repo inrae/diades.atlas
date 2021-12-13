@@ -59,6 +59,11 @@ i18next.init({
 
 const local = function(){
 	$("html").localize()
+  var id = "second_ui_1-plot"
+  $("#" + id).find(".leaflet-interactive").on("click", function(x) {
+    $("#" + id).find("path").removeClass("selected_leaflet")
+    $(this).addClass("selected_leaflet");
+  })
 }
 
 window.setInterval(local, 1000);

@@ -113,8 +113,8 @@ p {
     z-index: 0;
 }
 
-.leaflet-tooltip-pane,
-.leaflet-popup-pane {
+#fourth_ui_1-raster .leaflet-tooltip-pane,
+#fourth_ui_1-raster .leaflet-popup-pane {
     display: none;
 }
 
@@ -144,4 +144,9 @@ p {
 td,
 th {
     text-align: center;
+}
+
+.selected_leaflet {
+    fill: green;
+    stroke: green;
 }

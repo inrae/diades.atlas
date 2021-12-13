@@ -27,15 +27,24 @@ get_hybrid_model <- function(species_id,
 }
 
 get_bv_geoms <- function(bv_ids,
+                         lg,
                          session = shiny::getDefaultReactiveDomain()) {
     # TODO Vérifier la projection
-    sf::st_read(
+    res <- sf::st_read(
         get_con(session),
         query = sprintf(
             "select basin_id, verysimplified_geom from basin_outlet where basin_id IN %s",
             dbplyr::translate_sql(!!bv_ids)
         )
     )
+    basin <- tbl(get_con(session), "basin") %>%
+        filter(basin_id %in% !!res$basin_id) %>%
+        mutate(basin_name = diadesatlas.translate(basin_name, !!lg)) %>%
+        select(basin_id, basin_name) %>%
+        collect()
+
+    res %>%
+        dplyr::left_join(basin, by = "basin_id")
 }
 #' @import leaflet
 #' @importFrom utils getFromNamespace
@@ -47,17 +56,20 @@ draw_bv_leaflet <- function(bv_df,
         filter(model_res, year == !!year),
         by = "basin_id"
     )
-    # TODO add the color
-    # factpal <- colorNumeric(
-    #     palette = "Blues",
-    #     domain = bv_df$saturation_rate
-    # )
+    if (all(is.na(bv_df$nit))) {
+        return(NULL)
+    }
+    factpal <- colorNumeric(
+        palette = "RdYlBu",
+        domain = bv_df$nit
+    )
     leaflet() %>%
         addTiles() %>%
         addPolygons(
             data = bv_df,
-            layerId = ~basin_id # ,
-            # color = ~ factpal(saturation_rate)
+            layerId = ~basin_id,
+            color = ~ factpal(nit),
+            label = ~basin_name
         )
 }
 
@@ -73,13 +85,25 @@ plot_hsi_nit <- function(model_res,
         aes(year, hsi)
     ) +
         geom_line() +
-        geom_vline(xintercept = selected_year, color = "red")
+        geom_vline(xintercept = selected_year, color = "red") +
+        theme(
+            axis.text.x = element_text(size = 20),
+            axis.text.y = element_text(size = 20),
+            axis.title.x = element_text(size = 20),
+            axis.title.y = element_text(size = 20)
+        )
     nit <- ggplot(
         model_res_filtered,
         aes(year, nit)
     ) +
         geom_line() +
-        geom_vline(xintercept = selected_year, color = "red")
+        geom_vline(xintercept = selected_year, color = "red") +
+        theme(
+            axis.text.x = element_text(size = 20),
+            axis.text.y = element_text(size = 20),
+            axis.title.x = element_text(size = 20),
+            axis.title.y = element_text(size = 20)
+        )
     getFromNamespace("/.ggplot", "patchwork")(
         hsi, nit
     )
