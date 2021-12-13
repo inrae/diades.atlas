@@ -13,15 +13,11 @@ ecosystem_table(
 )
 }
 \arguments{
-\item{species_latin_name}{The latin name of the species}
+\item{species, case_study, ecosystem}{Param for file in SQL}
 
-\item{spatial_type}{Geom to use in the map}
+\item{r}{reactiveValues}
 
-\item{con}{The Connection object}
-
-\item{yearStart, yearEnd}{date used}
-
-\item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
+\item{session}{Shiny session object}
 }
 \description{
 Title

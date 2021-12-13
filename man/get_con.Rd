@@ -10,7 +10,7 @@ get_con(session = shiny::getDefaultReactiveDomain())
 \item{session}{Shiny session object}
 }
 \value{
-
+The connection object
 }
 \description{
 Title

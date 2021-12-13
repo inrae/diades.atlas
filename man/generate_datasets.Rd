@@ -10,7 +10,7 @@ generate_datasets(con)
 \item{con}{The DB connection object}
 }
 \value{
-
+A list of data.frame
 }
 \description{
 Title

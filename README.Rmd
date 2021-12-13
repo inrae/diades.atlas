@@ -34,6 +34,17 @@ remotes::install_github('inrae/diades.atlas')
 - Package documentation (development version) : https://inrae.github.io/diades.atlas/dev/ 
 - Shiny App : https://connect.thinkr.fr/diadesatlasui18n/
 
+# Translation
+
+Les instructions pour préparer la traduction sont dans "dev/translation.Rmd".  
+Trois modes de traduction cohabitent:
+
+- Traductions présentes dans la base de données
+- Traductions à compléter dans des fichiers Markdown sous forme de Pull Request sur le projet
+- Traductions à compléter dans un fichier Google Sheet partagé
+
+Dans tous les cas, les développeurs devront suivre le contenu de "dev/translation.Rmd" lors de chaque mises à jour.
+
 
 # Backend requirement 
 

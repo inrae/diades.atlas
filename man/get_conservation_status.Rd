@@ -12,7 +12,7 @@ get_conservation_status(species_id, con)
 \item{con}{The Connection object}
 }
 \value{
-
+a table with the conservation status for a species
 }
 \description{
 Title

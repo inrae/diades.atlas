@@ -6,7 +6,7 @@
 #' @param yearStart,yearEnd date used
 #' @param dataCatchment,catchment_geom,dataALL,ices_geom  internal datasets
 #'
-#' @return
+#' @return a tmap
 #' @export
 #' @import sf
 #' @import tmap

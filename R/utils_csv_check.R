@@ -1,9 +1,9 @@
 #' csv_check
-#' 
+#'
 #' @description Check the CSV written by hand
 #'
 #' @param path path to file to check
-#' @param source_encoding Encoding of the source file 
+#' @param source_encoding Encoding of the source file
 #' @param new_path Where to save the modified file
 #' @return The return value, if any, from executing the utility.
 #' @importFrom dplyr mutate_all
@@ -34,17 +34,17 @@ check_translation_csv <- function(path, source_encoding = "latin1", new_path = p
   ) {
     stop("Their is no 'fr' column")
   }
-  if (source_encoding != "UTF-8") {
-    fls <- fls %>% mutate_all(enc2utf8)
-    write.csv(fls, file = new_path, 
-              fileEncoding = "UTF-8",
-              # col.names = TRUE, 
-              row.names = FALSE)
-    cli::cli_alert_success("CSV was re-encoded to UTF-8")
-  } else {
-    file.copy(path, new_path)
-  }
+  # if (source_encoding != "UTF-8") {
+  #   fls <- fls %>% mutate_all(enc2utf8)
+  #   write.csv(fls, file = new_path,
+  #             fileEncoding = "UTF-8",
+  #             # col.names = TRUE,
+  #             row.names = FALSE)
+  #   cli::cli_alert_success("CSV was re-encoded to UTF-8")
+  # } else {
+  #   file.copy(path, new_path)
+  # }
   cli::cli_alert_success("CSV seems correct")
-  
+
   return(fls)
 }

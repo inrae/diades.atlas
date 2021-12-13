@@ -1,38 +1,132 @@
+translation <- function() {
+  read.csv(
+    app_sys("translation.csv")
+  )
+}
+get_translation_entry <- function(entry, lg) {
+  df <- read.csv(
+    app_sys("translation.csv")
+  )
+  df[
+    df$entry == entry,
+    lg
+  ]
+}
+
+translation_help <- function() {
+  read.csv(
+    app_sys("translation_help.csv")
+  )
+}
+
+translation_iucn <- function() {
+  read.csv(
+    app_sys("translation_iucn.csv")
+  )
+}
+
+translation_species <- function(session = shiny::getDefaultReactiveDomain()) {
+  DBI::dbGetQuery(
+    get_con(session),
+    "SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr from diadesatlas.species WHERE active=TRUE"
+  )
+}
+
+#' @importFrom stats setNames
+translation_abundance_level <- function(session = shiny::getDefaultReactiveDomain()) {
+  # TODO ecrire depuis la base
+  DBI::dbGetQuery(
+    get_con(session),
+    "select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"
+    # "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr from abundance_level"
+  ) %>%
+    # Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,
+    # via le code SQL commenté
+    mutate(
+      fr = c(
+        # Make R CMD Check happy because we're in 1987
+        "Non enregistr\\u00e9 sur la p\\u00e9riode" %>% stringi::stri_unescape_unicode(),
+        "Pr\\u00e9sence occasionnelle" %>% stringi::stri_unescape_unicode(),
+        "Populations fonctionnelles",
+        "Populations fonctionnelles abondante"
+      )
+    )
+}
+
+translation_v_ecosystemic_services <- function(session = shiny::getDefaultReactiveDomain()) {
+  dplyr::bind_rows(
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(casestudy_name), ' ', '-') as entry,
+        casestudy_name as en,
+        diadesatlas.translate(casestudy_name, 'fr') as fr
+        from v_ecosystemic_services"
+    ),
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(category_name), ' ', '-') as entry,
+        category_name as en,
+        diadesatlas.translate(category_name, 'fr') as fr
+        from v_ecosystemic_services"
+    ),
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
+        subcategory_name as en,
+        diadesatlas.translate(subcategory_name, 'fr') as fr
+        from v_ecosystemic_services"
+    ),
+    DBI::dbGetQuery(
+      get_con(session),
+      "SELECT
+        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
+        subcategory_name as en,
+        diadesatlas.translate(subcategory_name, 'fr') as fr
+        from v_ecosystemic_services"
+    )
+  )
+}
+
 #' @importFrom utils read.csv
 build_language_json <- function(session = shiny::getDefaultReactiveDomain()) {
   lg <- dplyr::bind_rows(
-    read.csv(
-      app_sys("translation.csv")
-    ),
-    read.csv(
-      app_sys("translation_species.csv")
-    ),
-    read.csv(
-      app_sys("translation_iucn.csv")
-    ),
-    read.csv(
-      app_sys("translation_abundance_level.csv")
-    ),
-    read.csv(
-      app_sys("translation_v_ecosystemic_services.csv") 
-    ),
-    read.csv(
-      app_sys("translation_help.csv")
-    )
+    translation(),
+    translation_species(session = session),
+    translation_iucn(),
+    translation_abundance_level(session = session),
+    translation_v_ecosystemic_services(session = session),
+    translation_help()
   )
 
   build_entry <- function(subset) {
+    if (subset %not_in% names(lg)) {
+      stop(
+        "The entry '", subset, "' was not found in the translation data.frame."
+      )
+    }
     x <- list(
       translation = as.list(lg[[subset]])
     )
     names(x$translation) <- lg$entry
     x
   }
+  available_langs <- get_available_lang(lg)
 
-  list(
-    en = build_entry("en"),
-    fr = build_entry("fr")
-  ) %>% jsonlite::toJSON(auto_unbox = TRUE)
+  lapply(
+    available_langs,
+    build_entry
+  ) %>%
+    setNames(available_langs) %>%
+    jsonlite::toJSON(auto_unbox = TRUE)
+}
+
+get_available_lang <- function(df) {
+  nms <- names(df)
+  nms <- nms[which(nms != "entry")]
+  nms
 }
 
 with_multilg <- function(fun, i18n, default) {
@@ -60,7 +154,7 @@ get_dt_lg <- function(lg) {
 #'
 #' @param con The DB connection object
 #'
-#' @return
+#' @return A list of data.frame
 #' @export
 #'
 generate_datasets <- function(con) {

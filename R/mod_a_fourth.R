@@ -10,7 +10,7 @@
 mod_fourth_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("fourth", class = "page_caption") %>% with_i18("title-fourth"),
+    h1("fourth", class = "page_caption") %>% with_i18("title-first"),
     container(
       tagList(
         w3css::w3_quarter(
@@ -21,25 +21,24 @@ mod_fourth_ui <- function(id) {
         w3css::w3_quarter(
           tags$span(
             w3_hover_button(
-            "Change Map geometry" %>% with_i18("change-geometry"),
-            content = tagList(
-              tags$div(
-                id = ns("square_or_division"),
-                w3css::w3_radioButton(
-                  ns("square_or_division"),
-                  NULL,
-                  choices = c("Division" = "division", "Rectangle" = "rectangle")
+              "Change Map geometry" %>% with_i18("change-geometry"),
+              content = tagList(
+                tags$div(
+                  id = ns("square_or_division"),
+                  w3css::w3_radioButton(
+                    ns("square_or_division"),
+                    NULL,
+                    choices = c("Division" = "division", "Rectangle" = "rectangle")
+                  )
                 )
-              )
-            ),
+              ),
               content_style = "width:25em"
-          ),
+            ),
             w3_help_button(
               "Change the geometry of the map",
               "map_geometrie_help"
             )
           )
-          
         ),
         w3css::w3_quarter()
       )
@@ -126,7 +125,6 @@ mod_fourth_server <- function(id, r = r) {
 
     observeEvent(loco$species, {
       req(loco$species)
-      # browser()
       species_id <- get_active_species() %>%
         dplyr::filter(latin_name == loco$species) %>%
         dplyr::pull(species_id)
@@ -135,7 +133,6 @@ mod_fourth_server <- function(id, r = r) {
         "changeinnerhtmlwithid", list(
           id = ns("conservation_status"),
           content = {
-            # browser()
             status <- get_conservation_status(
               as.numeric(species_id),
               get_con()

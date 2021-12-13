@@ -1,46 +1,22 @@
-utils::globalVariables(
-  c('long','lat','group','region', ".")
-)
-# library(magrittr)
-# stringr::str_extract_all("   build_language_json: no visible global function definition for
-#      ‘read.csv’
-#    mod_first_server : <anonymous>: no visible binding for global variable
-#      ‘long’
-#    mod_first_server : <anonymous>: no visible binding for global variable
-#      ‘lat’
-#    mod_first_server : <anonymous>: no visible binding for global variable
-#      ‘group’
-#    mod_first_server : <anonymous>: no visible binding for global variable
-#      ‘region’
-#    mod_fourth_server : <anonymous>: no visible binding for global variable
-#      ‘long’
-#    mod_fourth_server : <anonymous>: no visible binding for global variable
-#      ‘lat’
-#    mod_fourth_server : <anonymous>: no visible binding for global variable
-#      ‘group’
-#    mod_fourth_server : <anonymous>: no visible binding for global variable
-#      ‘region’
-#    mod_fourth_server : <anonymous>: no visible binding for global variable
-#      ‘.’
-#    mod_second_server : <anonymous>: no visible binding for global variable
-#      ‘long’
-#    mod_second_server : <anonymous>: no visible binding for global variable
-#      ‘lat’
-#    mod_second_server : <anonymous>: no visible binding for global variable
-#      ‘group’
-#    mod_second_server : <anonymous>: no visible binding for global variable
-#      ‘region’
-#    mod_third_server : <anonymous>: no visible binding for global variable
-#      ‘long’
-#    mod_third_server : <anonymous>: no visible binding for global variable
-#      ‘lat’
-#    mod_third_server : <anonymous>: no visible binding for global variable
-#      ‘group’
-#    mod_third_server : <anonymous>: no visible binding for global variable
-#      ‘region’", "‘([a-z]*)’") %>%
-#   .[[1]] %>%
-#   gsub("‘", "", .) %>%
-#   gsub("’", "", .) %>%
-#   unique() %>%
-#   paste0("'", ., "'", collapse = ",")
-  
+globalVariables(unique(c(
+# ecosystem_table: 
+"casestudy_id", "casestudy_name", "casestudy_name_tr", "category_id", "category_name", "category_name_tr", "esvalue_code", "fish_name", "latin_name", "subcategory_id", "subcategory_name", "subcategory_name_tr", 
+# generate_datasets: 
+"abundance_interpretation", "nb_occurence", 
+# get_active_species: 
+"active", 
+# get_hybrid_model: 
+"climatic_model_id", "climatic_scenario", 
+# mod_first_server : <anonymous>: 
+"esvalue_code", "fish_name", "latin_name", "local_name", 
+# mod_fourth_server : <anonymous>: 
+"con", "latin_name", 
+# mod_second_server : <anonymous>: 
+"basin_id", 
+# plot_hsi_nit: 
+"basin_id", "year", 
+# tm_draw: 
+"ices_type", "latin_name", "nb_occurence", "tm_frontiers", 
+# others
+"diadesatlas.translate", ".", "long", "lat", "group", "region"
+)))
