@@ -42,7 +42,7 @@ Dans tous les cas, les développeurs devront suivre le contenu de
 
 # Backend requirement
 
-The apps needs to connect to a db.
+## The apps needs to connect to a db.
 
 It can be set via :
 
@@ -77,6 +77,17 @@ con <- get_con(session)
 DBI::dbListTables(con)
 DBI::dbDisconnect(con)
 ```
+
+## Dev - Mongo
+
+The app requires a Mongo database. For dev, you need to run the
+following:
+
+    docker run --name=mongo --rm -p 2811:27017 -e MONGO_INITDB_ROOT_USERNAME=Colin -e MONGO_INITDB_ROOT_PASSWORD=AsAboveSoBelow789123 mongo:4.0
+
+Stop it at the end
+
+    docker kill mongo
 
 # Dev - vignettes
 
