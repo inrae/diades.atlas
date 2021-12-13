@@ -2,8 +2,8 @@
 # To deploy, run: rsconnect::deployApp()
 # Or use the blue button on top of this file
 
-pkgload::load_all(export_all = FALSE,helpers = FALSE,attach_testthat = FALSE)
-options( "golem.app.prod" = TRUE )
+pkgload::load_all(export_all = FALSE, helpers = FALSE, attach_testthat = FALSE)
+options("golem.app.prod" = TRUE)
 
 cli::cat_rule("app.R")
 
@@ -12,9 +12,9 @@ connect(se)
 library(zeallot)
 c(
   dataCatchment,
-  catchment_geom, 
-  dataALL, 
-  ices_geom, 
+  catchment_geom,
+  dataALL,
+  ices_geom,
   species_list
 ) %<-% generate_datasets(
   get_con(
@@ -23,10 +23,10 @@ c(
 )
 
 # Run the application
-run_app(      
+run_app(
   species_list = species_list,
-  dataCatchment = dataCatchment, 
-  catchment_geom = catchment_geom, 
-  dataALL = dataALL, 
+  dataCatchment = dataCatchment,
+  catchment_geom = catchment_geom,
+  dataALL = dataALL,
   ices_geom = ices_geom
 )
