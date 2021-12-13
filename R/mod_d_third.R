@@ -95,7 +95,8 @@ mod_third_ui <- function(id) {
                 NULL,
                 min = 1950,
                 max = 2100,
-                value = c(1950, 2100)
+                value = c(1950, 2100), 
+                sep = ""
               )
             ),
             button_id = ns("date_hover")

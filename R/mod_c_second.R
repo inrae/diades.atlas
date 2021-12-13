@@ -48,7 +48,8 @@ mod_second_ui <- function(id) {
                 NULL,
                 min = 1950,
                 max = 2100,
-                value = 1950
+                value = 1950, 
+                sep = ""
               )
             ),
             button_id = ns("date_hover")
