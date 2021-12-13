@@ -26,6 +26,20 @@ remotes::install_github('inrae/diades.atlas')
     <https://inrae.github.io/diades.atlas/dev/>
 -   Shiny App : <https://connect.thinkr.fr/diadesatlasui18n/>
 
+# Translation
+
+Les instructions pour préparer la traduction sont dans
+“dev/translation.Rmd”.  
+Trois modes de traduction cohabitent:
+
+-   Traductions présentes dans la base de données
+-   Traductions à compléter dans des fichiers Markdown sous forme de
+    Pull Request sur le projet
+-   Traductions à compléter dans un fichier Google Sheet partagé
+
+Dans tous les cas, les développeurs devront suivre le contenu de
+“dev/translation.Rmd” lors de chaque mises à jour.
+
 # Backend requirement
 
 The apps needs to connect to a db.
@@ -51,6 +65,18 @@ Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
 
 For dev purpose, please refer to the doc in the diadesdata repo on
 ThinkR’s forge (restricted access).
+
+Verify connexion works
+
+``` r
+pkgload::load_all()
+session <- new.env()
+connect(session)
+con <- get_con(session)
+
+DBI::dbListTables(con)
+DBI::dbDisconnect(con)
+```
 
 # Dev - vignettes
 

@@ -15,7 +15,7 @@ library(dplyr)
 ## Comment est organisée la traduction
 
 __Note importante__ : Pensez à être bien vigilant sur l'harmonisation des code-langues. 
-En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'applicatino. 
+En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'application. 
 
 ### Pour les "help bubble"
 
@@ -23,7 +23,7 @@ Les help bubbles sont les éléments d'aide lors du passage de la souris sur un 
 
 Ils sont tous dans `inst/translation_help`. 
 Ce dossier contient des sous-dossiers, chacun correspondant à une bulle d'aide. 
-Chacun de ces  sous dossiers contient des `.md`, un par code-langue. 
+Chacun de ces sous dossiers contient des `.md`, un par code-langue. 
 Vous pouvez utiliser du code Markdown afin de remplir ces éléments. 
 
 Ces contenus sont ensuite compilés dans `inst/translation_help.csv`, via le code ci-dessous, à relancer en cas de changement.  
