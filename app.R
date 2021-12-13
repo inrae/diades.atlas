@@ -22,15 +22,6 @@ c(
   )
 )
 
-# En dev, effacer la base Mongo pour éviter de voir les problèmes de graph rester !!!
-if (golem::app_dev()) {
-  local({
-    fake_session <- new.env()
-    diades.atlas:::launch_mongo(session = fake_session)
-    fake_session$userData$mongo_cache$reset()
-  })
-}
-
 # Run the application
 run_app(
   species_list = species_list,
