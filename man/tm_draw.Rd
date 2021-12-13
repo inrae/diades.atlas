@@ -13,7 +13,8 @@ tm_draw(
   dataCatchment,
   catchment_geom,
   dataALL,
-  ices_geom
+  ices_geom,
+  session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{

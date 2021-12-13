@@ -147,6 +147,18 @@
       "Repository": "CRAN",
       "Hash": "d7421bb5dfeb2676b9e4a5a60c2fcfd2"
     },
+    "bank": {
+      "Package": "bank",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "ThinkR-open",
+      "RemoteRepo": "bank",
+      "RemoteRef": "main",
+      "RemoteSha": "f708655388d51d3b1a3cb8ecd2cc3172414e49b7",
+      "Hash": "9825af7eed0c32837dd47e696cd6ca0d"
+    },
     "base64enc": {
       "Package": "base64enc",
       "Version": "0.1-3",
@@ -818,6 +830,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "8974a907200fc9948d636fe7d85ca9fb"
+    },
+    "mongolite": {
+      "Package": "mongolite",
+      "Version": "2.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "746a57563f17b9fd90e4a8c9649aae37"
     },
     "munsell": {
       "Package": "munsell",

@@ -1,32 +1,10 @@
-#' Title
-#'
-#' @param species_latin_name The latin name of the species
-#' @param spatial_type Geom to use in the map
-#' @param con The Connection object
-#' @param yearStart,yearEnd date used
-#' @param dataCatchment,catchment_geom,dataALL,ices_geom  internal datasets
-#'
-#' @return a tmap
-#' @export
-#' @import sf
-#' @import tmap
-#'
-tm_draw <- function(species_latin_name,
-                    spatial_type,
-                    con,
-                    yearStart = 2003,
-                    yearEnd = 2017,
-                    dataCatchment,
-                    catchment_geom,
-                    dataALL,
-                    ices_geom) {
-  # =====================================================================================
-  # spatial coverage
-  bbox <- st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = st_crs(4326))
-  # ----------------------------------------- country frontier
-
-  #--------------------------- data in ocean
-  dataOcean <- ices_geom %>%
+#' @importFrom dplyr filter inner_join mutate
+#' @noRd
+data_ocean <- function(ices_geom,
+                       spatial_type,
+                       dataALL,
+                       species_latin_name) {
+  ices_geom %>%
     filter(ices_type == spatial_type) %>%
     inner_join(
       dataALL %>%
@@ -45,12 +23,15 @@ tm_draw <- function(species_latin_name,
         "[13, 15]"
       )
     ))
+}
 
-  title <- "Annual prevalence in catches at sea" %>%
-    with_i18("annual_prevalence") %>%
-    as.character()
-
-  tm_ocean <- tm_shape(dataOcean, bbox = bbox) +
+#' @importFrom tmap tm_shape tm_polygons
+#' @noRd
+tm_ocean <- function(dataOcean,
+                     title,
+                     yearStart,
+                     yearEnd) {
+  tm_shape(dataOcean, bbox = bbox) +
     tm_polygons(
       "prevalence",
       title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
@@ -65,10 +46,14 @@ tm_draw <- function(species_latin_name,
         "[13, 15]"
       )
     )
+}
 
-  # -------------------------------------------------------- data in catchment
-
-  dataContinent <- catchment_geom %>%
+#' @importFrom dplyr left_join filter
+#' @noRd
+data_continent <- function(catchment_geom,
+                           dataCatchment,
+                           species_latin_name) {
+  catchment_geom %>%
     left_join(
       dataCatchment %>%
         filter(
@@ -76,12 +61,12 @@ tm_draw <- function(species_latin_name,
         ),
       by = "basin_id"
     )
+}
 
-  # title_tmap <- .translations$df[
-  #   .translations$df$entry == "status_in_river_catchments",
-  #   language
-  # ]
-  tm_catchmment <- tm_shape(dataContinent) +
+#' @importFrom tmap tm_shape tm_polygons
+#' @noRd
+tm_catchmment <- function(dataContinent) {
+  tm_shape(dataContinent) +
     tm_polygons(
       "abundance_interpretation",
       title = "Status in river catchments (1951-2010)" %>% with_i18("status_in_river_catchments") %>% as.character(),
@@ -96,7 +81,72 @@ tm_draw <- function(species_latin_name,
         "Abundant functional populations" %>% with_i18("abundant") %>% as.character()
       )
     )
-  # tm_text('abundance_level_id', size = .5)
+}
+
+# Do it once
+bbox <- st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = st_crs(4326))
+
+#' Title
+#'
+#' @param species_latin_name The latin name of the species
+#' @param spatial_type Geom to use in the map
+#' @param con The Connection object
+#' @param yearStart,yearEnd date used
+#' @param dataCatchment,catchment_geom,dataALL,ices_geom  internal datasets
+#'
+#' @return
+#' @export
+#' @import sf
+#' @import tmap
+#'
+tm_draw <- function(species_latin_name,
+                    spatial_type,
+                    con,
+                    yearStart = 2003,
+                    yearEnd = 2017,
+                    dataCatchment,
+                    catchment_geom,
+                    dataALL,
+                    ices_geom,
+                    session = shiny::getDefaultReactiveDomain()) {
+  # =====================================================================================
+  # ----------------------------------------- country frontier
+
+  #--------------------------- data in ocean
+  dataOcean <- get_data_ocean_m(
+    session = session
+  )(
+    ices_geom,
+    spatial_type,
+    dataALL,
+    species_latin_name
+  )
+
+  title <- "Annual prevalence in catches at sea" %>%
+    with_i18("annual_prevalence") %>%
+    as.character()
+
+  tm_ocean <- get_tm_ocean_m(
+    session = session
+  )(
+    dataOcean,
+    title,
+    yearStart,
+    yearEnd
+  )
+
+  # -------------------------------------------------------- data in catchment
+  dataContinent <- get_data_continent_m(
+    session = session
+  )(
+    catchment_geom,
+    dataCatchment,
+    species_latin_name
+  )
+
+  tm_catchmment <- get_tm_catchmment_m(
+    session = session
+  )(dataContinent)
 
   # ------------------------------------------ display the map
   tm_graticules() +
