@@ -56,6 +56,14 @@ renv::snapshot(packages = custom_packages)
 # After pull and/or rebase
 renv::restore()
 
+# Remettre à zéro la bdd de cache
+
+local({
+  options("golem.app.prod" = FALSE)
+  fake_session <- new.env()
+  diades.atlas:::launch_mongo(session = fake_session)
+  fake_session$userData$mongo_cache$reset()
+})
 
 ## Add data for reprex
 usethis::use_data_raw("World")
