@@ -8,15 +8,23 @@ usethis::use_git_ignore("deliverables")
 # See readme
 rstudioapi::navigateToFile("README.Rmd")
 
+## -- Release --
 ## Upgrade version Number in DESCRIPTION
+## Update NEWS
+rstudioapi::navigateToFile("NEWS.md")
 ## Create a commit for the version
 ## Add tag on version commit
 
 ## _covr ----
+Sys.setenv(
+  "R_CONFIG_ACTIVE" = "dev"
+)
 x <- covr::package_coverage()
 # Change {my-project}
-covr::report(x, file = "deliverables/codecoverage/listofcodes-codecoverage-full-report.html")
-
+remotes::install_version('DT', version = "0.19")
+# restart, relaunch Mongo
+covr::report(x, file = "deliverables/codecoverage/diades-codecoverage-full-report.html")
+renv::restore()
 
 ## Update description files in app
 chameleon::create_pkg_biblio_file(
@@ -49,9 +57,9 @@ file.rename("deliverables/docs", down_dir)
 unlink("inst/docs", recursive = TRUE)
 
 # pkgdown::build_site()
-pkgdown::build_site(override = list(development = list(mode = "devel")))
-debugonce(pkgdown:::build_site_local)
-pkgdown::deploy_to_branch(new_process = FALSE, override = list(development = list(mode = "devel")))
+# pkgdown::build_site(override = list(development = list(mode = "devel")))
+# debugonce(pkgdown:::build_site_local)
+# pkgdown::deploy_to_branch(new_process = FALSE, override = list(development = list(mode = "devel")))
 # aa <- pkgdown::as_pkgdown()
 # aa$version
 # aa$meta
