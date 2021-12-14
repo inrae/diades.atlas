@@ -15,3 +15,5 @@ dev/00-fill-database.html
 .Renviron
 data-raw/db
 deliverables
+data-raw/translation.Rmd
+dev/translation.html

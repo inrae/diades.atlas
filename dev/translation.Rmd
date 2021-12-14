@@ -5,6 +5,11 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+```{r setup}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
 ```{r}
 pkgload::load_all(attach_testthat = FALSE)
 session <- new.env()

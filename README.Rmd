@@ -107,11 +107,15 @@ However, they can all be prepared from this script:
 ```{r, eval=FALSE}
 remotes::install_local(upgrade = "never")
 
+file.copy(here::here("dev", "translation.Rmd"),
+          here::here("data-raw", "translation.Rmd"))
+
 all_vignettes <- c("aa-data-exploration-and-preparation",
                    "bb-page1-catch-bycatch",
                    "bc-page2-present",
                    "bd-page3-climate-change",
-                   "be-page4-future")
+                   "be-page4-future", 
+                   "translation")
 
 for (vignette_name in all_vignettes) {
   # vignette_name <- "aa-data-exploration-and-preparation"
@@ -142,6 +146,7 @@ sep = "\n",
 file = here::here(file.path("vignettes", vignette_file))
   )
 }
+file.remove(here::here("data-raw", "translation.Rmd"))
 ```
 
 

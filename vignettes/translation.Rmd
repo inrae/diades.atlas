@@ -1,0 +1,653 @@
+---
+title: "translation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{translation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Colin Fay" />
+
+<meta name="date" content="2021-12-14" />
+
+<title>Translation</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Translation</h1>
+<h4 class="author">Colin Fay</h4>
+<h4 class="date">2021-12-14</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#comment-est-organisée-la-traduction">Comment est organisée la traduction</a>
+<ul>
+<li><a href="#pour-les-help-bubble">Pour les “help bubble”</a></li>
+<li><a href="#pour-le-front-end">Pour le front-end</a></li>
+<li><a href="#lus-dans-la-base">Lus dans la base</a></li>
+<li><a href="#fichiers-générés-automatiquement">Fichiers générés automatiquement</a></li>
+<li><a href="#fichier-à-compléter-à-la-main">Fichier à compléter à la main</a></li>
+</ul></li>
+<li><a href="#ajouter-une-nouvelle-langue">Ajouter une nouvelle langue</a>
+<ul>
+<li><a href="#help-bubbles">Help bubbles</a></li>
+<li><a href="#data">Data</a></li>
+<li><a href="#fonction-dbb">Fonction dbb</a></li>
+<li><a href="#côté-code-de-lapplication">Côté code de l’application</a></li>
+</ul></li>
+<li><a href="#notes-pour-les-dévelopeurs">Notes pour les dévelopeurs</a>
+<ul>
+<li><a href="#comment-créer-un-nouvel-élément-traductible-dans-lui">Comment créer un nouvel élément “traductible” dans l’UI</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">eval =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pkgload<span class="sc">::</span><span class="fu">load_all</span>(<span class="at">attach_testthat =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>session <span class="ot">&lt;-</span> <span class="fu">new.env</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">connect</span>(session)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div id="comment-est-organisée-la-traduction" class="section level2">
+<h2>Comment est organisée la traduction</h2>
+<p><strong>Note importante</strong> : Pensez à être bien vigilant sur l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une langue avec le code <code>es</code>, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l’application.</p>
+<div id="pour-les-help-bubble" class="section level3">
+<h3>Pour les “help bubble”</h3>
+<p>Les help bubbles sont les éléments d’aide lors du passage de la souris sur un élément <code>(?)</code>.</p>
+<p>Ils sont tous dans <code>inst/translation_help</code>. Ce dossier contient des sous-dossiers, chacun correspondant à une bulle d’aide. Chacun de ces sous dossiers contient des <code>.md</code>, un par code-langue. Vous pouvez utiliser du code Markdown afin de remplir ces éléments.</p>
+<p>Ces contenus sont ensuite compilés dans <code>inst/translation_help.csv</code>, via le code ci-dessous, à relancer en cas de changement.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">&quot;inst/translation_help.csv&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_df</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list.files</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;inst/translation_help&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  ), <span class="sc">~</span> {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">entry =</span> <span class="fu">basename</span>(.x),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">en =</span> htmltools<span class="sc">::</span><span class="fu">includeMarkdown</span>(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">file.path</span>(.x, <span class="st">&quot;en.md&quot;</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">fr =</span> htmltools<span class="sc">::</span><span class="fu">includeMarkdown</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">file.path</span>(.x, <span class="st">&quot;fr.md&quot;</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;inst/translation_help.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="pour-le-front-end" class="section level3">
+<h3>Pour le front-end</h3>
+<p>Pour l’interface utilisateur, l’application met ensemble des fichiers CSV, contenus dans le dossier <code>inst/</code> et des tables contenues dans la base. Certains de ces fichiers sont automatiquement générés, un est à modifier à la main.</p>
+<p>Tous ces fichiers contiennent au moins 3 colonnes:</p>
+<ul>
+<li><code>entry</code> : la clé d’entrée dans le front (pour i18n)</li>
+<li><code>en</code> : la traduction en anglais</li>
+<li><code>fr</code> : la traduction en français</li>
+</ul>
+</div>
+<div id="lus-dans-la-base" class="section level3">
+<h3>Lus dans la base</h3>
+<ul>
+<li><code>abundance_level</code></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>translation_abundance_level <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">session =</span> shiny<span class="sc">::</span><span class="fu">getDefaultReactiveDomain</span>()) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">TODO</span><span class="co"> écrire depuis la base</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_con</span>(session),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &quot;select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, &#39;fr&#39;) AS fr from abundance_level&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># via le code SQL commenté</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">fr =</span> <span class="fu">c</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Non enregistré sur la période&quot;</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Présence occasionnelle&quot;</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Populations fonctionnelles&quot;</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Populations fonctionnelles abondante&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">translation_abundance_level</span>(se)</span></code></pre></div>
+<ul>
+<li><code>species</code> : contient les traductions pour les éléments de niveau d’abondance. Se génère via le code suivant :</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>translation_species <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">session =</span> shiny<span class="sc">::</span><span class="fu">getDefaultReactiveDomain</span>()) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_con</span>(session),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, &#39;fr&#39;) AS fr from diadesatlas.species WHERE active=TRUE&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">translation_species</span>(se)</span></code></pre></div>
+<ul>
+<li><code>v_ecosystemic_services</code></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>translation_v_ecosystemic_services <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">session =</span> shiny<span class="sc">::</span><span class="fu">getDefaultReactiveDomain</span>()) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">get_con</span>(session),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;SELECT</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">        REPLACE(LOWER(casestudy_name), &#39; &#39;, &#39;-&#39;) as entry,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">        casestudy_name as en,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">        diadesatlas.translate(casestudy_name, &#39;fr&#39;) as fr</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">        from v_ecosystemic_services&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">get_con</span>(session),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;SELECT</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">        REPLACE(LOWER(category_name), &#39; &#39;, &#39;-&#39;) as entry,</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">        category_name as en,</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">        diadesatlas.translate(category_name, &#39;fr&#39;) as fr</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">        from v_ecosystemic_services&quot;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">get_con</span>(session),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;SELECT</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">        REPLACE(LOWER(subcategory_name), &#39; &#39;, &#39;-&#39;) as entry,</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">        subcategory_name as en,</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="st">        diadesatlas.translate(subcategory_name, &#39;fr&#39;) as fr</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="st">        from v_ecosystemic_services&quot;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">get_con</span>(session),</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;SELECT</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="st">        REPLACE(LOWER(subcategory_name), &#39; &#39;, &#39;-&#39;) as entry,</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="st">        subcategory_name as en,</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="st">        diadesatlas.translate(subcategory_name, &#39;fr&#39;) as fr</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="st">        from v_ecosystemic_services&quot;</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="fu">translation_v_ecosystemic_services</span>(se)</span></code></pre></div>
+</div>
+<div id="fichiers-générés-automatiquement" class="section level3">
+<h3>Fichiers générés automatiquement</h3>
+<ul>
+<li><code>translation_iucn.csv</code> : contient les traductions pour status IUCN. Se génère via le code suivant <strong>mais devra être mis dans la base</strong>.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> : get the translation inside the DB</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># On utilise ici la description trouvée sur</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://uicn.fr/liste-rouge-mondiale/</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>desc <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Éteinte (EX), Éteinte à l’état sauvage (EW), En danger critique (CR), En danger (EN), Vulnérable (VU), Quasi menacée (NT), Préoccupation mineure (LC), Données insuffisantes (DD), Non évaluée (NE)&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">split =</span> <span class="st">&quot;, &quot;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)[[<span class="dv">1</span>]]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>french_iucn <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">fr_vals =</span> <span class="fu">gsub</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;([^</span><span class="sc">\\</span><span class="st">(]+) </span><span class="sc">\\</span><span class="st">(([^</span><span class="sc">\\</span><span class="st">(]+)</span><span class="sc">\\</span><span class="st">)&quot;</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1,</span><span class="sc">\\</span><span class="st">2&quot;</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    desc</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">separate</span>(</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    fr_vals,</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;fr&quot;</span>, <span class="st">&quot;entry&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;,&quot;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>en_iucn <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_con</span>(se),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT distinct iucn_level_code AS entry,iucn_level_name AS en FROM v_iucn&quot;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>en_iucn <span class="sc">%&gt;%</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(french_iucn) <span class="sc">%&gt;%</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;inst/translation_iucn.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="fichier-à-compléter-à-la-main" class="section level3">
+<h3>Fichier à compléter à la main</h3>
+<p><strong>IMPORTANT</strong> Merci de centraliser dans le Google Sheet.</p>
+<ul>
+<li>On va lire le fichier Google Sheet de traduction.</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sheet_url <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="st">&quot;Enter the sheet url: &quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>translation <span class="ot">&lt;-</span> <span class="fu">read_sheet</span>(sheet_url)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>translation<span class="sc">$</span>DESCRIPTION <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>translation</span></code></pre></div>
+<p>Vérifier (et manipulez) le dataframe au besoin. Ce dernier doit posséder à minima :</p>
+<ul>
+<li>Une première colonne nommée ‘entry’</li>
+<li>Une seconde colonne nommée ‘en’</li>
+<li>Une troisisème colonne nommée ‘fr’</li>
+<li>D’autres langues (potentiellement)</li>
+<li>PAS DE COLONNES VIDES SUR LA DROITE, pensez à l’anti-sélectionner au besoin</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  translation,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;inst/translation.csv&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Vous pouvez vérifier l’intégrité du csv :</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">check_translation_csv</span>(<span class="st">&quot;inst/translation.csv&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span></code></pre></div>
+</div>
+</div>
+<div id="ajouter-une-nouvelle-langue" class="section level2">
+<h2>Ajouter une nouvelle langue</h2>
+<p>Ajouter une nouvelle langue doit se faire aux emplacements suivants:</p>
+<div id="help-bubbles" class="section level3">
+<h3>Help bubbles</h3>
+<ul>
+<li><p>Pour chaque sous-dossiers, ajouter un fichier <code>.md</code> avec la traduction dans une nouvelle langue.</p></li>
+<li><p>Régénerer <code>translation_help.csv</code> : dans le code de génération de la première partie de ce Rmd, remplacer avec un code type</p></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">entry =</span> <span class="fu">basename</span>(.x),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">en =</span> htmltools<span class="sc">::</span><span class="fu">includeMarkdown</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">file.path</span>(.x, <span class="st">&quot;en.md&quot;</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">fr =</span> htmltools<span class="sc">::</span><span class="fu">includeMarkdown</span>(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">file.path</span>(.x, <span class="st">&quot;fr.md&quot;</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Code pour la nouvelle langue</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">es =</span> htmltools<span class="sc">::</span><span class="fu">includeMarkdown</span>(</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">file.path</span>(.x, <span class="st">&quot;es.md&quot;</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<ul>
+<li><p>Fichier Google Sheet, ajouter une nouvelle colonne à droite (exemple <code>es</code>)</p></li>
+<li><p><code>translation_iucn.csv</code> : dans le code de génération du dessus, il faudra créer un nouveau data.frame, avec les traductions.</p></li>
+</ul>
+<blockquote>
+<p>Note : ces traductions devront à termes être intégrées à la base</p>
+</blockquote>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>es_iucn <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">entry =</span> <span class="fu">c</span>(<span class="st">&quot;EX&quot;</span>, <span class="st">&quot;EW&quot;</span>, <span class="st">&quot;CR&quot;</span>, <span class="st">&quot;EN&quot;</span>, <span class="st">&quot;VU&quot;</span>, <span class="st">&quot;NT&quot;</span>, <span class="st">&quot;LC&quot;</span>, <span class="st">&quot;DD&quot;</span>, <span class="st">&quot;NE&quot;</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">es =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>puis mettre à jour le code du début de ce Rmd.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>en_iucn <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(french_iucn) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(es_iucn) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;inst/translation_iucn.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="fonction-dbb" class="section level3">
+<h3>Fonction dbb</h3>
+<p>Ces fonctions sont dans <code>R/utils_helpers.R</code></p>
+<p>Les fonctions qui utilisent la traduction dans la bdd sont les suivantes :</p>
+<ul>
+<li><p><code>translation_abundance_level()</code> : il faudra ajouter une partie au SQL type <code>diadesatlas.translate(abundance_level_interpretation_short, &#39;es&#39;) AS es</code></p></li>
+<li><p><code>translation_species()</code> : il faudra ajouter une partie au SQL type <code>diadesatlas.translate(english_name, &#39;es&#39;) AS es</code></p></li>
+<li><p><code>translation_v_ecosystemic_services()</code> pour chaque sous requête SQL, il faudra ajouter une partie au SQL type <code>diadesatlas.translate(subcategory_name, &#39;es&#39;) as es</code></p></li>
+</ul>
+</div>
+<div id="côté-code-de-lapplication" class="section level3">
+<h3>Côté code de l’application</h3>
+<ul>
+<li><p>Si disponible, ajouter le langage dans <code>get_dt_lg()</code> , à vérifier sur <a href="https://cdn.datatables.net/plug-ins/1.10.11/i18n/" class="uri">https://cdn.datatables.net/plug-ins/1.10.11/i18n/</a></p></li>
+<li><p>Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de langue. Si votre entrée de laangue est <code>es</code>, ajouter <code>&lt;option value=&quot;en&quot;&gt;\U0001f1ea\U0001f1f8 Espanol&lt;/option&gt;</code>. Le code unicode s’obtient en utilisant l’émoji et <code>stringi::stri_escape_unicode(&quot;🇪🇸&quot;)</code>.</p></li>
+</ul>
+</div>
+</div>
+<div id="notes-pour-les-dévelopeurs" class="section level2">
+<h2>Notes pour les dévelopeurs</h2>
+<div id="comment-créer-un-nouvel-élément-traductible-dans-lui" class="section level3">
+<h3>Comment créer un nouvel élément “traductible” dans l’UI</h3>
+<ul>
+<li>La traduction est assurée par le module JS <code>i18n</code> et la fonction <code>with_i18()</code> dans l’app</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with_i18</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Text de base&quot;</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;text_de_base&quot;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Va créer <code>&lt;span data-i18n=&quot;text_de_base&quot;&gt;Text de base&lt;/span&gt;</code>.</p>
+<ul>
+<li>L’élément <code>Text de base</code> est affiché si <code>i18n</code> plante</li>
+<li>L’élément <code>data-i18n=&quot;text_de_base&quot;</code> correspond à la clé d’entrée dans le data.frame de traduction, i.e. la valeur dans la colonne entry.</li>
+</ul>
+<p>Schématiquement, lorsque le JavaScript va traduire la page, il va aller chercher pour chaque tag l’entrée <code>data-i18n</code>, en tirer la valeur, et aller chercher la traduction correspondante.</p>
+<p>Par exemple, si nous traduisons en “fr”, la localisation fait (en JavaScript) l’action suivante</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_traduction <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(entry <span class="sc">==</span> <span class="st">&quot;text_de_base&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(fr)</span></code></pre></div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
