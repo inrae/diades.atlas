@@ -17,7 +17,7 @@ rstudioapi::navigateToFile("NEWS.md")
 
 ## _covr ----
 Sys.setenv(
-  "R_CONFIG_ACTIVE" = "dev"
+  "GOLEM_CONFIG_ACTIVE" = "dev"
 )
 x <- covr::package_coverage()
 # Change {my-project}

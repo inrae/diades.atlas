@@ -62,7 +62,7 @@ library(DBI)
 library(zeallot)
 
 Sys.setenv(
-  "R_CONFIG_ACTIVE" = "dev"
+  "GOLEM_CONFIG_ACTIVE" = "dev"
 )
 ```
 
