@@ -50,7 +50,7 @@ vignette: >
 # Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
 pkgload::load_all(here::here())
 library(dplyr)
-session <- new.env()
+session <- shiny::MockShinySession$new() #new.env()
 connect(session)
 con <- get_con(session)
 library(rworldmap)
@@ -58,6 +58,12 @@ library(rworldxtra)
 library(tmap)
 library(sf)
 library(DBI)
+
+library(zeallot)
+
+Sys.setenv(
+  "R_CONFIG_ACTIVE" = "dev"
+)
 ```
 
 # Liste des espèces 
@@ -88,7 +94,7 @@ for (i in species$species_id) {
 ## Tmap code 
 
 
-```{r}
+```{r, eval=FALSE}
 dataCatchment <- dbReadTable(
   con,
   "v_abundance"
@@ -136,7 +142,22 @@ dataContinent <- get_data_continent_m(
   dataCatchment,
   "Salmo trutta"
 )
+```
 
+```{r}
+c(
+  dataCatchment,
+  catchment_geom,
+  dataALL,
+  ices_geom,
+  species_list
+) %<-% generate_datasets(
+  get_con(
+    session
+  )
+)
+# options("golem.app.prod" = FALSE)
+launch_mongo(session = session)
 # NOTE: the species are passed with the latin name in the foreground.
 # In the front of the app, the user will have to select an english/french name
 tm_draw(
@@ -146,7 +167,8 @@ tm_draw(
   dataCatchment = dataCatchment,
   catchment_geom = catchment_geom,
   dataALL = dataALL,
-  ices_geom = ices_geom
+  ices_geom = ices_geom,
+  session = session
 )
 
 tm_draw(
@@ -156,7 +178,8 @@ tm_draw(
   dataCatchment = dataCatchment,
   catchment_geom = catchment_geom,
   dataALL = dataALL,
-  ices_geom = ices_geom
+  ices_geom = ices_geom,
+  session = session
 )
 
 tm_draw(
@@ -166,7 +189,8 @@ tm_draw(
   dataCatchment = dataCatchment,
   catchment_geom = catchment_geom,
   dataALL = dataALL,
-  ices_geom = ices_geom
+  ices_geom = ices_geom,
+  session = session
 )
 
 tm_draw(
@@ -176,7 +200,8 @@ tm_draw(
   dataCatchment = dataCatchment,
   catchment_geom = catchment_geom,
   dataALL = dataALL,
-  ices_geom = ices_geom
+  ices_geom = ices_geom,
+  session = session
 )
 ```
 

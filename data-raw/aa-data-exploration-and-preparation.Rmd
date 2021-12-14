@@ -65,10 +65,10 @@ postgis_user <- Sys.getenv("POSTGIS_USER")
 postgis_password <- Sys.getenv("POSTGIS_PASSWORD")
 
 con <- DBI::dbConnect(
-  Postgres(),
-  host = Sys.getenv("POSTGRES_HOST", get_golem_config("POSTGRES_HOST")),
-  dbname = Sys.getenv("POSTGRES_DBNAME", get_golem_config("POSTGRES_DBNAME")),
-  port = Sys.getenv("POSTGRES_PORT", get_golem_config("POSTGRES_PORT")),
+  RPostgres::Postgres(),
+  host = Sys.getenv("POSTGRES_HOST", diades.atlas:::get_golem_config("POSTGRES_HOST")),
+  dbname = Sys.getenv("POSTGRES_DBNAME", diades.atlas:::get_golem_config("POSTGRES_DBNAME")),
+  port = Sys.getenv("POSTGRES_PORT", diades.atlas:::get_golem_config("POSTGRES_PORT")),
   user = Sys.getenv("POSTGRES_USER", "diadesatlas_r"),
   password = Sys.getenv("POSTGRES_PASS", "diadesPassword"),
   options = "-c search_path=diadesatlas"
@@ -130,7 +130,7 @@ dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
 ## Prepare data for Home page
 ### Prepare json files
 Create all json data used on the home page of the app
-```{r}
+```{r, eval=FALSE}
 # List of case studies
 casestudy <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% collect()
 # List of the corresponding basins
@@ -180,7 +180,7 @@ species %>%
 ```
 
 ### Prepare and test leaflet map
-```{r}
+```{r, eval=FALSE}
 # set query and reproject to EPSG:4326 for GeoJSON creation
 # (the real query is more involved with a bounding box etc)
 qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom FROM diadesatlas.basin_outlet"

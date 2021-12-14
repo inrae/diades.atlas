@@ -29,7 +29,7 @@ tm_draw(
 \item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
 }
 \value{
-a tmap
+
 }
 \description{
 Title

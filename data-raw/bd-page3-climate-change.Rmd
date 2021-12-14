@@ -177,25 +177,7 @@ draw_bv_leaflet <- function(bv_df,
                 opacity = 0.6)
 }
 
-ui <- function(request) {
-  tagList(
-    leaflet::leafletOutput("plot")
-  )
-}
 
-server <- function(input,
-                   output,
-                   session) {
-  output$plot <- leaflet::renderLeaflet({
-    draw_bv_leaflet(bv_df, model_res, 1976)
-  })
-
-  observeEvent(input$plot_shape_click, { # update the location selectInput on map clicks
-    print(input$plot_shape_click)
-  })
-}
-
-shinyApp(ui, server)
 
 
 # plot hsi nit ----
@@ -233,6 +215,30 @@ bv_df <- get_bv_geoms(
   session
 )
 draw_bv_leaflet(bv_df, model_res, 1976)
+```
+
+## Test separate shiny module
+
+```{r, eval=FALSE}
+ui <- function(request) {
+  tagList(
+    leaflet::leafletOutput("plot")
+  )
+}
+
+server <- function(input,
+                   output,
+                   session) {
+  output$plot <- leaflet::renderLeaflet({
+    draw_bv_leaflet(bv_df, model_res, 1976)
+  })
+
+  observeEvent(input$plot_shape_click, { # update the location selectInput on map clicks
+    print(input$plot_shape_click)
+  })
+}
+
+shinyApp(ui, server)
 ```
 
 
