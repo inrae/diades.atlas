@@ -1,10 +1,10 @@
-entry,en,fr
-VU,Vulnerable,Vulnérable
-LC,Least Concern,Préoccupation mineure
-CR,Critically Endangered,En danger critique
-EN,Endangered,En danger
-DD,Data Deficient,Données insuffisantes
-NT,Near Threatened,Quasi menacée
-EX,NA,Éteinte
-EW,NA,Éteinte à l’état sauvage
-NE,NA,Non évaluée
+entry,en,fr,es,pt
+VU,Vulnerable,Vulnérable,Vulnerable,Vulnerable
+LC,Least Concern,Préoccupation mineure,Least Concern,Least Concern
+CR,Critically Endangered,En danger critique,Critically Endangered,Critically Endangered
+EN,Endangered,En danger,Endangered,Endangered
+DD,Data Deficient,Données insuffisantes,Data Deficient,Data Deficient
+NT,Near Threatened,Quasi menacée,Near Threatened,Near Threatened
+EX,NA,Éteinte,NA,NA
+EW,NA,Éteinte à l’état sauvage,NA,NA
+NE,NA,Non évaluée,NA,NA

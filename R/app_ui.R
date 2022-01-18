@@ -51,6 +51,8 @@ app_ui <- function(request) {
                     <select name="pets" id="lg">
                         <option value="en">\U0001f1ec\U0001f1e7 English</option>
                         <option value="fr">\U0001f1eb\U0001f1f7 French</option>
+                        <option value="es">\U0001f1ea\U0001f1f8 Spanish</option>
+                        <option value="pt">\U0001f1f5\U0001f1f9 Portuguese</option>
                     </select>
                   </div>')
           ),

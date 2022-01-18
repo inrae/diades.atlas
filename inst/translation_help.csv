@@ -1,113 +1,145 @@
-entry,en,fr
+entry,en,fr,pt,es
 catch_bycatch_help,"<h1>catch_bycatch_help</h1>
-
-<p>catch_bycatch_help EN</p>
+<p>catch_bycatch_help DEFAULT</p>
 ","<h1>catch_bycatch_help</h1>
-
-<p>catch_bycatch_help FR</p>
+<p>catch_bycatch_help DEFAULT</p>
+","<h1>catch_bycatch_help</h1>
+<p>catch_bycatch_help DEFAULT</p>
+","<h1>catch_bycatch_help</h1>
+<p>catch_bycatch_help DEFAULT</p>
 "
 choose_a_daterange_help,"<h1>choose_a_daterange_help</h1>
-
-<p>choose_a_daterange_help EN</p>
+<p>choose_a_daterange_help DEFAULT</p>
 ","<h1>choose_a_daterange_help</h1>
-
-<p>choose_a_daterange_help FR</p>
+<p>choose_a_daterange_help DEFAULT</p>
+","<h1>choose_a_daterange_help</h1>
+<p>choose_a_daterange_help DEFAULT</p>
+","<h1>choose_a_daterange_help</h1>
+<p>choose_a_daterange_help DEFAULT</p>
 "
 choose_a_scenario_help,"<h1>choose_a_scenario_help</h1>
-
-<p>choose_a_scenario_help EN</p>
+<p>choose_a_scenario_help DEFAULT</p>
 ","<h1>choose_a_scenario_help</h1>
-
-<p>choose_a_scenario_help FR</p>
+<p>choose_a_scenario_help DEFAULT</p>
+","<h1>choose_a_scenario_help</h1>
+<p>choose_a_scenario_help DEFAULT</p>
+","<h1>choose_a_scenario_help</h1>
+<p>choose_a_scenario_help DEFAULT</p>
 "
 conservation_status_help,"<h1>conservation_status_help</h1>
-
-<p>conservation_status_help EN</p>
+<p>conservation_status_help DEFAULT</p>
 ","<h1>conservation_status_help</h1>
-
-<p>conservation_status_help FR</p>
+<p>conservation_status_help DEFAULT</p>
+","<h1>conservation_status_help</h1>
+<p>conservation_status_help DEFAULT</p>
+","<h1>conservation_status_help</h1>
+<p>conservation_status_help DEFAULT</p>
 "
 define_anthropo_help,"<h1>define_anthropo_help</h1>
-
-<p>define_anthropo_help EN</p>
+<p>define_anthropo_help DEFAULT</p>
 ","<h1>define_anthropo_help</h1>
-
-<p>define_anthropo_help FR</p>
+<p>define_anthropo_help DEFAULT</p>
+","<h1>define_anthropo_help</h1>
+<p>define_anthropo_help DEFAULT</p>
+","<h1>define_anthropo_help</h1>
+<p>define_anthropo_help DEFAULT</p>
 "
 map_abundance_help,"<h1>map_abundance_help</h1>
-
-<p>map_abundance_help EN</p>
+<p>map_abundance_help DEFAULT</p>
 ","<h1>map_abundance_help</h1>
-
-<p>map_abundance_help FR</p>
+<p>map_abundance_help DEFAULT</p>
+","<h1>map_abundance_help</h1>
+<p>map_abundance_help DEFAULT</p>
+","<h1>map_abundance_help</h1>
+<p>map_abundance_help DEFAULT</p>
 "
 map_geometrie_help,"<h1>map_geometrie_help</h1>
-
-<p>map_geometrie_help EN</p>
+<p>map_geometrie_help DEFAULT</p>
 ","<h1>map_geometrie_help</h1>
-
-<p>map_geometrie_help FR</p>
+<p>map_geometrie_help DEFAULT</p>
+","<h1>map_geometrie_help</h1>
+<p>map_geometrie_help DEFAULT</p>
+","<h1>map_geometrie_help</h1>
+<p>map_geometrie_help DEFAULT</p>
 "
 plot_evolution_help,"<h1>plot_evolution_help</h1>
-
-<p>plot_evolution_help EN</p>
+<p>plot_evolution_help DEFAULT</p>
 ","<h1>plot_evolution_help</h1>
-
-<p>plot_evolution_help FR</p>
+<p>plot_evolution_help DEFAULT</p>
+","<h1>plot_evolution_help</h1>
+<p>plot_evolution_help DEFAULT</p>
+","<h1>plot_evolution_help</h1>
+<p>plot_evolution_help DEFAULT</p>
 "
-prediction_map_abundance_help,"<h1>prediction_map_abundance_help</h1>
-
-<p>prediction_map_abundance_help EN</p>
-","<h1>prediction_map_abundance_help</h1>
-
-<p>prediction_map_abundance_help FR</p>
+prediction_map_abundance_help,"<h1>plot_evolution_help</h1>
+<p>plot_evolution_help DEFAULT</p>
+","<h1>plot_evolution_help</h1>
+<p>plot_evolution_help DEFAULT</p>
+","<h1>plot_evolution_help</h1>
+<p>plot_evolution_help DEFAULT</p>
+","<h1>plot_evolution_help</h1>
+<p>plot_evolution_help DEFAULT</p>
 "
 prediction_plot_abundance_help,"<h1>prediction_plot_abundance_help</h1>
-
-<p>prediction_plot_abundance_help EN</p>
+<p>prediction_plot_abundance_help DEFAULT</p>
 ","<h1>prediction_plot_abundance_help</h1>
-
-<p>prediction_plot_abundance_help FR</p>
+<p>prediction_plot_abundance_help DEFAULT</p>
+","<h1>prediction_plot_abundance_help</h1>
+<p>prediction_plot_abundance_help DEFAULT</p>
+","<h1>prediction_plot_abundance_help</h1>
+<p>prediction_plot_abundance_help DEFAULT</p>
 "
 run_simulation_help,"<h1>run_simulation_help</h1>
-
-<p>run_simulation_help EN</p>
+<p>run_simulation_help DEFAULT</p>
 ","<h1>run_simulation_help</h1>
-
-<p>run_simulation_help FR</p>
+<p>run_simulation_help DEFAULT</p>
+","<h1>run_simulation_help</h1>
+<p>run_simulation_help DEFAULT</p>
+","<h1>run_simulation_help</h1>
+<p>run_simulation_help DEFAULT</p>
 "
 select_casestudy_help,"<h1>select_casestudy_help</h1>
-
-<p>select_casestudy_help EN</p>
+<p>select_casestudy_help DEFAULT</p>
 ","<h1>select_casestudy_help</h1>
-
-<p>select_casestudy_help FR</p>
+<p>select_casestudy_help DEFAULT</p>
+","<h1>select_casestudy_help</h1>
+<p>select_casestudy_help DEFAULT</p>
+","<h1>select_casestudy_help</h1>
+<p>select_casestudy_help DEFAULT</p>
 "
 select_ecosystem_help,"<h1>select_ecosystem_help</h1>
-
-<p>select_ecosystem_help EN</p>
+<p>select_ecosystem_help DEFAULT</p>
 ","<h1>select_ecosystem_help</h1>
-
-<p>select_ecosystem_help FR</p>
+<p>select_ecosystem_help DEFAULT</p>
+","<h1>select_ecosystem_help</h1>
+<p>select_ecosystem_help DEFAULT</p>
+","<h1>select_ecosystem_help</h1>
+<p>select_ecosystem_help DEFAULT</p>
 "
 show_results_help,"<h1>show_results_help</h1>
-
-<p>show_results_help EN</p>
+<p>show_results_help DEFAULT</p>
 ","<h1>show_results_help</h1>
-
-<p>show_results_help FR</p>
+<p>show_results_help DEFAULT</p>
+","<h1>show_results_help</h1>
+<p>show_results_help DEFAULT</p>
+","<h1>show_results_help</h1>
+<p>show_results_help DEFAULT</p>
 "
 situation_table_help,"<h1>situation_table_help</h1>
-
-<p>situation_table_help EN</p>
+<p>situation_table_help DEFAULT</p>
 ","<h1>situation_table_help</h1>
-
-<p>situation_table_help FR</p>
+<p>situation_table_help DEFAULT</p>
+","<h1>situation_table_help</h1>
+<p>situation_table_help DEFAULT</p>
+","<h1>situation_table_help</h1>
+<p>situation_table_help DEFAULT</p>
 "
 species_modal_help,"<h1>species_modal_help</h1>
-
-<p>species_modal_help EN</p>
+<p>species_modal_help DEFAULT</p>
 ","<h1>species_modal_help</h1>
-
-<p>species_modal_help FR</p>
+<p>species_modal_help DEFAULT</p>
+","<h1>species_modal_help</h1>
+<p>species_modal_help DEFAULT</p>
+","<h1>species_modal_help</h1>
+<p>species_modal_help DEFAULT</p>
 "

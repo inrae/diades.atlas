@@ -1,42 +1,42 @@
-entry,en,fr
-title-first,Situation in Present Time,Premier
-title-second,Ecosystem services,Services Ecosystémiques
-title-third,Diadromous species distribution and climate change,Troisieme
-title-fourth,Diadromous species distribution and climate change,Quatrieme
-nav-catch,Catch and ByCatch,Catch et ByCatch
-nav-present,Present,Situation Présente
-nav-climate,Climate Change,Changement climatique
-nav-future,Future,Futur
-select-language,Choose a Language,Choisir une langue
-h3-anthropogenic,Define anthropogenic mortalities,Definir la mortalité anthropique
-h3-run-simulation,Run the Simulation,Lancer la simulation
-select-species,Choose a Species,Choisir une espèce
-select-scenario,Choose a Scenario,Choisir un scenario
-select-daterange,Choose a Date,Choisir une date
-select-ecosystem,Select an Ecosystem,Sélectionner un écosystème
-select-case_study,Select a Case Study,Sélectionner une étude de cas
-map-abundance,Abundance in river basins,Abondance dans les bassins versants
-plot-evolution,Evolution of abundance,Évolution de l'abondance
-map-bycatch,Catch and bycatch at sea,Captures et captures accessoires en mer
-button-unselectall,Undo selection,Retirer la sélection
-button-selectall,Select all,Sélectionner tout
-selected,selected,sélectionnée(s)
-selecteed,selected,sélectionnée
-selecteeed,selected,sélectionnée(s)
-selecteeeed,selected,sélectionnée(s)
-show-conservation-status,Conservation Status,Status de conservation
-show-result,Show Results,Montrer les résultats
-change-geometry,Change Map Geometry,Changer de géométrie
-welcome,Welcome on DiadES Atlas!,Bienvenue sur l'Atlas DiadES!
-explore,Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.,Explorez les conséquences du changement climatique sur la distribution des espèces diadromes et des écosystèmes liés
-annual_prevalence,Annual prevalence in catches at sea,Prévalence annuelle des captures en mer
-status_in_river_catchments,Status in river catchments (1951-2010),Statut dans les bassins versants (1951-2010)
-missing,Missing,Données manquantes
-species_display,Species are displayed as,Montrer les espèces en
-rows,Rows,Lignes
-columns,Column,Colonnes
-no_data_in_dt,No data to return from the selection,Pas de données retournées pour cette combinaison de filtres
-fish_name,Fish,Espèces
-casestudy_name,CaseStudy,Études de cas
-category,Category,Catégories
-esvalue_code,ES Value,Valeurs ES
+entry,en,fr,es,pt
+title-first,Situation in Present Time,Premier,Situation in Present Time,Situation in Present Time
+title-second,Ecosystem services,Services Ecosystémiques,Ecosystem services,Ecosystem services
+title-third,Diadromous species distribution and climate change,Troisieme,Diadromous species distribution and climate change,Diadromous species distribution and climate change
+title-fourth,Diadromous species distribution and climate change,Quatrieme,Diadromous species distribution and climate change,Diadromous species distribution and climate change
+nav-catch,Catch and ByCatch,Catch et ByCatch,Catch and ByCatch,Catch and ByCatch
+nav-present,Present,Situation Présente,Present,Present
+nav-climate,Climate Change,Changement climatique,Climate Change,Climate Change
+nav-future,Future,Futur,Future,Future
+select-language,Choose a Language,Choisir une langue,Choose a Language,Choose a Language
+h3-anthropogenic,Define anthropogenic mortalities,Definir la mortalité anthropique,Define anthropogenic mortalities,Define anthropogenic mortalities
+h3-run-simulation,Run the Simulation,Lancer la simulation,Run the Simulation,Run the Simulation
+select-species,Choose a Species,Choisir une espèce,Choose a Species,Choose a Species
+select-scenario,Choose a Scenario,Choisir un scenario,Choose a Scenario,Choose a Scenario
+select-daterange,Choose a Date,Choisir une date,Choose a Date,Choose a Date
+select-ecosystem,Select an Ecosystem,Sélectionner un écosystème,Select an Ecosystem,Select an Ecosystem
+select-case_study,Select a Case Study,Sélectionner une étude de cas,Select a Case Study,Select a Case Study
+map-abundance,Abundance in river basins,Abondance dans les bassins versants,Abundance in river basins,Abundance in river basins
+plot-evolution,Evolution of abundance,Évolution de l'abondance,Evolution of abundance,Evolution of abundance
+map-bycatch,Catch and bycatch at sea,Captures et captures accessoires en mer,Catch and bycatch at sea,Catch and bycatch at sea
+button-unselectall,Undo selection,Retirer la sélection,Undo selection,Undo selection
+button-selectall,Select all,Sélectionner tout,Select all,Select all
+selected,selected,sélectionnée(s),selected,selected
+selecteed,selected,sélectionnée,selected,selected
+selecteeed,selected,sélectionnée(s),selected,selected
+selecteeeed,selected,sélectionnée(s),selected,selected
+show-conservation-status,Conservation Status,Status de conservation,Conservation Status,Conservation Status
+show-result,Show Results,Montrer les résultats,Show Results,Show Results
+change-geometry,Change Map Geometry,Changer de géométrie,Change Map Geometry,Change Map Geometry
+welcome,Welcome on DiadES Atlas!,Bienvenue sur l'Atlas DiadES!,Welcome on DiadES Atlas!,Welcome on DiadES Atlas!
+explore,Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.,Explorez les conséquences du changement climatique sur la distribution des espèces diadromes et des écosystèmes liés,Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.,Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to adapt the management of your territories in the long term.
+annual_prevalence,Annual prevalence in catches at sea,Prévalence annuelle des captures en mer,Annual prevalence in catches at sea,Annual prevalence in catches at sea
+status_in_river_catchments,Status in river catchments (1951-2010),Statut dans les bassins versants (1951-2010),Status in river catchments (1951-2010),Status in river catchments (1951-2010)
+missing,Missing,Données manquantes,Missing,Missing
+species_display,Species are displayed as,Montrer les espèces en,Species are displayed as,Species are displayed as
+rows,Rows,Lignes,Rows,Rows
+columns,Column,Colonnes,Column,Column
+no_data_in_dt,No data to return from the selection,Pas de données retournées pour cette combinaison de filtres,No data to return from the selection,No data to return from the selection
+fish_name,Fish,Espèces,Fish,Fish
+casestudy_name,CaseStudy,Études de cas,CaseStudy,CaseStudy
+category,Category,Catégories,Category,Category
+esvalue_code,ES Value,Valeurs ES,ES Value,ES Value

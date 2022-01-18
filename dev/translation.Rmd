@@ -25,126 +25,74 @@ En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit ê
 ### Pour les "help bubble"
 
 Les help bubbles sont les éléments d'aide lors du passage de la souris sur un élément `(?)`.
+ents. 
 
-Ils sont tous dans `inst/translation_help`. 
-Ce dossier contient des sous-dossiers, chacun correspondant à une bulle d'aide. 
-Chacun de ces sous dossiers contient des `.md`, un par code-langue. 
-Vous pouvez utiliser du code Markdown afin de remplir ces éléments. 
-
-Ces contenus sont ensuite compilés dans `inst/translation_help.csv`, via le code ci-dessous, à relancer en cas de changement.  
+Ces contenus sont dans le second onglet du Google Sheet de traduction, et sont ensuite compilés dans `inst/translation_help.csv`, via le code ci-dessous, à relancer en cas de changement.  
 
 ```{r}
 unlink("inst/translation_help.csv")
 
-purrr::map_df(
-  list.files(
-    "inst/translation_help",
-    full.names = TRUE
-  ), ~ {
-    data.frame(
-      entry = basename(.x),
-      en = htmltools::includeMarkdown(
-        file.path(.x, "en.md")
-      ),
-      fr = htmltools::includeMarkdown(
-        file.path(.x, "fr.md")
-      )
-    )
-  }
-) %>%
+library(googlesheets4)
+sheet_url <- readline("Enter the sheet url: ")
+translation <- read_sheet(sheet_url, sheet = "help_bubbles")
+
+translation <- translation %>%
+  mutate(
+    en = coalesce(en, contenu_markdown),
+    fr = coalesce(fr, contenu_markdown),
+    pt = coalesce(pt, contenu_markdown),
+    es = coalesce(es, contenu_markdown)
+  ) %>%
+  mutate_at(
+    vars(en, fr, pt, es), function(x) {
+      purrr::map_chr(x, commonmark::markdown_html)
+    }
+  ) %>%
+  select(-contenu_markdown)
+
+translation %>%
   readr::write_csv("inst/translation_help.csv")
+
+translation
 ```
 
 ### Pour le front-end 
 
-Pour l'interface utilisateur, l'application met ensemble des fichiers CSV, contenus dans le dossier `inst/` et des tables contenues dans la base. 
-Certains de ces fichiers sont automatiquement générés, un est à modifier à la main. 
+Pour l'interface utilisateur, l'application met ensemble des fichiers CSV, contenus dans le dossier `inst/` et des tables contenues dans la base de données PostGre. 
+Certains de ces fichiers sont automatiquement générés, certains se modifient à la main. 
 
-Tous ces fichiers contiennent au moins 3 colonnes: 
+Tous ces fichiers contiennent au moins 5 colonnes: 
 
 + `entry` : la clé d'entrée dans le front (pour i18n)
 + `en` : la traduction en anglais
 + `fr` : la traduction en français
++ `es` : la traduction en espagnol
++ `pt` : la traduction en portugais
 
 ### Lus dans la base
 
 + `abundance_level`
 ```{r}
-translation_abundance_level <- function(session = shiny::getDefaultReactiveDomain()) {
-  # TODO écrire depuis la base
-  DBI::dbGetQuery(
-    get_con(session),
-    "select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"
-    # "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr from abundance_level"
-  ) %>%
-    # Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,
-    # via le code SQL commenté
-    mutate(
-      fr = c(
-        "Non enregistré sur la période",
-        "Présence occasionnelle",
-        "Populations fonctionnelles",
-        "Populations fonctionnelles abondante"
-      )
-    )
-}
-translation_abundance_level(se)
+translation_abundance_level(session)
 ```
+
+=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
 
 + `species` : contient les traductions pour les éléments de niveau d'abondance. 
-Se génère via le code suivant : 
 
 ```{r}
-translation_species <- function(session = shiny::getDefaultReactiveDomain()) {
-  DBI::dbGetQuery(
-    get_con(session),
-    "SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr from diadesatlas.species WHERE active=TRUE"
-  )
-}
-translation_species(se)
+translation_species(session)
 ```
+
+=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
 
 + `v_ecosystemic_services`
 
 ```{r}
-translation_v_ecosystemic_services <- function(session = shiny::getDefaultReactiveDomain()) {
-  dplyr::bind_rows(
-    DBI::dbGetQuery(
-      get_con(session),
-      "SELECT
-        REPLACE(LOWER(casestudy_name), ' ', '-') as entry,
-        casestudy_name as en,
-        diadesatlas.translate(casestudy_name, 'fr') as fr
-        from v_ecosystemic_services"
-    ),
-    DBI::dbGetQuery(
-      get_con(session),
-      "SELECT
-        REPLACE(LOWER(category_name), ' ', '-') as entry,
-        category_name as en,
-        diadesatlas.translate(category_name, 'fr') as fr
-        from v_ecosystemic_services"
-    ),
-    DBI::dbGetQuery(
-      get_con(session),
-      "SELECT
-        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
-        subcategory_name as en,
-        diadesatlas.translate(subcategory_name, 'fr') as fr
-        from v_ecosystemic_services"
-    ),
-    DBI::dbGetQuery(
-      get_con(session),
-      "SELECT
-        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
-        subcategory_name as en,
-        diadesatlas.translate(subcategory_name, 'fr') as fr
-        from v_ecosystemic_services"
-    )
-  )
-}
-translation_v_ecosystemic_services(se)
+translation_v_ecosystemic_services(session)
 ```
+
+=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
 
 ### Fichiers générés automatiquement 
 
@@ -173,12 +121,16 @@ french_iucn <- data.frame(
   )
 
 en_iucn <- DBI::dbGetQuery(
-  get_con(se),
+  get_con(session),
   "SELECT distinct iucn_level_code AS entry,iucn_level_name AS en FROM v_iucn"
 )
 
 en_iucn %>%
   dplyr::full_join(french_iucn) %>%
+  mutate(
+    es = en,
+    pt = en
+  ) %>%
   readr::write_csv("inst/translation_iucn.csv")
 ```
 
@@ -191,20 +143,27 @@ __IMPORTANT__ Merci de centraliser dans le Google Sheet.
 ```{r}
 library(googlesheets4)
 sheet_url <- readline("Enter the sheet url: ")
-translation <- read_sheet(sheet_url)
+translation <- read_sheet(sheet_url, sheet = "UI")
 
 translation$DESCRIPTION <- NULL
-
+translation <- translation %>%
+  mutate(
+    en = coalesce(en, entry),
+    fr = coalesce(fr, en),
+    pt = coalesce(pt, en),
+    es = coalesce(es, en)
+  )
 translation
 ```
 
-Vérifier (et manipulez) le dataframe au besoin. 
+Vérifier le dataframe au besoin. 
 Ce dernier doit posséder à minima : 
 
 + Une première colonne nommée 'entry'
 + Une seconde colonne nommée 'en'
 + Une troisisème colonne nommée 'fr'
-+ D'autres langues (potentiellement)
++ Une quatrième colonne nommée 'es'
++ Une cinquième colonne nommée 'pt'
 + PAS DE COLONNES VIDES SUR LA DROITE, pensez à l'anti-sélectionner au besoin
 
 ```{r}
@@ -227,24 +186,31 @@ Ajouter une nouvelle langue doit se faire aux emplacements suivants:
 
 ### Help bubbles
 
-+ Pour chaque sous-dossiers, ajouter un fichier `.md` avec la traduction dans une nouvelle langue. 
-
-+ Régénerer `translation_help.csv` : dans le code de génération de la première partie de ce Rmd, remplacer avec un code type
++ À ajouter dans le Google Sheet, puis regénérer `translation_help.csv` avec le code suivant :
 
 ```{r}
-data.frame(
-  entry = basename(.x),
-  en = htmltools::includeMarkdown(
-    file.path(.x, "en.md")
-  ),
-  fr = htmltools::includeMarkdown(
-    file.path(.x, "fr.md")
-  ),
-  # Code pour la nouvelle langue
-  es = htmltools::includeMarkdown(
-    file.path(.x, "es.md")
-  )
-)
+unlink("inst/translation_help.csv")
+
+library(googlesheets4)
+sheet_url <- readline("Enter the sheet url: ")
+translation <- read_sheet(sheet_url, sheet = "help_bubbles")
+
+translation %>%
+  mutate(
+    en = coalesce(en, contenu_markdown),
+    fr = coalesce(fr, contenu_markdown),
+    pt = coalesce(pt, contenu_markdown),
+    es = coalesce(es, contenu_markdown),
+    # Nouvelle langue
+    xyz = coalesce(xyz, contenu_markdown)
+  ) %>%
+  mutate_at(
+    vars(en, fr, pt, es, xyz), function(x) {
+      purrr::map_chr(x, commonmark::markdown_html)
+    }
+  ) %>%
+  select(-contenu_markdown) %>%
+  readr::write_csv("inst/translation_help.csv")
 ```
 
 ### Data 
