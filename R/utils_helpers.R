@@ -28,29 +28,17 @@ translation_iucn <- function() {
 translation_species <- function(session = shiny::getDefaultReactiveDomain()) {
   DBI::dbGetQuery(
     get_con(session),
-    "SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr from diadesatlas.species WHERE active=TRUE"
+    "SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr, diadesatlas.translate(english_name, 'es') AS es, diadesatlas.translate(english_name, 'pt') AS pt from diadesatlas.species WHERE active=TRUE"
   )
 }
 
 #' @importFrom stats setNames
 translation_abundance_level <- function(session = shiny::getDefaultReactiveDomain()) {
-  # TODO ecrire depuis la base
+  # TODO la base n'est pas à jour
   DBI::dbGetQuery(
     get_con(session),
-    "select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"
-    # "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr from abundance_level"
-  ) %>%
-    # Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,
-    # via le code SQL commenté
-    mutate(
-      fr = c(
-        # Make R CMD Check happy because we're in 1987
-        "Non enregistr\\u00e9 sur la p\\u00e9riode" %>% stringi::stri_unescape_unicode(),
-        "Pr\\u00e9sence occasionnelle" %>% stringi::stri_unescape_unicode(),
-        "Populations fonctionnelles",
-        "Populations fonctionnelles abondante"
-      )
-    )
+    "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr, diadesatlas.translate(abundance_level_interpretation_short, 'es') AS es, diadesatlas.translate(abundance_level_interpretation_short, 'pt') AS pt from abundance_level"
+  )
 }
 
 translation_v_ecosystemic_services <- function(session = shiny::getDefaultReactiveDomain()) {
@@ -60,7 +48,9 @@ translation_v_ecosystemic_services <- function(session = shiny::getDefaultReacti
       "SELECT
         REPLACE(LOWER(casestudy_name), ' ', '-') as entry,
         casestudy_name as en,
-        diadesatlas.translate(casestudy_name, 'fr') as fr
+        diadesatlas.translate(casestudy_name, 'fr') as fr,
+        diadesatlas.translate(casestudy_name, 'es') as es,
+        diadesatlas.translate(casestudy_name, 'pt') as pt
         from v_ecosystemic_services"
     ),
     DBI::dbGetQuery(
@@ -68,7 +58,9 @@ translation_v_ecosystemic_services <- function(session = shiny::getDefaultReacti
       "SELECT
         REPLACE(LOWER(category_name), ' ', '-') as entry,
         category_name as en,
-        diadesatlas.translate(category_name, 'fr') as fr
+        diadesatlas.translate(category_name, 'fr') as fr,
+        diadesatlas.translate(category_name, 'es') as es,
+        diadesatlas.translate(category_name, 'pt') as pt
         from v_ecosystemic_services"
     ),
     DBI::dbGetQuery(
@@ -76,7 +68,9 @@ translation_v_ecosystemic_services <- function(session = shiny::getDefaultReacti
       "SELECT
         REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
         subcategory_name as en,
-        diadesatlas.translate(subcategory_name, 'fr') as fr
+        diadesatlas.translate(subcategory_name, 'fr') as fr,
+        diadesatlas.translate(subcategory_name, 'es') as es,
+        diadesatlas.translate(subcategory_name, 'pt') as pt
         from v_ecosystemic_services"
     ),
     DBI::dbGetQuery(
@@ -84,7 +78,9 @@ translation_v_ecosystemic_services <- function(session = shiny::getDefaultReacti
       "SELECT
         REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
         subcategory_name as en,
-        diadesatlas.translate(subcategory_name, 'fr') as fr
+        diadesatlas.translate(subcategory_name, 'fr') as fr,
+        diadesatlas.translate(subcategory_name, 'es') as es,
+        diadesatlas.translate(subcategory_name, 'pt') as pt
         from v_ecosystemic_services"
     )
   )
@@ -145,7 +141,9 @@ get_dt_lg <- function(lg) {
   list(
     url = switch(lg,
       en = "//cdn.datatables.net/plug-ins/1.10.11/i18n/English.json",
-      fr = "//cdn.datatables.net/plug-ins/1.10.11/i18n/French.json"
+      fr = "//cdn.datatables.net/plug-ins/1.10.11/i18n/French.json",
+      es = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json",
+      pt = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese.json"
     )
   )
 }
