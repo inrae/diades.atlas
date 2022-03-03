@@ -481,16 +481,16 @@ aa-partie-exploration-des-donnees
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre>
 </div>
-<div class="section level2">
-<h2 id="data-exploration">
+<div class="section level3">
+<h3 id="data-exploration">
 Data exploration
 <a class="anchor" aria-label="anchor" href="#data-exploration"></a>
-</h2>
-<div class="section level3">
-<h3 id="connect-to-database">
+</h3>
+<div class="section level4">
+<h4 id="connect-to-database">
 Connect to database
 <a class="anchor" aria-label="anchor" href="#connect-to-database"></a>
-</h3>
+</h4>
 <p>
 Do not forget to set environment variables in .Renviron
 </p>
@@ -1072,22 +1072,22 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt; 9            7 Ulla                     TRUE        0103000020E6100…</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="create-connection">
+<div class="section level4">
+<h4 id="create-connection">
 Create connection
 <a class="anchor" aria-label="anchor" href="#create-connection"></a>
-</h3>
+</h4>
 <div id="cb3" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_dm</span> <span class="op">&lt;-</span> <span class="fu">dm_from_src</span><span class="op">(</span><span class="va">con</span>, schema <span class="op">=</span> <span class="st">"diadesatlas"</span>, learn_keys <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">my_dm</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="function-to-collect-data">
+<div class="section level4">
+<h4 id="function-to-collect-data">
 Function to collect data
 <a class="anchor" aria-label="anchor" href="#function-to-collect-data"></a>
-</h3>
+</h4>
 <div id="cb4" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># empty</span>
@@ -1119,16 +1119,16 @@ Function to collect data
 </div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="prepare-data-for-home-page">
+<div class="section level3">
+<h3 id="prepare-data-for-home-page">
 Prepare data for Home page
 <a class="anchor" aria-label="anchor" href="#prepare-data-for-home-page"></a>
-</h2>
-<div class="section level3">
-<h3 id="prepare-json-files">
+</h3>
+<div class="section level4">
+<h4 id="prepare-json-files">
 Prepare json files
 <a class="anchor" aria-label="anchor" href="#prepare-json-files"></a>
-</h3>
+</h4>
 <p>
 Create all json data used on the home page of the app
 </p>
@@ -1182,11 +1182,11 @@ Create all json data used on the home page of the app
   <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">write_json</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/species.json"</span><span class="op">)</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="prepare-and-test-leaflet-map">
+<div class="section level4">
+<h4 id="prepare-and-test-leaflet-map">
 Prepare and test leaflet map
 <a class="anchor" aria-label="anchor" href="#prepare-and-test-leaflet-map"></a>
-</h3>
+</h4>
 <div id="cb6" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set query and reproject to EPSG:4326 for GeoJSON creation</span>
@@ -1220,11 +1220,11 @@ Prepare and test leaflet map
   <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pols</span>, color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="stop-connection">
+<div class="section level4">
+<h4 id="stop-connection">
 Stop connection
 <a class="anchor" aria-label="anchor" href="#stop-connection"></a>
-</h3>
+</h4>
 <div id="cb7" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre>
@@ -1253,7 +1253,7 @@ Stop connection
 
       <footer><div class="thinkr">
   <p></p>
-<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
 <div class="author">

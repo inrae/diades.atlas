@@ -508,19 +508,19 @@ Colin Fay
 <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></code></pre>
 </div>
-<div class="section level2">
-<h2 id="comment-est-organisée-la-traduction">
+<div class="section level3">
+<h3 id="comment-est-organisée-la-traduction">
 Comment est organisée la traduction
 <a class="anchor" aria-label="anchor" href="#comment-est-organis%C3%A9e-la-traduction"></a>
-</h2>
+</h3>
 <p>
 <strong>Note importante</strong> : Pensez à être bien vigilant sur l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une langue avec le code <code>es</code>, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l’application.
 </p>
-<div class="section level3">
-<h3 id="pour-les-help-bubble">
+<div class="section level4">
+<h4 id="pour-les-help-bubble">
 Pour les “help bubble”
 <a class="anchor" aria-label="anchor" href="#pour-les-help-bubble"></a>
-</h3>
+</h4>
 <p>
 Les help bubbles sont les éléments d’aide lors du passage de la souris sur un élément <code>(?)</code>.
 </p>
@@ -553,11 +553,11 @@ Ces contenus sont ensuite compilés dans <code>inst/translation_help.csv</code>,
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="pour-le-front-end">
+<div class="section level4">
+<h4 id="pour-le-front-end">
 Pour le front-end
 <a class="anchor" aria-label="anchor" href="#pour-le-front-end"></a>
-</h3>
+</h4>
 <p>
 Pour l’interface utilisateur, l’application met ensemble des fichiers CSV, contenus dans le dossier <code>inst/</code> et des tables contenues dans la base. Certains de ces fichiers sont automatiquement générés, un est à modifier à la main.
 </p>
@@ -576,11 +576,11 @@ Tous ces fichiers contiennent au moins 3 colonnes:
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="lus-dans-la-base">
+<div class="section level4">
+<h4 id="lus-dans-la-base">
 Lus dans la base
 <a class="anchor" aria-label="anchor" href="#lus-dans-la-base"></a>
-</h3>
+</h4>
 <ul>
 <li>
 <code>abundance_level</code>
@@ -669,11 +669,11 @@ Lus dans la base
 <span class="fu">translation_v_ecosystemic_services</span><span class="op">(</span><span class="va">se</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="fichiers-générés-automatiquement">
+<div class="section level4">
+<h4 id="fichiers-générés-automatiquement">
 Fichiers générés automatiquement
 <a class="anchor" aria-label="anchor" href="#fichiers-g%C3%A9n%C3%A9r%C3%A9s-automatiquement"></a>
-</h3>
+</h4>
 <ul>
 <li>
 <code>translation_iucn.csv</code> : contient les traductions pour status IUCN. Se génère via le code suivant <strong>mais devra être mis dans la base</strong>.
@@ -711,11 +711,11 @@ Fichiers générés automatiquement
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="st">"inst/translation_iucn.csv"</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="fichier-à-compléter-à-la-main">
+<div class="section level4">
+<h4 id="fichier-à-compléter-à-la-main">
 Fichier à compléter à la main
 <a class="anchor" aria-label="anchor" href="#fichier-%C3%A0-compl%C3%A9ter-%C3%A0-la-main"></a>
-</h3>
+</h4>
 <p>
 <strong>IMPORTANT</strong> Merci de centraliser dans le Google Sheet.
 </p>
@@ -771,19 +771,19 @@ Vous pouvez vérifier l’intégrité du csv :
 </div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="ajouter-une-nouvelle-langue">
+<div class="section level3">
+<h3 id="ajouter-une-nouvelle-langue">
 Ajouter une nouvelle langue
 <a class="anchor" aria-label="anchor" href="#ajouter-une-nouvelle-langue"></a>
-</h2>
+</h3>
 <p>
 Ajouter une nouvelle langue doit se faire aux emplacements suivants:
 </p>
-<div class="section level3">
-<h3 id="help-bubbles">
+<div class="section level4">
+<h4 id="help-bubbles">
 Help bubbles
 <a class="anchor" aria-label="anchor" href="#help-bubbles"></a>
-</h3>
+</h4>
 <ul>
 <li>
 <p>
@@ -813,11 +813,11 @@ Régénerer <code>translation_help.csv</code> : dans le code de génération de 
 <span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="data">
+<div class="section level4">
+<h4 id="data">
 Data
 <a class="anchor" aria-label="anchor" href="#data"></a>
-</h3>
+</h4>
 <ul>
 <li>
 <p>
@@ -853,11 +853,11 @@ puis mettre à jour le code du début de ce Rmd.
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="st">"inst/translation_iucn.csv"</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="fonction-dbb">
+<div class="section level4">
+<h4 id="fonction-dbb">
 Fonction dbb
 <a class="anchor" aria-label="anchor" href="#fonction-dbb"></a>
-</h3>
+</h4>
 <p>
 Ces fonctions sont dans <code>R/utils_helpers.R</code>
 </p>
@@ -882,11 +882,11 @@ Les fonctions qui utilisent la traduction dans la bdd sont les suivantes :
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="côté-code-de-lapplication">
+<div class="section level4">
+<h4 id="côté-code-de-lapplication">
 Côté code de l’application
 <a class="anchor" aria-label="anchor" href="#c%C3%B4t%C3%A9-code-de-lapplication"></a>
-</h3>
+</h4>
 <ul>
 <li>
 <p>
@@ -911,7 +911,7 @@ Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de langue. 
 
       <footer><div class="thinkr">
   <p></p>
-<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
 <div class="author">
