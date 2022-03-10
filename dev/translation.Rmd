@@ -22,7 +22,46 @@ library(dplyr)
 __Note importante__ : Pensez à être bien vigilant sur l'harmonisation des code-langues. 
 En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'application. 
 
-### Pour les "help bubble"
+### Pour le front-end 
+
+Pour l'interface utilisateur, l'application met ensemble des fichiers CSV, contenus dans le dossier `inst/` et des tables contenues dans la base de données PostGre. 
+Certains de ces fichiers sont automatiquement générés, certains se modifient à la main. 
+
+Tous ces fichiers contiennent au moins 5 colonnes: 
+
++ `entry` : la clé d'entrée dans le front (pour i18n)
++ `en` : la traduction en anglais
++ `fr` : la traduction en français
++ `es` : la traduction en espagnol
++ `pt` : la traduction en portugais
+
+#### Lus dans la base
+
++ `abundance_level`
+
+```{r}
+translation_abundance_level(session)
+```
+
+=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
+
++ `species` : contient les traductions pour les éléments de niveau d'abondance. 
+
+```{r}
+translation_species(session)
+```
+
+=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
+
++ `v_ecosystemic_services`
+
+```{r}
+translation_v_ecosystemic_services(session)
+```
+
+=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
+
+#### Pour les "help bubble"
 
 Les help bubbles sont les éléments d'aide lors du passage de la souris sur un élément `(?)`.
 ents. 
@@ -56,45 +95,8 @@ translation %>%
 translation
 ```
 
-### Pour le front-end 
 
-Pour l'interface utilisateur, l'application met ensemble des fichiers CSV, contenus dans le dossier `inst/` et des tables contenues dans la base de données PostGre. 
-Certains de ces fichiers sont automatiquement générés, certains se modifient à la main. 
-
-Tous ces fichiers contiennent au moins 5 colonnes: 
-
-+ `entry` : la clé d'entrée dans le front (pour i18n)
-+ `en` : la traduction en anglais
-+ `fr` : la traduction en français
-+ `es` : la traduction en espagnol
-+ `pt` : la traduction en portugais
-
-### Lus dans la base
-
-+ `abundance_level`
-```{r}
-translation_abundance_level(session)
-```
-
-=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
-
-+ `species` : contient les traductions pour les éléments de niveau d'abondance. 
-
-```{r}
-translation_species(session)
-```
-
-=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
-
-+ `v_ecosystemic_services`
-
-```{r}
-translation_v_ecosystemic_services(session)
-```
-
-=> Cette fonction est à mettre à jour dans `R/utils_helpers.R`
-
-### Fichiers générés automatiquement 
+#### Fichiers générés automatiquement 
 
 + `translation_iucn.csv` : contient les traductions pour status IUCN. 
 Se génère via le code suivant __mais devra être mis dans la base__.
@@ -134,7 +136,7 @@ en_iucn %>%
   readr::write_csv("inst/translation_iucn.csv")
 ```
 
-### Fichier à compléter à la main 
+#### Fichier à compléter à la main 
 
 __IMPORTANT__ Merci de centraliser dans le Google Sheet. 
 
@@ -143,7 +145,7 @@ __IMPORTANT__ Merci de centraliser dans le Google Sheet.
 ```{r}
 library(googlesheets4)
 sheet_url <- readline("Enter the sheet url: ")
-translation <- read_sheet(sheet_url, sheet = "UI")
+translation <- read_sheet(sheet_url)
 
 translation$DESCRIPTION <- NULL
 translation <- translation %>%
