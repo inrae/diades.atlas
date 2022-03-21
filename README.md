@@ -37,36 +37,64 @@ Trois modes de traduction cohabitent:
     Pull Request sur le projet
 -   Traductions à compléter dans un fichier Google Sheet partagé
 
-Dans tous les cas, les développeurs devront suivre le contenu de
-“dev/translation.Rmd” lors de chaque mises à jour.
+Dans tous les cas, les développeurs devront
+
+-   avoir accès à la base de données PostGis (Voir “Backend requirement”
+    ci-dessous)
+-   suivre le contenu de “dev/translation.Rmd” lors de chaque mises à
+    jour.
+
+# Put in Production
+
+Update Docker for deployment:
+<https://gitlab.irstea.fr/diades/diades.atlas.deploy/>
 
 # Backend requirement
 
 ## The apps needs to connect to a db.
 
-It can be set via :
+To update the translations or to run the shiny application locallt, the
+PostGis database is required.
+
+It can be set via:  
+**If you change these lines to set the real values, be sure to set them
+back with the examples below before commit**
 
 ``` r
+# database name
 golem::amend_golem_config(
   "POSTGRES_DBNAME",
-  "diades"
+  "diades" # Changer ici le nom de la base de données
 )
+# database host URL
 golem::amend_golem_config(
   "POSTGRES_HOST",
-  "localhost"
+  "localhost"  # Changer ici l'URL de la base
 )
+# database port access
 golem::amend_golem_config(
   "POSTGRES_PORT",
-  5432
+  5432 # Changer ici le port
 )
-Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
-Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
+# database username with Read access
+Sys.setenv(
+  "POSTGRES_USER" =
+  "diadesatlas_owner" # Changer ici le username
+)
+# database password for the user
+Sys.setenv(
+"POSTGRES_PASS" =
+ "thinkrpassword" # Changer ici le password
+)
 ```
 
-For dev purpose, please refer to the doc in the diadesdata repo on
-ThinkR’s forge (restricted access).
+If you do not have direct access to the database, a copy can be used for
+development. Please refer to the doc in the {diadesdata} repo on
+ThinkR’s forge (restricted access): Section “Pull and Use”.
 
-Verify connexion works
+Verify connexion to database works  
+*Whether you are connected to the development or the production
+database, this should work correctly*
 
 ``` r
 pkgload::load_all()
@@ -80,16 +108,16 @@ DBI::dbDisconnect(con)
 
 ## Dev - Mongo
 
-The app requires a Mongo database. For dev, you need to run the
-following:
+To run the Shiny application locally, you need a Mongo database. For
+dev, you need to run the following on your machine:
 
     docker run --name=mongo --rm -p 2811:27017 -e MONGO_INITDB_ROOT_USERNAME=Colin -e MONGO_INITDB_ROOT_PASSWORD=AsAboveSoBelow789123 mongo:4.0
 
-Stop it at the end
+Stop it at the end of your development process
 
     docker kill mongo
 
-# Dev - vignettes
+# Dev - update and include vignettes in the package
 
 Vignettes are compiled manually by developers. Raw vignettes are stored
 in “data-raw”. Instructions to compile them are in the vignette itself.
