@@ -37,7 +37,7 @@ attachment::att_amend_desc(
   extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg", "dbplyr")
 )
 
-# _renv
+# _renv ----
 custom_packages <- setdiff(
   c(
     attachment::att_from_description(),
