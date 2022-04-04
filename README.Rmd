@@ -75,7 +75,7 @@ golem::amend_golem_config(
 # database port access
 golem::amend_golem_config(
   "POSTGRES_PORT",
-  5432 # Changer ici le port
+  "5432" # Changer ici le port
 )
 # database username with Read access
 Sys.setenv(

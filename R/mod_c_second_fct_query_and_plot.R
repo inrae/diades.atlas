@@ -7,7 +7,6 @@
 #'
 #' @export
 #'
-#' @example
 get_hybrid_model <- function(species_id,
                              scenario,
                              session = shiny::getDefaultReactiveDomain()) {
@@ -82,6 +81,7 @@ draw_bv_leaflet <- function(bv_df,
                 opacity = 0.6)
 }
 
+#' @import patchwork
 plot_hsi_nit <- function(model_res,
                          selected_year,
                          selected_bv) {

@@ -23,18 +23,18 @@ usethis::use_git_ignore("dev/translation.html")
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-usethis::use_package("DBI")
-usethis::use_package("RPostgres")
-usethis::use_package("sf")
-remotes::install_github("miraisolutions/compareWith@feature/46-compare-git")
+# remotes::install_github("miraisolutions/compareWith@feature/46-compare-git")
 
 # Before sending to git external server
 # _deps
-renv::install("ThinkR-open/attachment")
+# renv::install("ThinkR-open/attachment")
 # [-] 7 package(s) removed: ggplot2, magrittr, maps, RPostgres, shinythemes, zeallot, dbplyr.
 
 attachment::att_amend_desc(
-  extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg", "dbplyr")
+  extra.suggests = c("pkgload", "DiagrammeR",
+                     "DiagrammeRsvg", "dbplyr", "stringi", 
+                     "rlang" # why ?
+  )
 )
 
 # _renv ----

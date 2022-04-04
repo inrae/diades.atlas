@@ -1,12 +1,13 @@
-session <- shiny::MockShinySession$new()
-is_connectable <- tryCatch({
-    connect(session)
-})
+session_globale <- shiny::MockShinySession$new()
+
+is_connectable <- try({
+  connect(session_globale)
+}, silent = TRUE)
 
 if (attempt::is_try_error(is_connectable)) {
-    session$userData$is_connectable <- FALSE
+  session_globale$userData$is_connectable <- FALSE
 } else {
-    session$userData$is_connectable <- TRUE
+  session_globale$userData$is_connectable <- TRUE
 }
 
 skip_if_not_connectable <- function(session) {

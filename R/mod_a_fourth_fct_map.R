@@ -84,7 +84,7 @@ tm_catchmment <- function(dataContinent) {
 }
 
 # Do it once
-bbox <- st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = st_crs(4326))
+bbox <- sf::st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = sf::st_crs(4326))
 
 #' Title
 #'
