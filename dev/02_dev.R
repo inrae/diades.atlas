@@ -54,9 +54,34 @@ devtools::check()
 # _snapshot when check ok
 renv::snapshot(packages = custom_packages)
 
-
 # After pull and/or rebase
 renv::restore()
+
+# Force installation from source of packages that need compilation
+packages <- c(
+  tmap = "3.3.2",
+  lwgeom = "0.2.8",
+  V8 = "3.4.2",
+  testthat = "3.1.0",
+  rgeos = "0.5-5",
+  jqr = "1.2.1",
+  NULL
+)
+
+install_version_from_source <- function(
+  version,
+  package
+) {
+  remotes::install_version(
+    version = version,
+    package = package,
+    repos = "https://cran.rstudio.com",
+    type = "source",
+    upgrade = "never"
+  )
+}
+purrr::imap(packages, install_version_from_source)
+
 
 # Remettre à zéro la bdd de cache
 
