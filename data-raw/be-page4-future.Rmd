@@ -47,8 +47,6 @@ file = here::here(file.path("vignettes", vignette_file))
 
 ```{r setup}
 library(diades.atlas)
-# renv::install("dm")
-# library(dm)
 library(dplyr)
 library(leaflet)
 library(ggplot2)
@@ -59,17 +57,77 @@ library(ggplot2)
 Do not forget to set environment variables in .Renviron
 ```{r}
 # Connect to database
-con <- connect()
+conn_eurodiad <- connect()
 
 # Listtables
 # DBI::dbListTables(con)
 # DBI::dbListObjects(con)
+```
 
+## Prepare Data
+
+Queries from preparation_atlas_simulation.R
+
+```{r}
+# Catchment features ----
+data_catchment <- tbl(conn_eurodiad, sql("SELECT basin_id, basin_name, country, surface_area_drainage_basin as surface_area, ccm_area FROM diadesatlas.basin b
+INNER JOIN diadesatlas.basin_outlet bo USING (basin_id)" )) 
+
+# Distances between catchment ----
+outletDistance <- tbl(conn_eurodiad, sql("SELECT
+	b.basin_name AS departure,
+	od.departure AS departure_id,
+	b2.basin_name AS arrival,
+	od.arrival AS arrival_id,
+	od.distance 
+FROM
+	diadesatlas.outlet_distance od
+INNER JOIN diadesatlas.basin b ON
+	(departure = b.basin_id)
+INNER JOIN diadesatlas.basin b2 ON
+	(arrival = b2.basin_id)
+ORDER BY departure, distance"))
+
+# HyDiaD parameters ----
+HyDiaDParameter <- tbl(conn_eurodiad, sql("
+                                 SELECT s.latin_name AS \"latin_name_s\", s.local_name AS \"Lname_s\", h.* FROM diadesatlas.hydiadparameter h
+INNER JOIN diadesatlas.species s USING (species_id)"))
+
+# Verif
+HyDiaDParameter %>% 
+  mutate(test = latin_name != latin_name_s) %>% 
+  filter(test) %>% 
+  collect()
+HyDiaDParameter %>% 
+  mutate(test = Lname != Lname_s) %>% 
+  filter(test) %>% 
+  collect()
+
+
+# HSI  abd Nmax ----
+# a query to load HSI for only 8.5 scenario (which do not change between simulations)
+query <- "SELECT s.latin_name, basin_id, basin_name, country, surface_area_drainage_basin as surface_area, year, climatic_scenario, climatic_model_code, hsi FROM diadesatlas.hybrid_model_result hmr
+INNER JOIN diadesatlas.species s USING (species_id)
+INNER JOIN diadesatlas.basin b USING (basin_id)
+INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
+WHERE year > 0 AND climatic_scenario = 'rcp85'"
+
+data_hsi_Nmax <- tbl(conn_eurodiad, sql(query)) %>%
+  # tibble() %>%
+  # compute the maximum abundance (#) according to hsi,
+  #   maximal density (Dmax) , catchment area (ccm_area)
+  inner_join(HyDiaDParameter %>%
+               select("latin_name", "Dmax"),
+             by = 'latin_name') %>%
+  mutate(Nmax = hsi * Dmax * surface_area) %>%
+  select(-c(surface_area, Dmax))
+
+# reference results ----
 ```
 
 
 ### Stop connection
 
 ```{r}
-DBI::dbDisconnect(con)
+DBI::dbDisconnect(conn_eurodiad)
 ```
