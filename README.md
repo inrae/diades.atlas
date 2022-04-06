@@ -51,14 +51,17 @@ Update Docker for deployment:
 
 # Backend requirement
 
-## The apps needs to connect to a db.
+## PostGis
 
-To update the translations or to run the shiny application locallt, the
+To update the translations or to run the shiny application locally, the
 PostGis database is required.
 
-It can be set via:  
-**If you change these lines to set the real values, be sure to set them
-back with the examples below before commit**
+To be able to connect to a PostGis instance the user needs to define
+some golem config parameters and environment variables.
+
+### golem config parameters
+
+Those are stored in `inst/golem-config.yml` and can be modified as such:
 
 ``` r
 # database name
@@ -76,21 +79,42 @@ golem::amend_golem_config(
   "POSTGRES_PORT",
   "5432" # Changer ici le port
 )
-# database username with Read access
-Sys.setenv(
-  "POSTGRES_USER" =
-  "diadesatlas_owner" # Changer ici le username
-)
-# database password for the user
-Sys.setenv(
-"POSTGRES_PASS" =
- "thinkrpassword" # Changer ici le password
-)
 ```
+
+**If you change these lines to set the real values, be sure to set them
+back with the examples below before commit**
+
+### Environment variables
+
+The POSTGRES_USER and POSTGRES_PASS **must not be versioned** with the
+app.
+
+To avoid setting those environment variables every time you want to run
+the app, they should be saved in a local .Renviron file. To define one
+for your own copy of the project run this command:
+
+``` r
+usethis::edit_r_environ(scope = "project")
+```
+
+and add the following lines
+
+``` r
+# database username with Read access
+POSTGRES_USER=diadesatlas_owner # Changer ici le username
+# database password for the user
+POSTGRES_PASS=thinkrpassword # Changer ici le password
+```
+
+Again make sure not to track this project .Renviron with git.
+
+### Dev - ThinkR PostGis DB
 
 If you do not have direct access to the database, a copy can be used for
 development. Please refer to the doc in the {diadesdata} repo on
 ThinkR’s forge (restricted access): Section “Pull and Use”.
+
+### Checks
 
 Verify connexion to database works  
 *Whether you are connected to the development or the production
