@@ -52,8 +52,8 @@ test_that("translation_iucn", {
 })
 
 test_that("translation_species", {
-  skip_if_not_connectable(session)
-  translation <- translation_species(session)
+  skip_if_not_connectable(session_globale)
+  translation <- translation_species(session_globale)
   expect_df(translation)
   expect_equal(
     names(translation)[1],
@@ -71,8 +71,8 @@ test_that("translation_species", {
 })
 
 test_that("translation_abundance_level", {
-  skip_if_not_connectable(session)
-  translation <- translation_abundance_level(session)
+  skip_if_not_connectable(session_globale)
+  translation <- translation_abundance_level(session_globale)
   expect_df(translation)
   expect_equal(
     names(translation)[1],
@@ -90,8 +90,8 @@ test_that("translation_abundance_level", {
 })
 
 test_that("translation_v_ecosystemic_services", {
-  skip_if_not_connectable(session)
-  translation <- translation_v_ecosystemic_services(session)
+  skip_if_not_connectable(session_globale)
+  translation <- translation_v_ecosystemic_services(session_globale)
   expect_df(translation)
   expect_equal(
     names(translation)[1],
@@ -109,8 +109,8 @@ test_that("translation_v_ecosystemic_services", {
 })
 
 test_that("build_language_json", {
-  skip_if_not_connectable(session)
-  translation <- build_language_json(session)
+  skip_if_not_connectable(session_globale)
+  translation <- build_language_json(session_globale)
   expect_true(
     inherits(translation, "json")
   )

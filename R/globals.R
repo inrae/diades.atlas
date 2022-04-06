@@ -5,6 +5,8 @@ globalVariables(unique(c(
 "abundance_interpretation", "nb_occurence", 
 # get_active_species: 
 "active", 
+# get_bv_geoms: 
+"basin_name",
 # get_hybrid_model: 
 "climatic_model_id", "climatic_scenario", 
 # mod_first_server : <anonymous>: 
@@ -12,7 +14,7 @@ globalVariables(unique(c(
 # mod_fourth_server : <anonymous>: 
 "con", "latin_name", 
 # mod_second_server : <anonymous>: 
-"basin_id", 
+"basin_id", "basin_name",
 # plot_hsi_nit: 
 "basin_id", "year", 
 # tm_draw: 

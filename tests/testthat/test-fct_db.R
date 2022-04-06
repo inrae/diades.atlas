@@ -22,7 +22,7 @@ test_that("db connection works", {
     get_golem_config("POSTGRES_HOST")
   )
   expect_equal(
-    as.numeric(info_$port),
+    info_$port,
     get_golem_config("POSTGRES_PORT")
   )
   expect_equal(

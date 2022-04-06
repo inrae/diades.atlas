@@ -1,6 +1,12 @@
 # Set options here
+
+# App mod dev/prod. To set dev or production mod modify both lines:
+Sys.setenv("GOLEM_CONFIG_ACTIVE" = "dev") # "dev"/"production"
 options(golem.app.prod = FALSE) # TRUE = production mode, FALSE = development mode
+
+# Allocate random port
 options(shiny.port = httpuv::randomPort())
+
 # Detach all loaded packages and clean your environment
 golem::detach_all_attached()
 # rm(list=ls(all.names = TRUE))
@@ -8,15 +14,19 @@ golem::detach_all_attached()
 # Document and reload your package
 golem::document_and_reload()
 
+# Set environment vairiable for postgis db
 Sys.setenv("POSTGRES_USER" = "diadesatlas_r")
 Sys.setenv("POSTGRES_PASS" = "diadesPassword")
 
 # En dev, effacer la base Mongo pour éviter de voir les problèmes de graph rester !!!
-local({
-  fake_session <- new.env()
-  diades.atlas:::launch_mongo(session = fake_session)
-  fake_session$userData$mongo_cache$reset()
-})
+withr::with_envvar(
+  c("GOLEM_CONFIG_ACTIVE" = "dev"),
+  {
+    fake_session <- new.env()
+    diades.atlas:::launch_mongo(session = fake_session)
+    fake_session$userData$mongo_cache$reset()
+  }
+)
 
 se <- new.env()
 connect(se)

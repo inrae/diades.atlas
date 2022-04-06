@@ -4,15 +4,14 @@ default:
   app_prod: no
   POSTGRES_DBNAME: diades
   POSTGRES_HOST: localhost
-  POSTGRES_PORT: 5432
+  POSTGRES_PORT: '5432'
   mongocollection: cache
   mongourl: mongodiades
-  mongoport: "27017"
-  mongodb: bloom
-
+  mongoport: '27017'
+  mongodb: 'diadescache'
 production:
   app_prod: yes
 dev:
   golem_wd: !expr here::here()
-  mongourl: "127.0.0.1"
-  mongoport: "2811"
+  mongourl: 127.0.0.1
+  mongoport: '2811'

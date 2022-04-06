@@ -23,21 +23,22 @@ usethis::use_git_ignore("dev/translation.html")
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-usethis::use_package("DBI")
-usethis::use_package("RPostgres")
-usethis::use_package("sf")
-remotes::install_github("miraisolutions/compareWith@feature/46-compare-git")
+# remotes::install_github("miraisolutions/compareWith@feature/46-compare-git")
 
 # Before sending to git external server
 # _deps
-renv::install("ThinkR-open/attachment")
+# renv::install("ThinkR-open/attachment")
 # [-] 7 package(s) removed: ggplot2, magrittr, maps, RPostgres, shinythemes, zeallot, dbplyr.
 
 attachment::att_amend_desc(
-  extra.suggests = c("pkgload", "DiagrammeR", "DiagrammeRsvg", "dbplyr")
+  extra.suggests = c("pkgload", "DiagrammeR",
+                     "DiagrammeRsvg", "dbplyr", "stringi", 
+                     "rlang" # why ?
+  )
 )
+checkhelper::print_globals()
 
-# _renv
+# _renv ----
 custom_packages <- setdiff(
   c(
     attachment::att_from_description(),
@@ -54,18 +55,45 @@ devtools::check()
 # _snapshot when check ok
 renv::snapshot(packages = custom_packages)
 
-
 # After pull and/or rebase
 renv::restore()
 
-# Remettre à zéro la bdd de cache
+# Force installation from source of packages that need compilation
+packages <- c(
+  tmap = "3.3.2",
+  lwgeom = "0.2.8",
+  V8 = "3.4.2",
+  testthat = "3.1.0",
+  rgeos = "0.5-5",
+  jqr = "1.2.1",
+  NULL
+)
 
-local({
-  options("golem.app.prod" = FALSE)
-  fake_session <- new.env()
-  diades.atlas:::launch_mongo(session = fake_session)
-  fake_session$userData$mongo_cache$reset()
-})
+install_version_from_source <- function(
+  version,
+  package
+) {
+  remotes::install_version(
+    version = version,
+    package = package,
+    repos = "https://cran.rstudio.com",
+    type = "source",
+    upgrade = "never"
+  )
+}
+purrr::imap(packages, install_version_from_source)
+
+
+# Remettre à zéro la bdd de cache
+withr::with_envvar(
+  c("GOLEM_CONFIG_ACTIVE" = "dev"),
+  {
+    fake_session <- new.env()
+    diades.atlas:::launch_mongo(session = fake_session)
+    fake_session$userData$mongo_cache$reset()
+  }
+)
+
 
 ## Add data for reprex
 usethis::use_data_raw("World")
