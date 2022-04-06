@@ -93,8 +93,9 @@ bbox <- sf::st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = sf::
 #' @param con The Connection object
 #' @param yearStart,yearEnd date used
 #' @param dataCatchment,catchment_geom,dataALL,ices_geom  internal datasets
+#' @param session The Shiny Session object
 #'
-#' @return
+#' @return A tmap object
 #' @export
 #' @import sf
 #' @import tmap

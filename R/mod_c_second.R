@@ -105,6 +105,7 @@ mod_second_ui <- function(id) {
 
 #' second Server Functions
 #'
+#' @importFrom stats rnorm
 #' @noRd
 mod_second_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {

@@ -27,9 +27,11 @@ tm_draw(
 \item{yearStart, yearEnd}{date used}
 
 \item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
+
+\item{session}{The Shiny Session object}
 }
 \value{
-
+A tmap object
 }
 \description{
 Title

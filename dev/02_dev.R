@@ -36,6 +36,7 @@ attachment::att_amend_desc(
                      "rlang" # why ?
   )
 )
+checkhelper::print_globals()
 
 # _renv ----
 custom_packages <- setdiff(
