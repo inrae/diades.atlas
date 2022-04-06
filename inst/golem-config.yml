@@ -8,6 +8,7 @@ default:
   mongocollection: cache
   mongourl: mongodiades
   mongoport: '27017'
+  mongodb: 'diadescache'
 production:
   app_prod: yes
 dev:
