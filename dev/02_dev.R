@@ -84,13 +84,15 @@ purrr::imap(packages, install_version_from_source)
 
 
 # Remettre à zéro la bdd de cache
+withr::with_envvar(
+  c("GOLEM_CONFIG_ACTIVE" = "dev"),
+  {
+    fake_session <- new.env()
+    diades.atlas:::launch_mongo(session = fake_session)
+    fake_session$userData$mongo_cache$reset()
+  }
+)
 
-local({
-  options("golem.app.prod" = FALSE)
-  fake_session <- new.env()
-  diades.atlas:::launch_mongo(session = fake_session)
-  fake_session$userData$mongo_cache$reset()
-})
 
 ## Add data for reprex
 usethis::use_data_raw("World")
