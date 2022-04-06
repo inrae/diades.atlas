@@ -1,3 +1,7 @@
+
+# Make sure app is in dev mode
+Sys.setenv("GOLEM_CONFIG_ACTIVE" = "dev") # this is unset in tests/testthat/zzz.R
+
 session_globale <- shiny::MockShinySession$new()
 
 is_connectable <- try({
