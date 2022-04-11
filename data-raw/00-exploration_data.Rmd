@@ -7,6 +7,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r}
+library(dplyr)
+library(DBI)
+library(ggplot2)
+library(RPostgres)
+```
+
 **You can use this package without opening the Shiny application**
 
 ## Installation
@@ -19,7 +26,9 @@ remotes::install_github('inrae/diades.atlas')
 
 ## Connect to the database
 
-```{r}
+```{r, eval=FALSE}
+se <- new.env()
+
 conn_eurodiad <- dbConnect(
   RPostgres::Postgres(), 
   dbname = 'eurodiad',
@@ -27,5 +36,120 @@ conn_eurodiad <- dbConnect(
   port = 5432,
   user = '<your-username>',
   password = rstudioapi::askForPassword("Database password"))
+
+session$userData$con <-conn_eurodiad
+```
+
+```{r}
+# For ThinkR only
+se <- new.env()
+conn_eurodiad <- connect(session = se)
+DBI::dbListTables(conn_eurodiad)
+```
+
+## Explore data
+
+It is recommended to use `tbl()` instead of `dbGetQuery()` to connect to a table in the database.  
+`tbl()` does not download the table, it only connect to the database and let it run the query. This means that if you run a `filter()` or a `mutate()` after that, the database executes it, not R, which is more efficient.  
+However, at some point, some of your {tidyverse} operations can not be realised or translated in SQL, hence, you need to download the resulting dataset using `collect()`. Then you can continue as usual.
+
+For instance. 
+
+- `dbGetQuery()` download data in R
+  - `filter()` is executed by R in your R session
+
+```{r}
+# Create a function
+get_data_dbi <- function(conn_eurodiad, species_id, scenario) {
+  query <- "SELECT * FROM diadesatlas.v_hybrid_model"
+  
+  dbGetQuery(conn_eurodiad, query) %>%
+    filter(species_id %in% !!species_id,
+           climatic_scenario %in% !!scenario) 
+}
+
+# Use it
+get_data_dbi(conn_eurodiad,
+             species_id = c(6),
+             scenario = 'rcp85')
+```
+
+- `tbl()` only connects to the table, only a glimpse of the data is presented
+  - `filter()` is run by the SQL database
+
+```{r}
+get_data_tbl <- function(conn_eurodiad, species_id, scenario) {
+  tbl(conn_eurodiad, "v_hybrid_model") %>% 
+    filter(species_id %in% !!species_id,
+           climatic_scenario %in% !!scenario) 
+}
+
+# Use it
+get_data_tbl(conn_eurodiad,
+             species_id = c(6),
+             scenario = 'rcp85')
+```
+
+- If you need to create some {ggplot2} figures after that, you can collect
+
+```{r}
+get_data_tbl_collect <- function(conn_eurodiad, species_id, scenario) {
+  tbl(conn_eurodiad, "v_hybrid_model") %>% 
+    filter(species_id %in% !!species_id,
+           climatic_scenario %in% !!scenario) %>% 
+    # From collect(), the full data is in the R session
+    collect()
+}
+
+# Use it
+get_data_tbl_collect(conn_eurodiad,
+                     species_id = c(6),
+                     scenario = 'rcp85') %>% 
+  filter(basin_id == 1) %>% 
+  ggplot(aes(x = year)) +
+  geom_line(aes(y = hsi))
+```
+
+- Note that you can use a full SQL query with `tbl()`
+
+```{r}
+get_data_tbl_query_collect <- function(conn_eurodiad, species_id, scenario) {
+  query <- "SELECT * FROM diadesatlas.v_hybrid_model"
+  
+  tbl(conn_eurodiad, sql(query)) %>% 
+    # Adds a filter to be run as SQL in the database
+    filter(species_id %in% !!species_id,
+           climatic_scenario %in% !!scenario) %>% 
+    # From collect(), the full data is in the R session
+    collect()
+}
+
+# Use it
+get_data_tbl_query_collect(conn_eurodiad,
+                           species_id = c(6),
+                           scenario = 'rcp85') %>% 
+  filter(basin_id == 1) %>% 
+  ggplot(aes(x = year)) +
+  geom_line(aes(y = hsi))
+```
+
+# Example with models
+
+```{r}
+model_res <- get_hybrid_model_pl(species_id = c(6), scenario = 'rcp85', conn_eurodiad)
+
+
+# load data included in `get_hybrid_model()`
+debugonce(get_hybrid_model)
+model_res <- get_hybrid_model(species_id = c(6), scenario = 'rcp85', lg = "fr", session = se)
+# TODO il manque une étape hsi_min, ...
+plot_hsi_nit(model_res, selected_year = 2000, selected_bv = c(14), withNitStandardisation = FALSE)
+```
+
+
+## Disconnect from the database
+
+```{r}
+DBI::dbDisconnect(conn_eurodiad)
 ```
 

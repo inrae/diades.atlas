@@ -131,67 +131,13 @@ bv_df <- get_bv_geoms(
   session
 )
 year <- 1951
-draw_bv_leaflet <- function(bv_df,
-                            model_res,
-                            year) {
-  bv_df <- left_join(
-    bv_df,
-    filter(model_res, year == !!year),
-    by = "basin_id"
-  )
-  factpal <- colorNumeric(
-    palette = "YlOrRd",
-    domain = bv_df$nit,
-    reverse = FALSE
-  )
-
-  leaflet() %>%
-    addTiles() %>%
-    addPolygons(data = bv_df, 
-                layerId = ~basin_id, 
-                fillColor = ~ factpal(nit),
-                color = "#525252",
-                weight = 1,
-                label = ~basin_name,
-                opacity = 0.8,
-                fillOpacity = 0.6
-                ) %>% 
-      addLegend(data = bv_df,
-                pal = factpal, values = ~nit,
-                title = "NIT",
-                opacity = 0.6)
-}
-
-
 
 
 # plot hsi nit ----
 
 selected_bv <- 385
 selected_year <- 2002
-plot_hsi_nit <- function(model_res,
-                         selected_year,
-                         selected_bv) {
-  model_res_filtered <- model_res %>%
-    filter(
-      basin_id == selected_bv
-    )
-  hsi <- ggplot(
-    model_res_filtered,
-    aes(year, hsi)
-  ) +
-    geom_line() +
-    geom_vline(xintercept = selected_year, color = "red")
-  nit <- ggplot(
-    model_res_filtered,
-    aes(year, nit)
-  ) +
-    geom_line() +
-    geom_vline(xintercept = selected_year, color = "red")
-  patchwork:::`/.ggplot`(
-    hsi, nit
-  )
-}
+
 
 # Plot leaflet
 bv_df <- get_bv_geoms(
