@@ -136,7 +136,8 @@ mod_third_server <- function(id, r = r) {
         loco$model_res <- get_hybrid_model(
           species_id = spc[spc$latin_name == loco$species, "species_id"],
           scenario = input$scenario,
-          session = session
+          session = session, 
+          lg = r$lg
         )
         if (nrow(loco$model_res) == 0) {
           shiny::showNotification(
@@ -169,9 +170,11 @@ mod_third_server <- function(id, r = r) {
         )
         
         loco$plot <- plot_hsi_nit(
-          loco$model_res,
-          input$date,
-          loco$selected_bv_id
+          model_res = loco$model_res,
+          selected_year = input$date,
+          selected_bv = loco$selected_bv_id,
+          lg = r$lg,
+          withNitStandardisation = FALSE
         )
         loco$ui_summary <- create_ui_summary_html(
           species = loco$species,
@@ -207,9 +210,11 @@ mod_third_server <- function(id, r = r) {
         collect()
       
       loco$plot <- plot_hsi_nit(
-        loco$model_res,
-        input$date,
-        loco$selected_bv_id
+        model_res = loco$model_res,
+        selected_year = input$date,
+        selected_bv = loco$selected_bv_id,
+        lg = r$lg,
+        withNitStandardisation = FALSE
       )
       
       loco$ui_summary <- create_ui_summary_html(
