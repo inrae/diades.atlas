@@ -86,23 +86,7 @@ date <- c(1970, 2010)
 
 hybrid_model_result <- tbl(get_con(session), "hybrid_model_result")
 
-get_hybrid_model <- function(species_id,
-                             scenario,
-                             session = shiny::getDefaultReactiveDomain()) {
-  tbl(
-    get_con(session),
-    "hybrid_model_result"
-  ) %>%
-    filter(
-      # On choisis un seul climatic_model_id (à terme, ce sera le 999)
-      # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
-      climatic_model_id == 2,
-      species_id %in% !!species_id,
-      climatic_scenario %in% !!scenario # ,
-      # year %in% !!seq(from = date[1], to = date[2], by = 1)
-    ) %>%
-    collect()
-}
+# get_hybrid_model() in R/mod_c_second_fct_query_and_plot.R
 model_res <- get_hybrid_model(
   species_id = 6,
   scenario = "rcp85",
