@@ -44,6 +44,11 @@ Dans tous les cas, les développeurs devront
 -   suivre le contenu de “dev/translation.Rmd” lors de chaque mises à
     jour.
 
+# Exploration of database out of Shiny application
+
+You can use this package without opening the Shiny application.  
+See vignette “00-exploration-of-data”
+
 # Put in Production
 
 Update Docker for deployment:

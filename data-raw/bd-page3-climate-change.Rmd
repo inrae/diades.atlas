@@ -91,7 +91,8 @@ model_res <- get_hybrid_model(
   species_id = 6,
   scenario = "rcp85",
   # date = c(1970, 2010),
-  session = session
+  session = session,
+  lg = "fr"
 )
 
 tbl(

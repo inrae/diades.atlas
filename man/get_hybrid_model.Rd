@@ -7,11 +7,14 @@
 get_hybrid_model(
   species_id,
   scenario,
+  lg,
   session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
 \item{species_id, scenario}{internal param for SQL filter}
+
+\item{lg}{Character. Lang to be used.}
 
 \item{session}{Shiny session  object}
 }
