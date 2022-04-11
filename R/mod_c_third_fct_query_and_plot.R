@@ -19,8 +19,9 @@ get_hybrid_model <- function(species_id,
       # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
       climatic_model_id == 2,
       species_id %in% !!species_id,
-      climatic_scenario %in% !!scenario # ,
+      climatic_scenario %in% !!scenario ,
       # year %in% !!seq(from = date[1], to = date[2], by = 1)
+      year != 0 # 0
     ) %>%
     collect()
 }
