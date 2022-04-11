@@ -5,6 +5,7 @@
 #' @param species_id,scenario internal param for SQL filter
 #' @param session Shiny session  object
 #' @param lg Character. Lang to be used.
+#' @param widthWindow Numeric. Moving window for moving average
 #' @importFrom dplyr tbl filter collect mutate
 #'
 #' @export
@@ -12,26 +13,69 @@
 get_hybrid_model <- function(species_id,
                              scenario,
                              lg,
-                             session = shiny::getDefaultReactiveDomain()) {
-  tbl(
-    get_con(session),
-    "v_hybrid_model_mavg"
-  ) %>%
-    filter(
-      # On choisis un seul climatic_model_id (à terme, ce sera le 999)
-      # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
-      # climatic_model_id == 2,
-      species_id %in% !!species_id,
-      climatic_scenario %in% !!scenario ,
-      # year %in% !!seq(from = date[1], to = date[2], by = 1)
-      year != 0 # 0
+                             session = shiny::getDefaultReactiveDomain(),
+                             widthWindow = 10) {
+  if (!"v_hybrid_model_mavg" %in% DBI::dbListTables(get_con(session))) {
+    # Create table v_hybrid_model_mavg 
+    # load model outputs
+    query = paste0('SELECT species_id, s.latin_name, basin_id, basin_name, "year", climatic_model_id, climatic_scenario, climatic_model_code, nit, hsi FROM diadesatlas.hybrid_model_result hmr
+  INNER JOIN diadesatlas.species s USING (species_id)
+  INNER JOIN diadesatlas.basin b USING (basin_id)
+  INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)')
+    # WHERE hmr.year > 0 AND s.latin_name = \'', species, '\' AND basin_name  = \'', basin_name, '\' AND climatic_scenario =  \'', scenario, '\'')
+    
+    # data <- dbGetQuery(conn_eurodiad, query) %>%
+    # tibble() %>%
+    v_hybrid_model_mavg <- tbl(conn_eurodiad, sql(query)) %>%
+      # filter and translate before ---
+      dplyr::filter(
+        # On choisis un seul climatic_model_id (à terme, ce sera le 999)
+        # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
+        # climatic_model_id == 2,
+        species_id %in% !!species_id,
+        climatic_scenario %in% !!scenario, # unique scenario
+        # year %in% !!seq(from = date[1], to = date[2], by = 1)
+        year > 0 # 0
+      ) %>% 
+      # translation
+      mutate(
+        basin_name = diadesatlas.translate(basin_name, !!lg)#,
+        # species_name = diadesatlas.translate(english_name, !!lg)
+      ) %>% 
+      # Create min, mean, max, rolling_mean ----
+    pivot_longer(cols = c(nit, hsi), names_to = 'output') %>% 
+      group_by(species_id, latin_name, basin_id, basin_name, year, output) %>%
+      summarise(min = min(value),
+                mean = mean(value),
+                max = max(value),
+                .groups = 'drop') %>%
+      collect() %>% 
+      group_by(species_id, latin_name, basin_id, basin_name, output) %>%
+      mutate(rolling_mean = data.table::frollmean(mean, n = widthWindow, align = 'center')) %>%
+      ungroup()
+  } else {
+    # v_hybrid_model_mavg is in the database
+    v_hybrid_model_mavg <- tbl(
+      get_con(session),
+      "v_hybrid_model_mavg"
+      # "v_hybrid_model"
     ) %>%
-    # translation
-    mutate(
-      basin_name = diadesatlas.translate(basin_name, !!lg)#,
-      # species_name = diadesatlas.translate(english_name, !!lg)
-    ) %>% 
-    collect()
+      filter(
+        # On choisis un seul climatic_model_id (à terme, ce sera le 999)
+        # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
+        # climatic_model_id == 2,
+        species_id %in% !!species_id,
+        climatic_scenario %in% !!scenario ,
+        # year %in% !!seq(from = date[1], to = date[2], by = 1)
+        year != 0 # 0
+      ) %>%
+      # translation
+      mutate(
+        basin_name = diadesatlas.translate(basin_name, !!lg)#,
+        # species_name = diadesatlas.translate(english_name, !!lg)
+      ) %>% 
+      collect()
+  }
 }
 
 #' @importFrom dplyr tbl filter mutate select collect
@@ -102,17 +146,19 @@ plot_hsi_nit <- function(model_res,
                          lg,
                          withNitStandardisation = FALSE) {
   model_res_filtered <- model_res %>%
-    filter(basin_id == selected_bv) %>% 
-    mutate(label = factor(paste(latin_name, basin_name, sep = ' in ')))
+    filter(basin_id == selected_bv) #%>% 
+  # mutate(label = factor(paste(latin_name, basin_name, sep = ' in ')))
   
   hsi <- model_res_filtered  %>%
     ggplot(aes(x = year)) +
     geom_ribbon(aes(ymin = hsi_min, 
                     ymax = hsi_max,
-                    fill =  label),
-                alpha = 0.3) +
-    geom_line(aes(y = hsi_movingavg,
-                  color = label)) +
+                    # fill =  label
+    ),
+    alpha = 0.3) +
+    geom_line(aes(y = hsi_movingavg#,
+                  # color = label
+    )) +
     geom_vline(xintercept = selected_year, color = "red") +
     # ylab('Catchment suitability index') +
     ylab(get_translation_entry('hsi_ggplot', lg)) +
@@ -134,10 +180,12 @@ plot_hsi_nit <- function(model_res,
     ggplot(aes(x = year)) +
     geom_ribbon(aes(ymin = nit_min, 
                     ymax = nit_max,
-                    fill = label),
-                alpha = 0.3) +
+                    # fill = label
+    ),
+    alpha = 0.3) +
     geom_line(aes(y = nit_movingavg,
-                  color = label)) +
+                  # color = label
+    )) +
     geom_vline(xintercept = selected_year, color = "red") +
     theme(legend.title = element_blank()) +
     # ylab('Abundance (nb of fish)')
@@ -147,6 +195,7 @@ plot_hsi_nit <- function(model_res,
     hsi, nit
   )
 }
+
 
 #' @noRd
 create_ui_summary_html <- function(
