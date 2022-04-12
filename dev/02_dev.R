@@ -20,6 +20,7 @@ usethis::use_git_ignore(".Renviron")
 usethis::use_build_ignore(".Renviron")
 usethis::use_git_ignore("data-raw/translation.Rmd")
 usethis::use_git_ignore("dev/translation.html")
+usethis::use_git_ignore("dev/data-docker/")
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
