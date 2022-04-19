@@ -1,4 +1,4 @@
-#' second UI Function
+#' third UI Function
 #'
 #' @description A shiny Module.
 #'
@@ -7,10 +7,10 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_second_ui <- function(id) {
+mod_third_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("second", class = "page_caption") %>% with_i18("title-third"),
+    h1("third", class = "page_caption") %>% with_i18("title-third"),
     container(
       w3css::w3_quarter(
         tagList(
@@ -103,11 +103,11 @@ mod_second_ui <- function(id) {
   )
 }
 
-#' second Server Functions
+#' third Server Functions
 #'
 #' @importFrom stats rnorm
 #' @noRd
-mod_second_server <- function(id, r = r) {
+mod_third_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -259,7 +259,7 @@ mod_second_server <- function(id, r = r) {
 }
 
 ## To be copied in the UI
-# mod_second_ui("second_ui_1")
+# mod_third_ui("third_ui_1")
 
 ## To be copied in the server
-# mod_second_server("second_ui_1")
+# mod_third_server("third_ui_1")

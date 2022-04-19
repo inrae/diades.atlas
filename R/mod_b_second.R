@@ -1,4 +1,4 @@
-#' first UI Function
+#' second UI Function
 #'
 #' @description A shiny Module.
 #'
@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_first_ui <- function(id) {
+mod_second_ui <- function(id) {
   ns <- NS(id)
   tagList(
     h1("Ecosystem services", class = "page_caption") %>% with_i18("title-second"),
@@ -87,10 +87,10 @@ mod_first_ui <- function(id) {
   )
 }
 
-#' first Server Functions
+#' second Server Functions
 #' @import ggplot2
 #' @noRd
-mod_first_server <- function(id, r = r) {
+mod_second_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -253,7 +253,7 @@ mod_first_server <- function(id, r = r) {
 }
 
 ## To be copied in the UI
-# mod_first_ui("first_ui_1")
+# mod_second_ui("second_ui_1")
 
 ## To be copied in the server
-# mod_first_server("first_ui_1")
+# mod_second_server("second_ui_1")

@@ -57,29 +57,29 @@ app_ui <- function(request) {
                   </div>')
           ),
           menuItem(
-            "d", "Sit",
+            "a", "Sit",
             i18n = "nav-catch"
           ),
           menuItem(
-            "a", "Lorem",
+            "b", "Lorem",
             i18n = "nav-present"
           ),
           menuItem(
-            "b", "Ipsum",
+            "c", "Ipsum",
             i18n = "nav-climate"
           ),
           menuItem(
-            "c", "Dolor",
+            "d", "Dolor",
             i18n = "nav-future"
           )
         ),
         content = tabItems(
           tabItem(
-            "d",
-            mod_fourth_ui("fourth_ui_1")
+            "a",
+            mod_first_ui("first_ui_1")
           ),
           tabItem(
-            "a",
+            "b",
             # htmlTemplate(
             #   app_sys("app/www/main.html"),
             #   geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))),
@@ -87,15 +87,15 @@ app_ui <- function(request) {
             #   services = glue::glue_collapse(readLines(app_sys("services.json"))),
             #   ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json")))
             # )
-            mod_first_ui("first_ui_1")
-          ),
-          tabItem(
-            "b",
             mod_second_ui("second_ui_1")
           ),
           tabItem(
             "c",
             mod_third_ui("third_ui_1")
+          ),
+          tabItem(
+            "d",
+            mod_fourth_ui("fourth_ui_1")
           )
         ),
         footer = htmlTemplate(
