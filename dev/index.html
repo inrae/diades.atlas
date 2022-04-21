@@ -52,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">diades.atlas</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9001</span>
       </span>
     </div>
 
@@ -69,7 +69,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/00-exploration_data.html">00-exploration_data</a>
+      <a href="articles/aa-a-exploration_data.html">aa-a-exploration_data</a>
     </li>
     <li>
       <a href="articles/aa-data-exploration-and-preparation.html">aa-data-exploration-and-preparation</a>
@@ -257,17 +257,19 @@ See vignette “00-exploration-of-data”</p>
 <p>Vignettes are compiled manually by developers. Raw vignettes are stored in “data-raw”. Instructions to compile them are in the vignette itself.</p>
 <p>However, they can all be prepared from this script:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"dev"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span>,
           <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aa-data-exploration-and-preparation"</span>,
-                   <span class="st">"bb-page1-catch-bycatch"</span>,
-                   <span class="st">"bc-page2-present"</span>,
-                   <span class="st">"bd-page3-climate-change"</span>,
-                   <span class="st">"be-page4-future"</span>, 
-                   <span class="st">"translation"</span><span class="op">)</span>
+<span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+  <span class="st">"aa-a-exploration_data"</span>,
+  <span class="st">"aa-data-exploration-and-preparation"</span>,
+  <span class="st">"bb-page1-catch-bycatch"</span>,
+  <span class="st">"bc-page2-present"</span>,
+  <span class="st">"bd-page3-climate-change"</span>,
+  <span class="st">"be-page4-future"</span>, 
+  <span class="st">"translation"</span><span class="op">)</span>
 
 <span class="kw">for</span> <span class="op">(</span><span class="va">vignette_name</span> <span class="kw">in</span> <span class="va">all_vignettes</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># vignette_name &lt;- "aa-data-exploration-and-preparation"</span>
