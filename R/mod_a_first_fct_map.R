@@ -158,7 +158,7 @@ tm_draw <- function(species_latin_name,
       main.title.fontface = 3,
       main.title.size = 0.8,
       main.title = species_latin_name, # suppress at the end
-      legend.position = c("right", "center"),
+      # legend.position = c("right", "center"),
       legend.outside = TRUE
     )
 }

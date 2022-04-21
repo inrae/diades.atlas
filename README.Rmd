@@ -161,7 +161,7 @@ file.copy(here::here("dev", "translation.Rmd"),
           here::here("data-raw", "translation.Rmd"))
 
 all_vignettes <- c(
-  "00-exploration-of-data",
+  "00-exploration_data",
   "aa-data-exploration-and-preparation",
   "bb-page1-catch-bycatch",
   "bc-page2-present",
