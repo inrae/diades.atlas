@@ -47,6 +47,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/00-exploration_data.html">00-exploration_data</a>
+    </li>
+    <li>
       <a href="../articles/aa-data-exploration-and-preparation.html">aa-data-exploration-and-preparation</a>
     </li>
     <li>
@@ -102,7 +105,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_hybrid_model</span><span class="op">(</span>
   <span class="va">species_id</span>,
   <span class="va">scenario</span>,
-  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="va">lg</span>,
+  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,
+  widthWindow <span class="op">=</span> <span class="fl">10</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -110,8 +115,12 @@
     <h2>Arguments</h2>
     <dl><dt>species_id, scenario</dt>
 <dd><p>internal param for SQL filter</p></dd>
+<dt>lg</dt>
+<dd><p>Character. Lang to be used.</p></dd>
 <dt>session</dt>
 <dd><p>Shiny session  object</p></dd>
+<dt>widthWindow</dt>
+<dd><p>Numeric. Moving window for moving average</p></dd>
 </dl></div>
 
   </div>

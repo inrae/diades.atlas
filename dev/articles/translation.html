@@ -69,6 +69,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/00-exploration_data.html">00-exploration_data</a>
+    </li>
+    <li>
       <a href="../articles/aa-data-exploration-and-preparation.html">aa-data-exploration-and-preparation</a>
     </li>
     <li>
@@ -141,7 +144,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Colin Fay">
-<meta name="date" content="2021-12-14">
+<meta name="date" content="2022-04-21">
 <title>
 Translation
 </title>
@@ -447,7 +450,7 @@ Translation
 Colin Fay
 </h4>
 <h4 class="date">
-2021-12-14
+2022-04-21
 </h4>
 <div id="TOC">
 <ul>
@@ -455,19 +458,7 @@ Colin Fay
 <a href="#comment-est-organis%C3%A9e-la-traduction">Comment est organisée la traduction</a>
 <ul>
 <li>
-<a href="#pour-les-help-bubble">Pour les “help bubble”</a>
-</li>
-<li>
 <a href="#pour-le-front-end">Pour le front-end</a>
-</li>
-<li>
-<a href="#lus-dans-la-base">Lus dans la base</a>
-</li>
-<li>
-<a href="#fichiers-g%C3%A9n%C3%A9r%C3%A9s-automatiquement">Fichiers générés automatiquement</a>
-</li>
-<li>
-<a href="#fichier-%C3%A0-compl%C3%A9ter-%C3%A0-la-main">Fichier à compléter à la main</a>
 </li>
 </ul>
 </li>
@@ -481,7 +472,7 @@ Colin Fay
 <a href="#data">Data</a>
 </li>
 <li>
-<a href="#fonction-dbb">Fonction dbb</a>
+<a href="#fonction-bdd">Fonction bdd</a>
 </li>
 <li>
 <a href="#c%C3%B4t%C3%A9-code-de-lapplication">Côté code de l’application</a>
@@ -493,6 +484,9 @@ Colin Fay
 <ul>
 <li>
 <a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-lui">Comment créer un nouvel élément “traductible” dans l’UI</a>
+</li>
+<li>
+<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-le-server">Comment créer un nouvel élément “traductible” dans le server</a>
 </li>
 </ul>
 </li>
@@ -518,52 +512,15 @@ Comment est organisée la traduction
 <strong>Note importante</strong> : Pensez à être bien vigilant sur l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une langue avec le code <code>es</code>, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l’application.
 </p>
 <div class="section level4">
-<h4 id="pour-les-help-bubble">
-Pour les “help bubble”
-<a class="anchor" aria-label="anchor" href="#pour-les-help-bubble"></a>
-</h4>
-<p>
-Les help bubbles sont les éléments d’aide lors du passage de la souris sur un élément <code>(?)</code>.
-</p>
-<p>
-Ils sont tous dans <code>inst/translation_help</code>. Ce dossier contient des sous-dossiers, chacun correspondant à une bulle d’aide. Chacun de ces sous dossiers contient des <code>.md</code>, un par code-langue. Vous pouvez utiliser du code Markdown afin de remplir ces éléments.
-</p>
-<p>
-Ces contenus sont ensuite compilés dans <code>inst/translation_help.csv</code>, via le code ci-dessous, à relancer en cas de changement.
-</p>
-<div id="cb3" class="sourceCode">
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span>
-
-<span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>
-    <span class="st">"inst/translation_help"</span>,
-    full.names <span class="op">=</span> <span class="cn">TRUE</span>
-  <span class="op">)</span>, <span class="op">~</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-      entry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>,
-      en <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/include.html" class="external-link">includeMarkdown</a></span><span class="op">(</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"en.md"</span><span class="op">)</span>
-      <span class="op">)</span>,
-      fr <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/include.html" class="external-link">includeMarkdown</a></span><span class="op">(</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"fr.md"</span><span class="op">)</span>
-      <span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span>
-<span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span></code></pre>
-</div>
-</div>
-<div class="section level4">
 <h4 id="pour-le-front-end">
 Pour le front-end
 <a class="anchor" aria-label="anchor" href="#pour-le-front-end"></a>
 </h4>
 <p>
-Pour l’interface utilisateur, l’application met ensemble des fichiers CSV, contenus dans le dossier <code>inst/</code> et des tables contenues dans la base. Certains de ces fichiers sont automatiquement générés, un est à modifier à la main.
+Pour l’interface utilisateur, l’application met ensemble des fichiers CSV, contenus dans le dossier <code>inst/</code> et des tables contenues dans la base de données PostGre. Certains de ces fichiers sont automatiquement générés, certains se modifient à la main.
 </p>
 <p>
-Tous ces fichiers contiennent au moins 3 colonnes:
+Tous ces fichiers contiennent au moins 5 colonnes:
 </p>
 <ul>
 <li>
@@ -575,106 +532,99 @@ Tous ces fichiers contiennent au moins 3 colonnes:
 <li>
 <code>fr</code> : la traduction en français
 </li>
+<li>
+<code>es</code> : la traduction en espagnol
+</li>
+<li>
+<code>pt</code> : la traduction en portugais
+</li>
 </ul>
-</div>
-<div class="section level4">
-<h4 id="lus-dans-la-base">
+<div class="section level5">
+<h5 id="lus-dans-la-base">
 Lus dans la base
 <a class="anchor" aria-label="anchor" href="#lus-dans-la-base"></a>
-</h4>
+</h5>
 <ul>
 <li>
 <code>abundance_level</code>
 </li>
 </ul>
-<div id="cb4" class="sourceCode">
+<div id="cb3" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">translation_abundance_level</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">session</span> <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># TODO écrire depuis la base</span>
-  <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
-    <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>,
-    <span class="st">"select abundance_level_name AS entry, abundance_level_interpretation_short AS en from abundance_level"</span>
-    <span class="co"># "select abundance_level_name AS entry, abundance_level_interpretation_short AS en, diadesatlas.translate(abundance_level_interpretation_short, 'fr') AS fr from abundance_level"</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="co"># Cette traduction est temporaire, il FAUDRA utiliser la traduction depuis la base de données,</span>
-    <span class="co"># via le code SQL commenté</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-      fr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-        <span class="st">"Non enregistré sur la période"</span>,
-        <span class="st">"Présence occasionnelle"</span>,
-        <span class="st">"Populations fonctionnelles"</span>,
-        <span class="st">"Populations fonctionnelles abondante"</span>
-      <span class="op">)</span>
-    <span class="op">)</span>
-<span class="op">}</span>
-<span class="fu">translation_abundance_level</span><span class="op">(</span><span class="va">se</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu">translation_abundance_level</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
 </div>
+<p>
+=&gt; Cette fonction est à mettre à jour dans <code>R/utils_helpers.R</code>
+</p>
 <ul>
 <li>
-<code>species</code> : contient les traductions pour les éléments de niveau d’abondance. Se génère via le code suivant :
+<code>species</code> : contient les traductions pour les éléments de niveau d’abondance.
 </li>
 </ul>
-<div id="cb5" class="sourceCode">
+<div id="cb4" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">translation_species</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">session</span> <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
-    <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>,
-    <span class="st">"SELECT local_name AS entry, english_name AS en, diadesatlas.translate(english_name, 'fr') AS fr from diadesatlas.species WHERE active=TRUE"</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-<span class="fu">translation_species</span><span class="op">(</span><span class="va">se</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu">translation_species</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
 </div>
+<p>
+=&gt; Cette fonction est à mettre à jour dans <code>R/utils_helpers.R</code>
+</p>
 <ul>
 <li>
 <code>v_ecosystemic_services</code>
 </li>
 </ul>
+<div id="cb5" class="sourceCode">
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">translation_v_ecosystemic_services</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
+</div>
+<p>
+=&gt; Cette fonction est à mettre à jour dans <code>R/utils_helpers.R</code>
+</p>
+</div>
+<div class="section level5">
+<h5 id="pour-les-help-bubble">
+Pour les “help bubble”
+<a class="anchor" aria-label="anchor" href="#pour-les-help-bubble"></a>
+</h5>
+<p>
+Les help bubbles sont les éléments d’aide lors du passage de la souris sur un élément <code>(?)</code>. ents.
+</p>
+<p>
+Ces contenus sont dans le second onglet du Google Sheet de traduction, et sont ensuite compilés dans <code>inst/translation_help.csv</code>, via le code ci-dessous, à relancer en cas de changement.
+</p>
 <div id="cb6" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">translation_v_ecosystemic_services</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">session</span> <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>
-    <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
-      <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>,
-      <span class="st">"SELECT
-        REPLACE(LOWER(casestudy_name), ' ', '-') as entry,
-        casestudy_name as en,
-        diadesatlas.translate(casestudy_name, 'fr') as fr
-        from v_ecosystemic_services"</span>
-    <span class="op">)</span>,
-    <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
-      <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>,
-      <span class="st">"SELECT
-        REPLACE(LOWER(category_name), ' ', '-') as entry,
-        category_name as en,
-        diadesatlas.translate(category_name, 'fr') as fr
-        from v_ecosystemic_services"</span>
-    <span class="op">)</span>,
-    <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
-      <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>,
-      <span class="st">"SELECT
-        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
-        subcategory_name as en,
-        diadesatlas.translate(subcategory_name, 'fr') as fr
-        from v_ecosystemic_services"</span>
-    <span class="op">)</span>,
-    <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
-      <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>,
-      <span class="st">"SELECT
-        REPLACE(LOWER(subcategory_name), ' ', '-') as entry,
-        subcategory_name as en,
-        diadesatlas.translate(subcategory_name, 'fr') as fr
-        from v_ecosystemic_services"</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-<span class="fu">translation_v_ecosystemic_services</span><span class="op">(</span><span class="va">se</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://googlesheets4.tidyverse.org" class="external-link">googlesheets4</a></span><span class="op">)</span>
+<span class="va">sheet_url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readline.html" class="external-link">readline</a></span><span class="op">(</span><span class="st">"Enter the sheet url: "</span><span class="op">)</span>
+<span class="va">translation</span> <span class="op">&lt;-</span> <span class="fu">read_sheet</span><span class="op">(</span><span class="va">sheet_url</span>, sheet <span class="op">=</span> <span class="st">"help_bubbles"</span><span class="op">)</span>
+
+<span class="va">translation</span> <span class="op">&lt;-</span> <span class="va">translation</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+    en <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">en</span>, <span class="va">contenu_markdown</span><span class="op">)</span>,
+    fr <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">fr</span>, <span class="va">contenu_markdown</span><span class="op">)</span>,
+    pt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">pt</span>, <span class="va">contenu_markdown</span><span class="op">)</span>,
+    es <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">es</span>, <span class="va">contenu_markdown</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_at</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">en</span>, <span class="va">fr</span>, <span class="va">pt</span>, <span class="va">es</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">commonmark</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/commonmark/man/commonmark.html" class="external-link">markdown_html</a></span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">contenu_markdown</span><span class="op">)</span>
+
+<span class="va">translation</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span>
+
+<span class="va">translation</span></code></pre>
 </div>
 </div>
-<div class="section level4">
-<h4 id="fichiers-générés-automatiquement">
+<div class="section level5">
+<h5 id="fichiers-générés-automatiquement">
 Fichiers générés automatiquement
 <a class="anchor" aria-label="anchor" href="#fichiers-g%C3%A9n%C3%A9r%C3%A9s-automatiquement"></a>
-</h4>
+</h5>
 <ul>
 <li>
 <code>translation_iucn.csv</code> : contient les traductions pour status IUCN. Se génère via le code suivant <strong>mais devra être mis dans la base</strong>.
@@ -703,20 +653,24 @@ Fichiers générés automatiquement
   <span class="op">)</span>
 
 <span class="va">en_iucn</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
-  <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span>,
+  <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>,
   <span class="st">"SELECT distinct iucn_level_code AS entry,iucn_level_name AS en FROM v_iucn"</span>
 <span class="op">)</span>
 
 <span class="va">en_iucn</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">full_join</a></span><span class="op">(</span><span class="va">french_iucn</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+    es <span class="op">=</span> <span class="va">en</span>,
+    pt <span class="op">=</span> <span class="va">en</span>
+  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="st">"inst/translation_iucn.csv"</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level4">
-<h4 id="fichier-à-compléter-à-la-main">
+<div class="section level5">
+<h5 id="fichier-à-compléter-à-la-main">
 Fichier à compléter à la main
 <a class="anchor" aria-label="anchor" href="#fichier-%C3%A0-compl%C3%A9ter-%C3%A0-la-main"></a>
-</h4>
+</h5>
 <p>
 <strong>IMPORTANT</strong> Merci de centraliser dans le Google Sheet.
 </p>
@@ -732,11 +686,17 @@ On va lire le fichier Google Sheet de traduction.
 <span class="va">translation</span> <span class="op">&lt;-</span> <span class="fu">read_sheet</span><span class="op">(</span><span class="va">sheet_url</span><span class="op">)</span>
 
 <span class="va">translation</span><span class="op">$</span><span class="va">DESCRIPTION</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-
+<span class="va">translation</span> <span class="op">&lt;-</span> <span class="va">translation</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+    en <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">en</span>, <span class="va">entry</span><span class="op">)</span>,
+    fr <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">fr</span>, <span class="va">en</span><span class="op">)</span>,
+    pt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">pt</span>, <span class="va">en</span><span class="op">)</span>,
+    es <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">es</span>, <span class="va">en</span><span class="op">)</span>
+  <span class="op">)</span>
 <span class="va">translation</span></code></pre>
 </div>
 <p>
-Vérifier (et manipulez) le dataframe au besoin. Ce dernier doit posséder à minima :
+Vérifier le dataframe au besoin. Ce dernier doit posséder à minima :
 </p>
 <ul>
 <li>
@@ -749,7 +709,10 @@ Une seconde colonne nommée ‘en’
 Une troisisème colonne nommée ‘fr’
 </li>
 <li>
-D’autres langues (potentiellement)
+Une quatrième colonne nommée ‘es’
+</li>
+<li>
+Une cinquième colonne nommée ‘pt’
 </li>
 <li>
 PAS DE COLONNES VIDES SUR LA DROITE, pensez à l’anti-sélectionner au besoin
@@ -772,6 +735,7 @@ Vous pouvez vérifier l’intégrité du csv :
 </div>
 </div>
 </div>
+</div>
 <div class="section level3">
 <h3 id="ajouter-une-nouvelle-langue">
 Ajouter une nouvelle langue
@@ -787,31 +751,33 @@ Help bubbles
 </h4>
 <ul>
 <li>
-<p>
-Pour chaque sous-dossiers, ajouter un fichier <code>.md</code> avec la traduction dans une nouvelle langue.
-</p>
-</li>
-<li>
-<p>
-Régénerer <code>translation_help.csv</code> : dans le code de génération de la première partie de ce Rmd, remplacer avec un code type
-</p>
+À ajouter dans le Google Sheet, puis regénérer <code>translation_help.csv</code> avec le code suivant :
 </li>
 </ul>
 <div id="cb11" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  entry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>,
-  en <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/include.html" class="external-link">includeMarkdown</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"en.md"</span><span class="op">)</span>
-  <span class="op">)</span>,
-  fr <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/include.html" class="external-link">includeMarkdown</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"fr.md"</span><span class="op">)</span>
-  <span class="op">)</span>,
-  <span class="co"># Code pour la nouvelle langue</span>
-  es <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/include.html" class="external-link">includeMarkdown</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"es.md"</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://googlesheets4.tidyverse.org" class="external-link">googlesheets4</a></span><span class="op">)</span>
+<span class="va">sheet_url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readline.html" class="external-link">readline</a></span><span class="op">(</span><span class="st">"Enter the sheet url: "</span><span class="op">)</span>
+<span class="va">translation</span> <span class="op">&lt;-</span> <span class="fu">read_sheet</span><span class="op">(</span><span class="va">sheet_url</span>, sheet <span class="op">=</span> <span class="st">"help_bubbles"</span><span class="op">)</span>
+
+<span class="va">translation</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+    en <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">en</span>, <span class="va">contenu_markdown</span><span class="op">)</span>,
+    fr <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">fr</span>, <span class="va">contenu_markdown</span><span class="op">)</span>,
+    pt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">pt</span>, <span class="va">contenu_markdown</span><span class="op">)</span>,
+    es <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">es</span>, <span class="va">contenu_markdown</span><span class="op">)</span>,
+    <span class="co"># Nouvelle langue</span>
+    xyz <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/coalesce.html" class="external-link">coalesce</a></span><span class="op">(</span><span class="va">xyz</span>, <span class="va">contenu_markdown</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_at</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">en</span>, <span class="va">fr</span>, <span class="va">pt</span>, <span class="va">es</span>, <span class="va">xyz</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">commonmark</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/commonmark/man/commonmark.html" class="external-link">markdown_html</a></span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">contenu_markdown</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span></code></pre>
 </div>
 </div>
 <div class="section level4">
@@ -855,9 +821,9 @@ puis mettre à jour le code du début de ce Rmd.
 </div>
 </div>
 <div class="section level4">
-<h4 id="fonction-dbb">
-Fonction dbb
-<a class="anchor" aria-label="anchor" href="#fonction-dbb"></a>
+<h4 id="fonction-bdd">
+Fonction bdd
+<a class="anchor" aria-label="anchor" href="#fonction-bdd"></a>
 </h4>
 <p>
 Ces fonctions sont dans <code>R/utils_helpers.R</code>
