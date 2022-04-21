@@ -5,7 +5,6 @@
 #' @param session Shiny session
 #' @return The return value, if any, from executing the function.
 #'
-#' @noRd
 #' @importFrom bank cache_mongo
 #' @import mongolite
 #' @export

@@ -154,17 +154,19 @@ in “data-raw”. Instructions to compile them are in the vignette itself.
 However, they can all be prepared from this script:
 
 ``` r
-remotes::install_local(upgrade = "never")
+remotes::install_local(upgrade = "never", force = TRUE)
 
 file.copy(here::here("dev", "translation.Rmd"),
           here::here("data-raw", "translation.Rmd"))
 
-all_vignettes <- c("aa-data-exploration-and-preparation",
-                   "bb-page1-catch-bycatch",
-                   "bc-page2-present",
-                   "bd-page3-climate-change",
-                   "be-page4-future", 
-                   "translation")
+all_vignettes <- c(
+  "aa-a-exploration_data",
+  "aa-data-exploration-and-preparation",
+  "bb-page1-catch-bycatch",
+  "bc-page2-present",
+  "bd-page3-climate-change",
+  "be-page4-future", 
+  "translation")
 
 for (vignette_name in all_vignettes) {
   # vignette_name <- "aa-data-exploration-and-preparation"

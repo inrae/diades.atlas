@@ -136,16 +136,6 @@ get_data_tbl_query_collect(conn_eurodiad,
   geom_line(aes(y = hsi))
 ```
 
-# Example with models
-
-```{r}
-# load data included in `get_hybrid_model()`
-# debugonce(get_hybrid_model)
-model_res <- get_hybrid_model(species_id = c(6), scenario = 'rcp85', lg = "fr", session = se)
-
-plot_hsi_nit(model_res, selected_year = 2000, selected_bv = c(14), withNitStandardisation = FALSE)
-```
-
 
 ## Disconnect from the database
 
