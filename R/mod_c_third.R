@@ -172,7 +172,6 @@ mod_third_server <- function(id, r = r) {
           input$date,
           loco$selected_bv_id
         )
-
         loco$ui_summary <- HTML(
           paste0("<span data-i18n='", low_and_sub(loco$species), "'>", loco$species, "</span>"),
           "/",
@@ -212,12 +211,8 @@ mod_third_server <- function(id, r = r) {
         loco$selected_bv_id
       )
 
-      sp <- golem::get_golem_options("species_list")[
-        golem::get_golem_options("species_list")$latin_name == loco$species,
-        r$lg
-      ]
       loco$ui_summary <- HTML(
-        paste0("<span data-i18n='", low_and_sub(loco$species), "'>", sp, "</span>"),
+        paste0("<span data-i18n='", low_and_sub(loco$species), "'>", loco$species, "</span>"),
         "/",
         input$date,
         "/",
