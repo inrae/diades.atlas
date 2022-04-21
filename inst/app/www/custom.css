@@ -34,7 +34,7 @@ html {
 }
 
 .w3-top {
-    top: 35px;
+    /* top: 35px; */
     z-index: 99999;
 }
 
@@ -66,10 +66,15 @@ html {
     bottom: 0;
     width: 100%;
     /*background-color: unset!important;*/
+    background-color: #222;
     flex-shrink: 0;
-    background-color: #222 !important;
+    color: #e3e3e3;
+}
+.w3-header {
+    width: 100%;
+    background-color: #222;
     flex-shrink: 0;
-    color: #e3e3e3 !important;
+    color: #e3e3e3;
 }
 
 .focused {
@@ -108,6 +113,12 @@ p {
     background-color: white!important;
 }
 
+.help .w3-dropdown-content {
+  min-width: 20vw;
+  font-size: 1.8rem;
+  text-align: left;
+}
+
 .leaflet {
     margin: auto;
     z-index: 0;
@@ -124,11 +135,12 @@ p {
 
 #language_selector {
     margin: 0;
-    position: absolute;
-    top: -35px;
-    width: 100%;
-    background: #222;
+    /*position: absolute; */
+    /*top: -35px;*/
+    /*width: 100%;*/
+    /*background: #222;*/
     height: 35px;
+    color: black;
     /*
     top: 50%;
     -ms-transform: translateY(-50%);

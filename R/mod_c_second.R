@@ -122,7 +122,7 @@ mod_second_server <- function(id, r = r) {
     )
 
     observeEvent(
-      input$display,
+      list(input$display, r$lg),
       {
         if (input$scenario != "rcp85") {
           shiny::showNotification(
@@ -162,10 +162,12 @@ mod_second_server <- function(id, r = r) {
           filter(basin_id == !!loco$selected_bv_id) %>%
           mutate(basin_name = diadesatlas.translate(basin_name, !!r$lg)) %>%
           collect()
+        
+        
         loco$leaflet <- draw_bv_leaflet(
-          loco$bv_df,
-          loco$model_res,
-          input$date
+          bv_df = loco$bv_df,
+          model_res = loco$model_res,
+          year = input$date
         )
 
         loco$plot <- plot_hsi_nit(

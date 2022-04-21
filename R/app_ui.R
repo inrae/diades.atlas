@@ -42,20 +42,23 @@ app_ui <- function(request) {
           color = "teal",
           display = "block"
         ),
+        header = htmlTemplate(
+          app_sys("app/www/header.html")
+        ),
         menu = menu(
-          tags$div(
-            class = "w3-col",
-            # style = "width:8%",
-            HTML('<div id = "language_selector">
-                  <!--<label for="lg"><span data-i18n="select-language">Choose a language:</span></label>-->
-                    <select name="pets" id="lg">
-                        <option value="en">\U0001f1ec\U0001f1e7 English</option>
-                        <option value="fr">\U0001f1eb\U0001f1f7 French</option>
-                        <option value="es">\U0001f1ea\U0001f1f8 Spanish</option>
-                        <option value="pt">\U0001f1f5\U0001f1f9 Portuguese</option>
-                    </select>
-                  </div>')
-          ),
+          # tags$div(
+          #   class = "w3-col",
+          #   # style = "width:8%",
+          #   HTML('<div id = "language_selector">
+          #         <!--<label for="lg"><span data-i18n="select-language">Choose a language:</span></label>-->
+          #           <select name="pets" id="lg">
+          #               <option value="en">\U0001f1ec\U0001f1e7 English</option>
+          #               <option value="fr">\U0001f1eb\U0001f1f7 French</option>
+          #               <option value="es">\U0001f1ea\U0001f1f8 Spanish</option>
+          #               <option value="pt">\U0001f1f5\U0001f1f9 Portuguese</option>
+          #           </select>
+          #         </div>')
+          # ),
           menuItem(
             "d", "Sit",
             i18n = "nav-catch"

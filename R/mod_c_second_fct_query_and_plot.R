@@ -15,67 +15,28 @@ get_hybrid_model <- function(species_id,
                              lg,
                              session = shiny::getDefaultReactiveDomain(),
                              widthWindow = 10) {
-  if (!"v_hybrid_model_mavg" %in% DBI::dbListTables(get_con(session))) {
-    # Create table v_hybrid_model_mavg 
-    # load model outputs
-    query = paste0('SELECT species_id, s.latin_name, basin_id, basin_name, "year", climatic_model_id, climatic_scenario, climatic_model_code, nit, hsi FROM diadesatlas.hybrid_model_result hmr
-  INNER JOIN diadesatlas.species s USING (species_id)
-  INNER JOIN diadesatlas.basin b USING (basin_id)
-  INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)')
-    # WHERE hmr.year > 0 AND s.latin_name = \'', species, '\' AND basin_name  = \'', basin_name, '\' AND climatic_scenario =  \'', scenario, '\'')
-    
-    # data <- dbGetQuery(conn_eurodiad, query) %>%
-    # tibble() %>%
-    v_hybrid_model_mavg <- tbl(conn_eurodiad, sql(query)) %>%
-      # filter and translate before ---
-      dplyr::filter(
-        # On choisis un seul climatic_model_id (à terme, ce sera le 999)
-        # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
-        # climatic_model_id == 2,
-        species_id %in% !!species_id,
-        climatic_scenario %in% !!scenario, # unique scenario
-        # year %in% !!seq(from = date[1], to = date[2], by = 1)
-        year > 0 # 0
-      ) %>% 
-      # translation
-      mutate(
-        basin_name = diadesatlas.translate(basin_name, !!lg)#,
-        # species_name = diadesatlas.translate(english_name, !!lg)
-      ) %>% 
-      # Create min, mean, max, rolling_mean ----
-    pivot_longer(cols = c(nit, hsi), names_to = 'output') %>% 
-      group_by(species_id, latin_name, basin_id, basin_name, year, output) %>%
-      summarise(min = min(value),
-                mean = mean(value),
-                max = max(value),
-                .groups = 'drop') %>%
-      collect() %>% 
-      group_by(species_id, latin_name, basin_id, basin_name, output) %>%
-      mutate(rolling_mean = data.table::frollmean(mean, n = widthWindow, align = 'center')) %>%
-      ungroup()
-  } else {
-    # v_hybrid_model_mavg is in the database
-    v_hybrid_model_mavg <- tbl(
-      get_con(session),
-      "v_hybrid_model_mavg"
-      # "v_hybrid_model"
+  
+  # v_hybrid_model_mavg is in the database
+  v_hybrid_model_mavg <- tbl(
+    get_con(session),
+    "v_hybrid_model_mavg"
+    # "v_hybrid_model"
+  ) %>%
+    filter(
+      # On choisis un seul climatic_model_id (à terme, ce sera le 999)
+      # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
+      # climatic_model_id == 2,
+      species_id %in% !!species_id,
+      climatic_scenario %in% !!scenario ,
+      # year %in% !!seq(from = date[1], to = date[2], by = 1)
+      year != 0 # 0
     ) %>%
-      filter(
-        # On choisis un seul climatic_model_id (à terme, ce sera le 999)
-        # Voir https://diades.gitlab.irstea.page/diades.atlas.minute/point-davancement.html#page-3
-        # climatic_model_id == 2,
-        species_id %in% !!species_id,
-        climatic_scenario %in% !!scenario ,
-        # year %in% !!seq(from = date[1], to = date[2], by = 1)
-        year != 0 # 0
-      ) %>%
-      # translation
-      mutate(
-        basin_name = diadesatlas.translate(basin_name, !!lg)#,
-        # species_name = diadesatlas.translate(english_name, !!lg)
-      ) %>% 
-      collect()
-  }
+    # translation
+    mutate(
+      basin_name = diadesatlas.translate(basin_name, !!lg)#,
+      # species_name = diadesatlas.translate(english_name, !!lg)
+    ) %>% 
+    collect()
 }
 
 #' @importFrom dplyr tbl filter mutate select collect
@@ -109,14 +70,14 @@ draw_bv_leaflet <- function(bv_df,
   bv_df <- dplyr::left_join(
     bv_df,
     filter(model_res, year == !!year),
-    by = "basin_id"
+    by = c("basin_id", "basin_name")
   )
-  if (all(is.na(bv_df$nit))) {
+  if (all(is.na(bv_df[["nit_mean"]]))) {
     return(NULL)
   }
   factpal <- colorNumeric(
     palette = "YlOrRd",
-    domain = bv_df$nit,
+    domain = bv_df[["nit_mean"]],
     reverse = FALSE
   )
   leaflet() %>%
@@ -124,7 +85,7 @@ draw_bv_leaflet <- function(bv_df,
     addPolygons(
       data = bv_df,
       layerId = ~basin_id,
-      fillColor = ~ factpal(nit),
+      fillColor = ~ factpal(nit_mean),
       color = "#525252",
       weight = 1,
       label = ~basin_name,
@@ -132,7 +93,7 @@ draw_bv_leaflet <- function(bv_df,
       fillOpacity = 0.6
     ) %>% 
     addLegend(data = bv_df,
-              pal = factpal, values = ~nit,
+              pal = factpal, values = ~nit_mean,
               title = "NIT",
               opacity = 0.6)
 }
@@ -189,7 +150,7 @@ plot_hsi_nit <- function(model_res,
     geom_vline(xintercept = selected_year, color = "red") +
     theme(legend.title = element_blank()) +
     # ylab('Abundance (nb of fish)')
-    ylab(get_translation_entry('nsi_ggplot', lg))
+    ylab(get_translation_entry('nit_ggplot', lg))
   
   getFromNamespace("/.ggplot", "patchwork")(
     hsi, nit

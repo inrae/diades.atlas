@@ -76,7 +76,7 @@ install_version_from_source <- function(
   remotes::install_version(
     version = version,
     package = package,
-    repos = "https://cran.rstudio.com",
+    repos = getOption("repos")["CRAN"],
     type = "source",
     upgrade = "never"
   )
@@ -89,7 +89,7 @@ withr::with_envvar(
   c("GOLEM_CONFIG_ACTIVE" = "dev"),
   {
     fake_session <- new.env()
-    diades.atlas:::launch_mongo(session = fake_session)
+    launch_mongo(session = fake_session)
     fake_session$userData$mongo_cache$reset()
   }
 )

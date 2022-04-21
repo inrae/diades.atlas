@@ -89,8 +89,7 @@ w3_hover_button <- function(button_text = "Hover Over Me!",
                             border = TRUE) {
   class <- if (border) "w3-dropdown-hover w3-border" else "w3-dropdown-hover"
   tags$div(
-    class = class,
-    class = button_class,
+    class = paste(class, button_class),
     tags$button(
       class = "w3-button",
       button_text,
@@ -119,6 +118,7 @@ w3_help_button <- function(content,
   w3_hover_button(
     border = FALSE,
     tags$img(src = "www/help-circle.svg"),
+    button_class = "help",
     content = tagList(
       with_i18(
         content,

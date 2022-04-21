@@ -8,7 +8,8 @@ get_hybrid_model(
   species_id,
   scenario,
   lg,
-  session = shiny::getDefaultReactiveDomain()
+  session = shiny::getDefaultReactiveDomain(),
+  widthWindow = 10
 )
 }
 \arguments{
@@ -17,6 +18,8 @@ get_hybrid_model(
 \item{lg}{Character. Lang to be used.}
 
 \item{session}{Shiny session  object}
+
+\item{widthWindow}{Numeric. Moving window for moving average}
 }
 \description{
 Description

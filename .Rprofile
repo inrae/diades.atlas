@@ -15,10 +15,12 @@ lock_ <- renv:::lockfile(file = "renv.lock")
 #
 if (grepl("ubuntu 18.04|debian 8", tolower(utils::osVersion))) {
   repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest",
+  # repos <- c("RSPM" = "https://cran.rstudio.com",
              "thinkropen" = "https://thinkr-open.r-universe.dev",
              "CRAN" = "https://cran.rstudio.com")
 } else if (grepl("ubuntu 20.04|debian 9", tolower(utils::osVersion))) {
   repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+  # repos <- c("RSPM" = "https://cran.rstudio.com",
              "thinkropen" = "https://thinkr-open.r-universe.dev",
              "CRAN" = "https://cran.rstudio.com")
 } else if (grepl("centos", tolower(utils::osVersion))) {

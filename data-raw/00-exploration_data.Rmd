@@ -7,15 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r}
-library(dplyr)
-library(DBI)
-library(ggplot2)
-library(RPostgres)
-```
-
-**You can use this package without opening the Shiny application**
-
 ## Installation
 
 Install the present package and use its core functions
@@ -23,6 +14,18 @@ Install the present package and use its core functions
 ```{r, eval=FALSE}
 remotes::install_github('inrae/diades.atlas')
 ```
+
+## Packages
+```{r}
+library(dplyr)
+library(DBI)
+library(ggplot2)
+library(RPostgres)
+library(diades.atlas)
+# pkgload::load_all()
+```
+
+**You can use this package without opening the Shiny application**
 
 ## Connect to the database
 
@@ -136,13 +139,10 @@ get_data_tbl_query_collect(conn_eurodiad,
 # Example with models
 
 ```{r}
-model_res <- get_hybrid_model_pl(species_id = c(6), scenario = 'rcp85', conn_eurodiad)
-
-
 # load data included in `get_hybrid_model()`
-debugonce(get_hybrid_model)
+# debugonce(get_hybrid_model)
 model_res <- get_hybrid_model(species_id = c(6), scenario = 'rcp85', lg = "fr", session = se)
-# TODO il manque une étape hsi_min, ...
+
 plot_hsi_nit(model_res, selected_year = 2000, selected_bv = c(14), withNitStandardisation = FALSE)
 ```
 
