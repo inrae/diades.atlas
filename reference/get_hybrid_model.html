@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">diades.atlas</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -47,6 +47,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/aa-a-exploration_data.html">aa-a-exploration_data</a>
+    </li>
+    <li>
       <a href="../articles/aa-data-exploration-and-preparation.html">aa-data-exploration-and-preparation</a>
     </li>
     <li>
@@ -90,7 +93,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Title</h1>
-    <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/HEAD/R/mod_c_second_fct_query_and_plot.R" class="external-link"><code>R/mod_c_second_fct_query_and_plot.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/HEAD/R/mod_c_third_fct_query_and_plot.R" class="external-link"><code>R/mod_c_third_fct_query_and_plot.R</code></a></small>
     <div class="hidden name"><code>get_hybrid_model.Rd</code></div>
     </div>
 
@@ -102,7 +105,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_hybrid_model</span><span class="op">(</span>
   <span class="va">species_id</span>,
   <span class="va">scenario</span>,
-  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="va">lg</span>,
+  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,
+  widthWindow <span class="op">=</span> <span class="fl">10</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -110,8 +115,12 @@
     <h2>Arguments</h2>
     <dl><dt>species_id, scenario</dt>
 <dd><p>internal param for SQL filter</p></dd>
+<dt>lg</dt>
+<dd><p>Character. Lang to be used.</p></dd>
 <dt>session</dt>
 <dd><p>Shiny session  object</p></dd>
+<dt>widthWindow</dt>
+<dd><p>Numeric. Moving window for moving average</p></dd>
 </dl></div>
 
   </div>
