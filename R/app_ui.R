@@ -124,10 +124,17 @@ golem_add_external_resources <- function() {
 
   tags$head(
     favicon(),
-    bundle_resources(
+    golem::bundle_resources(
       path = app_sys("app/www"),
-      app_title = "diades.atlas"
-    )
+      app_title = "diades.atlas",
+      head = readLines(app_sys("app/www/ganalytics.html"))
+    )#,
+    # htmltools::htmlDependency(
+    #   path = app_sys("app/www"),
+    #   head = readLines(app_sys("app/www/ganalytics.html")),
+    #   version = "0.0.1",
+    #   name = "ganalytics"
+    # )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
   )
