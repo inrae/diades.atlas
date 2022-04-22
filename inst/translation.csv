@@ -40,3 +40,5 @@ fish_name,Species,Espèces,Especies,Espécie
 casestudy_name,Case study,Étude de cas,Estudio de caso,Estudo de caso
 category,Category,Catégories,Categoría,Categoria
 esvalue_code,Ecosystem service valuation,Evaluation des services écosystémiques,Valoración de los servicios del ecosistema,Avaliação de serviços do ecossistema
+nit_ggplot,Abundance (nb of fish),Abondance (nb d'individus),nit_ES,nit_PT
+hsi_ggplot,Catchment suitability index,hsi_FR,hsi_ES,hsi_PT

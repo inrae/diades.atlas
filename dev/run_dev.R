@@ -14,16 +14,16 @@ golem::detach_all_attached()
 # Document and reload your package
 golem::document_and_reload()
 
-# Set environment vairiable for postgis db
-Sys.setenv("POSTGRES_USER" = "diadesatlas_r")
-Sys.setenv("POSTGRES_PASS" = "diadesPassword")
+# Set environment variable for postgis db
+Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
+Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
 
 # En dev, effacer la base Mongo pour éviter de voir les problèmes de graph rester !!!
 withr::with_envvar(
   c("GOLEM_CONFIG_ACTIVE" = "dev"),
   {
     fake_session <- new.env()
-    diades.atlas:::launch_mongo(session = fake_session)
+    launch_mongo(session = fake_session)
     fake_session$userData$mongo_cache$reset()
   }
 )

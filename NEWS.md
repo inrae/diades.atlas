@@ -1,4 +1,9 @@
-# diades.atlas 0.2.0.9000
+# diades.atlas 0.2.0.9001
+
+* Add title over leaflet in page 3 (#83)
+* Rename files for easier maintenance (#44)
+* Remove year zero in tab 3 (#92)
+* Add uncertainty ribbon around predictions (#87)
 
 # diades.atlas 0.2.0
 

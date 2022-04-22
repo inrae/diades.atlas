@@ -1,12 +1,17 @@
 Package: diades.atlas
 Title: The Diades Atlas Shiny App
-Version: 0.2.0.9000
-Authors@R: c(
-    person("Sébastien", "Rochette", , "sebastien@thinkr.fr", role = c("cre", "aut"),
-           comment = c(ORCID = "0000-0002-1565-9313")),
-    person("Colin", "Fay", , "colin@thinkr.fr", role = "aut",
-           comment = c(ORCID = "0000-0001-7343-1846"))
-  )
+Version: 0.2.0.9001
+Authors@R: 
+    c(person(given = "Sébastien",
+             family = "Rochette",
+             role = c("cre", "aut"),
+             email = "sebastien@thinkr.fr",
+             comment = c(ORCID = "0000-0002-1565-9313")),
+      person(given = "Colin",
+             family = "Fay",
+             role = "aut",
+             email = "colin@thinkr.fr",
+             comment = c(ORCID = "0000-0001-7343-1846")))
 Description: A Shiny application to explore data.
 License: MIT + file LICENSE
 URL: https://github.com/inrae/diades.atlas

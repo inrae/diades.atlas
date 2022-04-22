@@ -239,7 +239,7 @@ en_iucn %>%
   readr::write_csv("inst/translation_iucn.csv")
 ```
 
-### Fonction dbb
+### Fonction bdd
 
 Ces fonctions sont dans `R/utils_helpers.R`
 
@@ -285,3 +285,26 @@ df_traduction %>%
   pull(fr)
 ```
 
+### Comment créer un nouvel élément "traductible" dans le server
+
+#### Soit la traduction existe dans la base de données
+
+Si vous êtes dans une chaine d'opérations qui s'effectue dans la base de données (avant un `collect()`), vous pouvez utiliser la fonction `diadesatlas.translate()` qui est incluse dans la base. C'est bien une fonction SQL incluse dans la base PostGIS et non pas une fonction R.  
+Dans R, cela se traduit par un `mutate()` de la colonne à traduire comme ceci:
+
+```{r, eval=FALSE}
+# lg <- 'fr'
+db %>%
+  mutate(basin_name = diadesatlas.translate(basin_name, !!lg)) %>% 
+  collect()
+```
+
+#### Soit la traduction n'est pas dans la base
+
+La traduction doit donc exister dans le csv de traduction.  
+Dans ce cas, nous utilisons la fonction R de notre package  `get_translation_entry()`
+```{r}
+get_translation_entry(entry = 'hsi_ggplot', lg = 'fr')
+```
+
++ L'élément `entry = 'hsi_ggplot'` correspond à la clé d'entrée dans le data.frame de traduction, i.e. la valeur dans la colonne entry. 

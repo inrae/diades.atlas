@@ -2,11 +2,12 @@
 #'
 #' @description A fct function
 #'
+#' @param session Shiny session
 #' @return The return value, if any, from executing the function.
 #'
-#' @noRd
 #' @importFrom bank cache_mongo
 #' @import mongolite
+#' @export
 launch_mongo <- function(session = getDefaultReactiveDomain()) {
     URI <- sprintf(
         "mongodb://%s:%s@%s:%s",
@@ -15,10 +16,12 @@ launch_mongo <- function(session = getDefaultReactiveDomain()) {
         Sys.getenv("MONGOURL", get_golem_config("mongourl")),
         Sys.getenv("MONGOPORT", get_golem_config("mongoport"))
     )
+    tryCatch(
     session$userData$mongo_cache <- bank::cache_mongo$new(
         db = get_golem_config("mongodb"),
         url = URI,
         prefix = "diades"
+    ), error = function(e) stop("MongoDB has not been started or does not exist")
     )
 
     session$userData$data_ocean_m <- memoise::memoise(
