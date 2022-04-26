@@ -11,7 +11,7 @@
 #### CURRENT FILE: DEV SCRIPT #####
 ###################################
 
-# Engineering
+# Engineering ----
 
 # Hide files
 usethis::use_build_ignore("manifest.json")
@@ -21,6 +21,13 @@ usethis::use_build_ignore(".Renviron")
 usethis::use_git_ignore("data-raw/translation.Rmd")
 usethis::use_git_ignore("dev/translation.html")
 usethis::use_git_ignore("dev/data-docker/")
+
+## Git templates ----
+# copy system.file("gitlab", "template_commit", package = "thinkridentity")
+# in .github
+gert::git_config_set(
+  repo = ".", name = "commit.template", 
+  value = file.path(".github", "commit.template"))
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
