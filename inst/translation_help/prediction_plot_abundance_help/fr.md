@@ -1,3 +1,0 @@
-# prediction_plot_abundance_help
-
-prediction_plot_abundance_help FR

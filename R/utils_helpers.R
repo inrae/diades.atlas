@@ -15,10 +15,38 @@ get_translation_entry <- function(entry, lg) {
   ]
 }
 
+#' @importFrom dplyr mutate coalesce mutate across select
+#' @importFrom purrr map_chr
+#' @importFrom commonmark markdown_html
+#' @noRd
 translation_help <- function() {
   read.csv(
     app_sys("translation_help.csv")
-  )
+  ) %>% 
+    mutate(
+      en = coalesce(en, contenu_markdown),
+      fr = coalesce(fr, contenu_markdown),
+      pt = coalesce(pt, contenu_markdown),
+      es = coalesce(es, contenu_markdown)
+    ) %>%
+    mutate(
+      across(
+        c(en, fr, pt, es), 
+        function(x) {
+         map_chr(x, markdown_html)
+        }
+      )
+    ) %>%
+    select(-contenu_markdown)
+}
+
+#' Returns all help bubble entries
+#'
+#' @return A character vector.
+#' 
+#' @export
+get_help_bubble_entries <- function(){
+  translation_help()[["entry"]]
 }
 
 translation_iucn <- function() {
@@ -98,7 +126,7 @@ build_language_json <- function(session = shiny::getDefaultReactiveDomain()) {
     translation_v_ecosystemic_services(session = session),
     translation_help()
   )
-
+  
   build_entry <- function(subset) {
     if (subset %not_in% names(lg)) {
       stop(
@@ -112,7 +140,7 @@ build_language_json <- function(session = shiny::getDefaultReactiveDomain()) {
     x
   }
   available_langs <- get_available_lang(lg)
-
+  
   lapply(
     available_langs,
     build_entry
@@ -142,10 +170,10 @@ with_multilg <- function(fun, i18n, default) {
 get_dt_lg <- function(lg) {
   list(
     url = switch(lg,
-      en = "//cdn.datatables.net/plug-ins/1.10.11/i18n/English.json",
-      fr = "//cdn.datatables.net/plug-ins/1.10.11/i18n/French.json",
-      es = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json",
-      pt = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese.json"
+                 en = "//cdn.datatables.net/plug-ins/1.10.11/i18n/English.json",
+                 fr = "//cdn.datatables.net/plug-ins/1.10.11/i18n/French.json",
+                 es = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json",
+                 pt = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese.json"
     )
   )
 }
@@ -172,24 +200,24 @@ generate_datasets <- function(con) {
         4, "Abundant functional populations"
       ) %>%
         dplyr::mutate(abundance_interpretation = factor(abundance_interpretation,
-          levels = .$abundance_interpretation
+                                                        levels = .$abundance_interpretation
         )),
       by = "abundance_level_id"
     )
-
+  
   catchment_geom <- sf::st_read(
     con,
     query =   "SELECT * FROM diadesatlas.v_basin vb"
   ) %>%
     rmapshaper::ms_simplify()
-
+  
   dataALL <- DBI::dbGetQuery(
     con,
     "SELECT * from diadesatlas.v_species_ices_occurence vsio "
   ) %>%
     # tibble() %>%
     dplyr::mutate(nb_occurence = as.integer(nb_occurence))
-
+  
   ices_geom <- sf::st_read(
     con,
     query = "SELECT * FROM diadesatlas.v_ices_geom;"
@@ -197,7 +225,7 @@ generate_datasets <- function(con) {
     # sf::st_transform("+proj=eqearth +wktext") %>%
     sf::st_transform("+proj=wintri") %>%
     rmapshaper::ms_simplify()
-
+  
   species_order <- c(
     "Alosa alosa",
     "Alosa fallax",
@@ -211,12 +239,12 @@ generate_datasets <- function(con) {
     "Chelon ramada",
     "Platichthys flesus"
   )
-
+  
   species_list <- DBI::dbGetQuery(
     con,
     "SELECT *, diadesatlas.translate(english_name, 'fr') AS french_name from diadesatlas.species WHERE active=TRUE"
   )
-
+  
   species_list <- species_list[
     match(
       species_order,

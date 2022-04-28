@@ -1,3 +1,0 @@
-# prediction_map_abundance_help
-
-prediction_map_abundance_help FR
