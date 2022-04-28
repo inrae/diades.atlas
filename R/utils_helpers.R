@@ -1,7 +1,9 @@
 translation <- function() {
-  read.csv(
+  translation_df <- read.csv(
     app_sys("translation.csv")
   )
+  translation_df$DESCRIPTION <- NULL
+  return(translation_df)
 }
 get_translation_entry <- function(entry, lg) {
   df <- read.csv(

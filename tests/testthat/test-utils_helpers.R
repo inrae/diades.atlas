@@ -4,6 +4,7 @@ test_that("translation works", {
   expected_output <- read.csv(
     app_sys("translation.csv")
   )
+  expected_output$DESCRIPTION <- NULL
   expect_equal(
     translation,
     expected_output
@@ -14,10 +15,11 @@ test_that("get_translation_entry", {
   translation <- translation()
   res <- get_translation_entry("title-first", "fr")
   expect_true(inherits(res, "character"))
-
+  
   expected_output <- read.csv(
     app_sys("translation.csv")
   )
+  expected_output$DESCRIPTION <- NULL
   expect_equal(
     get_translation_entry("title-first", "fr"),
     expected_output[
