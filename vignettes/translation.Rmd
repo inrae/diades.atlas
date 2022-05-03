@@ -20,7 +20,7 @@ vignette: >
 
 <meta name="author" content="Colin Fay" />
 
-<meta name="date" content="2022-04-21" />
+<meta name="date" content="2022-05-03" />
 
 <title>Translation</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Translation</h1>
 <h4 class="author">Colin Fay</h4>
-<h4 class="date">2022-04-21</h4>
+<h4 class="date">2022-05-03</h4>
 
 
 <div id="TOC">
@@ -352,31 +352,36 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </ul></li>
 <li><a href="#ajouter-une-nouvelle-langue">Ajouter une nouvelle langue</a>
 <ul>
-<li><a href="#help-bubbles">Help bubbles</a></li>
-<li><a href="#data">Data</a></li>
-<li><a href="#fonction-bdd">Fonction bdd</a></li>
+<li><a href="#fichiers-à-modifier">Fichiers à modifier</a></li>
+<li><a href="#fonctions-bdd">Fonctions bdd</a></li>
 <li><a href="#côté-code-de-lapplication">Côté code de l’application</a></li>
 </ul></li>
 <li><a href="#notes-pour-les-dévelopeurs">Notes pour les dévelopeurs</a>
 <ul>
 <li><a href="#comment-créer-un-nouvel-élément-traductible-dans-lui">Comment créer un nouvel élément “traductible” dans l’UI</a></li>
+<li><a href="#ajouter-une-bulle-daide-traduisible">Ajouter une bulle d’aide traduisible</a></li>
 <li><a href="#comment-créer-un-nouvel-élément-traductible-dans-le-server">Comment créer un nouvel élément “traductible” dans le server</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">eval =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pkgload<span class="sc">::</span><span class="fu">load_all</span>(<span class="at">attach_testthat =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>session <span class="ot">&lt;-</span> <span class="fu">new.env</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">connect</span>(session)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>Si c’est nécessaire, se connecter à la base de données en suivant les instructions du Readme.Rmd</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chargement des packages</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pkgload<span class="sc">::</span><span class="fu">load_all</span>(<span class="at">attach_testthat =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Connexion à la base si nécessaire</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>session <span class="ot">&lt;-</span> <span class="fu">new.env</span>()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">connect</span>(session)</span></code></pre></div>
 <div id="comment-est-organisée-la-traduction" class="section level2">
 <h2>Comment est organisée la traduction</h2>
-<p><strong>Note importante</strong> : Pensez à être bien vigilant sur l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une langue avec le code <code>es</code>, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l’application.</p>
+<p><strong>Note importante</strong> : Pensez à être bien vigilant sur l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une langue avec le code <code>es</code>, ce code doit être strictement respecté partout, sinon la traduction ne pourra pas être effectuée correctement dans l’application.</p>
 <div id="pour-le-front-end" class="section level3">
 <h3>Pour le front-end</h3>
-<p>Pour l’interface utilisateur, l’application met ensemble des fichiers CSV, contenus dans le dossier <code>inst/</code> et des tables contenues dans la base de données PostGre. Certains de ces fichiers sont automatiquement générés, certains se modifient à la main.</p>
-<p>Tous ces fichiers contiennent au moins 5 colonnes:</p>
+<p>Pour l’interface utilisateur, l’application combine les fichiers csv contenus dans le dossier <code>inst/</code> et des tables contenues dans la base de données PostGres.</p>
+<p>Tous ces fichiers/tables contiennent au moins 5 colonnes:</p>
 <ul>
 <li><code>entry</code> : la clé d’entrée dans le front (pour i18n)</li>
 <li><code>en</code> : la traduction en anglais</li>
@@ -384,8 +389,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><code>es</code> : la traduction en espagnol</li>
 <li><code>pt</code> : la traduction en portugais</li>
 </ul>
-<div id="lus-dans-la-base" class="section level4">
-<h4>Lus dans la base</h4>
+<div id="lus-dans-la-base-de-données-directement" class="section level4">
+<h4>Lus dans la base de données directement</h4>
+<p>Si la requête SQL pour récupérer les tables suivantes doit changer, alors ces fonctions sont à mettre à jour dans <code>R/utils_helpers.R</code>. Sinon, il n’y a rien à faire côté R lors d’ajout de traductions dans la base.</p>
 <ul>
 <li><code>abundance_level</code></li>
 </ul>
@@ -402,163 +408,61 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">translation_v_ecosystemic_services</span>(session)</span></code></pre></div>
 <p>=&gt; Cette fonction est à mettre à jour dans <code>R/utils_helpers.R</code></p>
 </div>
-<div id="pour-les-help-bubble" class="section level4">
-<h4>Pour les “help bubble”</h4>
-<p>Les help bubbles sont les éléments d’aide lors du passage de la souris sur un élément <code>(?)</code>. ents.</p>
-<p>Ces contenus sont dans le second onglet du Google Sheet de traduction, et sont ensuite compilés dans <code>inst/translation_help.csv</code>, via le code ci-dessous, à relancer en cas de changement.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">&quot;inst/translation_help.csv&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>sheet_url <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="st">&quot;Enter the sheet url: &quot;</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>translation <span class="ot">&lt;-</span> <span class="fu">read_sheet</span>(sheet_url, <span class="at">sheet =</span> <span class="st">&quot;help_bubbles&quot;</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>translation <span class="ot">&lt;-</span> translation <span class="sc">%&gt;%</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">en =</span> <span class="fu">coalesce</span>(en, contenu_markdown),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fr =</span> <span class="fu">coalesce</span>(fr, contenu_markdown),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pt =</span> <span class="fu">coalesce</span>(pt, contenu_markdown),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">es =</span> <span class="fu">coalesce</span>(es, contenu_markdown)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vars</span>(en, fr, pt, es), <span class="cf">function</span>(x) {</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_chr</span>(x, commonmark<span class="sc">::</span>markdown_html)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>contenu_markdown)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>translation <span class="sc">%&gt;%</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;inst/translation_help.csv&quot;</span>)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>translation</span></code></pre></div>
-</div>
-<div id="fichiers-générés-automatiquement" class="section level4">
-<h4>Fichiers générés automatiquement</h4>
+<div id="fichiers-à-compléter-à-la-main" class="section level4">
+<h4>Fichiers à compléter à la main</h4>
 <ul>
-<li><code>translation_iucn.csv</code> : contient les traductions pour status IUCN. Se génère via le code suivant <strong>mais devra être mis dans la base</strong>.</li>
-</ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> : get the translation inside the DB</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># On utilise ici la description trouvée sur</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://uicn.fr/liste-rouge-mondiale/</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>desc <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Éteinte (EX), Éteinte à l’état sauvage (EW), En danger critique (CR), En danger (EN), Vulnérable (VU), Quasi menacée (NT), Préoccupation mineure (LC), Données insuffisantes (DD), Non évaluée (NE)&quot;</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">split =</span> <span class="st">&quot;, &quot;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)[[<span class="dv">1</span>]]</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>french_iucn <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">fr_vals =</span> <span class="fu">gsub</span>(</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;([^</span><span class="sc">\\</span><span class="st">(]+) </span><span class="sc">\\</span><span class="st">(([^</span><span class="sc">\\</span><span class="st">(]+)</span><span class="sc">\\</span><span class="st">)&quot;</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1,</span><span class="sc">\\</span><span class="st">2&quot;</span>,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    desc</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">separate</span>(</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    fr_vals,</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;fr&quot;</span>, <span class="st">&quot;entry&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;,&quot;</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>en_iucn <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_con</span>(session),</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT distinct iucn_level_code AS entry,iucn_level_name AS en FROM v_iucn&quot;</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>en_iucn <span class="sc">%&gt;%</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(french_iucn) <span class="sc">%&gt;%</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">es =</span> en,</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">pt =</span> en</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;inst/translation_iucn.csv&quot;</span>)</span></code></pre></div>
-</div>
-<div id="fichier-à-compléter-à-la-main" class="section level4">
-<h4>Fichier à compléter à la main</h4>
-<p><strong>IMPORTANT</strong> Merci de centraliser dans le Google Sheet.</p>
+<li><code>inst/translation_help.csv</code> : contient la traduction pour les bulles d’aide. Les bulles d’aide sont les bulles qui s’affichent lors du passage de la souris sur un élément <code>(?)</code>.
 <ul>
-<li>On va lire le fichier Google Sheet de traduction.</li>
+<li>Lire le csv avec un séparateur virgule <code>,</code> et avec l’option “Formater les champs entre guillemets comme texte”</li>
+<li>Le texte dans les cases de langues peut s’écire avec une syntaxe markdown pour mettre en forme le texte</li>
+<li>Enregistrer le csv avec un séparateur virgule <code>,</code></li>
+</ul></li>
+<li><code>inst/translation_iucn.csv</code> : contient les traductions des status IUCN.
+<ul>
+<li>Lire le csv avec un séparateur virgule <code>,</code> et avec l’option “Formater les champs entre guillemets comme texte”</li>
+<li>Enregistrer le csv avec un séparateur virgule <code>,</code></li>
+</ul></li>
+<li><code>inst/translation.csv</code> : contient tous les autres éléments traduisibles de l’interface utilisateur.
+<ul>
+<li>Lire le csv avec un séparateur virgule <code>,</code> et avec l’option “Formater les champs entre guillemets comme texte”</li>
+<li>Enregistrer le csv avec un séparateur virgule <code>,</code></li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sheet_url <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="st">&quot;Enter the sheet url: &quot;</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>translation <span class="ot">&lt;-</span> <span class="fu">read_sheet</span>(sheet_url)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>translation<span class="sc">$</span>DESCRIPTION <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>translation <span class="ot">&lt;-</span> translation <span class="sc">%&gt;%</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">en =</span> <span class="fu">coalesce</span>(en, entry),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fr =</span> <span class="fu">coalesce</span>(fr, en),</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pt =</span> <span class="fu">coalesce</span>(pt, en),</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">es =</span> <span class="fu">coalesce</span>(es, en)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>translation</span></code></pre></div>
-<p>Vérifier le dataframe au besoin. Ce dernier doit posséder à minima :</p>
+<p>Ces fichiers partagent la même structure. Ces derniers doivent posséder a minima:</p>
 <ul>
 <li>Une première colonne nommée ‘entry’</li>
 <li>Une seconde colonne nommée ‘en’</li>
 <li>Une troisisème colonne nommée ‘fr’</li>
 <li>Une quatrième colonne nommée ‘es’</li>
 <li>Une cinquième colonne nommée ‘pt’</li>
-<li>PAS DE COLONNES VIDES SUR LA DROITE, pensez à l’anti-sélectionner au besoin</li>
+<li>PAS DE COLONNES VIDES SUR LA DROITE, pensez à l’anti-sélectionner au besoin.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  translation,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;inst/translation.csv&quot;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>Vous pouvez vérifier l’intégrité du csv :</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">check_translation_csv</span>(<span class="st">&quot;inst/translation.csv&quot;</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span></code></pre></div>
+<p>NB: Dans le cas de <code>inst/translation.csv</code>, la première colonne est ‘DESCRIPTION’. Elle comporte une description plus détaillée de la ligne en question.</p>
+<p>Vous pouvez vérifier l’intégrité du csv à l’aide de la fonction <code>check_translation_csv()</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>translation_help <span class="ot">&lt;-</span> <span class="fu">check_translation_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;inst/translation_help.csv&quot;</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(translation_help)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>translation_iucn <span class="ot">&lt;-</span> <span class="fu">check_translation_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;inst/translation_iucn.csv&quot;</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(translation_iucn)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>translation <span class="ot">&lt;-</span> <span class="fu">check_translation_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;inst/translation.csv&quot;</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(translation)</span></code></pre></div>
 </div>
 </div>
 </div>
 <div id="ajouter-une-nouvelle-langue" class="section level2">
 <h2>Ajouter une nouvelle langue</h2>
 <p>Ajouter une nouvelle langue doit se faire aux emplacements suivants:</p>
-<div id="help-bubbles" class="section level3">
-<h3>Help bubbles</h3>
+<div id="fichiers-à-modifier" class="section level3">
+<h3>Fichiers à modifier</h3>
+<p>Dans les fichiers manuellement mis à jour:</p>
 <ul>
-<li>À ajouter dans le Google Sheet, puis regénérer <code>translation_help.csv</code> avec le code suivant :</li>
+<li><p><code>inst/translation_help.csv</code></p></li>
+<li><p><code>inst/translation_iucn.csv</code></p></li>
+<li><p><code>inst/translation.csv</code></p></li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">&quot;inst/translation_help.csv&quot;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>sheet_url <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="st">&quot;Enter the sheet url: &quot;</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>translation <span class="ot">&lt;-</span> <span class="fu">read_sheet</span>(sheet_url, <span class="at">sheet =</span> <span class="st">&quot;help_bubbles&quot;</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>translation <span class="sc">%&gt;%</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">en =</span> <span class="fu">coalesce</span>(en, contenu_markdown),</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fr =</span> <span class="fu">coalesce</span>(fr, contenu_markdown),</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pt =</span> <span class="fu">coalesce</span>(pt, contenu_markdown),</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">es =</span> <span class="fu">coalesce</span>(es, contenu_markdown),</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Nouvelle langue</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xyz =</span> <span class="fu">coalesce</span>(xyz, contenu_markdown)</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vars</span>(en, fr, pt, es, xyz), <span class="cf">function</span>(x) {</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map_chr</span>(x, commonmark<span class="sc">::</span>markdown_html)</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>contenu_markdown) <span class="sc">%&gt;%</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;inst/translation_help.csv&quot;</span>)</span></code></pre></div>
+<p>Ajouter une nouvelle colonne à droite dont le titre correspond à l’abbréviation de la nouvelle langue par exemple <code>es</code> pour l’espagnol et compléter chaque entrée avec la traduction.</p>
 </div>
-<div id="data" class="section level3">
-<h3>Data</h3>
-<ul>
-<li><p>Fichier Google Sheet, ajouter une nouvelle colonne à droite (exemple <code>es</code>)</p></li>
-<li><p><code>translation_iucn.csv</code> : dans le code de génération du dessus, il faudra créer un nouveau data.frame, avec les traductions.</p></li>
-</ul>
-<blockquote>
-<p>Note : ces traductions devront à termes être intégrées à la base</p>
-</blockquote>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>es_iucn <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">entry =</span> <span class="fu">c</span>(<span class="st">&quot;EX&quot;</span>, <span class="st">&quot;EW&quot;</span>, <span class="st">&quot;CR&quot;</span>, <span class="st">&quot;EN&quot;</span>, <span class="st">&quot;VU&quot;</span>, <span class="st">&quot;NT&quot;</span>, <span class="st">&quot;LC&quot;</span>, <span class="st">&quot;DD&quot;</span>, <span class="st">&quot;NE&quot;</span>),</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">es =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>puis mettre à jour le code du début de ce Rmd.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>en_iucn <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(french_iucn) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(es_iucn) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">write_csv</span>(<span class="st">&quot;inst/translation_iucn.csv&quot;</span>)</span></code></pre></div>
-</div>
-<div id="fonction-bdd" class="section level3">
-<h3>Fonction bdd</h3>
+<div id="fonctions-bdd" class="section level3">
+<h3>Fonctions bdd</h3>
 <p>Ces fonctions sont dans <code>R/utils_helpers.R</code></p>
 <p>Les fonctions qui utilisent la traduction dans la bdd sont les suivantes :</p>
 <ul>
@@ -571,7 +475,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h3>Côté code de l’application</h3>
 <ul>
 <li><p>Si disponible, ajouter le langage dans <code>get_dt_lg()</code> , à vérifier sur <a href="https://cdn.datatables.net/plug-ins/1.10.11/i18n/" class="uri">https://cdn.datatables.net/plug-ins/1.10.11/i18n/</a></p></li>
-<li><p>Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de langue. Si votre entrée de laangue est <code>es</code>, ajouter <code>&lt;option value=&quot;en&quot;&gt;\U0001f1ea\U0001f1f8 Espanol&lt;/option&gt;</code>. Le code unicode s’obtient en utilisant l’émoji et <code>stringi::stri_escape_unicode(&quot;🇪🇸&quot;)</code>.</p></li>
+<li><p>Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de langue. Si votre entrée de langue est <code>es</code>, ajouter <code>&lt;option value=&quot;en&quot;&gt;\U0001f1ea\U0001f1f8 Espanol&lt;/option&gt;</code>. Le code unicode s’obtient en utilisant l’émoji et <code>stringi::stri_escape_unicode(&quot;🇪🇸&quot;)</code>.</p></li>
 </ul>
 </div>
 </div>
@@ -582,10 +486,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <ul>
 <li>La traduction est assurée par le module JS <code>i18n</code> et la fonction <code>with_i18()</code> dans l’app</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with_i18</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Text de base&quot;</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;text_de_base&quot;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with_i18</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Text de base&quot;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;text_de_base&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Va créer <code>&lt;span data-i18n=&quot;text_de_base&quot;&gt;Text de base&lt;/span&gt;</code>.</p>
 <ul>
 <li>L’élément <code>Text de base</code> est affiché si <code>i18n</code> plante</li>
@@ -593,9 +497,28 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </ul>
 <p>Schématiquement, lorsque le JavaScript va traduire la page, il va aller chercher pour chaque tag l’entrée <code>data-i18n</code>, en tirer la valeur, et aller chercher la traduction correspondante.</p>
 <p>Par exemple, si nous traduisons en “fr”, la localisation fait (en JavaScript) l’action suivante</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_traduction <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(entry <span class="sc">==</span> <span class="st">&quot;text_de_base&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(fr)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_traduction <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(entry <span class="sc">==</span> <span class="st">&quot;text_de_base&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(fr)</span></code></pre></div>
+</div>
+<div id="ajouter-une-bulle-daide-traduisible" class="section level3">
+<h3>Ajouter une bulle d’aide traduisible</h3>
+<p>Sur un bouton</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">span</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">w3_hover_button</span>(...), <span class="co"># bulle pour un bouton</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">w3_help_button</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Select a species&quot;</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;species_modal_help&quot;</span> <span class="co"># repertorié dans &quot;entry&quot; </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Sur un titre</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">h4</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_i18</span>(<span class="st">&quot;Catch and bycatch at sea&quot;</span>, <span class="st">&quot;[html]map-bycatch&quot;</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">w3_help_button</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Select a species&quot;</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;catch_bycatch_help&quot;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="comment-créer-un-nouvel-élément-traductible-dans-le-server" class="section level3">
 <h3>Comment créer un nouvel élément “traductible” dans le server</h3>
@@ -603,16 +526,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h4>Soit la traduction existe dans la base de données</h4>
 <p>Si vous êtes dans une chaine d’opérations qui s’effectue dans la base de données (avant un <code>collect()</code>), vous pouvez utiliser la fonction <code>diadesatlas.translate()</code> qui est incluse dans la base. C’est bien une fonction SQL incluse dans la base PostGIS et non pas une fonction R.<br />
 Dans R, cela se traduit par un <code>mutate()</code> de la colonne à traduire comme ceci:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lg &lt;- &#39;fr&#39;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>db <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">basin_name =</span> <span class="fu">diadesatlas.translate</span>(basin_name, <span class="sc">!!</span>lg)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lg &lt;- &#39;fr&#39;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>db <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">basin_name =</span> <span class="fu">diadesatlas.translate</span>(basin_name, <span class="sc">!!</span>lg)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code></pre></div>
 </div>
 <div id="soit-la-traduction-nest-pas-dans-la-base" class="section level4">
 <h4>Soit la traduction n’est pas dans la base</h4>
 <p>La traduction doit donc exister dans le csv de traduction.<br />
 Dans ce cas, nous utilisons la fonction R de notre package <code>get_translation_entry()</code></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_translation_entry</span>(<span class="at">entry =</span> <span class="st">&#39;hsi_ggplot&#39;</span>, <span class="at">lg =</span> <span class="st">&#39;fr&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_translation_entry</span>(<span class="at">entry =</span> <span class="st">&#39;hsi_ggplot&#39;</span>, <span class="at">lg =</span> <span class="st">&#39;fr&#39;</span>)</span></code></pre></div>
 <ul>
 <li>L’élément <code>entry = &#39;hsi_ggplot&#39;</code> correspond à la clé d’entrée dans le data.frame de traduction, i.e. la valeur dans la colonne entry.</li>
 </ul>
