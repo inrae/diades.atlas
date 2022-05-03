@@ -5,12 +5,7 @@ on:
       - master
       - dev
       - test-docker-ci
-  pull_request:
-    branches:
-      - main
-      - master
-      - dev
-
+      - fix-pkgdown
 
 name: pkgdown-docker-renv
 
@@ -52,7 +47,6 @@ jobs:
 
       - name: Deploy package
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE, override = list(development = list(mode = "auto")))'
-          
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'          
