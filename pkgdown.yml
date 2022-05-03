@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   aa-a-exploration_data: aa-a-exploration_data.html
@@ -10,5 +10,5 @@ articles:
   be-page4-future: be-page4-future.html
   tests_and_coverage: tests_and_coverage.html
   translation: translation.html
-last_built: 2022-04-22T06:38Z
+last_built: 2022-05-03T15:23Z
 

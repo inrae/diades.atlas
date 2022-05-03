@@ -37,8 +37,6 @@
 -->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -57,6 +55,12 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -107,7 +111,7 @@
 </div>
         </li>
         <li>
-  <a href="https://github.com/inrae/diades.atlas/" class="external-link">
+  <a href="https://github.com/inrae/diades.atlas/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -128,7 +132,7 @@
       <h1 data-toc-skip>aa-data-exploration-and-preparation</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/HEAD/vignettes/aa-data-exploration-and-preparation.Rmd" class="external-link"><code>vignettes/aa-data-exploration-and-preparation.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/master/vignettes/aa-data-exploration-and-preparation.Rmd"><code>vignettes/aa-data-exploration-and-preparation.Rmd</code></a></small>
       <div class="hidden name"><code>aa-data-exploration-and-preparation.Rmd</code></div>
 
     </div>
@@ -477,39 +481,39 @@ aa-partie-exploration-des-donnees
 </div>
 <div id="cb1" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas" class="external-link">diades.atlas</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas">diades.atlas</a></span><span class="op">)</span>
 <span class="co"># renv::install("dm")</span>
 <span class="co"># library(dm)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre>
 </div>
-<div class="section level3">
-<h3 id="data-exploration">
+<div id="data-exploration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-exploration" class="anchor"></a>
 Data exploration
-<a class="anchor" aria-label="anchor" href="#data-exploration"></a>
-</h3>
-<div class="section level4">
-<h4 id="connect-to-database">
+</h2>
+<div id="connect-to-database" class="section level3">
+<h3 class="hasAnchor">
+<a href="#connect-to-database" class="anchor"></a>
 Connect to database
-<a class="anchor" aria-label="anchor" href="#connect-to-database"></a>
-</h4>
+</h3>
 <p>
 Do not forget to set environment variables in .Renviron
 </p>
 <div id="cb2" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">postgis_host</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGIS_HOST"</span><span class="op">)</span>
-<span class="va">postgis_user</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGIS_USER"</span><span class="op">)</span>
-<span class="va">postgis_password</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGIS_PASSWORD"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">postgis_host</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGIS_HOST"</span><span class="op">)</span>
+<span class="va">postgis_user</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGIS_USER"</span><span class="op">)</span>
+<span class="va">postgis_password</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGIS_PASSWORD"</span><span class="op">)</span>
 
-<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span>
-  <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html" class="external-link">Postgres</a></span><span class="op">(</span><span class="op">)</span>,
-  host <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_HOST"</span>, <span class="fu">diades.atlas</span><span class="fu">:::</span><span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_HOST"</span><span class="op">)</span><span class="op">)</span>,
-  dbname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_DBNAME"</span>, <span class="fu">diades.atlas</span><span class="fu">:::</span><span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_DBNAME"</span><span class="op">)</span><span class="op">)</span>,
-  port <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PORT"</span>, <span class="fu">diades.atlas</span><span class="fu">:::</span><span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_PORT"</span><span class="op">)</span><span class="op">)</span>,
-  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span>, <span class="st">"diadesatlas_r"</span><span class="op">)</span>,
-  password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PASS"</span>, <span class="st">"diadesPassword"</span><span class="op">)</span>,
+<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span>
+  <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html">Postgres</a></span><span class="op">(</span><span class="op">)</span>,
+  host <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_HOST"</span>, <span class="fu">diades.atlas</span><span class="fu">:::</span><span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_HOST"</span><span class="op">)</span><span class="op">)</span>,
+  dbname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_DBNAME"</span>, <span class="fu">diades.atlas</span><span class="fu">:::</span><span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_DBNAME"</span><span class="op">)</span><span class="op">)</span>,
+  port <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PORT"</span>, <span class="fu">diades.atlas</span><span class="fu">:::</span><span class="fu">get_golem_config</span><span class="op">(</span><span class="st">"POSTGRES_PORT"</span><span class="op">)</span><span class="op">)</span>,
+  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span>, <span class="st">"diadesatlas_r"</span><span class="op">)</span>,
+  password <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_PASS"</span>, <span class="st">"diadesPassword"</span><span class="op">)</span>,
   options <span class="op">=</span> <span class="st">"-c search_path=diadesatlas"</span>
 <span class="op">)</span>
 <span class="co"># Listtables</span>
@@ -517,7 +521,7 @@ Do not forget to set environment variables in .Renviron
 <span class="co"># DBI::dbListObjects(con)</span>
 
 <span class="co"># Get the names of all the tables in the schema</span>
-<span class="va">all_schemas</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"SELECT table_name FROM information_schema.tables WHERE table_schema='diadesatlas'"</span><span class="op">)</span>
+<span class="va">all_schemas</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"SELECT table_name FROM information_schema.tables WHERE table_schema='diadesatlas'"</span><span class="op">)</span>
 <span class="va">all_schemas</span>
 <span class="co">#&gt;                  table_name</span>
 <span class="co">#&gt; 1           abundance_level</span>
@@ -559,62 +563,67 @@ Do not forget to set environment variables in .Renviron
 
 <span class="co"># Display the head of all</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">all_schemas</span><span class="op">$</span><span class="va">table_name</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."abundance_level"&gt; [??</span>
-<span class="co">#&gt; #   x 4]</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."abundance_level"&gt; [?? x</span>
+<span class="co">#&gt; #   4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;   abundance_level_id abundance_level_… abundance_level_…</span>
-<span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;            </span>
-<span class="co">#&gt; 1                  1 absent            The species was …</span>
-<span class="co">#&gt; 2                  2 rare              Occasional vagra…</span>
-<span class="co">#&gt; 3                  3 common            Functional popul…</span>
-<span class="co">#&gt; 4                  4 abundant          Functional popul…</span>
-<span class="co">#&gt; # … with 1 more variable:</span>
+<span class="co">#&gt;   abundance_level_id abundance_level_name</span>
+<span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;               </span>
+<span class="co">#&gt; 1                  1 absent              </span>
+<span class="co">#&gt; 2                  2 rare                </span>
+<span class="co">#&gt; 3                  3 common              </span>
+<span class="co">#&gt; 4                  4 abundant            </span>
+<span class="co">#&gt; # … with 2 more variables:</span>
+<span class="co">#&gt; #   abundance_level_interpretation &lt;chr&gt;,</span>
 <span class="co">#&gt; #   abundance_level_interpretation_short &lt;chr&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."basin"&gt; [?? x 12]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."basin"&gt; [?? x</span>
+<span class="co">#&gt; #   12]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    basin_id basin_name   country ecoregion_code longitude</span>
-<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1       15 Authie       France           20025      1.63</span>
-<span class="co">#&gt;  2      228 Vosso        Norway           20022      5.72</span>
-<span class="co">#&gt;  3      229 Laerdalselva Norway           20022      7.46</span>
-<span class="co">#&gt;  4      230 Aroelva      Norway           20022      7.16</span>
-<span class="co">#&gt;  5      235 Figgjo       Norway           20022      5.83</span>
-<span class="co">#&gt;  6      236 Etneelv      Norway           20022      5.92</span>
-<span class="co">#&gt;  7      237 Opo          Norway           20022      6.54</span>
-<span class="co">#&gt;  8      238 Loneelv      Norway           20022      5.05</span>
-<span class="co">#&gt;  9      231 Eira         Norway           20022      8.14</span>
-<span class="co">#&gt; 10      239 Bondalselv   Norway           20022      6.38</span>
-<span class="co">#&gt; # … with more rows, and 7 more variables:</span>
-<span class="co">#&gt; #   latitude &lt;dbl&gt;, surface_area_drainage_basin &lt;dbl&gt;,</span>
+<span class="co">#&gt;    basin_id basin_name   country ecoregion_code</span>
+<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt;</span>
+<span class="co">#&gt;  1       15 Authie       France           20025</span>
+<span class="co">#&gt;  2      228 Vosso        Norway           20022</span>
+<span class="co">#&gt;  3      229 Laerdalselva Norway           20022</span>
+<span class="co">#&gt;  4      230 Aroelva      Norway           20022</span>
+<span class="co">#&gt;  5      235 Figgjo       Norway           20022</span>
+<span class="co">#&gt;  6      236 Etneelv      Norway           20022</span>
+<span class="co">#&gt;  7      237 Opo          Norway           20022</span>
+<span class="co">#&gt;  8      238 Loneelv      Norway           20022</span>
+<span class="co">#&gt;  9      231 Eira         Norway           20022</span>
+<span class="co">#&gt; 10      239 Bondalselv   Norway           20022</span>
+<span class="co">#&gt; # … with more rows, and 8 more variables:</span>
+<span class="co">#&gt; #   longitude &lt;dbl&gt;, latitude &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   surface_area_drainage_basin &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   length_main_watercourse &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   altitude_source &lt;dbl&gt;, bibliography &lt;chr&gt;,</span>
 <span class="co">#&gt; #   administrator &lt;chr&gt;, link_pictures &lt;chr&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."basin_outlet"&gt; [?? x</span>
-<span class="co">#&gt; #   9]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."basin_outlet"&gt;</span>
+<span class="co">#&gt; #   [?? x 9]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    basin_id  wso_id ccm_name ccm_area ccm_window geom   </span>
-<span class="co">#&gt;       &lt;int&gt;   &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;int&gt; &lt;pq_gm&gt;</span>
-<span class="co">#&gt;  1      147   83758 Spey        3061.       2001 010600…</span>
-<span class="co">#&gt;  2      155   83745 Tay         5902.       2001 010600…</span>
-<span class="co">#&gt;  3      137  291745 &lt;NA&gt;        1014.       2003 010600…</span>
-<span class="co">#&gt;  4       65 1034751 &lt;NA&gt;       51464.       2008 010600…</span>
-<span class="co">#&gt;  5      232 1034818 &lt;NA&gt;        3182.       2008 010600…</span>
-<span class="co">#&gt;  6      242 1034790 Vefsna      4218.       2008 010600…</span>
-<span class="co">#&gt;  7       66   83751 &lt;NA&gt;        8443.       2001 010600…</span>
-<span class="co">#&gt;  8      177  291146 Vilaine    10490.       2003 010600…</span>
-<span class="co">#&gt;  9      233 1034734 &lt;NA&gt;        6163.       2008 010600…</span>
-<span class="co">#&gt; 10      271   83811 Thames     13514.       2001 010600…</span>
-<span class="co">#&gt; # … with more rows, and 3 more variables:</span>
-<span class="co">#&gt; #   seaoutlet_geom &lt;pq_gmtry&gt;,</span>
+<span class="co">#&gt;    basin_id  wso_id ccm_name ccm_area ccm_window</span>
+<span class="co">#&gt;       &lt;int&gt;   &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;int&gt;</span>
+<span class="co">#&gt;  1      147   83758 Spey        3061.       2001</span>
+<span class="co">#&gt;  2      155   83745 Tay         5902.       2001</span>
+<span class="co">#&gt;  3      137  291745 &lt;NA&gt;        1014.       2003</span>
+<span class="co">#&gt;  4       65 1034751 &lt;NA&gt;       51464.       2008</span>
+<span class="co">#&gt;  5      232 1034818 &lt;NA&gt;        3182.       2008</span>
+<span class="co">#&gt;  6      242 1034790 Vefsna      4218.       2008</span>
+<span class="co">#&gt;  7       66   83751 &lt;NA&gt;        8443.       2001</span>
+<span class="co">#&gt;  8      177  291146 Vilaine    10490.       2003</span>
+<span class="co">#&gt;  9      233 1034734 &lt;NA&gt;        6163.       2008</span>
+<span class="co">#&gt; 10      271   83811 Thames     13514.       2001</span>
+<span class="co">#&gt; # … with more rows, and 4 more variables:</span>
+<span class="co">#&gt; #   geom &lt;pq_gmtry&gt;, seaoutlet_geom &lt;pq_gmtry&gt;,</span>
 <span class="co">#&gt; #   simplified_geom &lt;pq_gmtry&gt;,</span>
 <span class="co">#&gt; #   verysimplified_geom &lt;pq_gmtry&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."casestudy_basin"&gt; [??</span>
-<span class="co">#&gt; #   x 2]</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."casestudy_basin"&gt; [?? x</span>
+<span class="co">#&gt; #   2]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
 <span class="co">#&gt;    casestudy_id basin_id</span>
@@ -630,7 +639,8 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt;  9            5       60</span>
 <span class="co">#&gt; 10            6      362</span>
 <span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."category"&gt; [?? x 3]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."category"&gt; [?? x</span>
+<span class="co">#&gt; #   3]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
 <span class="co">#&gt;   category_id category_name          sortorder</span>
@@ -654,165 +664,179 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt;  9        9 Cultural services     "Int… Gastronomic fes…</span>
 <span class="co">#&gt; 10       10 Cultural services     "Int… Art and folklore</span>
 <span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."climatic_model"&gt; [?? x</span>
-<span class="co">#&gt; #   5]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."climatic_model"&gt;</span>
+<span class="co">#&gt; #   [?? x 5]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    climatic_model_id climatic_model_code oceanic_model</span>
-<span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;               &lt;chr&gt;        </span>
-<span class="co">#&gt;  1                 1 canesm2             CanESM2      </span>
-<span class="co">#&gt;  2                 2 cnrmcm5             CNRM-CM5     </span>
-<span class="co">#&gt;  3                 3 csiromk360          CSIRO-Mk3-6-0</span>
-<span class="co">#&gt;  4                 4 gfdlesm2m           GFDL-ESM2M   </span>
-<span class="co">#&gt;  5                 5 hadgem2es           HadGEM2-ES   </span>
-<span class="co">#&gt;  6                 6 ipslcm5amr          IPSL-CM5A-MR </span>
-<span class="co">#&gt;  7                 7 miroc5              MIROC5       </span>
-<span class="co">#&gt;  8                 8 mpiesmmr            MPI-ESM_MR   </span>
-<span class="co">#&gt;  9                 9 noresm1me           NorESM1-ME   </span>
-<span class="co">#&gt; 10                10 access10            ACCESS1-0    </span>
+<span class="co">#&gt;    climatic_model_… climatic_model_… oceanic_model</span>
+<span class="co">#&gt;               &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;        </span>
+<span class="co">#&gt;  1                1 canesm2          CanESM2      </span>
+<span class="co">#&gt;  2                2 cnrmcm5          CNRM-CM5     </span>
+<span class="co">#&gt;  3                3 csiromk360       CSIRO-Mk3-6-0</span>
+<span class="co">#&gt;  4                4 gfdlesm2m        GFDL-ESM2M   </span>
+<span class="co">#&gt;  5                5 hadgem2es        HadGEM2-ES   </span>
+<span class="co">#&gt;  6                6 ipslcm5amr       IPSL-CM5A-MR </span>
+<span class="co">#&gt;  7                7 miroc5           MIROC5       </span>
+<span class="co">#&gt;  8                8 mpiesmmr         MPI-ESM_MR   </span>
+<span class="co">#&gt;  9                9 noresm1me        NorESM1-ME   </span>
+<span class="co">#&gt; 10               10 access10         ACCESS1-0    </span>
 <span class="co">#&gt; # … with more rows, and 2 more variables:</span>
-<span class="co">#&gt; #   atmospheric_model &lt;chr&gt;, climatic_model_hm &lt;chr&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."hydiadparameter"&gt; [??</span>
-<span class="co">#&gt; #   x 16]</span>
+<span class="co">#&gt; #   atmospheric_model &lt;chr&gt;,</span>
+<span class="co">#&gt; #   climatic_model_hm &lt;chr&gt;</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."hydiadparameter"&gt; [?? x</span>
+<span class="co">#&gt; #   16]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    species_id   Dmax   lambda     r AgeFirstMat nbCohorts</span>
-<span class="co">#&gt;         &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1          6  7.11  0.0931    1.10         5           3</span>
-<span class="co">#&gt;  2          8  4.07  0.442     1.09         3           3</span>
-<span class="co">#&gt;  3         18  0.714 0.193     1.16         5           3</span>
-<span class="co">#&gt;  4         21  1.17  0.136     1.31         8           3</span>
-<span class="co">#&gt;  5         25  0.496 0.270     1.03         3           3</span>
-<span class="co">#&gt;  6         26 11.5   0.00851   1.04         3.5         3</span>
-<span class="co">#&gt;  7          4  0.106 0.0472    1.02        11           3</span>
-<span class="co">#&gt;  8         20 46.2   0.00143   1.07         2           3</span>
-<span class="co">#&gt;  9         13 35.9   0         1.15        12           3</span>
-<span class="co">#&gt; 10         19 50.3   0.000432  1.07         3.5         3</span>
-<span class="co">#&gt; # … with more rows, and 10 more variables: gamma &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   DistMean &lt;dbl&gt;, alpha &lt;dbl&gt;, beta &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Mdisp &lt;dbl&gt;, DistMax &lt;dbl&gt;, withAllee &lt;lgl&gt;,</span>
+<span class="co">#&gt;    species_id   Dmax   lambda     r AgeFirstMat</span>
+<span class="co">#&gt;         &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt;  1          6  7.11  0.0931    1.10         5  </span>
+<span class="co">#&gt;  2          8  4.07  0.442     1.09         3  </span>
+<span class="co">#&gt;  3         18  0.714 0.193     1.16         5  </span>
+<span class="co">#&gt;  4         21  1.17  0.136     1.31         8  </span>
+<span class="co">#&gt;  5         25  0.496 0.270     1.03         3  </span>
+<span class="co">#&gt;  6         26 11.5   0.00851   1.04         3.5</span>
+<span class="co">#&gt;  7          4  0.106 0.0472    1.02        11  </span>
+<span class="co">#&gt;  8         20 46.2   0.00143   1.07         2  </span>
+<span class="co">#&gt;  9         13 35.9   0         1.15        12  </span>
+<span class="co">#&gt; 10         19 50.3   0.000432  1.07         3.5</span>
+<span class="co">#&gt; # … with more rows, and 11 more variables:</span>
+<span class="co">#&gt; #   nbCohorts &lt;int&gt;, gamma &lt;dbl&gt;, DistMean &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   alpha &lt;dbl&gt;, beta &lt;dbl&gt;, Mdisp &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   DistMax &lt;dbl&gt;, withAllee &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   withNatalStray &lt;lgl&gt;, usePresence &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   Sdisp &lt;dbl&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."ices_area"&gt; [?? x 11]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."ices_area"&gt; [??</span>
+<span class="co">#&gt; #   x 11]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;      gid major_fa subarea division subdivisio unit </span>
-<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;</span>
-<span class="co">#&gt;  1    83 27       8       e        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  2    10 27       4       a        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  3     7 27       4       c        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  4    72 27       3       a        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  5    27 27       6       a        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  6     8 27       4       b        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  7    84 27       9       b        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  8    82 27       8       d        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt;  9    36 27       9       a        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt; 10    79 27       7       c        &lt;NA&gt;       &lt;NA&gt; </span>
-<span class="co">#&gt; # … with more rows, and 5 more variables:</span>
-<span class="co">#&gt; #   area_full &lt;chr&gt;, area_27 &lt;chr&gt;, area_km2 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   geom &lt;pq_gmtry&gt;, simplified_geom &lt;pq_gmtry&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."ices_grass"&gt; [?? x 14]</span>
+<span class="co">#&gt;      gid major_fa subarea division subdivisio</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     </span>
+<span class="co">#&gt;  1    83 27       8       e        &lt;NA&gt;      </span>
+<span class="co">#&gt;  2    10 27       4       a        &lt;NA&gt;      </span>
+<span class="co">#&gt;  3     7 27       4       c        &lt;NA&gt;      </span>
+<span class="co">#&gt;  4    72 27       3       a        &lt;NA&gt;      </span>
+<span class="co">#&gt;  5    27 27       6       a        &lt;NA&gt;      </span>
+<span class="co">#&gt;  6     8 27       4       b        &lt;NA&gt;      </span>
+<span class="co">#&gt;  7    84 27       9       b        &lt;NA&gt;      </span>
+<span class="co">#&gt;  8    82 27       8       d        &lt;NA&gt;      </span>
+<span class="co">#&gt;  9    36 27       9       a        &lt;NA&gt;      </span>
+<span class="co">#&gt; 10    79 27       7       c        &lt;NA&gt;      </span>
+<span class="co">#&gt; # … with more rows, and 6 more variables:</span>
+<span class="co">#&gt; #   unit &lt;chr&gt;, area_full &lt;chr&gt;, area_27 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   area_km2 &lt;dbl&gt;, geom &lt;pq_gmtry&gt;,</span>
+<span class="co">#&gt; #   simplified_geom &lt;pq_gmtry&gt;</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."ices_grass"&gt; [??</span>
+<span class="co">#&gt; #   x 14]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;       id geom           fid   cat   gid major_fa subarea</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;pq_gmtry&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  </span>
-<span class="co">#&gt;  1     1 01030000201…     1     4    10 27       4      </span>
-<span class="co">#&gt;  2     2 01030000201…     2     4    10 27       4      </span>
-<span class="co">#&gt;  3     3 01030000201…     3     1     8 27       4      </span>
-<span class="co">#&gt;  4     4 01030000201…     4     4    10 27       4      </span>
-<span class="co">#&gt;  5     5 01030000201…     5     5    72 27       3      </span>
-<span class="co">#&gt;  6     6 01030000201…     6     7    40 27       8      </span>
-<span class="co">#&gt;  7     7 01030000201…     7     7    40 27       8      </span>
-<span class="co">#&gt;  8     8 01030000201…     8     7    40 27       8      </span>
-<span class="co">#&gt;  9     9 01030000201…     9    10    46 27       7      </span>
-<span class="co">#&gt; 10    10 01030000201…    10     8    42 27       7      </span>
+<span class="co">#&gt;       id geom     fid   cat   gid major_fa subarea</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;pq_g&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  </span>
+<span class="co">#&gt;  1     1 01030…     1     4    10 27       4      </span>
+<span class="co">#&gt;  2     2 01030…     2     4    10 27       4      </span>
+<span class="co">#&gt;  3     3 01030…     3     1     8 27       4      </span>
+<span class="co">#&gt;  4     4 01030…     4     4    10 27       4      </span>
+<span class="co">#&gt;  5     5 01030…     5     5    72 27       3      </span>
+<span class="co">#&gt;  6     6 01030…     6     7    40 27       8      </span>
+<span class="co">#&gt;  7     7 01030…     7     7    40 27       8      </span>
+<span class="co">#&gt;  8     8 01030…     8     7    40 27       8      </span>
+<span class="co">#&gt;  9     9 01030…     9    10    46 27       7      </span>
+<span class="co">#&gt; 10    10 01030…    10     8    42 27       7      </span>
 <span class="co">#&gt; # … with more rows, and 7 more variables:</span>
 <span class="co">#&gt; #   division &lt;chr&gt;, subdivisio &lt;chr&gt;, unit &lt;chr&gt;,</span>
-<span class="co">#&gt; #   area_full &lt;chr&gt;, area_27 &lt;chr&gt;, area_km2 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   simplified &lt;chr&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."ices_rectangle"&gt; [?? x</span>
-<span class="co">#&gt; #   15]</span>
+<span class="co">#&gt; #   area_full &lt;chr&gt;, area_27 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   area_km2 &lt;dbl&gt;, simplified &lt;chr&gt;</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."ices_rectangle"&gt;</span>
+<span class="co">#&gt; #   [?? x 15]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;      gid    id icesname south  west north  east area_km2</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;</span>
-<span class="co">#&gt;  1  1846  2549 01D2      36     -18  36.5   -17     4987</span>
-<span class="co">#&gt;  2  1847  2550 02D2      36.5   -18  37     -17     4955</span>
-<span class="co">#&gt;  3  1848  2551 03D2      37     -18  37.5   -17     4923</span>
-<span class="co">#&gt;  4  1849  2552 04D2      37.5   -18  38     -17     4891</span>
-<span class="co">#&gt;  5  1850  2553 05D2      38     -18  38.5   -17     4858</span>
-<span class="co">#&gt;  6  1851  2554 06D2      38.5   -18  39     -17     4825</span>
-<span class="co">#&gt;  7  1852  2555 07D2      39     -18  39.5   -17     4792</span>
-<span class="co">#&gt;  8  1853  2556 08D2      39.5   -18  40     -17     4758</span>
-<span class="co">#&gt;  9  1854  2557 09D2      40     -18  40.5   -17     4724</span>
-<span class="co">#&gt; 10  1855  2558 10D2      40.5   -18  41     -17     4689</span>
-<span class="co">#&gt; # … with more rows, and 7 more variables:</span>
-<span class="co">#&gt; #   objectid &lt;int64&gt;, ecoregion &lt;chr&gt;, area &lt;dbl&gt;,</span>
+<span class="co">#&gt;      gid    id icesname south  west north  east</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  1846  2549 01D2      36     -18  36.5   -17</span>
+<span class="co">#&gt;  2  1847  2550 02D2      36.5   -18  37     -17</span>
+<span class="co">#&gt;  3  1848  2551 03D2      37     -18  37.5   -17</span>
+<span class="co">#&gt;  4  1849  2552 04D2      37.5   -18  38     -17</span>
+<span class="co">#&gt;  5  1850  2553 05D2      38     -18  38.5   -17</span>
+<span class="co">#&gt;  6  1851  2554 06D2      38.5   -18  39     -17</span>
+<span class="co">#&gt;  7  1852  2555 07D2      39     -18  39.5   -17</span>
+<span class="co">#&gt;  8  1853  2556 08D2      39.5   -18  40     -17</span>
+<span class="co">#&gt;  9  1854  2557 09D2      40     -18  40.5   -17</span>
+<span class="co">#&gt; 10  1855  2558 10D2      40.5   -18  41     -17</span>
+<span class="co">#&gt; # … with more rows, and 8 more variables:</span>
+<span class="co">#&gt; #   area_km2 &lt;int&gt;, objectid &lt;int64&gt;,</span>
+<span class="co">#&gt; #   ecoregion &lt;chr&gt;, area &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   percentage &lt;dbl&gt;, shape_star &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   shape_stle &lt;dbl&gt;, geom &lt;pq_gmtry&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."iucn_classification"&gt;</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."iucn_classification"&gt;</span>
 <span class="co">#&gt; #   [?? x 3]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;   iucn_classificat… iucn_classificat… bibliography      </span>
-<span class="co">#&gt;               &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;             </span>
-<span class="co">#&gt; 1                 3 IUCN_FR           UICN Comité franç…</span>
-<span class="co">#&gt; 2                 4 IUCN_IE           King, J.L., F. Ma…</span>
-<span class="co">#&gt; 3                 2 IUCN_ES           www.uicn.es/web/p…</span>
-<span class="co">#&gt; 4                 1 IUCN_Europe       Brooks, Emma. Eur…</span>
-<span class="co">#&gt; 5                 5 IUCN_PT           Martins, Rogélia,…</span>
-<span class="co">#&gt; 6                 6 IUCN_UK           https://hub.jncc.…</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."iucn_level"&gt; [?? x 3]</span>
+<span class="co">#&gt;   iucn_classificat… iucn_classifica… bibliography </span>
+<span class="co">#&gt;               &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;        </span>
+<span class="co">#&gt; 1                 3 IUCN_FR          UICN Comité …</span>
+<span class="co">#&gt; 2                 4 IUCN_IE          King, J.L., …</span>
+<span class="co">#&gt; 3                 2 IUCN_ES          www.uicn.es/…</span>
+<span class="co">#&gt; 4                 1 IUCN_Europe      Brooks, Emma…</span>
+<span class="co">#&gt; 5                 5 IUCN_PT          Martins, Rog…</span>
+<span class="co">#&gt; 6                 6 IUCN_UK          https://hub.…</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."iucn_level"&gt; [??</span>
+<span class="co">#&gt; #   x 3]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    iucn_level_id iucn_level_code iucn_level_name      </span>
-<span class="co">#&gt;            &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;                </span>
-<span class="co">#&gt;  1             1 EX              Extinct              </span>
-<span class="co">#&gt;  2             2 EW              Extinct in the Wild  </span>
-<span class="co">#&gt;  3             3 RE              Regionally Extinct   </span>
-<span class="co">#&gt;  4             4 CR              Critically Endangered</span>
-<span class="co">#&gt;  5             5 EN              Endangered           </span>
-<span class="co">#&gt;  6             6 VU              Vulnerable           </span>
-<span class="co">#&gt;  7             7 NT              Near Threatened      </span>
-<span class="co">#&gt;  8             8 LC              Least Concern        </span>
-<span class="co">#&gt;  9             9 DD              Data Deficient       </span>
-<span class="co">#&gt; 10            10 NE              Not Evaluated        </span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."lang85_85"&gt; [?? x 12]</span>
+<span class="co">#&gt;    iucn_level_id iucn_level_code iucn_level_name  </span>
+<span class="co">#&gt;            &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;            </span>
+<span class="co">#&gt;  1             1 EX              Extinct          </span>
+<span class="co">#&gt;  2             2 EW              Extinct in the W…</span>
+<span class="co">#&gt;  3             3 RE              Regionally Extin…</span>
+<span class="co">#&gt;  4             4 CR              Critically Endan…</span>
+<span class="co">#&gt;  5             5 EN              Endangered       </span>
+<span class="co">#&gt;  6             6 VU              Vulnerable       </span>
+<span class="co">#&gt;  7             7 NT              Near Threatened  </span>
+<span class="co">#&gt;  8             8 LC              Least Concern    </span>
+<span class="co">#&gt;  9             9 DD              Data Deficient   </span>
+<span class="co">#&gt; 10            10 NE              Not Evaluated    </span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."lang85_85"&gt; [??</span>
+<span class="co">#&gt; #   x 12]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;       id geom            fid   cat  cat_ basin_id wso_id</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;pq_gmtry&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1     1 0103000020E6…     1     2     6       65 1.03e6</span>
-<span class="co">#&gt;  2     2 0103000020E6…     2     4    17      271 8.38e4</span>
-<span class="co">#&gt;  3     3 0103000020E6…     3     7    22       62 1.03e6</span>
-<span class="co">#&gt;  4     4 0103000020E6…     4    15    38       51 6   e0</span>
-<span class="co">#&gt;  5     5 0103000020E6…     5    16    38       51 6   e0</span>
-<span class="co">#&gt;  6     6 0103000020E6…     6    17    38       51 6   e0</span>
-<span class="co">#&gt;  7     7 0103000020E6…     7    24    47       81 1.03e6</span>
-<span class="co">#&gt;  8     8 0103000020E6…     8    28    71       40 8.38e4</span>
-<span class="co">#&gt;  9     9 0103000020E6…     9    32    78      164 8.41e4</span>
-<span class="co">#&gt; 10    10 0103000020E6…    10    34    83       19 8.37e4</span>
+<span class="co">#&gt;       id geom      fid   cat  cat_ basin_id wso_id</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;pq_gm&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1     1 010300…     1     2     6       65 1.03e6</span>
+<span class="co">#&gt;  2     2 010300…     2     4    17      271 8.38e4</span>
+<span class="co">#&gt;  3     3 010300…     3     7    22       62 1.03e6</span>
+<span class="co">#&gt;  4     4 010300…     4    15    38       51 6   e0</span>
+<span class="co">#&gt;  5     5 010300…     5    16    38       51 6   e0</span>
+<span class="co">#&gt;  6     6 010300…     6    17    38       51 6   e0</span>
+<span class="co">#&gt;  7     7 010300…     7    24    47       81 1.03e6</span>
+<span class="co">#&gt;  8     8 010300…     8    28    71       40 8.38e4</span>
+<span class="co">#&gt;  9     9 010300…     9    32    78      164 8.41e4</span>
+<span class="co">#&gt; 10    10 010300…    10    34    83       19 8.37e4</span>
 <span class="co">#&gt; # … with more rows, and 5 more variables:</span>
-<span class="co">#&gt; #   ccm_name &lt;chr&gt;, ccm_area &lt;dbl&gt;, ccm_window &lt;int&gt;,</span>
-<span class="co">#&gt; #   seaoutlet_ &lt;chr&gt;, simplified &lt;chr&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."species"&gt; [?? x 5]</span>
+<span class="co">#&gt; #   ccm_name &lt;chr&gt;, ccm_area &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   ccm_window &lt;int&gt;, seaoutlet_ &lt;chr&gt;,</span>
+<span class="co">#&gt; #   simplified &lt;chr&gt;</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."species"&gt; [?? x</span>
+<span class="co">#&gt; #   5]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    species_id latin_name  english_name local_name active</span>
-<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;      &lt;lgl&gt; </span>
-<span class="co">#&gt;  1          1 Acipenser … &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  2          2 Acipenser … &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  3          3 Acipenser … &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  4          5 Alosa alge… &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  5          7 Alosa casp… &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  6          9 Alosa imma… &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  7         10 Alosa kess… &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  8         11 Alosa tana… &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt;  9         12 Alosa volg… &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt; 10         14 Caspiomyzo… &lt;NA&gt;         ""         FALSE </span>
-<span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."species_rectangle"&gt;</span>
-<span class="co">#&gt; #   [?? x 4]</span>
+<span class="co">#&gt;    species_id latin_name   english_name local_name</span>
+<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     </span>
+<span class="co">#&gt;  1          1 Acipenser g… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  2          2 Acipenser n… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  3          3 Acipenser s… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  4          5 Alosa alger… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  5          7 Alosa caspia &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  6          9 Alosa immac… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  7         10 Alosa kessl… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  8         11 Alosa tanai… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt;  9         12 Alosa volge… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt; 10         14 Caspiomyzon… &lt;NA&gt;         ""        </span>
+<span class="co">#&gt; # … with more rows, and 1 more variable:</span>
+<span class="co">#&gt; #   active &lt;lgl&gt;</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."species_rectangle"&gt; [??</span>
+<span class="co">#&gt; #   x 4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
 <span class="co">#&gt;    species_rectangle_id  year species_id   gid</span>
@@ -828,30 +852,31 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt;  9                 2170  2008          6  3318</span>
 <span class="co">#&gt; 10                 2171  2010          6  3318</span>
 <span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_abundance"&gt; [?? x</span>
-<span class="co">#&gt; #   13]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_abundance"&gt;</span>
+<span class="co">#&gt; #   [?? x 13]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    basin_id abundance_id abundance_level_id species_id</span>
-<span class="co">#&gt;       &lt;int&gt;        &lt;int&gt;              &lt;int&gt;      &lt;int&gt;</span>
-<span class="co">#&gt;  1      179        26667                  3          8</span>
-<span class="co">#&gt;  2      188        26668                  1          8</span>
-<span class="co">#&gt;  3       69        25726                  1          4</span>
-<span class="co">#&gt;  4      174        25727                  1          4</span>
-<span class="co">#&gt;  5       69        25730                  1          6</span>
-<span class="co">#&gt;  6      174        25731                  1          6</span>
-<span class="co">#&gt;  7       69        25734                  2          8</span>
-<span class="co">#&gt;  8      174        25735                 NA          8</span>
-<span class="co">#&gt;  9       69        25744                  3         13</span>
-<span class="co">#&gt; 10      174        25745                  3         13</span>
-<span class="co">#&gt; # … with more rows, and 9 more variables:</span>
-<span class="co">#&gt; #   year_from &lt;int&gt;, year_to &lt;int&gt;, basin_name &lt;chr&gt;,</span>
+<span class="co">#&gt;    basin_id abundance_id abundance_level_id</span>
+<span class="co">#&gt;       &lt;int&gt;        &lt;int&gt;              &lt;int&gt;</span>
+<span class="co">#&gt;  1      179        26667                  3</span>
+<span class="co">#&gt;  2      188        26668                  1</span>
+<span class="co">#&gt;  3       69        25726                  1</span>
+<span class="co">#&gt;  4      174        25727                  1</span>
+<span class="co">#&gt;  5       69        25730                  1</span>
+<span class="co">#&gt;  6      174        25731                  1</span>
+<span class="co">#&gt;  7       69        25734                  2</span>
+<span class="co">#&gt;  8      174        25735                 NA</span>
+<span class="co">#&gt;  9       69        25744                  3</span>
+<span class="co">#&gt; 10      174        25745                  3</span>
+<span class="co">#&gt; # … with more rows, and 10 more variables:</span>
+<span class="co">#&gt; #   species_id &lt;int&gt;, year_from &lt;int&gt;,</span>
+<span class="co">#&gt; #   year_to &lt;int&gt;, basin_name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   latin_name &lt;chr&gt;, simplified_name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   fish_name &lt;chr&gt;, abundance_level_name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   abundance_level_interpretation &lt;chr&gt;,</span>
 <span class="co">#&gt; #   abundance_level_interpretation_short &lt;chr&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_maxvalue_es"&gt; [?? x</span>
-<span class="co">#&gt; #   4]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_maxvalue_es"&gt;</span>
+<span class="co">#&gt; #   [?? x 4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
 <span class="co">#&gt;    category_id casestudy_id species_id esvalue_id</span>
@@ -867,141 +892,147 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt;  9           2            9          4          0</span>
 <span class="co">#&gt; 10           2            4         13          1</span>
 <span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_hybrid_model"&gt; [?? x</span>
-<span class="co">#&gt; #   17]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_hybrid_model"&gt;</span>
+<span class="co">#&gt; #   [?? x 17]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    hybrid_model_result_id basin_id species_id climatic_model_…</span>
-<span class="co">#&gt;                     &lt;int&gt;    &lt;int&gt;      &lt;int&gt;            &lt;int&gt;</span>
-<span class="co">#&gt;  1                1395365      184          6                9</span>
-<span class="co">#&gt;  2                1395366      184          6                9</span>
-<span class="co">#&gt;  3                1395367      184          6                9</span>
-<span class="co">#&gt;  4                1395368      184          6                9</span>
-<span class="co">#&gt;  5                1395369      184          6                9</span>
-<span class="co">#&gt;  6                1395370      184          6                9</span>
-<span class="co">#&gt;  7                1395371      184          6                9</span>
-<span class="co">#&gt;  8                1395372      184          6                9</span>
-<span class="co">#&gt;  9                1395373      184          6                9</span>
-<span class="co">#&gt; 10                1395374      184          6                9</span>
-<span class="co">#&gt; # … with more rows, and 13 more variables: year &lt;int&gt;,</span>
+<span class="co">#&gt;    hybrid_model_result_id basin_id species_id</span>
+<span class="co">#&gt;                     &lt;int&gt;    &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt;  1                  59921      177          6</span>
+<span class="co">#&gt;  2                  59922      177          6</span>
+<span class="co">#&gt;  3                  59923      177          6</span>
+<span class="co">#&gt;  4                  59924      177          6</span>
+<span class="co">#&gt;  5                  59925      177          6</span>
+<span class="co">#&gt;  6                  59926      177          6</span>
+<span class="co">#&gt;  7                  59927      177          6</span>
+<span class="co">#&gt;  8                  59928      177          6</span>
+<span class="co">#&gt;  9                  59929      177          6</span>
+<span class="co">#&gt; 10                  59930      177          6</span>
+<span class="co">#&gt; # … with more rows, and 14 more variables:</span>
+<span class="co">#&gt; #   climatic_model_id &lt;int&gt;, year &lt;int&gt;,</span>
 <span class="co">#&gt; #   nit &lt;dbl&gt;, hsi &lt;dbl&gt;, saturation_rate &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   climatic_scenario &lt;chr&gt;, climatic_model_code &lt;chr&gt;,</span>
+<span class="co">#&gt; #   climatic_scenario &lt;chr&gt;,</span>
+<span class="co">#&gt; #   climatic_model_code &lt;chr&gt;,</span>
 <span class="co">#&gt; #   oceanic_model &lt;chr&gt;, atmospheric_model &lt;chr&gt;,</span>
-<span class="co">#&gt; #   climatic_model_hm &lt;chr&gt;, basin_name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   fish_name &lt;chr&gt;, latin_name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   simplified_name &lt;chr&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_hybrid_model_mavg"&gt;</span>
+<span class="co">#&gt; #   climatic_model_hm &lt;chr&gt;, basin_name &lt;chr&gt;, …</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."v_hybrid_model_mavg"&gt;</span>
 <span class="co">#&gt; #   [?? x 14]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    latin_name     basin_name climatic_scenar… species_id</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;                 &lt;int&gt;</span>
-<span class="co">#&gt;  1 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  2 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  3 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  4 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  5 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  6 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  7 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  8 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt;  9 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt; 10 Acipenser stu… Aa         rcp45                     4</span>
-<span class="co">#&gt; # … with more rows, and 10 more variables:</span>
-<span class="co">#&gt; #   basin_id &lt;int&gt;, year &lt;int&gt;, nit_min &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   nit_mean &lt;dbl&gt;, nit_max &lt;dbl&gt;, hsi_min &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   hsi_mean &lt;dbl&gt;, hsi_max &lt;dbl&gt;, nit_movingavg &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   hsi_movingavg &lt;dbl&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_ices_geom"&gt; [?? x 4]</span>
+<span class="co">#&gt;    latin_name       basin_name climatic_scenario</span>
+<span class="co">#&gt;    &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;            </span>
+<span class="co">#&gt;  1 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  2 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  3 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  4 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  5 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  6 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  7 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  8 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt;  9 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt; 10 Acipenser sturio Aa         rcp45            </span>
+<span class="co">#&gt; # … with more rows, and 11 more variables:</span>
+<span class="co">#&gt; #   species_id &lt;int&gt;, basin_id &lt;int&gt;, year &lt;int&gt;,</span>
+<span class="co">#&gt; #   nit_min &lt;dbl&gt;, nit_mean &lt;dbl&gt;, nit_max &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   hsi_min &lt;dbl&gt;, hsi_mean &lt;dbl&gt;, hsi_max &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   nit_movingavg &lt;dbl&gt;, hsi_movingavg &lt;dbl&gt;</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_ices_geom"&gt;</span>
+<span class="co">#&gt; #   [?? x 4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    ices_type   gid icesname geom                        </span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;    &lt;pq_gmtry&gt;                  </span>
-<span class="co">#&gt;  1 rectangle  3159 22E6     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  2 rectangle  2247 21D6     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  3 rectangle  2256 30D6     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  4 rectangle  1966 27D3     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  5 rectangle  3177 44E6     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  6 rectangle  4058 37F7     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  7 rectangle  2258 32D6     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  8 rectangle  2727 12E1     0106000020E6100000010000000…</span>
-<span class="co">#&gt;  9 rectangle  3092 40E5     0106000020E6100000010000000…</span>
-<span class="co">#&gt; 10 rectangle  2052 19D4     0106000020E6100000010000000…</span>
+<span class="co">#&gt;    ices_type   gid icesname geom                  </span>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;    &lt;pq_gmtry&gt;            </span>
+<span class="co">#&gt;  1 rectangle  3159 22E6     0106000020E6100000010…</span>
+<span class="co">#&gt;  2 rectangle  2247 21D6     0106000020E6100000010…</span>
+<span class="co">#&gt;  3 rectangle  2256 30D6     0106000020E6100000010…</span>
+<span class="co">#&gt;  4 rectangle  1966 27D3     0106000020E6100000010…</span>
+<span class="co">#&gt;  5 rectangle  3177 44E6     0106000020E6100000010…</span>
+<span class="co">#&gt;  6 rectangle  4058 37F7     0106000020E6100000010…</span>
+<span class="co">#&gt;  7 rectangle  2258 32D6     0106000020E6100000010…</span>
+<span class="co">#&gt;  8 rectangle  2727 12E1     0106000020E6100000010…</span>
+<span class="co">#&gt;  9 rectangle  3092 40E5     0106000020E6100000010…</span>
+<span class="co">#&gt; 10 rectangle  2052 19D4     0106000020E6100000010…</span>
 <span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_occurence"&gt; [?? x 8]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_occurence"&gt;</span>
+<span class="co">#&gt; #   [?? x 8]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    ices_type species_id   gid fish_name     latin_name  </span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;int&gt; &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;       </span>
-<span class="co">#&gt;  1 division           6    82 Allis shad    Alosa alosa </span>
-<span class="co">#&gt;  2 rectangle          8  3329 Twaite shad   Alosa fallax</span>
-<span class="co">#&gt;  3 rectangle          6  2629 Allis shad    Alosa alosa </span>
-<span class="co">#&gt;  4 rectangle          8  2626 Twaite shad   Alosa fallax</span>
-<span class="co">#&gt;  5 rectangle          8  3569 Twaite shad   Alosa fallax</span>
-<span class="co">#&gt;  6 rectangle         22  2996 European flo… Platichthys…</span>
-<span class="co">#&gt;  7 rectangle         19  2620 Thinlip grey… Chelon rama…</span>
-<span class="co">#&gt;  8 division           6    44 Allis shad    Alosa alosa </span>
-<span class="co">#&gt;  9 rectangle         22  3410 European flo… Platichthys…</span>
-<span class="co">#&gt; 10 rectangle         19  3567 Thinlip grey… Chelon rama…</span>
+<span class="co">#&gt;    ices_type species_id   gid fish_name latin_name</span>
+<span class="co">#&gt;    &lt;chr&gt;          &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;     </span>
+<span class="co">#&gt;  1 division           6    82 Allis sh… Alosa alo…</span>
+<span class="co">#&gt;  2 rectangle          8  3329 Twaite s… Alosa fal…</span>
+<span class="co">#&gt;  3 rectangle          6  2629 Allis sh… Alosa alo…</span>
+<span class="co">#&gt;  4 rectangle          8  2626 Twaite s… Alosa fal…</span>
+<span class="co">#&gt;  5 rectangle          8  3569 Twaite s… Alosa fal…</span>
+<span class="co">#&gt;  6 rectangle         22  2996 European… Platichth…</span>
+<span class="co">#&gt;  7 rectangle         19  2620 Thinlip … Chelon ra…</span>
+<span class="co">#&gt;  8 division           6    44 Allis sh… Alosa alo…</span>
+<span class="co">#&gt;  9 rectangle         22  3410 European… Platichth…</span>
+<span class="co">#&gt; 10 rectangle         19  3567 Thinlip … Chelon ra…</span>
 <span class="co">#&gt; # … with more rows, and 3 more variables:</span>
 <span class="co">#&gt; #   simplified_name &lt;chr&gt;, icesname &lt;chr&gt;,</span>
 <span class="co">#&gt; #   nb_occurence &lt;int64&gt;</span>
 <span class="co">#&gt; # Source:  </span>
-<span class="co">#&gt; #   table&lt;"diadesatlas"."v_species_ices_occurence"&gt; [??</span>
-<span class="co">#&gt; #   x 8]</span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."v_species_ices_occurence"&gt;</span>
+<span class="co">#&gt; #   [?? x 8]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    ices_type   gid species_id fish_name         icesname</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;      &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;   </span>
-<span class="co">#&gt;  1 rectangle  3159          4 European sturgeon 22E6    </span>
-<span class="co">#&gt;  2 rectangle  3159          6 Allis shad        22E6    </span>
-<span class="co">#&gt;  3 rectangle  3159          8 Twaite shad       22E6    </span>
-<span class="co">#&gt;  4 rectangle  3159         13 European eel      22E6    </span>
-<span class="co">#&gt;  5 rectangle  3159         18 River lamprey     22E6    </span>
-<span class="co">#&gt;  6 rectangle  3159         20 European smelt    22E6    </span>
-<span class="co">#&gt;  7 rectangle  3159         21 Sea lamprey       22E6    </span>
-<span class="co">#&gt;  8 rectangle  3159         22 European flounder 22E6    </span>
-<span class="co">#&gt;  9 rectangle  3159         25 Atlantic salmon   22E6    </span>
-<span class="co">#&gt; 10 rectangle  3159         26 Sea trout         22E6    </span>
+<span class="co">#&gt;    ices_type   gid species_id fish_name   icesname</span>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;      &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;   </span>
+<span class="co">#&gt;  1 rectangle  3159          4 European s… 22E6    </span>
+<span class="co">#&gt;  2 rectangle  3159          6 Allis shad  22E6    </span>
+<span class="co">#&gt;  3 rectangle  3159          8 Twaite shad 22E6    </span>
+<span class="co">#&gt;  4 rectangle  3159         13 European e… 22E6    </span>
+<span class="co">#&gt;  5 rectangle  3159         18 River lamp… 22E6    </span>
+<span class="co">#&gt;  6 rectangle  3159         20 European s… 22E6    </span>
+<span class="co">#&gt;  7 rectangle  3159         21 Sea lamprey 22E6    </span>
+<span class="co">#&gt;  8 rectangle  3159         22 European f… 22E6    </span>
+<span class="co">#&gt;  9 rectangle  3159         25 Atlantic s… 22E6    </span>
+<span class="co">#&gt; 10 rectangle  3159         26 Sea trout   22E6    </span>
 <span class="co">#&gt; # … with more rows, and 3 more variables:</span>
 <span class="co">#&gt; #   latin_name &lt;chr&gt;, simplified_name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   nb_occurence &lt;int64&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."abundance"&gt; [?? x 14]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."abundance"&gt; [??</span>
+<span class="co">#&gt; #   x 14]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    basin_id abundance_id presence_absence year_from</span>
-<span class="co">#&gt;       &lt;int&gt;        &lt;int&gt;            &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1        1            1                0      1951</span>
-<span class="co">#&gt;  2        1            2                0      1851</span>
-<span class="co">#&gt;  3        3            5                0      1951</span>
-<span class="co">#&gt;  4        3            6                0      1851</span>
-<span class="co">#&gt;  5       14           29                0      1951</span>
-<span class="co">#&gt;  6       14           30                0      1851</span>
-<span class="co">#&gt;  7       15           31                0      1951</span>
-<span class="co">#&gt;  8       15           32                0      1851</span>
-<span class="co">#&gt;  9       16           33                0      1951</span>
-<span class="co">#&gt; 10       16           34                0      1851</span>
-<span class="co">#&gt; # … with more rows, and 10 more variables:</span>
-<span class="co">#&gt; #   year_to &lt;int&gt;, period_comment &lt;chr&gt;,</span>
+<span class="co">#&gt;    basin_id abundance_id presence_absence</span>
+<span class="co">#&gt;       &lt;int&gt;        &lt;int&gt;            &lt;int&gt;</span>
+<span class="co">#&gt;  1        1            1                0</span>
+<span class="co">#&gt;  2        1            2                0</span>
+<span class="co">#&gt;  3        3            5                0</span>
+<span class="co">#&gt;  4        3            6                0</span>
+<span class="co">#&gt;  5       14           29                0</span>
+<span class="co">#&gt;  6       14           30                0</span>
+<span class="co">#&gt;  7       15           31                0</span>
+<span class="co">#&gt;  8       15           32                0</span>
+<span class="co">#&gt;  9       16           33                0</span>
+<span class="co">#&gt; 10       16           34                0</span>
+<span class="co">#&gt; # … with more rows, and 11 more variables:</span>
+<span class="co">#&gt; #   year_from &lt;int&gt;, year_to &lt;int&gt;,</span>
+<span class="co">#&gt; #   period_comment &lt;chr&gt;,</span>
 <span class="co">#&gt; #   abundance_migratory_comment &lt;chr&gt;,</span>
 <span class="co">#&gt; #   abundance_resident_comment &lt;chr&gt;,</span>
 <span class="co">#&gt; #   bibliography &lt;chr&gt;, ecoregion_code &lt;int&gt;,</span>
-<span class="co">#&gt; #   ecoregion_name &lt;chr&gt;, abundance_migratory_id &lt;int&gt;,</span>
-<span class="co">#&gt; #   abundance_resident_id &lt;int&gt;, species_id &lt;int&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."casestudy"&gt; [?? x 4]</span>
+<span class="co">#&gt; #   ecoregion_name &lt;chr&gt;, …</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."casestudy"&gt; [??</span>
+<span class="co">#&gt; #   x 4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;   casestudy_id casestudy_name   publishable geom        </span>
-<span class="co">#&gt;          &lt;int&gt; &lt;chr&gt;            &lt;lgl&gt;       &lt;pq_gmtry&gt;  </span>
-<span class="co">#&gt; 1            3 Normand-Breton … TRUE        0103000020E…</span>
-<span class="co">#&gt; 2            4 Loire            TRUE        0106000020E…</span>
-<span class="co">#&gt; 3            6 Gipuzcoan        TRUE        0106000020E…</span>
-<span class="co">#&gt; 4            1 Waterford Harbo… TRUE        0106000020E…</span>
-<span class="co">#&gt; 5            9 Mondego          TRUE        0106000020E…</span>
-<span class="co">#&gt; 6            8 Minho            TRUE        0103000020E…</span>
-<span class="co">#&gt; 7            2 Tamar-Taff-Frome TRUE        0106000020E…</span>
-<span class="co">#&gt; 8            5 Gironde-Garonne… TRUE        0106000020E…</span>
-<span class="co">#&gt; 9            7 Ulla             TRUE        0103000020E…</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."ecosystemic_services"&gt;</span>
+<span class="co">#&gt;   casestudy_id casestudy_name  publishable geom   </span>
+<span class="co">#&gt;          &lt;int&gt; &lt;chr&gt;           &lt;lgl&gt;       &lt;pq_gm&gt;</span>
+<span class="co">#&gt; 1            3 Normand-Breton… TRUE        010300…</span>
+<span class="co">#&gt; 2            4 Loire           TRUE        010600…</span>
+<span class="co">#&gt; 3            6 Gipuzcoan       TRUE        010600…</span>
+<span class="co">#&gt; 4            1 Waterford Harb… TRUE        010600…</span>
+<span class="co">#&gt; 5            9 Mondego         TRUE        010600…</span>
+<span class="co">#&gt; 6            8 Minho           TRUE        010300…</span>
+<span class="co">#&gt; 7            2 Tamar-Taff-Fro… TRUE        010600…</span>
+<span class="co">#&gt; 8            5 Gironde-Garonn… TRUE        010600…</span>
+<span class="co">#&gt; 9            7 Ulla            TRUE        010300…</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."ecosystemic_services"&gt;</span>
 <span class="co">#&gt; #   [?? x 5]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
@@ -1019,7 +1050,8 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt; 10                      92            1         22</span>
 <span class="co">#&gt; # … with more rows, and 2 more variables:</span>
 <span class="co">#&gt; #   subcategory_id &lt;int&gt;, esvalue_id &lt;int&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."esvalue"&gt; [?? x 3]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."esvalue"&gt; [?? x</span>
+<span class="co">#&gt; #   3]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
 <span class="co">#&gt;   esvalue_id esvalue_code esvalue_name</span>
@@ -1029,43 +1061,48 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt; 3          1 €            Low value   </span>
 <span class="co">#&gt; 4          2 €€           Median value</span>
 <span class="co">#&gt; 5          3 €€€          High value  </span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."hybrid_model_result"&gt;</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."hybrid_model_result"&gt;</span>
 <span class="co">#&gt; #   [?? x 9]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    hybrid_model_result_id basin_id species_id climatic_model_…</span>
-<span class="co">#&gt;                     &lt;int&gt;    &lt;int&gt;      &lt;int&gt;            &lt;int&gt;</span>
-<span class="co">#&gt;  1                1395365      184          6                9</span>
-<span class="co">#&gt;  2                1395366      184          6                9</span>
-<span class="co">#&gt;  3                1395367      184          6                9</span>
-<span class="co">#&gt;  4                1395368      184          6                9</span>
-<span class="co">#&gt;  5                1395369      184          6                9</span>
-<span class="co">#&gt;  6                1395370      184          6                9</span>
-<span class="co">#&gt;  7                1395371      184          6                9</span>
-<span class="co">#&gt;  8                1395372      184          6                9</span>
-<span class="co">#&gt;  9                1395373      184          6                9</span>
-<span class="co">#&gt; 10                1395374      184          6                9</span>
-<span class="co">#&gt; # … with more rows, and 5 more variables:</span>
-<span class="co">#&gt; #   climatic_scenario &lt;chr&gt;, year &lt;int&gt;, nit &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   hsi &lt;dbl&gt;, saturation_rate &lt;dbl&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."locale"&gt; [?? x 4]</span>
+<span class="co">#&gt;    hybrid_model_result_id basin_id species_id</span>
+<span class="co">#&gt;                     &lt;int&gt;    &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt;  1                  59921      177          6</span>
+<span class="co">#&gt;  2                  59922      177          6</span>
+<span class="co">#&gt;  3                  59923      177          6</span>
+<span class="co">#&gt;  4                  59924      177          6</span>
+<span class="co">#&gt;  5                  59925      177          6</span>
+<span class="co">#&gt;  6                  59926      177          6</span>
+<span class="co">#&gt;  7                  59927      177          6</span>
+<span class="co">#&gt;  8                  59928      177          6</span>
+<span class="co">#&gt;  9                  59929      177          6</span>
+<span class="co">#&gt; 10                  59930      177          6</span>
+<span class="co">#&gt; # … with more rows, and 6 more variables:</span>
+<span class="co">#&gt; #   climatic_model_id &lt;int&gt;,</span>
+<span class="co">#&gt; #   climatic_scenario &lt;chr&gt;, year &lt;int&gt;,</span>
+<span class="co">#&gt; #   nit &lt;dbl&gt;, hsi &lt;dbl&gt;, saturation_rate &lt;dbl&gt;</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."locale"&gt; [?? x</span>
+<span class="co">#&gt; #   4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    locale_id country_code english_label   country_label </span>
-<span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;         </span>
-<span class="co">#&gt;  1        59 fr           ALL EXISTING S… TOUTES LES SO…</span>
-<span class="co">#&gt;  2        60 fr           Allis shad      Grande alose  </span>
-<span class="co">#&gt;  3        61 fr           Atlantic salmon Saumon atlant…</span>
-<span class="co">#&gt;  4        62 fr           Barrow          Barrow        </span>
-<span class="co">#&gt;  5        63 fr           Couesnon        Couesnon      </span>
-<span class="co">#&gt;  6        64 fr           Cultural servi… Services cult…</span>
-<span class="co">#&gt;  7        65 fr           Deba            Deba          </span>
-<span class="co">#&gt;  8        66 fr           Dordogne        Dordogne      </span>
-<span class="co">#&gt;  9        67 fr           Dorset Frome    Dorset Frome  </span>
-<span class="co">#&gt; 10        68 fr           European eel    Anguille euro…</span>
-<span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."outlet_distance"&gt; [??</span>
-<span class="co">#&gt; #   x 3]</span>
+<span class="co">#&gt;    locale_id country_code english_label           </span>
+<span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;                   </span>
+<span class="co">#&gt;  1        59 fr           ALL EXISTING SUBCATEGOR…</span>
+<span class="co">#&gt;  2        60 fr           Allis shad              </span>
+<span class="co">#&gt;  3        61 fr           Atlantic salmon         </span>
+<span class="co">#&gt;  4        62 fr           Barrow                  </span>
+<span class="co">#&gt;  5        63 fr           Couesnon                </span>
+<span class="co">#&gt;  6        64 fr           Cultural services       </span>
+<span class="co">#&gt;  7        65 fr           Deba                    </span>
+<span class="co">#&gt;  8        66 fr           Dordogne                </span>
+<span class="co">#&gt;  9        67 fr           Dorset Frome            </span>
+<span class="co">#&gt; 10        68 fr           European eel            </span>
+<span class="co">#&gt; # … with more rows, and 1 more variable:</span>
+<span class="co">#&gt; #   country_label &lt;chr&gt;</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."outlet_distance"&gt; [?? x</span>
+<span class="co">#&gt; #   3]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
 <span class="co">#&gt;    departure arrival distance</span>
@@ -1081,8 +1118,9 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt;  9         1      16     965.</span>
 <span class="co">#&gt; 10         1     385    2259.</span>
 <span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."species_division"&gt; [??</span>
-<span class="co">#&gt; #   x 4]</span>
+<span class="co">#&gt; # Source:  </span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."species_division"&gt; [?? x</span>
+<span class="co">#&gt; #   4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
 <span class="co">#&gt;    species_division_id  year species_id   gid</span>
@@ -1098,130 +1136,136 @@ Do not forget to set environment variables in .Renviron
 <span class="co">#&gt;  9                   9  2004          6    10</span>
 <span class="co">#&gt; 10                  10  2012          6     8</span>
 <span class="co">#&gt; # … with more rows</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."species_iucn"&gt; [?? x</span>
-<span class="co">#&gt; #   4]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."species_iucn"&gt;</span>
+<span class="co">#&gt; #   [?? x 4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    species_iucn_id species_id iucn_classification_id</span>
-<span class="co">#&gt;              &lt;int&gt;      &lt;int&gt;                  &lt;int&gt;</span>
-<span class="co">#&gt;  1               1          4                      1</span>
-<span class="co">#&gt;  2               2         13                      1</span>
-<span class="co">#&gt;  3               3         18                      1</span>
-<span class="co">#&gt;  4               4         21                      1</span>
-<span class="co">#&gt;  5               5         25                      1</span>
-<span class="co">#&gt;  6               6         26                      1</span>
-<span class="co">#&gt;  7               7         20                      1</span>
-<span class="co">#&gt;  8               8         19                      1</span>
-<span class="co">#&gt;  9               9          6                      1</span>
-<span class="co">#&gt; 10              10         22                      1</span>
+<span class="co">#&gt;    species_iucn_id species_id iucn_classification…</span>
+<span class="co">#&gt;              &lt;int&gt;      &lt;int&gt;                &lt;int&gt;</span>
+<span class="co">#&gt;  1               1          4                    1</span>
+<span class="co">#&gt;  2               2         13                    1</span>
+<span class="co">#&gt;  3               3         18                    1</span>
+<span class="co">#&gt;  4               4         21                    1</span>
+<span class="co">#&gt;  5               5         25                    1</span>
+<span class="co">#&gt;  6               6         26                    1</span>
+<span class="co">#&gt;  7               7         20                    1</span>
+<span class="co">#&gt;  8               8         19                    1</span>
+<span class="co">#&gt;  9               9          6                    1</span>
+<span class="co">#&gt; 10              10         22                    1</span>
 <span class="co">#&gt; # … with more rows, and 1 more variable:</span>
 <span class="co">#&gt; #   iucn_level_id &lt;int&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."subcategory"&gt; [?? x 3]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."subcategory"&gt;</span>
+<span class="co">#&gt; #   [?? x 3]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;   subcategory_id subcategory_name            category_id</span>
-<span class="co">#&gt;            &lt;int&gt; &lt;chr&gt;                             &lt;int&gt;</span>
-<span class="co">#&gt; 1              1 Food provision from commer…           2</span>
-<span class="co">#&gt; 2              2 Option value associated to…           2</span>
-<span class="co">#&gt; 3              3 Redistribution of nutrient…           3</span>
-<span class="co">#&gt; 4              4 Traditional know-how (fish…           1</span>
-<span class="co">#&gt; 5              5 Traditional know-how relat…           1</span>
-<span class="co">#&gt; 6              6 Gastronomy around species …           1</span>
-<span class="co">#&gt; 7              7 Natural heritage and natur…           1</span>
-<span class="co">#&gt; 8              8 Recreation sport fishing (…           1</span>
-<span class="co">#&gt; 9              9 The potential for environm…           1</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_basin"&gt; [?? x 3]</span>
+<span class="co">#&gt;   subcategory_id subcategory_name      category_id</span>
+<span class="co">#&gt;            &lt;int&gt; &lt;chr&gt;                       &lt;int&gt;</span>
+<span class="co">#&gt; 1              1 Food provision from …           2</span>
+<span class="co">#&gt; 2              2 Option value associa…           2</span>
+<span class="co">#&gt; 3              3 Redistribution of nu…           3</span>
+<span class="co">#&gt; 4              4 Traditional know-how…           1</span>
+<span class="co">#&gt; 5              5 Traditional know-how…           1</span>
+<span class="co">#&gt; 6              6 Gastronomy around sp…           1</span>
+<span class="co">#&gt; 7              7 Natural heritage and…           1</span>
+<span class="co">#&gt; 8              8 Recreation sport fis…           1</span>
+<span class="co">#&gt; 9              9 The potential for en…           1</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_basin"&gt; [?? x</span>
+<span class="co">#&gt; #   3]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    basin_id basin_name geom                             </span>
-<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;      &lt;pq_gmtry&gt;                       </span>
-<span class="co">#&gt;  1      199 Imsa       0103000020E610000001000000060000…</span>
-<span class="co">#&gt;  2       68 Guadiana   0103000020E610000001000000B70000…</span>
-<span class="co">#&gt;  3      368 Sor        0103000020E610000001000000080000…</span>
-<span class="co">#&gt;  4      174 Vida       0106000020E610000002000000010300…</span>
-<span class="co">#&gt;  5      103 Navia      0103000020E610000001000000210000…</span>
-<span class="co">#&gt;  6       16 Auzance    0103000020E610000001000000080000…</span>
-<span class="co">#&gt;  7       60 Garonne    0106000020E610000003000000010300…</span>
-<span class="co">#&gt;  8      169 Tyne       0103000020E610000001000000220000…</span>
-<span class="co">#&gt;  9       22 Blackwater 0106000020E610000002000000010300…</span>
-<span class="co">#&gt; 10       50 Eden       0103000020E6100000010000001C0000…</span>
+<span class="co">#&gt;    basin_id basin_name geom                       </span>
+<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;      &lt;pq_gmtry&gt;                 </span>
+<span class="co">#&gt;  1      199 Imsa       0103000020E610000001000000…</span>
+<span class="co">#&gt;  2       68 Guadiana   0103000020E610000001000000…</span>
+<span class="co">#&gt;  3      368 Sor        0103000020E610000001000000…</span>
+<span class="co">#&gt;  4      174 Vida       0106000020E610000002000000…</span>
+<span class="co">#&gt;  5      103 Navia      0103000020E610000001000000…</span>
+<span class="co">#&gt;  6       16 Auzance    0103000020E610000001000000…</span>
+<span class="co">#&gt;  7       60 Garonne    0106000020E610000003000000…</span>
+<span class="co">#&gt;  8      169 Tyne       0103000020E610000001000000…</span>
+<span class="co">#&gt;  9       22 Blackwater 0106000020E610000002000000…</span>
+<span class="co">#&gt; 10       50 Eden       0103000020E610000001000000…</span>
 <span class="co">#&gt; # … with more rows</span>
 <span class="co">#&gt; # Source:  </span>
-<span class="co">#&gt; #   table&lt;"diadesatlas"."v_ecosystemic_services"&gt; [?? x</span>
-<span class="co">#&gt; #   14]</span>
+<span class="co">#&gt; #   table&lt;"diadesatlas"."v_ecosystemic_services"&gt;</span>
+<span class="co">#&gt; #   [?? x 14]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    category_id casestudy_id species_id subcategory_id</span>
-<span class="co">#&gt;          &lt;int&gt;        &lt;int&gt;      &lt;int&gt;          &lt;int&gt;</span>
-<span class="co">#&gt;  1           2            9         21             99</span>
-<span class="co">#&gt;  2           1            9         19             99</span>
-<span class="co">#&gt;  3           3            5         20              3</span>
-<span class="co">#&gt;  4           1            4          4              7</span>
-<span class="co">#&gt;  5           2            7         20              1</span>
-<span class="co">#&gt;  6           1            9          6             99</span>
-<span class="co">#&gt;  7           1            1         19              8</span>
-<span class="co">#&gt;  8           2            3          4             99</span>
-<span class="co">#&gt;  9           2            5         26              2</span>
-<span class="co">#&gt; 10           2            8         20             99</span>
-<span class="co">#&gt; # … with more rows, and 10 more variables:</span>
-<span class="co">#&gt; #   esvalue_id &lt;int&gt;, subcategory_name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   category_name &lt;chr&gt;, latin_name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   simplified_name &lt;chr&gt;, fish_name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   casestudy_name &lt;chr&gt;, esvalue_code &lt;chr&gt;,</span>
-<span class="co">#&gt; #   esvalue_name &lt;chr&gt;, sortorder &lt;int&gt;</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_iucn"&gt; [?? x 7]</span>
+<span class="co">#&gt;    category_id casestudy_id species_id</span>
+<span class="co">#&gt;          &lt;int&gt;        &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt;  1           2            9         21</span>
+<span class="co">#&gt;  2           1            9         19</span>
+<span class="co">#&gt;  3           3            5         20</span>
+<span class="co">#&gt;  4           1            4          4</span>
+<span class="co">#&gt;  5           2            7         20</span>
+<span class="co">#&gt;  6           1            9          6</span>
+<span class="co">#&gt;  7           1            1         19</span>
+<span class="co">#&gt;  8           2            3          4</span>
+<span class="co">#&gt;  9           2            5         26</span>
+<span class="co">#&gt; 10           2            8         20</span>
+<span class="co">#&gt; # … with more rows, and 11 more variables:</span>
+<span class="co">#&gt; #   subcategory_id &lt;int&gt;, esvalue_id &lt;int&gt;,</span>
+<span class="co">#&gt; #   subcategory_name &lt;chr&gt;, category_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   latin_name &lt;chr&gt;, simplified_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   fish_name &lt;chr&gt;, casestudy_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   esvalue_code &lt;chr&gt;, esvalue_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   sortorder &lt;int&gt;</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."v_iucn"&gt; [?? x</span>
+<span class="co">#&gt; #   7]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;    species_id latin_name   simplified_name english_name </span>
-<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;        </span>
-<span class="co">#&gt;  1          6 Alosa alosa  A. alosa        Allis shad   </span>
-<span class="co">#&gt;  2         22 Platichthys… P. flesus       European flo…</span>
-<span class="co">#&gt;  3          8 Alosa fallax A. fallax       Twaite shad  </span>
-<span class="co">#&gt;  4         13 Anguilla an… A. anguilla     European eel </span>
-<span class="co">#&gt;  5         18 Lampetra fl… L. fluviatilis  River lamprey</span>
-<span class="co">#&gt;  6         21 Petromyzon … P. marinus      Sea lamprey  </span>
-<span class="co">#&gt;  7         25 Salmo salar  S. salar        Atlantic sal…</span>
-<span class="co">#&gt;  8         26 Salmo trutta S. trutta       Sea trout    </span>
-<span class="co">#&gt;  9         20 Osmerus epe… O. eperlanus    European sme…</span>
-<span class="co">#&gt; 10         19 Chelon rama… C. ramada       Thinlip grey…</span>
-<span class="co">#&gt; # … with more rows, and 3 more variables:</span>
+<span class="co">#&gt;    species_id latin_name           simplified_name</span>
+<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;                &lt;chr&gt;          </span>
+<span class="co">#&gt;  1          6 Alosa alosa          A. alosa       </span>
+<span class="co">#&gt;  2         22 Platichthys flesus   P. flesus      </span>
+<span class="co">#&gt;  3          8 Alosa fallax         A. fallax      </span>
+<span class="co">#&gt;  4         13 Anguilla anguilla    A. anguilla    </span>
+<span class="co">#&gt;  5         18 Lampetra fluviatilis L. fluviatilis </span>
+<span class="co">#&gt;  6         21 Petromyzon marinus   P. marinus     </span>
+<span class="co">#&gt;  7         25 Salmo salar          S. salar       </span>
+<span class="co">#&gt;  8         26 Salmo trutta         S. trutta      </span>
+<span class="co">#&gt;  9         20 Osmerus eperlanus    O. eperlanus   </span>
+<span class="co">#&gt; 10         19 Chelon ramada        C. ramada      </span>
+<span class="co">#&gt; # … with more rows, and 4 more variables:</span>
+<span class="co">#&gt; #   english_name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   iucn_classification_code &lt;chr&gt;,</span>
 <span class="co">#&gt; #   iucn_level_code &lt;chr&gt;, iucn_level_name &lt;chr&gt;</span>
 
-<span class="va">casestudy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">casestudy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">casestudy</span>
-<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."casestudy"&gt; [?? x 4]</span>
+<span class="co">#&gt; # Source:   table&lt;"diadesatlas"."casestudy"&gt; [??</span>
+<span class="co">#&gt; #   x 4]</span>
 <span class="co">#&gt; # Database: postgres</span>
 <span class="co">#&gt; #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">#&gt;   casestudy_id casestudy_name   publishable geom        </span>
-<span class="co">#&gt;          &lt;int&gt; &lt;chr&gt;            &lt;lgl&gt;       &lt;pq_gmtry&gt;  </span>
-<span class="co">#&gt; 1            3 Normand-Breton … TRUE        0103000020E…</span>
-<span class="co">#&gt; 2            4 Loire            TRUE        0106000020E…</span>
-<span class="co">#&gt; 3            6 Gipuzcoan        TRUE        0106000020E…</span>
-<span class="co">#&gt; 4            1 Waterford Harbo… TRUE        0106000020E…</span>
-<span class="co">#&gt; 5            9 Mondego          TRUE        0106000020E…</span>
-<span class="co">#&gt; 6            8 Minho            TRUE        0103000020E…</span>
-<span class="co">#&gt; 7            2 Tamar-Taff-Frome TRUE        0106000020E…</span>
-<span class="co">#&gt; 8            5 Gironde-Garonne… TRUE        0106000020E…</span>
-<span class="co">#&gt; 9            7 Ulla             TRUE        0103000020E…</span></code></pre>
+<span class="co">#&gt;   casestudy_id casestudy_name  publishable geom   </span>
+<span class="co">#&gt;          &lt;int&gt; &lt;chr&gt;           &lt;lgl&gt;       &lt;pq_gm&gt;</span>
+<span class="co">#&gt; 1            3 Normand-Breton… TRUE        010300…</span>
+<span class="co">#&gt; 2            4 Loire           TRUE        010600…</span>
+<span class="co">#&gt; 3            6 Gipuzcoan       TRUE        010600…</span>
+<span class="co">#&gt; 4            1 Waterford Harb… TRUE        010600…</span>
+<span class="co">#&gt; 5            9 Mondego         TRUE        010600…</span>
+<span class="co">#&gt; 6            8 Minho           TRUE        010300…</span>
+<span class="co">#&gt; 7            2 Tamar-Taff-Fro… TRUE        010600…</span>
+<span class="co">#&gt; 8            5 Gironde-Garonn… TRUE        010600…</span>
+<span class="co">#&gt; 9            7 Ulla            TRUE        010300…</span></code></pre>
 </div>
 </div>
-<div class="section level4">
-<h4 id="create-connection">
+<div id="create-connection" class="section level3">
+<h3 class="hasAnchor">
+<a href="#create-connection" class="anchor"></a>
 Create connection
-<a class="anchor" aria-label="anchor" href="#create-connection"></a>
-</h4>
+</h3>
 <div id="cb3" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_dm</span> <span class="op">&lt;-</span> <span class="fu">dm_from_src</span><span class="op">(</span><span class="va">con</span>, schema <span class="op">=</span> <span class="st">"diadesatlas"</span>, learn_keys <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">my_dm</span></code></pre>
 </div>
 </div>
-<div class="section level4">
-<h4 id="function-to-collect-data">
+<div id="function-to-collect-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#function-to-collect-data" class="anchor"></a>
 Function to collect data
-<a class="anchor" aria-label="anchor" href="#function-to-collect-data"></a>
-</h4>
+</h3>
 <div id="cb4" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># empty</span>
@@ -1229,98 +1273,98 @@ Function to collect data
 <span class="co"># services ?</span>
 <span class="co"># dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices")) %&gt;% collect()</span>
 <span class="co"># services new</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"es_diades"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"es_diades"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># geometry of all basin</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"basin_outlet"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"basin_outlet"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># Model results over the years</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"hybrid_model_result"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"hybrid_model_result"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># Abundance of species in a given basin ove the years</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"abundance"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"abundance"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># ?</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"climatic_model"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"climatic_model"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># List of all basins</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"basin"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"basin"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># List of basin for case_study</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># List of basins id for case_study</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy_basin"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy_basin"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># List of ecosystem services</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"ecosystem_service"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"ecosystem_service_new"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"ecosystem_service"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"ecosystem_service_new"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># List of species</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></code></pre>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="prepare-data-for-home-page">
+<div id="prepare-data-for-home-page" class="section level2">
+<h2 class="hasAnchor">
+<a href="#prepare-data-for-home-page" class="anchor"></a>
 Prepare data for Home page
-<a class="anchor" aria-label="anchor" href="#prepare-data-for-home-page"></a>
-</h3>
-<div class="section level4">
-<h4 id="prepare-json-files">
+</h2>
+<div id="prepare-json-files" class="section level3">
+<h3 class="hasAnchor">
+<a href="#prepare-json-files" class="anchor"></a>
 Prepare json files
-<a class="anchor" aria-label="anchor" href="#prepare-json-files"></a>
-</h4>
+</h3>
 <p>
 Create all json data used on the home page of the app
 </p>
 <div id="cb5" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># List of case studies</span>
-<span class="va">casestudy</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">casestudy</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># List of the corresponding basins</span>
-<span class="va">casestudy_basin</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy_basin"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">casestudy_basin</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"casestudy_basin"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># Put them two together</span>
-<span class="va">cstd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">full_join</a></span><span class="op">(</span><span class="va">casestudy</span>, <span class="va">casestudy_basin</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">publishable</span><span class="op">)</span>
+<span class="va">cstd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">casestudy</span>, <span class="va">casestudy_basin</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">publishable</span><span class="op">)</span>
 
 <span class="co"># Get the features for drawing the polygons on the map</span>
 <span class="va">qry</span> <span class="op">&lt;-</span> <span class="st">"SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom, basin_id as basin_id FROM diadesatlas.basin_outlet"</span>
 
 <span class="co"># i then read as an sf object</span>
-<span class="va">pols</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="va">con</span>, query <span class="op">=</span> <span class="va">qry</span>, geom <span class="op">=</span> <span class="st">"geom"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">basin_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">casestudy_basin</span><span class="op">$</span><span class="va">basin_id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">cstd</span><span class="op">)</span>
-<span class="va">pols</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">geojson</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/geojson/reference/as.geojson.html" class="external-link">as.geojson</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">geojson</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/geojson/reference/geo_write.html" class="external-link">geo_write</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/casestudy.json"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">pols</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="va">con</span>, query <span class="op">=</span> <span class="va">qry</span>, geom <span class="op">=</span> <span class="st">"geom"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">basin_id</span> <span class="op">%in%</span> <span class="va">casestudy_basin</span><span class="op">$</span><span class="va">basin_id</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">cstd</span><span class="op">)</span>
+<span class="va">pols</span> <span class="op">%&gt;%</span>
+  <span class="fu">geojson</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/geojson/reference/as.geojson.html">as.geojson</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">geojson</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/geojson/reference/geo_write.html">geo_write</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/casestudy.json"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># List of ecosystem services</span>
-<span class="va">ecosystems</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"ecosystem_service"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">ecosystems</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">presence</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">write_json</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/ecosystems.json"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">ecosystems</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"ecosystem_service"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">ecosystems</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">presence</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">write_json</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/ecosystems.json"</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># Services</span>
-<span class="va">services</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"v_ecosystemic_services"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">services</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">category_id</span>, <span class="va">subcategory_id</span>, <span class="va">category_name</span>, <span class="va">subcategory_name</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    subcategory_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"99"</span>, <span class="st">"0"</span>, <span class="va">subcategory_id</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span>
+<span class="va">services</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"v_ecosystemic_services"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">services</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">category_id</span>, <span class="va">subcategory_id</span>, <span class="va">category_name</span>, <span class="va">subcategory_name</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    subcategory_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"99"</span>, <span class="st">"0"</span>, <span class="va">subcategory_id</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>
     <span class="va">category_id</span>, <span class="va">subcategory_id</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    subcategory_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"0"</span>, <span class="st">"99"</span>, <span class="va">subcategory_id</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">write_json</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/services.json"</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    subcategory_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"0"</span>, <span class="st">"99"</span>, <span class="va">subcategory_id</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">write_json</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/services.json"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">eco_and_services</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">full_join</a></span><span class="op">(</span><span class="va">ecosystems</span>, <span class="va">services</span><span class="op">)</span>
+<span class="va">eco_and_services</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">ecosystems</span>, <span class="va">services</span><span class="op">)</span>
 
 <span class="co"># Species</span>
 
-<span class="va">species</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html" class="external-link">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">species</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">ecosystems</span><span class="op">$</span><span class="va">species_id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">write_json</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/species.json"</span><span class="op">)</span><span class="op">)</span></code></pre>
+<span class="va">species</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu">dbplyr</span><span class="fu">::</span><span class="fu"><a href="https://dbplyr.tidyverse.org/reference/in_schema.html">in_schema</a></span><span class="op">(</span><span class="st">"diadesatlas"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">species</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op">%in%</span> <span class="va">ecosystems</span><span class="op">$</span><span class="va">species_id</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">write_json</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/species.json"</span><span class="op">)</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level4">
-<h4 id="prepare-and-test-leaflet-map">
+<div id="prepare-and-test-leaflet-map" class="section level3">
+<h3 class="hasAnchor">
+<a href="#prepare-and-test-leaflet-map" class="anchor"></a>
 Prepare and test leaflet map
-<a class="anchor" aria-label="anchor" href="#prepare-and-test-leaflet-map"></a>
-</h4>
+</h3>
 <div id="cb6" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set query and reproject to EPSG:4326 for GeoJSON creation</span>
@@ -1328,10 +1372,10 @@ Prepare and test leaflet map
 <span class="va">qry</span> <span class="op">&lt;-</span> <span class="st">"SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom FROM diadesatlas.basin_outlet"</span>
 
 <span class="co"># i then read as an sf object</span>
-<span class="va">pols</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="va">con</span>, query <span class="op">=</span> <span class="va">qry</span>, geom <span class="op">=</span> <span class="st">"geom"</span><span class="op">)</span>
+<span class="va">pols</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="va">con</span>, query <span class="op">=</span> <span class="va">qry</span>, geom <span class="op">=</span> <span class="st">"geom"</span><span class="op">)</span>
 
 <span class="co"># and convert to GeoJSON</span>
-<span class="va">pols.js</span> <span class="op">&lt;-</span> <span class="fu">geojsonio</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/geojsonio/reference/geojson_json.html" class="external-link">geojson_json</a></span><span class="op">(</span><span class="va">pols</span><span class="op">)</span>
+<span class="va">pols.js</span> <span class="op">&lt;-</span> <span class="fu">geojsonio</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/geojsonio/reference/geojson_json.html">geojson_json</a></span><span class="op">(</span><span class="va">pols</span><span class="op">)</span>
 <span class="co"># pols %&gt;% geojson::as.geojson() %&gt;% geojson::geo_write("plop.json")</span>
 
 <span class="co"># options(readr.default_locale=readr::locale(tz="Europe/Berlin"))</span>
@@ -1341,27 +1385,27 @@ Prepare and test leaflet map
 <span class="co">#   dplyr::filter(LEVL_CODE == 2 &amp; CNTR_CODE %in% c("AT","CZ","DE","HU","PL","SK")) %&gt;%</span>
 <span class="co">#   dplyr::select(NUTS_ID)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pols</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pols</span><span class="op">)</span>
 
-<span class="va">pols</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
+<span class="va">pols</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
 
 <span class="co"># CE = sf::as_Spatial(pols)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html" class="external-link">addProviderTiles</a></span><span class="op">(</span><span class="st">"CartoDB.Positron"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pols</span>, color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></code></pre>
+<span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">addProviderTiles</a></span><span class="op">(</span><span class="st">"CartoDB.Positron"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pols</span>, color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level4">
-<h4 id="stop-connection">
+<div id="stop-connection" class="section level3">
+<h3 class="hasAnchor">
+<a href="#stop-connection" class="anchor"></a>
 Stop connection
-<a class="anchor" aria-label="anchor" href="#stop-connection"></a>
-</h4>
+</h3>
 <div id="cb7" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1386,14 +1430,13 @@ Stop connection
 
 
       <footer><div class="thinkr">
-  <p></p>
-<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>diades.atlas is a  <strong>ThinkR</strong> package. Learn more at <a href="https://rtask.thinkr.fr">rtask.thinkr.fr</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by .
-    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
+    Developed by Sébastien Rochette, Colin Fay.
+    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
 
@@ -1402,8 +1445,6 @@ Stop connection
 
   
 
-
-  
 
   </body>
 </html>

@@ -37,8 +37,6 @@
 -->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -57,6 +55,12 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -107,7 +111,7 @@
 </div>
         </li>
         <li>
-  <a href="https://github.com/inrae/diades.atlas/" class="external-link">
+  <a href="https://github.com/inrae/diades.atlas/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -128,7 +132,7 @@
       <h1 data-toc-skip>bb-page1-catch-bycatch</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/HEAD/vignettes/bb-page1-catch-bycatch.Rmd" class="external-link"><code>vignettes/bb-page1-catch-bycatch.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/master/vignettes/bb-page1-catch-bycatch.Rmd"><code>vignettes/bb-page1-catch-bycatch.Rmd</code></a></small>
       <div class="hidden name"><code>bb-page1-catch-bycatch.Rmd</code></div>
 
     </div>
@@ -465,336 +469,337 @@ bb-page1-catch-bycatch
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")</span>
 <span class="co"># Sys.setenv("POSTGRES_PASS" = "thinkrpassword")</span>
-<span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">load_all</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ Loading diades.atlas</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="va">session</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/shiny/man/MockShinySession.html" class="external-link">MockShinySession</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> <span class="co">#new.env()</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="va">session</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/shiny/man/MockShinySession.html">MockShinySession</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> <span class="co">#new.env()</span>
 <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
 <span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AndySouth/rworldmap/" class="external-link">rworldmap</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rworldxtra</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap" class="external-link">tmap</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org" class="external-link">DBI</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AndySouth/rworldmap/">rworldmap</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rworldxtra</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org">DBI</a></span><span class="op">)</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nteetor/zeallot" class="external-link">zeallot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nteetor/zeallot">zeallot</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span>
   <span class="st">"GOLEM_CONFIG_ACTIVE"</span> <span class="op">=</span> <span class="st">"dev"</span>
 <span class="op">)</span></code></pre>
 </div>
-<div class="section level2">
-<h2 id="liste-des-espèces">
+<div id="liste-des-espèces" class="section level1">
+<h1 class="hasAnchor">
+<a href="#liste-des-esp%C3%A8ces" class="anchor"></a>
 Liste des espèces
-<a class="anchor" aria-label="anchor" href="#liste-des-esp%C3%A8ces"></a>
-</h2>
+</h1>
 <div id="cb2" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_active_species.html">get_active_species</a></span><span class="op">(</span>
   session <span class="op">=</span> <span class="va">session</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 11 × 5</span>
-<span class="co">#&gt;    species_id latin_name  english_name local_name active</span>
-<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;      &lt;lgl&gt; </span>
-<span class="co">#&gt;  1          4 Acipenser … European st… ASturio    TRUE  </span>
-<span class="co">#&gt;  2          6 Alosa alosa Allis shad   AAlosa     TRUE  </span>
-<span class="co">#&gt;  3          8 Alosa fall… Twaite shad  AFallax    TRUE  </span>
-<span class="co">#&gt;  4         13 Anguilla a… European eel AAnguilla  TRUE  </span>
-<span class="co">#&gt;  5         18 Lampetra f… River lampr… LFluviati… TRUE  </span>
-<span class="co">#&gt;  6         20 Osmerus ep… European sm… OEperlanus TRUE  </span>
-<span class="co">#&gt;  7         21 Petromyzon… Sea lamprey  PMarinus   TRUE  </span>
-<span class="co">#&gt;  8         22 Platichthy… European fl… PFlesus    TRUE  </span>
-<span class="co">#&gt;  9         25 Salmo salar Atlantic sa… SSalar     TRUE  </span>
-<span class="co">#&gt; 10         26 Salmo trut… Sea trout    STrutta    TRUE  </span>
-<span class="co">#&gt; 11         19 Chelon ram… Thinlip gre… LRamada    TRUE</span></code></pre>
+<span class="co">#&gt;    species_id latin_name   english_name local_name</span>
+<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     </span>
+<span class="co">#&gt;  1          4 Acipenser s… European st… ASturio   </span>
+<span class="co">#&gt;  2          6 Alosa alosa  Allis shad   AAlosa    </span>
+<span class="co">#&gt;  3          8 Alosa fallax Twaite shad  AFallax   </span>
+<span class="co">#&gt;  4         13 Anguilla an… European eel AAnguilla </span>
+<span class="co">#&gt;  5         18 Lampetra fl… River lampr… LFluviati…</span>
+<span class="co">#&gt;  6         20 Osmerus epe… European sm… OEperlanus</span>
+<span class="co">#&gt;  7         21 Petromyzon … Sea lamprey  PMarinus  </span>
+<span class="co">#&gt;  8         22 Platichthys… European fl… PFlesus   </span>
+<span class="co">#&gt;  9         25 Salmo salar  Atlantic sa… SSalar    </span>
+<span class="co">#&gt; 10         26 Salmo trutta Sea trout    STrutta   </span>
+<span class="co">#&gt; 11         19 Chelon rama… Thinlip gre… LRamada   </span>
+<span class="co">#&gt; # … with 1 more variable: active &lt;lgl&gt;</span></code></pre>
 </div>
-<div class="section level3">
-<h3 id="conservation-status">
+<div id="conservation-status" class="section level2">
+<h2 class="hasAnchor">
+<a href="#conservation-status" class="anchor"></a>
 Conservation status
-<a class="anchor" aria-label="anchor" href="#conservation-status"></a>
-</h3>
+</h2>
 <div id="cb3" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_active_species.html">get_active_species</a></span><span class="op">(</span>
   session <span class="op">=</span> <span class="va">session</span>
 <span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">species</span><span class="op">$</span><span class="va">species_id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cat_line.html" class="external-link">cat_rule</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>
+  <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cat_line.html">cat_rule</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>
     <span class="fu"><a href="../reference/get_conservation_status.html">get_conservation_status</a></span><span class="op">(</span>
       <span class="fl">6</span>,
       <span class="va">con</span>
     <span class="op">)</span>
   <span class="op">)</span>
-  <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cat_line.html" class="external-link">cat_line</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cat_line.html">cat_line</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="co">#&gt; ── 4 ───────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 4 ─────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 6 ───────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 6 ─────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 8 ───────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 8 ─────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 13 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 13 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 18 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 18 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 20 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 20 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 21 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 21 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 22 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 22 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 25 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 25 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 26 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span>
+<span class="co">#&gt; ── 26 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 19 ──────────────────────────────────────────────────</span>
-<span class="co">#&gt;   species_id  latin_name simplified_name english_name</span>
-<span class="co">#&gt; 1          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5          6 Alosa alosa        A. alosa   Allis shad</span>
-<span class="co">#&gt;   iucn_classification_code iucn_level_code</span>
-<span class="co">#&gt; 1              IUCN_Europe              LC</span>
-<span class="co">#&gt; 2                  IUCN_ES              LC</span>
-<span class="co">#&gt; 3                  IUCN_FR              CR</span>
-<span class="co">#&gt; 4                  IUCN_IE              DD</span>
-<span class="co">#&gt; 5                  IUCN_PT              EN</span>
-<span class="co">#&gt;         iucn_level_name</span>
-<span class="co">#&gt; 1         Least Concern</span>
-<span class="co">#&gt; 2         Least Concern</span>
-<span class="co">#&gt; 3 Critically Endangered</span>
-<span class="co">#&gt; 4        Data Deficient</span>
-<span class="co">#&gt; 5            Endangered</span></code></pre>
+<span class="co">#&gt; ── 19 ────────────────────────────────────────────</span>
+<span class="co">#&gt;   species_id  latin_name simplified_name</span>
+<span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 3          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 4          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt; 5          6 Alosa alosa        A. alosa</span>
+<span class="co">#&gt;   english_name iucn_classification_code</span>
+<span class="co">#&gt; 1   Allis shad              IUCN_Europe</span>
+<span class="co">#&gt; 2   Allis shad                  IUCN_ES</span>
+<span class="co">#&gt; 3   Allis shad                  IUCN_FR</span>
+<span class="co">#&gt; 4   Allis shad                  IUCN_IE</span>
+<span class="co">#&gt; 5   Allis shad                  IUCN_PT</span>
+<span class="co">#&gt;   iucn_level_code       iucn_level_name</span>
+<span class="co">#&gt; 1              LC         Least Concern</span>
+<span class="co">#&gt; 2              LC         Least Concern</span>
+<span class="co">#&gt; 3              CR Critically Endangered</span>
+<span class="co">#&gt; 4              DD        Data Deficient</span>
+<span class="co">#&gt; 5              EN            Endangered</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="tmap-code">
+<div id="tmap-code" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tmap-code" class="anchor"></a>
 Tmap code
-<a class="anchor" aria-label="anchor" href="#tmap-code"></a>
-</h3>
+</h2>
 <div id="cb4" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dataCatchment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbReadTable.html" class="external-link">dbReadTable</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">dataCatchment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbReadTable.html">dbReadTable</a></span><span class="op">(</span>
   <span class="va">con</span>,
   <span class="st">"v_abundance"</span>
-<span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
       <span class="op">~</span><span class="va">abundance_level_id</span>, <span class="op">~</span><span class="va">abundance_interpretation</span>,
       <span class="fl">1</span>, <span class="st">"Not recorded in the period"</span>,
       <span class="fl">2</span>, <span class="st">"Occasional vagrants"</span>,
       <span class="fl">3</span>, <span class="st">"Functional populations"</span>,
       <span class="fl">4</span>, <span class="st">"Abundant functional populations"</span>
-    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>abundance_interpretation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">abundance_interpretation</span>,
+    <span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>abundance_interpretation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">abundance_interpretation</span>,
         levels <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">abundance_interpretation</span>
       <span class="op">)</span><span class="op">)</span>,
     by <span class="op">=</span> <span class="st">"abundance_level_id"</span>
   <span class="op">)</span>
 
-<span class="va">catchment_geom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span>  
+<span class="va">catchment_geom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span>  
   <span class="va">con</span>,
   query <span class="op">=</span>   <span class="st">"SELECT * FROM diadesatlas.v_basin vb"</span>
-<span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">rmapshaper</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmapshaper/man/ms_simplify.html" class="external-link">ms_simplify</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="st">"+proj=wintri"</span><span class="op">)</span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">rmapshaper</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmapshaper/man/ms_simplify.html">ms_simplify</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=wintri"</span><span class="op">)</span>
 
-<span class="va">dataALL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span>
+<span class="va">dataALL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span>
   <span class="va">con</span>,
   <span class="st">"SELECT * from diadesatlas.v_species_ices_occurence vsio "</span>
-<span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># tibble() %&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>nb_occurence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">nb_occurence</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>nb_occurence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">nb_occurence</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">ices_geom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span>
+<span class="va">ices_geom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span>
   <span class="va">con</span>,
   query <span class="op">=</span> <span class="st">"SELECT * FROM diadesatlas.v_ices_geom;"</span>
-<span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># st_transform("+proj=eqearth +wktext") %&gt;%</span>
-  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="st">"+proj=wintri"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">rmapshaper</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmapshaper/man/ms_simplify.html" class="external-link">ms_simplify</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=wintri"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">rmapshaper</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmapshaper/man/ms_simplify.html">ms_simplify</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">dataContinent</span> <span class="op">&lt;-</span> <span class="fu">get_data_continent_m</span><span class="op">(</span>
   session <span class="op">=</span> <span class="va">session</span>
@@ -806,18 +811,18 @@ Tmap code
 </div>
 <div id="cb5" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
   <span class="va">dataCatchment</span>,
   <span class="va">catchment_geom</span>,
   <span class="va">dataALL</span>,
   <span class="va">ices_geom</span>,
   <span class="va">species_list</span>
-<span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/zeallot/man/operator.html" class="external-link">%&lt;-%</a></span> <span class="fu"><a href="../reference/generate_datasets.html">generate_datasets</a></span><span class="op">(</span>
+<span class="op">)</span> <span class="op">%&lt;-%</span> <span class="fu"><a href="../reference/generate_datasets.html">generate_datasets</a></span><span class="op">(</span>
   <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span>
     <span class="va">session</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; ── generate_datasets ───────────────────────────────────</span>
+<span class="co">#&gt; ── generate_datasets ─────────────────────────────</span>
 <span class="co"># options("golem.app.prod" = FALSE)</span>
 <span class="fu"><a href="../reference/launch_mongo.html">launch_mongo</a></span><span class="op">(</span>session <span class="op">=</span> <span class="va">session</span><span class="op">)</span>
 <span class="co"># NOTE: the species are passed with the latin name in the foreground.</span>
@@ -892,14 +897,14 @@ Tmap code
 <p>
 <img src="data:image/png;base64,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"><!-- --></p>
 </div>
-<div class="section level3">
-<h3 id="disconnect-db">
+<div id="disconnect-db" class="section level2">
+<h2 class="hasAnchor">
+<a href="#disconnect-db" class="anchor"></a>
 Disconnect db
-<a class="anchor" aria-label="anchor" href="#disconnect-db"></a>
-</h3>
+</h2>
 <div id="cb9" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -924,14 +929,13 @@ Disconnect db
 
 
       <footer><div class="thinkr">
-  <p></p>
-<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>diades.atlas is a  <strong>ThinkR</strong> package. Learn more at <a href="https://rtask.thinkr.fr">rtask.thinkr.fr</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by .
-    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
+    Developed by Sébastien Rochette, Colin Fay.
+    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
 
@@ -940,8 +944,6 @@ Disconnect db
 
   
 
-
-  
 
   </body>
 </html>

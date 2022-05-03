@@ -37,8 +37,6 @@
 -->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -57,6 +55,12 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -107,7 +111,7 @@
 </div>
         </li>
         <li>
-  <a href="https://github.com/inrae/diades.atlas/" class="external-link">
+  <a href="https://github.com/inrae/diades.atlas/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -128,7 +132,7 @@
       <h1 data-toc-skip>be-page4-future</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/HEAD/vignettes/be-page4-future.Rmd" class="external-link"><code>vignettes/be-page4-future.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/master/vignettes/be-page4-future.Rmd"><code>vignettes/be-page4-future.Rmd</code></a></small>
       <div class="hidden name"><code>be-page4-future.Rmd</code></div>
 
     </div>
@@ -455,18 +459,18 @@ be-page4-future
 </div>
 <div id="cb1" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas" class="external-link">diades.atlas</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas">diades.atlas</a></span><span class="op">)</span>
 <span class="co"># renv::install("dm")</span>
 <span class="co"># library(dm)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre>
 </div>
-<div class="section level4">
-<h4 id="connect-to-database">
+<div id="connect-to-database" class="section level3">
+<h3 class="hasAnchor">
+<a href="#connect-to-database" class="anchor"></a>
 Connect to database
-<a class="anchor" aria-label="anchor" href="#connect-to-database"></a>
-</h4>
+</h3>
 <p>
 Do not forget to set environment variables in .Renviron
 </p>
@@ -480,14 +484,14 @@ Do not forget to set environment variables in .Renviron
 <span class="co"># DBI::dbListObjects(con)</span></code></pre>
 </div>
 </div>
-<div class="section level4">
-<h4 id="stop-connection">
+<div id="stop-connection" class="section level3">
+<h3 class="hasAnchor">
+<a href="#stop-connection" class="anchor"></a>
 Stop connection
-<a class="anchor" aria-label="anchor" href="#stop-connection"></a>
-</h4>
+</h3>
 <div id="cb3" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre>
 </div>
 </div>
 <!-- code folding -->
@@ -511,14 +515,13 @@ Stop connection
 
 
       <footer><div class="thinkr">
-  <p></p>
-<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>diades.atlas is a  <strong>ThinkR</strong> package. Learn more at <a href="https://rtask.thinkr.fr">rtask.thinkr.fr</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by .
-    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
+    Developed by Sébastien Rochette, Colin Fay.
+    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
 
@@ -527,8 +530,6 @@ Stop connection
 
   
 
-
-  
 
   </body>
 </html>

@@ -37,8 +37,6 @@
 -->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -57,6 +55,12 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -107,7 +111,7 @@
 </div>
         </li>
         <li>
-  <a href="https://github.com/inrae/diades.atlas/" class="external-link">
+  <a href="https://github.com/inrae/diades.atlas/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -128,7 +132,7 @@
       <h1 data-toc-skip>aa-a-exploration_data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/HEAD/vignettes/aa-a-exploration_data.Rmd" class="external-link"><code>vignettes/aa-a-exploration_data.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/master/vignettes/aa-a-exploration_data.Rmd"><code>vignettes/aa-a-exploration_data.Rmd</code></a></small>
       <div class="hidden name"><code>aa-a-exploration_data.Rmd</code></div>
 
     </div>
@@ -462,117 +466,117 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="installation">
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>
 Installation
-<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h3>
+</h2>
 <p>
 Install the present package and use its core functions
 </p>
 <div id="cb1" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'inrae/diades.atlas'</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">'inrae/diades.atlas'</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="packages">
+<div id="packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#packages" class="anchor"></a>
 Packages
-<a class="anchor" aria-label="anchor" href="#packages"></a>
-</h3>
+</h2>
 <div id="cb2" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org" class="external-link">DBI</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rpostgres.r-dbi.org" class="external-link">RPostgres</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas" class="external-link">diades.atlas</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org">DBI</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpostgres.r-dbi.org">RPostgres</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/inrae/diades.atlas">diades.atlas</a></span><span class="op">)</span>
 <span class="co"># pkgload::load_all()</span></code></pre>
 </div>
 <p>
 <strong>You can use this package without opening the Shiny application</strong>
 </p>
 </div>
-<div class="section level3">
-<h3 id="connect-to-the-database">
+<div id="connect-to-the-database" class="section level2">
+<h2 class="hasAnchor">
+<a href="#connect-to-the-database" class="anchor"></a>
 Connect to the database
-<a class="anchor" aria-label="anchor" href="#connect-to-the-database"></a>
-</h3>
+</h2>
 <div id="cb3" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">conn_eurodiad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span>
-  <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html" class="external-link">Postgres</a></span><span class="op">(</span><span class="op">)</span>, 
+<span class="va">conn_eurodiad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span>
+  <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html">Postgres</a></span><span class="op">(</span><span class="op">)</span>, 
   dbname <span class="op">=</span> <span class="st">'eurodiad'</span>,
   host <span class="op">=</span> <span class="st">'&lt;your-host&gt;'</span>,
   port <span class="op">=</span> <span class="fl">5432</span>,
   user <span class="op">=</span> <span class="st">'&lt;your-username&gt;'</span>,
-  password <span class="op">=</span> <span class="fu">rstudioapi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstudioapi/man/askForPassword.html" class="external-link">askForPassword</a></span><span class="op">(</span><span class="st">"Database password"</span><span class="op">)</span><span class="op">)</span>
+  password <span class="op">=</span> <span class="fu">rstudioapi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstudioapi/man/askForPassword.html">askForPassword</a></span><span class="op">(</span><span class="st">"Database password"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">session</span><span class="op">$</span><span class="va">userData</span><span class="op">$</span><span class="va">con</span> <span class="op">&lt;-</span><span class="va">conn_eurodiad</span></code></pre>
 </div>
 <div id="cb4" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># For ThinkR only</span>
-<span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">conn_eurodiad</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span>session <span class="op">=</span> <span class="va">se</span><span class="op">)</span>
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html" class="external-link">dbListTables</a></span><span class="op">(</span><span class="va">conn_eurodiad</span><span class="op">)</span></code></pre>
+<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">conn_eurodiad</span><span class="op">)</span></code></pre>
 </div>
-<pre><code><span class="co">##  [1] "abundance_level"         </span>
-<span class="co">##  [2] "basin"                   </span>
-<span class="co">##  [3] "basin_outlet"            </span>
-<span class="co">##  [4] "casestudy_basin"         </span>
-<span class="co">##  [5] "category"                </span>
-<span class="co">##  [6] "cices"                   </span>
-<span class="co">##  [7] "climatic_model"          </span>
-<span class="co">##  [8] "hydiadparameter"         </span>
-<span class="co">##  [9] "ices_area"               </span>
-<span class="co">## [10] "ices_grass"              </span>
-<span class="co">## [11] "ices_rectangle"          </span>
-<span class="co">## [12] "iucn_classification"     </span>
-<span class="co">## [13] "iucn_level"              </span>
-<span class="co">## [14] "lang85_85"               </span>
-<span class="co">## [15] "species"                 </span>
-<span class="co">## [16] "species_rectangle"       </span>
-<span class="co">## [17] "v_abundance"             </span>
-<span class="co">## [18] "v_maxvalue_es"           </span>
-<span class="co">## [19] "v_hybrid_model"          </span>
-<span class="co">## [20] "v_hybrid_model_mavg"     </span>
-<span class="co">## [21] "v_ices_geom"             </span>
-<span class="co">## [22] "v_occurence"             </span>
-<span class="co">## [23] "v_species_ices_occurence"</span>
-<span class="co">## [24] "abundance"               </span>
-<span class="co">## [25] "casestudy"               </span>
-<span class="co">## [26] "ecosystemic_services"    </span>
-<span class="co">## [27] "esvalue"                 </span>
-<span class="co">## [28] "hybrid_model_result"     </span>
-<span class="co">## [29] "locale"                  </span>
-<span class="co">## [30] "outlet_distance"         </span>
-<span class="co">## [31] "species_division"        </span>
-<span class="co">## [32] "species_iucn"            </span>
-<span class="co">## [33] "subcategory"             </span>
-<span class="co">## [34] "v_basin"                 </span>
-<span class="co">## [35] "v_ecosystemic_services"  </span>
-<span class="co">## [36] "v_iucn"</span></code></pre>
+<pre><code>##  [1] "abundance_level"         
+##  [2] "basin"                   
+##  [3] "basin_outlet"            
+##  [4] "casestudy_basin"         
+##  [5] "category"                
+##  [6] "cices"                   
+##  [7] "climatic_model"          
+##  [8] "hydiadparameter"         
+##  [9] "ices_area"               
+## [10] "ices_grass"              
+## [11] "ices_rectangle"          
+## [12] "iucn_classification"     
+## [13] "iucn_level"              
+## [14] "lang85_85"               
+## [15] "species"                 
+## [16] "species_rectangle"       
+## [17] "v_abundance"             
+## [18] "v_maxvalue_es"           
+## [19] "v_hybrid_model"          
+## [20] "v_hybrid_model_mavg"     
+## [21] "v_ices_geom"             
+## [22] "v_occurence"             
+## [23] "v_species_ices_occurence"
+## [24] "abundance"               
+## [25] "casestudy"               
+## [26] "ecosystemic_services"    
+## [27] "esvalue"                 
+## [28] "hybrid_model_result"     
+## [29] "locale"                  
+## [30] "outlet_distance"         
+## [31] "species_division"        
+## [32] "species_iucn"            
+## [33] "subcategory"             
+## [34] "v_basin"                 
+## [35] "v_ecosystemic_services"  
+## [36] "v_iucn"</code></pre>
 </div>
-<div class="section level3">
-<h3 id="explore-data">
+<div id="explore-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#explore-data" class="anchor"></a>
 Explore data
-<a class="anchor" aria-label="anchor" href="#explore-data"></a>
-</h3>
+</h2>
 <p>
-It is recommended to use <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl()</a></code> instead of <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery()</a></code> to connect to a table in the database.<br><code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl()</a></code> does not download the table, it only connect to the database and let it run the query. This means that if you run a <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> or a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> after that, the database executes it, not R, which is more efficient.<br> However, at some point, some of your {tidyverse} operations can not be realised or translated in SQL, hence, you need to download the resulting dataset using <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>. Then you can continue as usual.
+It is recommended to use <code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> instead of <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery()</a></code> to connect to a table in the database.<br><code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> does not download the table, it only connect to the database and let it run the query. This means that if you run a <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> or a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> after that, the database executes it, not R, which is more efficient.<br> However, at some point, some of your {tidyverse} operations can not be realised or translated in SQL, hence, you need to download the resulting dataset using <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code>. Then you can continue as usual.
 </p>
 <p>
 For instance.
 </p>
 <ul>
 <li>
-<code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery()</a></code> download data in R
+<code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery()</a></code> download data in R
 <ul>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> is executed by R in your R session
+<code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> is executed by R in your R session
 </li>
 </ul>
 </li>
@@ -583,377 +587,436 @@ For instance.
 <span class="va">get_data_dbi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="va">species_id</span>, <span class="va">scenario</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">query</span> <span class="op">&lt;-</span> <span class="st">"SELECT * FROM diadesatlas.v_hybrid_model"</span>
   
-  <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="va">query</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
-           <span class="va">climatic_scenario</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> 
+  <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="va">query</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
+           <span class="va">climatic_scenario</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> 
 <span class="op">}</span>
 
 <span class="co"># Use it</span>
 <span class="fu">get_data_dbi</span><span class="op">(</span><span class="va">conn_eurodiad</span>,
-             species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
+             species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
              scenario <span class="op">=</span> <span class="st">'rcp85'</span><span class="op">)</span></code></pre>
 </div>
-<pre><code><span class="co">##    hybrid_model_result_id basin_id species_id</span>
-<span class="co">## 1                 1395745        1          6</span>
-<span class="co">## 2                 1395746        1          6</span>
-<span class="co">## 3                 1395747        1          6</span>
-<span class="co">## 4                 1395748        1          6</span>
-<span class="co">## 5                 1395749        1          6</span>
-<span class="co">## 6                 1395750        1          6</span>
-<span class="co">## 7                 1395751        1          6</span>
-<span class="co">## 8                 1395752        1          6</span>
-<span class="co">## 9                 1395753        1          6</span>
-<span class="co">## 10                1395754        1          6</span>
-<span class="co">## 11                1395755        1          6</span>
-<span class="co">## 12                1395756        1          6</span>
-<span class="co">## 13                1395757        1          6</span>
-<span class="co">## 14                1395758        1          6</span>
-<span class="co">## 15                1395759        1          6</span>
-<span class="co">## 16                1395760        1          6</span>
-<span class="co">## 17                1395761        1          6</span>
-<span class="co">## 18                1395762        1          6</span>
-<span class="co">## 19                1395763        1          6</span>
-<span class="co">## 20                1395764        1          6</span>
-<span class="co">## 21                1395765        1          6</span>
-<span class="co">## 22                1395766        1          6</span>
-<span class="co">## 23                1395767        1          6</span>
-<span class="co">## 24                1395768        1          6</span>
-<span class="co">## 25                1395769        1          6</span>
-<span class="co">## 26                1395770        1          6</span>
-<span class="co">## 27                1395771        1          6</span>
-<span class="co">## 28                1395772        1          6</span>
-<span class="co">## 29                1395773        1          6</span>
-<span class="co">## 30                1395774        1          6</span>
-<span class="co">## 31                1395775        1          6</span>
-<span class="co">## 32                1395776        1          6</span>
-<span class="co">## 33                1395777        1          6</span>
-<span class="co">## 34                1395778        1          6</span>
-<span class="co">## 35                1395779        1          6</span>
-<span class="co">## 36                1395780        1          6</span>
-<span class="co">## 37                1395781        1          6</span>
-<span class="co">## 38                1395782        1          6</span>
-<span class="co">## 39                1395783        1          6</span>
-<span class="co">## 40                1395784        1          6</span>
-<span class="co">## 41                1395785        1          6</span>
-<span class="co">## 42                1395786        1          6</span>
-<span class="co">## 43                1395787        1          6</span>
-<span class="co">## 44                1395788        1          6</span>
-<span class="co">## 45                1395789        1          6</span>
-<span class="co">## 46                1395790        1          6</span>
-<span class="co">## 47                1395791        1          6</span>
-<span class="co">## 48                1395792        1          6</span>
-<span class="co">## 49                1395793        1          6</span>
-<span class="co">## 50                1395794        1          6</span>
-<span class="co">## 51                1395795        1          6</span>
-<span class="co">## 52                1395796        1          6</span>
-<span class="co">## 53                1395797        1          6</span>
-<span class="co">## 54                1395798        1          6</span>
-<span class="co">## 55                1395799        1          6</span>
-<span class="co">## 56                1395800        1          6</span>
-<span class="co">## 57                1395801        1          6</span>
-<span class="co">## 58                1395802        1          6</span>
-<span class="co">##    climatic_model_id year        nit        hsi</span>
-<span class="co">## 1                  2 1951 568.905820 0.24424759</span>
-<span class="co">## 2                  2 1952 485.922085 0.32226324</span>
-<span class="co">## 3                  2 1953 429.942259 0.19459266</span>
-<span class="co">## 4                  2 1954 383.999570 0.24571498</span>
-<span class="co">## 5                  2 1955 297.920901 0.08498220</span>
-<span class="co">## 6                  2 1956 208.892845 0.23510293</span>
-<span class="co">## 7                  2 1957 140.493131 0.32735810</span>
-<span class="co">## 8                  2 1958 100.724190 0.41504563</span>
-<span class="co">## 9                  2 1959  66.924378 0.24550794</span>
-<span class="co">## 10                 2 1960  36.807523 0.37964568</span>
-<span class="co">## 11                 2 1961  15.134462 0.27040872</span>
-<span class="co">## 12                 2 1962   5.429765 0.24577305</span>
-<span class="co">## 13                 2 1963   0.000000 0.22412295</span>
-<span class="co">## 14                 2 1964   0.000000 0.25041559</span>
-<span class="co">## 15                 2 1965   0.000000 0.32038514</span>
-<span class="co">## 16                 2 1966   0.000000 0.25260188</span>
-<span class="co">## 17                 2 1967   0.000000 0.36233798</span>
-<span class="co">## 18                 2 1968   0.000000 0.26426540</span>
-<span class="co">## 19                 2 1969   0.000000 0.32815258</span>
-<span class="co">## 20                 2 1970   0.000000 0.07997118</span>
-<span class="co">## 21                 2 1971   0.000000 0.32295007</span>
-<span class="co">## 22                 2 1972   0.000000 0.26076233</span>
-<span class="co">## 23                 2 1973   0.000000 0.32594177</span>
-<span class="co">## 24                 2 1974   0.000000 0.32919022</span>
-<span class="co">## 25                 2 1975   0.000000 0.33330411</span>
-<span class="co">## 26                 2 1976   0.000000 0.07650311</span>
-<span class="co">## 27                 2 1977   0.000000 0.12106809</span>
-<span class="co">## 28                 2 1978   0.000000 0.24494783</span>
-<span class="co">## 29                 2 1979   0.000000 0.26687631</span>
-<span class="co">## 30                 2 1980   0.000000 0.24788790</span>
-<span class="co">## 31                 2 1981   0.000000 0.25248367</span>
-<span class="co">## 32                 2 1982   0.000000 0.05853723</span>
-<span class="co">## 33                 2 1983   0.000000 0.43384268</span>
-<span class="co">## 34                 2 1984   0.000000 0.24605194</span>
-<span class="co">## 35                 2 1985   0.000000 0.32409335</span>
-<span class="co">## 36                 2 1986   0.000000 0.30049253</span>
-<span class="co">## 37                 2 1987   0.000000 0.31984017</span>
-<span class="co">## 38                 2 1988   0.000000 0.24944539</span>
-<span class="co">## 39                 2 1989   0.000000 0.26567151</span>
-<span class="co">## 40                 2 1990   0.000000 0.23825317</span>
-<span class="co">## 41                 2 1991   0.000000 0.32738422</span>
-<span class="co">## 42                 2 1992   0.000000 0.32538706</span>
-<span class="co">## 43                 2 1993   0.000000 0.31455448</span>
-<span class="co">## 44                 2 1994   0.000000 0.25445784</span>
-<span class="co">## 45                 2 1995   0.000000 0.32881698</span>
-<span class="co">## 46                 2 1996   0.000000 0.40264379</span>
-<span class="co">## 47                 2 1997   0.000000 0.32566102</span>
-<span class="co">## 48                 2 1998   0.000000 0.35783520</span>
-<span class="co">## 49                 2 1999   0.000000 0.37290455</span>
-<span class="co">## 50                 2 2000   0.000000 0.33744471</span>
-<span class="co">## 51                 2 2001   0.000000 0.26335707</span>
-<span class="co">## 52                 2 2002   0.000000 0.17640363</span>
-<span class="co">## 53                 2 2003   0.000000 0.35140068</span>
-<span class="co">## 54                 2 2004   0.000000 0.29239221</span>
-<span class="co">## 55                 2 2005   0.000000 0.18490081</span>
-<span class="co">## 56                 2 2006   0.000000 0.25068678</span>
-<span class="co">## 57                 2 2007   0.000000 0.25083582</span>
-<span class="co">## 58                 2 2008   0.000000 0.12043068</span>
-<span class="co">##    saturation_rate climatic_scenario</span>
-<span class="co">## 1      0.269749152             rcp85</span>
-<span class="co">## 2      0.174624776             rcp85</span>
-<span class="co">## 3      0.255878434             rcp85</span>
-<span class="co">## 4      0.180987713             rcp85</span>
-<span class="co">## 5      0.405997180             rcp85</span>
-<span class="co">## 6      0.102900033             rcp85</span>
-<span class="co">## 7      0.049702931             rcp85</span>
-<span class="co">## 8      0.028105281             rcp85</span>
-<span class="co">## 9      0.031569580             rcp85</span>
-<span class="co">## 10     0.011228148             rcp85</span>
-<span class="co">## 11     0.006481810             rcp85</span>
-<span class="co">## 12     0.002558567             rcp85</span>
-<span class="co">## 13     0.000000000             rcp85</span>
-<span class="co">## 14     0.000000000             rcp85</span>
-<span class="co">## 15     0.000000000             rcp85</span>
-<span class="co">## 16     0.000000000             rcp85</span>
-<span class="co">## 17     0.000000000             rcp85</span>
-<span class="co">## 18     0.000000000             rcp85</span>
-<span class="co">## 19     0.000000000             rcp85</span>
-<span class="co">## 20     0.000000000             rcp85</span>
-<span class="co">## 21     0.000000000             rcp85</span>
-<span class="co">## 22     0.000000000             rcp85</span>
-<span class="co">## 23     0.000000000             rcp85</span>
-<span class="co">## 24     0.000000000             rcp85</span>
-<span class="co">## 25     0.000000000             rcp85</span>
-<span class="co">## 26     0.000000000             rcp85</span>
-<span class="co">## 27     0.000000000             rcp85</span>
-<span class="co">## 28     0.000000000             rcp85</span>
-<span class="co">## 29     0.000000000             rcp85</span>
-<span class="co">## 30     0.000000000             rcp85</span>
-<span class="co">## 31     0.000000000             rcp85</span>
-<span class="co">## 32     0.000000000             rcp85</span>
-<span class="co">## 33     0.000000000             rcp85</span>
-<span class="co">## 34     0.000000000             rcp85</span>
-<span class="co">## 35     0.000000000             rcp85</span>
-<span class="co">## 36     0.000000000             rcp85</span>
-<span class="co">## 37     0.000000000             rcp85</span>
-<span class="co">## 38     0.000000000             rcp85</span>
-<span class="co">## 39     0.000000000             rcp85</span>
-<span class="co">## 40     0.000000000             rcp85</span>
-<span class="co">## 41     0.000000000             rcp85</span>
-<span class="co">## 42     0.000000000             rcp85</span>
-<span class="co">## 43     0.000000000             rcp85</span>
-<span class="co">## 44     0.000000000             rcp85</span>
-<span class="co">## 45     0.000000000             rcp85</span>
-<span class="co">## 46     0.000000000             rcp85</span>
-<span class="co">## 47     0.000000000             rcp85</span>
-<span class="co">## 48     0.000000000             rcp85</span>
-<span class="co">## 49     0.000000000             rcp85</span>
-<span class="co">## 50     0.000000000             rcp85</span>
-<span class="co">## 51     0.000000000             rcp85</span>
-<span class="co">## 52     0.000000000             rcp85</span>
-<span class="co">## 53     0.000000000             rcp85</span>
-<span class="co">## 54     0.000000000             rcp85</span>
-<span class="co">## 55     0.000000000             rcp85</span>
-<span class="co">## 56     0.000000000             rcp85</span>
-<span class="co">## 57     0.000000000             rcp85</span>
-<span class="co">## 58     0.000000000             rcp85</span>
-<span class="co">##    climatic_model_code oceanic_model</span>
-<span class="co">## 1              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 2              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 3              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 4              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 5              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 6              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 7              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 8              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 9              cnrmcm5      CNRM-CM5</span>
-<span class="co">## 10             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 11             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 12             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 13             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 14             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 15             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 16             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 17             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 18             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 19             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 20             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 21             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 22             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 23             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 24             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 25             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 26             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 27             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 28             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 29             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 30             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 31             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 32             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 33             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 34             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 35             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 36             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 37             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 38             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 39             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 40             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 41             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 42             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 43             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 44             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 45             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 46             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 47             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 48             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 49             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 50             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 51             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 52             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 53             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 54             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 55             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 56             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 57             cnrmcm5      CNRM-CM5</span>
-<span class="co">## 58             cnrmcm5      CNRM-CM5</span>
-<span class="co">##        atmospheric_model climatic_model_hm basin_name</span>
-<span class="co">## 1  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 2  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 3  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 4  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 5  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 6  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 7  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 8  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 9  CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 10 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 11 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 12 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 13 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 14 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 15 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 16 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 17 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 18 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 19 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 20 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 21 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 22 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 23 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 24 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 25 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 26 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 27 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 28 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 29 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 30 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 31 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 32 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 33 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 34 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 35 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 36 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 37 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 38 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 39 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 40 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 41 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 42 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 43 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 44 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 45 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 46 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 47 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 48 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 49 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 50 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 51 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 52 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 53 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 54 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 55 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 56 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 57 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">## 58 CNRM-CERFACS-CNRM-CM5                cn         Aa</span>
-<span class="co">##     fish_name  latin_name simplified_name</span>
-<span class="co">## 1  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 2  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 3  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 4  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 5  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 6  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 7  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 8  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 9  Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 10 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 11 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 12 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 13 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 14 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 15 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 16 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 17 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 18 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 19 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 20 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 21 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 22 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 23 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 24 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 25 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 26 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 27 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 28 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 29 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 30 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 31 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 32 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 33 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 34 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 35 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 36 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 37 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 38 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 39 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 40 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 41 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 42 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 43 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 44 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 45 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 46 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 47 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 48 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 49 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 50 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 51 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 52 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 53 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 54 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 55 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 56 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 57 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">## 58 Allis shad Alosa alosa        A. alosa</span>
-<span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 120542 rows ]</span></code></pre>
+<pre><code>##    hybrid_model_result_id basin_id species_id
+## 1                   60704        1          6
+## 2                   60705        1          6
+## 3                   60706        1          6
+## 4                   60707        1          6
+## 5                   60708        1          6
+## 6                   60709        1          6
+## 7                   60710        1          6
+## 8                   60711        1          6
+## 9                   60712        1          6
+## 10                  60713        1          6
+## 11                  60714        1          6
+## 12                  60715        1          6
+## 13                  60716        1          6
+## 14                  60717        1          6
+## 15                  60718        1          6
+## 16                  60719        1          6
+## 17                  60720        1          6
+## 18                  60721        1          6
+## 19                  60722        1          6
+## 20                  60723        1          6
+## 21                  60724        1          6
+## 22                  60725        1          6
+## 23                  60726        1          6
+## 24                  60727        1          6
+## 25                  60728        1          6
+## 26                  60729        1          6
+## 27                  60730        1          6
+## 28                  60731        1          6
+## 29                  60732        1          6
+## 30                  60733        1          6
+## 31                  60734        1          6
+## 32                  60735        1          6
+## 33                  60736        1          6
+## 34                  60737        1          6
+## 35                  60738        1          6
+## 36                  60739        1          6
+## 37                  60740        1          6
+## 38                  60741        1          6
+## 39                  60742        1          6
+## 40                  60743        1          6
+## 41                  60744        1          6
+## 42                  60745        1          6
+## 43                  60746        1          6
+## 44                  60747        1          6
+## 45                  60748        1          6
+## 46                  60749        1          6
+## 47                  60750        1          6
+## 48                  60751        1          6
+## 49                  60752        1          6
+## 50                  60753        1          6
+## 51                  60754        1          6
+## 52                  60755        1          6
+## 53                  60756        1          6
+## 54                  60757        1          6
+## 55                  60758        1          6
+## 56                  60759        1          6
+## 57                  60760        1          6
+## 58                  60761        1          6
+##    climatic_model_id year        nit        hsi
+## 1                  2 1951 561.822886 0.24398345
+## 2                  2 1952 478.824274 0.32860773
+## 3                  2 1953 422.901999 0.19745960
+## 4                  2 1954 377.071656 0.25015519
+## 5                  2 1955 291.373406 0.08750742
+## 6                  2 1956 203.061080 0.24140097
+## 7                  2 1957 135.575480 0.32637376
+## 8                  2 1958  96.581345 0.42094832
+## 9                  2 1959  63.671434 0.24347645
+## 10                 2 1960  34.630584 0.38926764
+## 11                 2 1961  14.001993 0.26597897
+## 12                 2 1962   4.925418 0.25015519
+## 13                 2 1963   0.000000 0.23283478
+## 14                 2 1964   0.000000 0.25040290
+## 15                 2 1965   0.000000 0.32459885
+## 16                 2 1966   0.000000 0.25188643
+## 17                 2 1967   0.000000 0.37002544
+## 18                 2 1968   0.000000 0.25996800
+## 19                 2 1969   0.000000 0.32637376
+## 20                 2 1970   0.000000 0.07980892
+## 21                 2 1971   0.000000 0.32251779
+## 22                 2 1972   0.000000 0.25336881
+## 23                 2 1973   0.000000 0.33094728
+## 24                 2 1974   0.000000 0.32990608
+## 25                 2 1975   0.000000 0.33640505
+## 26                 2 1976   0.000000 0.07751451
+## 27                 2 1977   0.000000 0.12132383
+## 28                 2 1978   0.000000 0.24257360
+## 29                 2 1979   0.000000 0.26892420
+## 30                 2 1980   0.000000 0.24922968
+## 31                 2 1981   0.000000 0.25373005
+## 32                 2 1982   0.000000 0.05488055
+## 33                 2 1983   0.000000 0.46019599
+## 34                 2 1984   0.000000 0.24867908
+## 35                 2 1985   0.000000 0.32650054
+## 36                 2 1986   0.000000 0.30843591
+## 37                 2 1987   0.000000 0.31202436
+## 38                 2 1988   0.000000 0.25177042
+## 39                 2 1989   0.000000 0.26883618
+## 40                 2 1990   0.000000 0.23047356
+## 41                 2 1991   0.000000 0.32557321
+## 42                 2 1992   0.000000 0.32409990
+## 43                 2 1993   0.000000 0.32285289
+## 44                 2 1994   0.000000 0.26088960
+## 45                 2 1995   0.000000 0.32759764
+## 46                 2 1996   0.000000 0.42524705
+## 47                 2 1997   0.000000 0.31637555
+## 48                 2 1998   0.000000 0.36470772
+## 49                 2 1999   0.000000 0.38132165
+## 50                 2 2000   0.000000 0.33789932
+## 51                 2 2001   0.000000 0.26860776
+## 52                 2 2002   0.000000 0.18264474
+## 53                 2 2003   0.000000 0.36799907
+## 54                 2 2004   0.000000 0.30879111
+## 55                 2 2005   0.000000 0.19065566
+## 56                 2 2006   0.000000 0.25173972
+## 57                 2 2007   0.000000 0.25229141
+## 58                 2 2008   0.000000 0.12202285
+##    saturation_rate climatic_scenario
+## 1      0.266679143             rcp85
+## 2      0.168751785             rcp85
+## 3      0.248034148             rcp85
+## 4      0.174567892             rcp85
+## 5      0.385615965             rcp85
+## 6      0.097417654             rcp85
+## 7      0.048107846             rcp85
+## 8      0.026571401             rcp85
+## 9      0.030285703             rcp85
+## 10     0.010302948             rcp85
+## 11     0.006096668             rcp85
+## 12     0.002280256             rcp85
+## 13     0.000000000             rcp85
+## 14     0.000000000             rcp85
+## 15     0.000000000             rcp85
+## 16     0.000000000             rcp85
+## 17     0.000000000             rcp85
+## 18     0.000000000             rcp85
+## 19     0.000000000             rcp85
+## 20     0.000000000             rcp85
+## 21     0.000000000             rcp85
+## 22     0.000000000             rcp85
+## 23     0.000000000             rcp85
+## 24     0.000000000             rcp85
+## 25     0.000000000             rcp85
+## 26     0.000000000             rcp85
+## 27     0.000000000             rcp85
+## 28     0.000000000             rcp85
+## 29     0.000000000             rcp85
+## 30     0.000000000             rcp85
+## 31     0.000000000             rcp85
+## 32     0.000000000             rcp85
+## 33     0.000000000             rcp85
+## 34     0.000000000             rcp85
+## 35     0.000000000             rcp85
+## 36     0.000000000             rcp85
+## 37     0.000000000             rcp85
+## 38     0.000000000             rcp85
+## 39     0.000000000             rcp85
+## 40     0.000000000             rcp85
+## 41     0.000000000             rcp85
+## 42     0.000000000             rcp85
+## 43     0.000000000             rcp85
+## 44     0.000000000             rcp85
+## 45     0.000000000             rcp85
+## 46     0.000000000             rcp85
+## 47     0.000000000             rcp85
+## 48     0.000000000             rcp85
+## 49     0.000000000             rcp85
+## 50     0.000000000             rcp85
+## 51     0.000000000             rcp85
+## 52     0.000000000             rcp85
+## 53     0.000000000             rcp85
+## 54     0.000000000             rcp85
+## 55     0.000000000             rcp85
+## 56     0.000000000             rcp85
+## 57     0.000000000             rcp85
+## 58     0.000000000             rcp85
+##    climatic_model_code oceanic_model
+## 1              cnrmcm5      CNRM-CM5
+## 2              cnrmcm5      CNRM-CM5
+## 3              cnrmcm5      CNRM-CM5
+## 4              cnrmcm5      CNRM-CM5
+## 5              cnrmcm5      CNRM-CM5
+## 6              cnrmcm5      CNRM-CM5
+## 7              cnrmcm5      CNRM-CM5
+## 8              cnrmcm5      CNRM-CM5
+## 9              cnrmcm5      CNRM-CM5
+## 10             cnrmcm5      CNRM-CM5
+## 11             cnrmcm5      CNRM-CM5
+## 12             cnrmcm5      CNRM-CM5
+## 13             cnrmcm5      CNRM-CM5
+## 14             cnrmcm5      CNRM-CM5
+## 15             cnrmcm5      CNRM-CM5
+## 16             cnrmcm5      CNRM-CM5
+## 17             cnrmcm5      CNRM-CM5
+## 18             cnrmcm5      CNRM-CM5
+## 19             cnrmcm5      CNRM-CM5
+## 20             cnrmcm5      CNRM-CM5
+## 21             cnrmcm5      CNRM-CM5
+## 22             cnrmcm5      CNRM-CM5
+## 23             cnrmcm5      CNRM-CM5
+## 24             cnrmcm5      CNRM-CM5
+## 25             cnrmcm5      CNRM-CM5
+## 26             cnrmcm5      CNRM-CM5
+## 27             cnrmcm5      CNRM-CM5
+## 28             cnrmcm5      CNRM-CM5
+## 29             cnrmcm5      CNRM-CM5
+## 30             cnrmcm5      CNRM-CM5
+## 31             cnrmcm5      CNRM-CM5
+## 32             cnrmcm5      CNRM-CM5
+## 33             cnrmcm5      CNRM-CM5
+## 34             cnrmcm5      CNRM-CM5
+## 35             cnrmcm5      CNRM-CM5
+## 36             cnrmcm5      CNRM-CM5
+## 37             cnrmcm5      CNRM-CM5
+## 38             cnrmcm5      CNRM-CM5
+## 39             cnrmcm5      CNRM-CM5
+## 40             cnrmcm5      CNRM-CM5
+## 41             cnrmcm5      CNRM-CM5
+## 42             cnrmcm5      CNRM-CM5
+## 43             cnrmcm5      CNRM-CM5
+## 44             cnrmcm5      CNRM-CM5
+## 45             cnrmcm5      CNRM-CM5
+## 46             cnrmcm5      CNRM-CM5
+## 47             cnrmcm5      CNRM-CM5
+## 48             cnrmcm5      CNRM-CM5
+## 49             cnrmcm5      CNRM-CM5
+## 50             cnrmcm5      CNRM-CM5
+## 51             cnrmcm5      CNRM-CM5
+## 52             cnrmcm5      CNRM-CM5
+## 53             cnrmcm5      CNRM-CM5
+## 54             cnrmcm5      CNRM-CM5
+## 55             cnrmcm5      CNRM-CM5
+## 56             cnrmcm5      CNRM-CM5
+## 57             cnrmcm5      CNRM-CM5
+## 58             cnrmcm5      CNRM-CM5
+##        atmospheric_model climatic_model_hm
+## 1  CNRM-CERFACS-CNRM-CM5                cn
+## 2  CNRM-CERFACS-CNRM-CM5                cn
+## 3  CNRM-CERFACS-CNRM-CM5                cn
+## 4  CNRM-CERFACS-CNRM-CM5                cn
+## 5  CNRM-CERFACS-CNRM-CM5                cn
+## 6  CNRM-CERFACS-CNRM-CM5                cn
+## 7  CNRM-CERFACS-CNRM-CM5                cn
+## 8  CNRM-CERFACS-CNRM-CM5                cn
+## 9  CNRM-CERFACS-CNRM-CM5                cn
+## 10 CNRM-CERFACS-CNRM-CM5                cn
+## 11 CNRM-CERFACS-CNRM-CM5                cn
+## 12 CNRM-CERFACS-CNRM-CM5                cn
+## 13 CNRM-CERFACS-CNRM-CM5                cn
+## 14 CNRM-CERFACS-CNRM-CM5                cn
+## 15 CNRM-CERFACS-CNRM-CM5                cn
+## 16 CNRM-CERFACS-CNRM-CM5                cn
+## 17 CNRM-CERFACS-CNRM-CM5                cn
+## 18 CNRM-CERFACS-CNRM-CM5                cn
+## 19 CNRM-CERFACS-CNRM-CM5                cn
+## 20 CNRM-CERFACS-CNRM-CM5                cn
+## 21 CNRM-CERFACS-CNRM-CM5                cn
+## 22 CNRM-CERFACS-CNRM-CM5                cn
+## 23 CNRM-CERFACS-CNRM-CM5                cn
+## 24 CNRM-CERFACS-CNRM-CM5                cn
+## 25 CNRM-CERFACS-CNRM-CM5                cn
+## 26 CNRM-CERFACS-CNRM-CM5                cn
+## 27 CNRM-CERFACS-CNRM-CM5                cn
+## 28 CNRM-CERFACS-CNRM-CM5                cn
+## 29 CNRM-CERFACS-CNRM-CM5                cn
+## 30 CNRM-CERFACS-CNRM-CM5                cn
+## 31 CNRM-CERFACS-CNRM-CM5                cn
+## 32 CNRM-CERFACS-CNRM-CM5                cn
+## 33 CNRM-CERFACS-CNRM-CM5                cn
+## 34 CNRM-CERFACS-CNRM-CM5                cn
+## 35 CNRM-CERFACS-CNRM-CM5                cn
+## 36 CNRM-CERFACS-CNRM-CM5                cn
+## 37 CNRM-CERFACS-CNRM-CM5                cn
+## 38 CNRM-CERFACS-CNRM-CM5                cn
+## 39 CNRM-CERFACS-CNRM-CM5                cn
+## 40 CNRM-CERFACS-CNRM-CM5                cn
+## 41 CNRM-CERFACS-CNRM-CM5                cn
+## 42 CNRM-CERFACS-CNRM-CM5                cn
+## 43 CNRM-CERFACS-CNRM-CM5                cn
+## 44 CNRM-CERFACS-CNRM-CM5                cn
+## 45 CNRM-CERFACS-CNRM-CM5                cn
+## 46 CNRM-CERFACS-CNRM-CM5                cn
+## 47 CNRM-CERFACS-CNRM-CM5                cn
+## 48 CNRM-CERFACS-CNRM-CM5                cn
+## 49 CNRM-CERFACS-CNRM-CM5                cn
+## 50 CNRM-CERFACS-CNRM-CM5                cn
+## 51 CNRM-CERFACS-CNRM-CM5                cn
+## 52 CNRM-CERFACS-CNRM-CM5                cn
+## 53 CNRM-CERFACS-CNRM-CM5                cn
+## 54 CNRM-CERFACS-CNRM-CM5                cn
+## 55 CNRM-CERFACS-CNRM-CM5                cn
+## 56 CNRM-CERFACS-CNRM-CM5                cn
+## 57 CNRM-CERFACS-CNRM-CM5                cn
+## 58 CNRM-CERFACS-CNRM-CM5                cn
+##    basin_name  fish_name  latin_name
+## 1          Aa Allis shad Alosa alosa
+## 2          Aa Allis shad Alosa alosa
+## 3          Aa Allis shad Alosa alosa
+## 4          Aa Allis shad Alosa alosa
+## 5          Aa Allis shad Alosa alosa
+## 6          Aa Allis shad Alosa alosa
+## 7          Aa Allis shad Alosa alosa
+## 8          Aa Allis shad Alosa alosa
+## 9          Aa Allis shad Alosa alosa
+## 10         Aa Allis shad Alosa alosa
+## 11         Aa Allis shad Alosa alosa
+## 12         Aa Allis shad Alosa alosa
+## 13         Aa Allis shad Alosa alosa
+## 14         Aa Allis shad Alosa alosa
+## 15         Aa Allis shad Alosa alosa
+## 16         Aa Allis shad Alosa alosa
+## 17         Aa Allis shad Alosa alosa
+## 18         Aa Allis shad Alosa alosa
+## 19         Aa Allis shad Alosa alosa
+## 20         Aa Allis shad Alosa alosa
+## 21         Aa Allis shad Alosa alosa
+## 22         Aa Allis shad Alosa alosa
+## 23         Aa Allis shad Alosa alosa
+## 24         Aa Allis shad Alosa alosa
+## 25         Aa Allis shad Alosa alosa
+## 26         Aa Allis shad Alosa alosa
+## 27         Aa Allis shad Alosa alosa
+## 28         Aa Allis shad Alosa alosa
+## 29         Aa Allis shad Alosa alosa
+## 30         Aa Allis shad Alosa alosa
+## 31         Aa Allis shad Alosa alosa
+## 32         Aa Allis shad Alosa alosa
+## 33         Aa Allis shad Alosa alosa
+## 34         Aa Allis shad Alosa alosa
+## 35         Aa Allis shad Alosa alosa
+## 36         Aa Allis shad Alosa alosa
+## 37         Aa Allis shad Alosa alosa
+## 38         Aa Allis shad Alosa alosa
+## 39         Aa Allis shad Alosa alosa
+## 40         Aa Allis shad Alosa alosa
+## 41         Aa Allis shad Alosa alosa
+## 42         Aa Allis shad Alosa alosa
+## 43         Aa Allis shad Alosa alosa
+## 44         Aa Allis shad Alosa alosa
+## 45         Aa Allis shad Alosa alosa
+## 46         Aa Allis shad Alosa alosa
+## 47         Aa Allis shad Alosa alosa
+## 48         Aa Allis shad Alosa alosa
+## 49         Aa Allis shad Alosa alosa
+## 50         Aa Allis shad Alosa alosa
+## 51         Aa Allis shad Alosa alosa
+## 52         Aa Allis shad Alosa alosa
+## 53         Aa Allis shad Alosa alosa
+## 54         Aa Allis shad Alosa alosa
+## 55         Aa Allis shad Alosa alosa
+## 56         Aa Allis shad Alosa alosa
+## 57         Aa Allis shad Alosa alosa
+## 58         Aa Allis shad Alosa alosa
+##    simplified_name
+## 1         A. alosa
+## 2         A. alosa
+## 3         A. alosa
+## 4         A. alosa
+## 5         A. alosa
+## 6         A. alosa
+## 7         A. alosa
+## 8         A. alosa
+## 9         A. alosa
+## 10        A. alosa
+## 11        A. alosa
+## 12        A. alosa
+## 13        A. alosa
+## 14        A. alosa
+## 15        A. alosa
+## 16        A. alosa
+## 17        A. alosa
+## 18        A. alosa
+## 19        A. alosa
+## 20        A. alosa
+## 21        A. alosa
+## 22        A. alosa
+## 23        A. alosa
+## 24        A. alosa
+## 25        A. alosa
+## 26        A. alosa
+## 27        A. alosa
+## 28        A. alosa
+## 29        A. alosa
+## 30        A. alosa
+## 31        A. alosa
+## 32        A. alosa
+## 33        A. alosa
+## 34        A. alosa
+## 35        A. alosa
+## 36        A. alosa
+## 37        A. alosa
+## 38        A. alosa
+## 39        A. alosa
+## 40        A. alosa
+## 41        A. alosa
+## 42        A. alosa
+## 43        A. alosa
+## 44        A. alosa
+## 45        A. alosa
+## 46        A. alosa
+## 47        A. alosa
+## 48        A. alosa
+## 49        A. alosa
+## 50        A. alosa
+## 51        A. alosa
+## 52        A. alosa
+## 53        A. alosa
+## 54        A. alosa
+## 55        A. alosa
+## 56        A. alosa
+## 57        A. alosa
+## 58        A. alosa
+##  [ reached 'max' / getOption("max.print") -- omitted 60242 rows ]</code></pre>
 <ul>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl()</a></code> only connects to the table, only a glimpse of the data is presented
+<code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> only connects to the table, only a glimpse of the data is presented
 <ul>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code> is run by the SQL database
+<code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> is run by the SQL database
 </li>
 </ul>
 </li>
@@ -961,38 +1024,38 @@ For instance.
 <div id="cb8" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">get_data_tbl</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="va">species_id</span>, <span class="va">scenario</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="st">"v_hybrid_model"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
-           <span class="va">climatic_scenario</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="st">"v_hybrid_model"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
+           <span class="va">climatic_scenario</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> 
 <span class="op">}</span>
 
 <span class="co"># Use it</span>
 <span class="fu">get_data_tbl</span><span class="op">(</span><span class="va">conn_eurodiad</span>,
-             species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
+             species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
              scenario <span class="op">=</span> <span class="st">'rcp85'</span><span class="op">)</span></code></pre>
 </div>
-<pre><code><span class="co">## # Source:   lazy query [?? x 17]</span>
-<span class="co">## # Database: postgres</span>
-<span class="co">## #   [diadesatlas_owner@localhost:5432/diades]</span>
-<span class="co">##    hybrid_model_result_id basin_id species_id climatic_model_…</span>
-<span class="co">##                     &lt;int&gt;    &lt;int&gt;      &lt;int&gt;            &lt;int&gt;</span>
-<span class="co">##  1                1395745        1          6                2</span>
-<span class="co">##  2                1395746        1          6                2</span>
-<span class="co">##  3                1395747        1          6                2</span>
-<span class="co">##  4                1395748        1          6                2</span>
-<span class="co">##  5                1395749        1          6                2</span>
-<span class="co">##  6                1395750        1          6                2</span>
-<span class="co">##  7                1395751        1          6                2</span>
-<span class="co">##  8                1395752        1          6                2</span>
-<span class="co">##  9                1395753        1          6                2</span>
-<span class="co">## 10                1395754        1          6                2</span>
-<span class="co">## # … with more rows, and 13 more variables: year &lt;int&gt;,</span>
-<span class="co">## #   nit &lt;dbl&gt;, hsi &lt;dbl&gt;, saturation_rate &lt;dbl&gt;,</span>
-<span class="co">## #   climatic_scenario &lt;chr&gt;, climatic_model_code &lt;chr&gt;,</span>
-<span class="co">## #   oceanic_model &lt;chr&gt;, atmospheric_model &lt;chr&gt;,</span>
-<span class="co">## #   climatic_model_hm &lt;chr&gt;, basin_name &lt;chr&gt;,</span>
-<span class="co">## #   fish_name &lt;chr&gt;, latin_name &lt;chr&gt;,</span>
-<span class="co">## #   simplified_name &lt;chr&gt;</span></code></pre>
+<pre><code>## # Source:   lazy query [?? x 17]
+## # Database: postgres
+## #   [diadesatlas_owner@localhost:5432/diades]
+##    hybrid_model_result_id basin_id species_id
+##                     &lt;int&gt;    &lt;int&gt;      &lt;int&gt;
+##  1                  60704        1          6
+##  2                  60705        1          6
+##  3                  60706        1          6
+##  4                  60707        1          6
+##  5                  60708        1          6
+##  6                  60709        1          6
+##  7                  60710        1          6
+##  8                  60711        1          6
+##  9                  60712        1          6
+## 10                  60713        1          6
+## # … with more rows, and 14 more variables:
+## #   climatic_model_id &lt;int&gt;, year &lt;int&gt;,
+## #   nit &lt;dbl&gt;, hsi &lt;dbl&gt;, saturation_rate &lt;dbl&gt;,
+## #   climatic_scenario &lt;chr&gt;,
+## #   climatic_model_code &lt;chr&gt;,
+## #   oceanic_model &lt;chr&gt;, atmospheric_model &lt;chr&gt;,
+## #   climatic_model_hm &lt;chr&gt;, basin_name &lt;chr&gt;, …</code></pre>
 <ul>
 <li>
 If you need to create some {ggplot2} figures after that, you can collect
@@ -1001,26 +1064,26 @@ If you need to create some {ggplot2} figures after that, you can collect
 <div id="cb10" class="sourceCode">
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">get_data_tbl_collect</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="va">species_id</span>, <span class="va">scenario</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="st">"v_hybrid_model"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
-           <span class="va">climatic_scenario</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="st">"v_hybrid_model"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
+           <span class="va">climatic_scenario</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># From collect(), the full data is in the R session</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="co"># Use it</span>
 <span class="fu">get_data_tbl_collect</span><span class="op">(</span><span class="va">conn_eurodiad</span>,
-                     species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
-                     scenario <span class="op">=</span> <span class="st">'rcp85'</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">basin_id</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">hsi</span><span class="op">)</span><span class="op">)</span></code></pre>
+                     species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
+                     scenario <span class="op">=</span> <span class="st">'rcp85'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">basin_id</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">hsi</span><span class="op">)</span><span class="op">)</span></code></pre>
 </div>
 <p>
-<img src="data:image/png;base64,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"><!-- --></p>
+<img src="data:image/png;base64,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"><!-- --></p>
 <ul>
 <li>
-Note that you can use a full SQL query with <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl()</a></code>
+Note that you can use a full SQL query with <code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code>
 </li>
 </ul>
 <div id="cb11" class="sourceCode">
@@ -1028,33 +1091,33 @@ Note that you can use a full SQL query with <code><a href="https://dplyr.tidyver
 <code class="sourceCode R"><span class="va">get_data_tbl_query_collect</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="va">species_id</span>, <span class="va">scenario</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">query</span> <span class="op">&lt;-</span> <span class="st">"SELECT * FROM diadesatlas.v_hybrid_model"</span>
   
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">tbl</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sql.html" class="external-link">sql</a></span><span class="op">(</span><span class="va">query</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">conn_eurodiad</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sql.html">sql</a></span><span class="op">(</span><span class="va">query</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># Adds a filter to be run as SQL in the database</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
-           <span class="va">climatic_scenario</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species_id</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">species_id</span>,
+           <span class="va">climatic_scenario</span> <span class="op">%in%</span> <span class="op">!</span><span class="op">!</span><span class="va">scenario</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="co"># From collect(), the full data is in the R session</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="co"># Use it</span>
 <span class="fu">get_data_tbl_query_collect</span><span class="op">(</span><span class="va">conn_eurodiad</span>,
-                           species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
-                           scenario <span class="op">=</span> <span class="st">'rcp85'</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">basin_id</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">hsi</span><span class="op">)</span><span class="op">)</span></code></pre>
+                           species_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>,
+                           scenario <span class="op">=</span> <span class="st">'rcp85'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">basin_id</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">hsi</span><span class="op">)</span><span class="op">)</span></code></pre>
 </div>
 <p>
-<img src="data:image/png;base64,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"><!-- --></p>
+<img src="data:image/png;base64,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"><!-- --></p>
 </div>
-<div class="section level3">
-<h3 id="disconnect-from-the-database">
+<div id="disconnect-from-the-database" class="section level2">
+<h2 class="hasAnchor">
+<a href="#disconnect-from-the-database" class="anchor"></a>
 Disconnect from the database
-<a class="anchor" aria-label="anchor" href="#disconnect-from-the-database"></a>
-</h3>
+</h2>
 <div id="cb12" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">conn_eurodiad</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">conn_eurodiad</span><span class="op">)</span></code></pre>
 </div>
 </div>
 <!-- code folding -->
@@ -1078,14 +1141,13 @@ Disconnect from the database
 
 
       <footer><div class="thinkr">
-  <p></p>
-<p>Developed by Sébastien Rochette, Colin Fay.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>diades.atlas is a  <strong>ThinkR</strong> package. Learn more at <a href="https://rtask.thinkr.fr">rtask.thinkr.fr</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by .
-    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
+    Developed by Sébastien Rochette, Colin Fay.
+    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
 
@@ -1094,8 +1156,6 @@ Disconnect from the database
 
   
 
-
-  
 
   </body>
 </html>
