@@ -117,15 +117,21 @@ p {
 }
 
 .help .w3-dropdown-content {
-  min-width: 20vw;
+  min-width: 40vw;
   font-size: 1.8rem;
   text-align: left;
+  overflow: visible;
+  position: fixed;
+  width: 90vw;
+  left: 5vw;
+  padding: 2em;
 }
 h1 .help .w3-button {
   padding: 8px;
   margin: 0;
   vertical-align: baseline;
 }
+
 
 .leaflet {
     margin: auto;

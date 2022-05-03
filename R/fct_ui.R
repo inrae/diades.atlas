@@ -121,7 +121,7 @@ w3_help_button <- function(content,
         sprintf("[html]%s", i18n_tag)
       )
     ),
-    content_style = "padding: 1em;right:0em"
+    content_style = ""
   )
 }
 
