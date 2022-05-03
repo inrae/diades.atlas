@@ -10,7 +10,14 @@
 mod_second_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("Ecosystem services", class = "page_caption") %>% with_i18("title-second"),
+    h1(
+      with_i18("Ecosystem services", "title-second"),
+      w3_help_button(
+        "second",
+        "second_title_help"
+      ),
+      class = "page_caption"
+    ),
     container(
       tagList(
         w3css::w3_quarter(
@@ -19,23 +26,30 @@ mod_second_ui <- function(id) {
           )
         ),
         w3css::w3_quarter(
-          w3_hover_button(
-            "Select a Case Study" %>% with_i18("select-case_study"),
-            content = htmlTemplate(
-              app_sys("app/www/map_case_study.html"),
-              geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))),
-              species = glue::glue_collapse(readLines(app_sys("species.json"))),
-              services = glue::glue_collapse(readLines(app_sys("services.json"))),
-              ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json"))),
-              button_id = ns("case_study_hover_button"),
-              basin_shiny_id = ns("basin"),
-              casestudy_shiny_id = ns("case_study")
+          tags$span(
+            w3_hover_button(
+              "Select a Case Study" %>% with_i18("select-case_study"),
+              content = htmlTemplate(
+                app_sys("app/www/map_case_study.html"),
+                geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))),
+                species = glue::glue_collapse(readLines(app_sys("species.json"))),
+                services = glue::glue_collapse(readLines(app_sys("services.json"))),
+                ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json"))),
+                button_id = ns("case_study_hover_button"),
+                basin_shiny_id = ns("basin"),
+                casestudy_shiny_id = ns("case_study")
+              ),
+              content_style = "width:50em",
+              button_id = ns("case_study_hover_button")
             ),
-            content_style = "width:50em",
-            button_id = ns("case_study_hover_button")
+            w3_help_button(
+              "Select a case study",
+              "select_casestudy_help" # repertorié dans "entry" 
+            )
           )
         ),
         w3css::w3_quarter(
+          tags$span(
           w3_hover_button(
             "Select an Ecosystem Service" %>% with_i18("select-ecosystem"),
             content = tagList(
@@ -54,13 +68,24 @@ mod_second_ui <- function(id) {
             ),
             content_style = "width:50em",
             button_id = ns("ecoservice_hover_button")
+          ),
+          w3_help_button(
+            "Select an ecosystem service",
+            "select_ecosystem_help" # repertorié dans "entry" 
+          )
           )
         ),
         w3css::w3_quarter(
+          tags$span(
           w3css::w3_actionButton(
             ns("display"),
             "Show results" %>% with_i18("show-result"),
             class = "w3-border"
+          ),
+          w3_help_button(
+            "Show results",
+            "show_results_ecosystem_services_help" # repertorié dans "entry" 
+          )
           )
         )
       )

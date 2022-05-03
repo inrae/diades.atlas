@@ -12,7 +12,8 @@ run_app(
   dataCatchment = dataCatchment,
   catchment_geom = catchment_geom,
   dataALL = dataALL,
-  ices_geom = ices_geom
+  ices_geom = ices_geom,
+  help_bubble_entries = get_help_bubble_entries()
 )
 }
 \arguments{
@@ -34,6 +35,9 @@ for more information on bookmarking your app.}
 \item{species_list}{list of species to use in the app}
 
 \item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
+
+\item{help_bubble_entries}{A character vector corresponding to all
+keys (entries)of help bubbles to be displayed.}
 }
 \description{
 Run the Shiny Application

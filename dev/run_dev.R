@@ -50,5 +50,6 @@ run_app(
   dataCatchment = dataCatchment,
   catchment_geom = catchment_geom,
   dataALL = dataALL,
-  ices_geom = ices_geom
+  ices_geom = ices_geom,
+  help_bubble_entries = get_help_bubble_entries()
 )

@@ -105,13 +105,9 @@ w3_hover_button <- function(button_text = "Hover Over Me!",
 
 w3_help_button <- function(content,
                            i18n_tag) {
+  help_bubble_entries <- golem::get_golem_options("help_bubble_entries")
   if (
-    length(
-      list.files(
-        app_sys("translation_help"),
-        pattern = i18n_tag
-      )
-    ) == 0
+    i18n_tag %not_in% help_bubble_entries
   ) {
     return(NULL)
   }

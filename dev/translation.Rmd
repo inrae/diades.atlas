@@ -9,25 +9,30 @@ output: html_document
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
+Si c'est nécessaire, se connecter à la base de données en suivant les instructions du Readme.Rmd
 
 ```{r}
+# Chargement des packages
 pkgload::load_all(attach_testthat = FALSE)
+library(dplyr)
+library(here)
+
+# Connexion à la base si nécessaire
 session <- new.env()
 connect(session)
-library(dplyr)
 ```
 
 ## Comment est organisée la traduction
 
 __Note importante__ : Pensez à être bien vigilant sur l'harmonisation des code-langues. 
-En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'application. 
+En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respecté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'application. 
 
 ### Pour le front-end 
 
-Pour l'interface utilisateur, l'application met ensemble des fichiers CSV, contenus dans le dossier `inst/` et des tables contenues dans la base de données PostGre. 
-Certains de ces fichiers sont automatiquement générés, certains se modifient à la main. 
-
-Tous ces fichiers contiennent au moins 5 colonnes: 
+Pour l'interface utilisateur, l'application combine les fichiers csv contenus dans le
+dossier `inst/` et des tables contenues dans la base de données PostGres. 
+ 
+Tous ces fichiers/tables contiennent au moins 5 colonnes: 
 
 + `entry` : la clé d'entrée dans le front (pour i18n)
 + `en` : la traduction en anglais
@@ -35,7 +40,10 @@ Tous ces fichiers contiennent au moins 5 colonnes:
 + `es` : la traduction en espagnol
 + `pt` : la traduction en portugais
 
-#### Lus dans la base
+#### Lus dans la base de données directement
+
+Si la requête SQL pour récupérer les tables suivantes doit changer, alors ces fonctions sont à mettre à jour dans `R/utils_helpers.R`. 
+Sinon, il n'y a rien à faire côté R lors d'ajout de traductions dans la base.
 
 + `abundance_level`
 
@@ -61,185 +69,70 @@ translation_v_ecosystemic_services(session)
 
 => Cette fonction est à mettre à jour dans `R/utils_helpers.R`
 
-#### Pour les "help bubble"
 
-Les help bubbles sont les éléments d'aide lors du passage de la souris sur un élément `(?)`.
-ents. 
+#### Fichiers à compléter à la main 
 
-Ces contenus sont dans le second onglet du Google Sheet de traduction, et sont ensuite compilés dans `inst/translation_help.csv`, via le code ci-dessous, à relancer en cas de changement.  
++ `inst/translation_help.csv` : contient la traduction pour les bulles d'aide. Les bulles d'aide sont les bulles qui s'affichent lors du passage de la souris sur un élément `(?)`.
+  + Lire le csv avec un séparateur virgule `,` et avec l'option "Formater les champs entre guillemets comme texte"
+  + Le texte dans les cases de langues peut s'écire avec une syntaxe markdown pour mettre en forme le texte
+  + Enregistrer le csv avec un séparateur virgule `,`
 
-```{r}
-unlink("inst/translation_help.csv")
++ `inst/translation_iucn.csv` : contient les traductions des status IUCN. 
+  + Lire le csv avec un séparateur virgule `,` et avec l'option "Formater les champs entre guillemets comme texte"
+  + Enregistrer le csv avec un séparateur virgule `,`
+  
++ `inst/translation.csv` : contient tous les autres éléments traduisibles de l'interface utilisateur.
+  + Lire le csv avec un séparateur virgule `,` et avec l'option "Formater les champs entre guillemets comme texte"
+  + Enregistrer le csv avec un séparateur virgule `,`
 
-library(googlesheets4)
-sheet_url <- readline("Enter the sheet url: ")
-translation <- read_sheet(sheet_url, sheet = "help_bubbles")
-
-translation <- translation %>%
-  mutate(
-    en = coalesce(en, contenu_markdown),
-    fr = coalesce(fr, contenu_markdown),
-    pt = coalesce(pt, contenu_markdown),
-    es = coalesce(es, contenu_markdown)
-  ) %>%
-  mutate_at(
-    vars(en, fr, pt, es), function(x) {
-      purrr::map_chr(x, commonmark::markdown_html)
-    }
-  ) %>%
-  select(-contenu_markdown)
-
-translation %>%
-  readr::write_csv("inst/translation_help.csv")
-
-translation
-```
-
-
-#### Fichiers générés automatiquement 
-
-+ `translation_iucn.csv` : contient les traductions pour status IUCN. 
-Se génère via le code suivant __mais devra être mis dans la base__.
-
-```{r}
-# TODO : get the translation inside the DB
-# On utilise ici la description trouvée sur
-# https://uicn.fr/liste-rouge-mondiale/
-desc <- strsplit(
-  "Éteinte (EX), Éteinte à l’état sauvage (EW), En danger critique (CR), En danger (EN), Vulnérable (VU), Quasi menacée (NT), Préoccupation mineure (LC), Données insuffisantes (DD), Non évaluée (NE)",
-  split = ", "
-)[[1]]
-
-french_iucn <- data.frame(
-  fr_vals = gsub(
-    "([^\\(]+) \\(([^\\(]+)\\)",
-    "\\1,\\2",
-    desc
-  )
-) %>%
-  tidyr::separate(
-    fr_vals,
-    into = c("fr", "entry"), sep = ","
-  )
-
-en_iucn <- DBI::dbGetQuery(
-  get_con(session),
-  "SELECT distinct iucn_level_code AS entry,iucn_level_name AS en FROM v_iucn"
-)
-
-en_iucn %>%
-  dplyr::full_join(french_iucn) %>%
-  mutate(
-    es = en,
-    pt = en
-  ) %>%
-  readr::write_csv("inst/translation_iucn.csv")
-```
-
-#### Fichier à compléter à la main 
-
-__IMPORTANT__ Merci de centraliser dans le Google Sheet. 
-
-+ On va lire le fichier Google Sheet de traduction. 
-
-```{r}
-library(googlesheets4)
-sheet_url <- readline("Enter the sheet url: ")
-translation <- read_sheet(sheet_url)
-
-translation$DESCRIPTION <- NULL
-translation <- translation %>%
-  mutate(
-    en = coalesce(en, entry),
-    fr = coalesce(fr, en),
-    pt = coalesce(pt, en),
-    es = coalesce(es, en)
-  )
-translation
-```
-
-Vérifier le dataframe au besoin. 
-Ce dernier doit posséder à minima : 
+Ces fichiers partagent la même structure. Ces derniers doivent posséder a minima: 
 
 + Une première colonne nommée 'entry'
 + Une seconde colonne nommée 'en'
 + Une troisisème colonne nommée 'fr'
 + Une quatrième colonne nommée 'es'
 + Une cinquième colonne nommée 'pt'
-+ PAS DE COLONNES VIDES SUR LA DROITE, pensez à l'anti-sélectionner au besoin
++ PAS DE COLONNES VIDES SUR LA DROITE, pensez à l'anti-sélectionner au besoin.
+
+NB: Dans le cas de `inst/translation.csv`, la première colonne est 'DESCRIPTION'.
+Elle comporte une description plus détaillée de la ligne en question.
+
+Vous pouvez vérifier l'intégrité du csv à l'aide de la fonction `check_translation_csv()`:
 
 ```{r}
-readr::write_csv(
-  translation,
-  "inst/translation.csv"
-)
+translation_help <- check_translation_csv(here::here("inst/translation_help.csv"))
+head(translation_help)
 ```
 
-Vous pouvez vérifier l'intégrité du csv :
+```{r}
+translation_iucn <- check_translation_csv(here::here("inst/translation_iucn.csv"))
+head(translation_iucn)
+```
 
 ```{r}
-output <- check_translation_csv("inst/translation.csv")
-head(output)
+translation <- check_translation_csv(here::here("inst/translation.csv"))
+head(translation)
 ```
 
 ## Ajouter une nouvelle langue 
 
 Ajouter une nouvelle langue doit se faire aux emplacements suivants:
 
-### Help bubbles
+### Fichiers à modifier
 
-+ À ajouter dans le Google Sheet, puis regénérer `translation_help.csv` avec le code suivant :
+Dans les fichiers manuellement mis à jour:
 
-```{r}
-unlink("inst/translation_help.csv")
++ `inst/translation_help.csv`
 
-library(googlesheets4)
-sheet_url <- readline("Enter the sheet url: ")
-translation <- read_sheet(sheet_url, sheet = "help_bubbles")
++ `inst/translation_iucn.csv`
 
-translation %>%
-  mutate(
-    en = coalesce(en, contenu_markdown),
-    fr = coalesce(fr, contenu_markdown),
-    pt = coalesce(pt, contenu_markdown),
-    es = coalesce(es, contenu_markdown),
-    # Nouvelle langue
-    xyz = coalesce(xyz, contenu_markdown)
-  ) %>%
-  mutate_at(
-    vars(en, fr, pt, es, xyz), function(x) {
-      purrr::map_chr(x, commonmark::markdown_html)
-    }
-  ) %>%
-  select(-contenu_markdown) %>%
-  readr::write_csv("inst/translation_help.csv")
-```
++ `inst/translation.csv`
 
-### Data 
+Ajouter une nouvelle colonne à droite dont le titre correspond à l'abbréviation de la
+nouvelle langue par exemple `es` pour l'espagnol et compléter chaque entrée
+avec la traduction.
 
-+ Fichier Google Sheet, ajouter une nouvelle colonne à droite (exemple `es`)
-
-+ `translation_iucn.csv` : dans le code de génération du dessus, il faudra créer un nouveau data.frame, avec les traductions. 
-
-> Note : ces traductions devront à termes être intégrées à la base
-
-```{r}
-es_iucn <- data.frame(
-  entry = c("EX", "EW", "CR", "EN", "VU", "NT", "LC", "DD", "NE"),
-  es = c("", "", "", "", "", "", "", "", "")
-)
-```
-
-puis mettre à jour le code du début de ce Rmd.
-
-```{r}
-en_iucn %>%
-  dplyr::full_join(french_iucn) %>%
-  dplyr::full_join(es_iucn) %>%
-  readr::write_csv("inst/translation_iucn.csv")
-```
-
-### Fonction bdd
+### Fonctions bdd
 
 Ces fonctions sont dans `R/utils_helpers.R`
 
@@ -255,7 +148,7 @@ Les fonctions qui utilisent la traduction dans la bdd sont les suivantes :
 
 - Si disponible, ajouter le langage dans `get_dt_lg()` , à vérifier sur https://cdn.datatables.net/plug-ins/1.10.11/i18n/
 
-- Dans `R/app_ui.R`, ajouter une entrée pour le sélecteur de langue. Si votre entrée de laangue est `es`, ajouter `<option value="en">\U0001f1ea\U0001f1f8 Espanol</option>`. Le code unicode s'obtient en utilisant l'émoji et `stringi::stri_escape_unicode("🇪🇸")`.
+- Dans `R/app_ui.R`, ajouter une entrée pour le sélecteur de langue. Si votre entrée de langue est `es`, ajouter `<option value="en">\U0001f1ea\U0001f1f8 Espanol</option>`. Le code unicode s'obtient en utilisant l'émoji et `stringi::stri_escape_unicode("🇪🇸")`.
 
 ## Notes pour les dévelopeurs 
 
@@ -284,6 +177,31 @@ df_traduction %>%
   filter(entry == "text_de_base") %>%
   pull(fr)
 ```
+
+### Ajouter une bulle d'aide traduisible
+
+Sur un bouton 
+```{r, eval=FALSE}
+tags$span(
+  w3_hover_button(...), # bulle pour un bouton
+  w3_help_button(
+    "Select a species",
+    "species_modal_help" # repertorié dans "entry" 
+  )
+)
+```
+
+Sur un titre
+```{r, eval=FALSE}
+h4(
+  with_i18("Catch and bycatch at sea", "[html]map-bycatch"),
+  w3_help_button(
+    "Select a species",
+    "catch_bycatch_help"
+  )
+)
+```
+
 
 ### Comment créer un nouvel élément "traductible" dans le server
 

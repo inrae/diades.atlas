@@ -10,7 +10,14 @@
 mod_third_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("third", class = "page_caption") %>% with_i18("title-third"),
+    h1(
+      with_i18("third", "title-third"),
+      w3_help_button(
+        "third",
+        "third_title_help"
+      ),
+      class = "page_caption"
+    ),
     container(
       w3css::w3_quarter(
         tagList(
@@ -69,7 +76,7 @@ mod_third_ui <- function(id) {
           ),
           w3_help_button(
             "Display the results",
-            "show_results_help"
+            "show_results_global_warming_help"
           )
         )
       )

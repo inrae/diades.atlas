@@ -19,6 +19,9 @@ check_translation_csv <- function(path, source_encoding = "latin1", new_path = p
     stop("new_path should be a csv file")
   }
   fls <- read.csv(path, encoding = source_encoding)
+  # If there is a DESCRIPTION column remove it
+  # This is the case of inst/translation.csv
+  fls$DESCRIPTION <- NULL
   if (
     names(fls)[1] != "entry"
   ) {

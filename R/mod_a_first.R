@@ -10,7 +10,14 @@
 mod_first_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("first", class = "page_caption") %>% with_i18("title-first"),
+    h1(
+      with_i18("first", "title-first"),
+      w3_help_button(
+        "first",
+        "first_title_help"
+      ),
+      class = "page_caption"
+    ),
     container(
       tagList(
         w3css::w3_quarter(
