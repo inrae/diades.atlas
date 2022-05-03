@@ -113,13 +113,18 @@ p {
 }
 
 .w3-dropdown-hover {
-    background-color: white!important;
+    /* background-color: white!important; */
 }
 
 .help .w3-dropdown-content {
   min-width: 20vw;
   font-size: 1.8rem;
   text-align: left;
+}
+h1 .help .w3-button {
+  padding: 8px;
+  margin: 0;
+  vertical-align: baseline;
 }
 
 .leaflet {

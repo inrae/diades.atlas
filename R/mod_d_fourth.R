@@ -10,7 +10,14 @@
 mod_fourth_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h1("fourth", class = "page_caption") %>% with_i18("title-fourth"),
+    h1(
+      with_i18("fourth", "title-fourth"),
+      w3_help_button(
+        "fourth",
+        "fourth_title_help"
+      ),
+      class = "page_caption"
+    ),
     container(
       w3css::w3_quarter(
         tagList(

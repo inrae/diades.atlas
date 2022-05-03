@@ -122,11 +122,11 @@ Ajouter une nouvelle langue doit se faire aux emplacements suivants:
 
 Dans les fichiers manuellement mis à jour:
 
-+ `translation_help.csv`
++ `inst/translation_help.csv`
 
-+ `translation_iucn.csv`
++ `inst/translation_iucn.csv`
 
-+ `translation.csv`
++ `inst/translation.csv`
 
 Ajouter une nouvelle colonne à droite dont le titre correspond à l'abbréviation de la
 nouvelle langue par exemple `es` pour l'espagnol et compléter chaque entrée
@@ -177,6 +177,31 @@ df_traduction %>%
   filter(entry == "text_de_base") %>%
   pull(fr)
 ```
+
+### Ajouter une bulle d'aide traduisible
+
+Sur un bouton 
+```{r, eval=FALSE}
+tags$span(
+  w3_hover_button(...), # bulle pour un bouton
+  w3_help_button(
+    "Select a species",
+    "species_modal_help" # repertorié dans "entry" 
+  )
+)
+```
+
+Sur un titre
+```{r, eval=FALSE}
+h4(
+  with_i18("Catch and bycatch at sea", "[html]map-bycatch"),
+  w3_help_button(
+    "Select a species",
+    "catch_bycatch_help"
+  )
+)
+```
+
 
 ### Comment créer un nouvel élément "traductible" dans le server
 

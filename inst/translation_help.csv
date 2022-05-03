@@ -136,11 +136,22 @@ select_ecosystem_help ENGLISH","Sélectionne, par catégorie et sous-catégorie,
 select_ecosystem_help PT","# select_ecosystem_help
 
 select_ecosystem_help ES"
-"show_results_help","# show_results_help
+"show_results_global_warming_help","# show_results_help
 
 show_results_help DEFAULT","# show_results_help
 
 show_results_help ENGLISH","extrait les résultats du modèle Hydiad pour le bassin versant, le scénario sélectionné et la date selectionnés","# show_results_help
+
+show_results_help PT","# show_results_help
+
+show_results_help ES"
+"show_results_ecosystem_services_help","# show_results_help
+
+show_results_help DEFAULT","# show_results_help
+
+show_results_help ENGLISH","# show_results_help
+
+show_results_help FR","# show_results_help
 
 show_results_help PT","# show_results_help
 
@@ -163,3 +174,47 @@ species_modal_help ENGLISH","Parmi les onze espèces de l'arc atlantique étudi�
 species_modal_help PT","# species_modal_help
 
 species_modal_help ES"
+"first_title_help","# first_title_help
+
+first_title_help DEFAULT","# first_title_help
+
+first_title_help EN","# first_title_help
+
+first_title_help FR","# first_title_help
+
+first_title_help PT","# first_title_help
+
+first_title_help ES"
+"second_title_help","# second_title_help
+
+second_title_help DEFAULT","# second_title_help
+
+second_title_help EN","# second_title_help
+
+second_title_help FR","# second_title_help
+
+second_title_help PT","# second_title_help
+
+second_title_help ES"
+"third_title_help","# third_title_help
+
+third_title_help DEFAULT","# third_title_help
+
+third_title_help EN","# third_title_help
+
+third_title_help FR","# third_title_help
+
+third_title_help PT","# third_title_help
+
+third_title_help ES"
+"fourth_title_help","# fourth_title_help
+
+fourth_title_help DEFAULT","# fourth_title_help
+
+fourth_title_help EN","# fourth_title_help
+
+fourth_title_help FR","# fourth_title_help
+
+fourth_title_help PT","# fourth_title_help
+
+fourth_title_help ES"
