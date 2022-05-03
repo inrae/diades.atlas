@@ -9,24 +9,28 @@ output: html_document
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
+Si c'est nécessaire, se connecter à la base de données en suivant les instructions du Readme.Rmd
 
 ```{r}
+# Chargement des packages
 pkgload::load_all(attach_testthat = FALSE)
-session <- new.env()
-connect(session)
 library(dplyr)
 library(here)
+
+# Connexion à la base si nécessaire
+session <- new.env()
+connect(session)
 ```
 
 ## Comment est organisée la traduction
 
 __Note importante__ : Pensez à être bien vigilant sur l'harmonisation des code-langues. 
-En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respécté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'application. 
+En d'autres termes, si l'on ajoute une langue avec le code `es`, ce code doit être strictement respecté partout, sinon la traduction ne pourra pas être effectuée correctement dans l'application. 
 
 ### Pour le front-end 
 
 Pour l'interface utilisateur, l'application combine les fichiers csv contenus dans le
-dossier `inst/` et des tables contenues dans la base de données PostGre. 
+dossier `inst/` et des tables contenues dans la base de données PostGres. 
  
 Tous ces fichiers/tables contiennent au moins 5 colonnes: 
 
@@ -36,7 +40,10 @@ Tous ces fichiers/tables contiennent au moins 5 colonnes:
 + `es` : la traduction en espagnol
 + `pt` : la traduction en portugais
 
-#### Lus dans la base
+#### Lus dans la base de données directement
+
+Si la requête SQL pour récupérer les tables suivantes doit changer, alors ces fonctions sont à mettre à jour dans `R/utils_helpers.R`. 
+Sinon, il n'y a rien à faire côté R lors d'ajout de traductions dans la base.
 
 + `abundance_level`
 
@@ -66,12 +73,19 @@ translation_v_ecosystemic_services(session)
 #### Fichiers à compléter à la main 
 
 + `inst/translation_help.csv` : contient la traduction pour les bulles d'aide. Les bulles d'aide sont les bulles qui s'affichent lors du passage de la souris sur un élément `(?)`.
+  + Lire le csv avec un séparateur virgule `,` et avec l'option "Formater les champs entre guillemets comme texte"
+  + Le texte dans les cases de langues peut s'écire avec une syntaxe markdown pour mettre en forme le texte
+  + Enregistrer le csv avec un séparateur virgule `,`
 
-+ `translation_iucn.csv` : contient les traductions des status IUCN. 
-
++ `inst/translation_iucn.csv` : contient les traductions des status IUCN. 
+  + Lire le csv avec un séparateur virgule `,` et avec l'option "Formater les champs entre guillemets comme texte"
+  + Enregistrer le csv avec un séparateur virgule `,`
+  
 + `inst/translation.csv` : contient tous les autres éléments traduisibles de l'interface utilisateur.
+  + Lire le csv avec un séparateur virgule `,` et avec l'option "Formater les champs entre guillemets comme texte"
+  + Enregistrer le csv avec un séparateur virgule `,`
 
-Ces fichiers partache la même structure. Ces derniers doivent posséder à minima: 
+Ces fichiers partagent la même structure. Ces derniers doivent posséder a minima: 
 
 + Une première colonne nommée 'entry'
 + Une seconde colonne nommée 'en'
@@ -81,22 +95,22 @@ Ces fichiers partache la même structure. Ces derniers doivent posséder à mini
 + PAS DE COLONNES VIDES SUR LA DROITE, pensez à l'anti-sélectionner au besoin.
 
 NB: Dans le cas de `inst/translation.csv`, la première colonne est 'DESCRIPTION'.
-Elle comporte une description plus détaillée de le ligne en question.
+Elle comporte une description plus détaillée de la ligne en question.
 
 Vous pouvez vérifier l'intégrité du csv à l'aide de la fonction `check_translation_csv()`:
 
 ```{r}
-translation_help <- check_translation_csv(here("inst/translation_help.csv"))
+translation_help <- check_translation_csv(here::here("inst/translation_help.csv"))
 head(translation_help)
 ```
 
 ```{r}
-translation_iucn <- check_translation_csv(here("inst/translation_iucn.csv"))
+translation_iucn <- check_translation_csv(here::here("inst/translation_iucn.csv"))
 head(translation_iucn)
 ```
 
 ```{r}
-translation <- check_translation_csv(here("inst/translation.csv"))
+translation <- check_translation_csv(here::here("inst/translation.csv"))
 head(translation)
 ```
 
@@ -106,7 +120,7 @@ Ajouter une nouvelle langue doit se faire aux emplacements suivants:
 
 ### Fichiers à modifier
 
-Dans les fichiers manuellement mises à jour:
+Dans les fichiers manuellement mis à jour:
 
 + `translation_help.csv`
 
@@ -134,7 +148,7 @@ Les fonctions qui utilisent la traduction dans la bdd sont les suivantes :
 
 - Si disponible, ajouter le langage dans `get_dt_lg()` , à vérifier sur https://cdn.datatables.net/plug-ins/1.10.11/i18n/
 
-- Dans `R/app_ui.R`, ajouter une entrée pour le sélecteur de langue. Si votre entrée de laangue est `es`, ajouter `<option value="en">\U0001f1ea\U0001f1f8 Espanol</option>`. Le code unicode s'obtient en utilisant l'émoji et `stringi::stri_escape_unicode("🇪🇸")`.
+- Dans `R/app_ui.R`, ajouter une entrée pour le sélecteur de langue. Si votre entrée de langue est `es`, ajouter `<option value="en">\U0001f1ea\U0001f1f8 Espanol</option>`. Le code unicode s'obtient en utilisant l'émoji et `stringi::stri_escape_unicode("🇪🇸")`.
 
 ## Notes pour les dévelopeurs 
 

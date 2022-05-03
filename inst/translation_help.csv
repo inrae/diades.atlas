@@ -1,60 +1,165 @@
-entry,contenu_markdown,en,fr,pt,es
-catch_bycatch_help,"# catch_bycatch_help
+"entry","contenu_markdown","en","fr","pt","es"
+"catch_bycatch_help","# catch_bycatch_help
 
-catch_bycatch_help DEFAULT",,"La présence en mer est vue au travers des déclarations de captures et de captures accessoires des flotilles portuguaises, espagnoles, françaises, irlandaises et britaniques. Pour le Portugal et l'Espagne, la localisation en mer a été estimée à partir des ports de débarquements. (RENVOI DELIVRABLE DiadAtSea)
-Les statuts des populations en rivière sont extraits de la base de données Eurodiad 4.0 (Barber-O’Malley, B., Lassalle, G., Lambert, P. & Quinton, E. (2022) Dataset on European diadromous species distributions from 1750 to present time in Europe, North Africa and the Middle East. Data in Brief 40, 107821, doi:10.1016/j.dib.2022.107821). Ils reposent sur des revues de la littérature scientifique et sur des validations des experts de ces espèces.",,
-choose_a_daterange_help,"# choose_a_daterange_help
+catch_bycatch_help DEFAULT","# catch_bycatch_help
 
-choose_a_daterange_help DEFAULT",,Correspond à la période de simulation du modèle HyDiaD de distributions des espèces diadromes,,
-choose_a_scenario_help,"# choose_a_scenario_help
+catch_bycatch_help ENGLISH","La présence en mer est vue au travers des déclarations de captures et de captures accessoires des flotilles portuguaises, espagnoles, françaises, irlandaises et britaniques. Pour le Portugal et l'Espagne, la localisation en mer a été estimée à partir des ports de débarquements. (RENVOI DELIVRABLE DiadAtSea)
+Les statuts des populations en rivière sont extraits de la base de données Eurodiad 4.0 (Barber-O’Malley, B., Lassalle, G., Lambert, P. & Quinton, E. (2022) Dataset on European diadromous species distributions from 1750 to present time in Europe, North Africa and the Middle East. Data in Brief 40, 107821, doi:10.1016/j.dib.2022.107821). Ils reposent sur des revues de la littérature scientifique et sur des validations des experts de ces espèces.","# catch_bycatch_help
 
-choose_a_scenario_help DEFAULT",,"Les scénarios RCP (pour Representative Concentration Pathway) répresentent des trajectoires du forçage radiatif jusqu'à l'horizon 2300 pour les modèles climatiques. Ces scénarios ont été établis par le Groupe d'experts intergouvernemental sur l'évolution du climat. Ils sont utilisés dans les modèles climatiques pour prédire le climat futur de la terre. Le scénario rcp45 correspond à un forçage de +4,5 W/m2, le scénario rcp85 à +8,5 W/m2,3. Plus cette valeur est élevée, plus le système terre-atmosphère gagne en énergie et se réchauffe.",,
-conservation_status_help,"# conservation_status_help
+catch_bycatch_help PT","# catch_bycatch_help
+
+catch_bycatch_help ES"
+"choose_a_daterange_help","# choose_a_daterange_help
+
+choose_a_daterange_help DEFAULT","# choose_a_daterange_help
+
+choose_a_daterange_help ENGLISH","Correspond à la période de simulation du modèle HyDiaD de distributions des espèces diadromes","# choose_a_daterange_help
+
+choose_a_daterange_help PT","# choose_a_daterange_help
+
+choose_a_daterange_help ES"
+"choose_a_scenario_help","# choose_a_scenario_help
+
+choose_a_scenario_help DEFAULT","# choose_a_scenario_help
+
+choose_a_scenario_help ENGLISH","Les scénarios RCP (pour Representative Concentration Pathway) répresentent des trajectoires du forçage radiatif jusqu'à l'horizon 2300 pour les modèles climatiques. Ces scénarios ont été établis par le Groupe d'experts intergouvernemental sur l'évolution du climat. Ils sont utilisés dans les modèles climatiques pour prédire le climat futur de la terre. Le scénario rcp45 correspond à un forçage de +4,5 W/m2, le scénario rcp85 à +8,5 W/m2,3. Plus cette valeur est élevée, plus le système terre-atmosphère gagne en énergie et se réchauffe.","# choose_a_scenario_help
+
+choose_a_scenario_help PT","# choose_a_scenario_help
+
+choose_a_scenario_help ES"
+"conservation_status_help","# conservation_status_help
 
 conservation_status_help DEFAULT
-",,"Les statuts IUCN des espèces sont extraits :
+","# conservation_status_help
+
+conservation_status_help ENGLISH
+","Les statuts IUCN des espèces sont extraits :
  - pour l'Europe : Brooks, Emma. European Red List of Freshwater Fishes. Luxembourg: Publications Office of the European Union, 2011. https://data.europa.eu/doi/10.2779/85903
  - pour le Portugal : Martins, Rogélia, et Miguel Carneiro. « MANUAL DE IDENTIFICAÇÃO DE PEIXES ÓSSEOS DA COSTA CONTINENTAL PORTUGUESA », 2018
  - pour l'Espage : www.uicn.es/web/pdf/Tablas_especies_informe_RedList_Spain.xlsx
  - pour la France : UICN Comité français, MNHN, SFI & AFB. (2019) La Liste rouge des espèces menacées en France – Chapitre Poissons d’eau douce de France métropolitaine. Paris, France
- - pour l'Irlande : King, J.L., F. Marnell, N. Kingston, R. Rosell, P. Boylan, J.M. Caffrey, Ú., FitzPatrick, et al. « Ireland Red List No. 5: Amphibians, Reptiles & Freshwater Fish. » National Parks and Wildlife Service, Department of Arts, Heritage and the Gaeltacht, 2011.",,
-define_anthropo_help,"# define_anthropo_help
+ - pour l'Irlande : King, J.L., F. Marnell, N. Kingston, R. Rosell, P. Boylan, J.M. Caffrey, Ú., FitzPatrick, et al. « Ireland Red List No. 5: Amphibians, Reptiles & Freshwater Fish. » National Parks and Wildlife Service, Department of Arts, Heritage and the Gaeltacht, 2011.","# conservation_status_help
+
+conservation_status_help PT
+","# conservation_status_help
+
+conservation_status_help ES
+"
+"define_anthropo_help","# define_anthropo_help
 
 define_anthropo_help DEFAULT
-",,permet de définir un taux de mortalité par pays induit par les activités humaines et qui réduit le nombre de géniteurs avant la reproduction,,
-map_abundance_help,"# map_abundance_help
+","# define_anthropo_help
 
-map_abundance_help DEFAULT",,"Cette carte répresente les résultats du modèle HydiaD calibré pour l'espèce sélectionnée, l'année considérée. Il represente l'abandance résultant du changement climatique et de la dynamique spatialisée des populations sans de tenir compte des pressions anthropiques qui s'exercent sur les espèces. (RENVOI PUBLICATION DE BARBER et al)",,
-map_geometrie_help,"# map_geometrie_help
+define_anthropo_help ENGLISH
+","permet de définir un taux de mortalité par pays induit par les activités humaines et qui réduit le nombre de géniteurs avant la reproduction","# define_anthropo_help
 
-map_geometrie_help DEFAULT",,"Choisir entre les divisions ou les rectangles du CIEM pour représenter les déclarations de captures.
-A noter que les données espagnoles ne sont disponibles qu'aggrégées à l'échelle des divisions. (RENVOI DELIVRABLE DiadAtSea)",,
-plot_evolution_help,"# plot_evolution_help
+define_anthropo_help PT
+","# define_anthropo_help
 
-plot_evolution_help DEFAULT",,"Ce graphique presente l'évolution de l'indice de favorabilité et les abondances dans le bassin considéré. L'indice de favorabilité est le résultat  pour chaque espèce d'un modèle statitique (boosted regression tree) entre les présences /absences et les caractéristiques de l'environnement dans le bassin et à l'embouchire) en Europe pour le période 1900 -1910. Il renseigne sur la capacité d'accueil maximale par unité de surface de chaque bassin versant imposée par la conditions climatiques.
-Les abondances sont simulées annuellement par le modèle HyDiaD en intégrant la capacité d'accueil imposé par les conditions climatiques, un processus de dispersion des généteurs (philopatrie et errance  entre bassins) et un processus de dynamique de populations (mortalité et relation stock-recrutement). Dans la version actuelle, aucune mortalité anthropique n'est considérée, les résultats présentés doivent donc être considérés comme un potentiel suite au changement climatique. (RENVOI PUBLICATION DE BARBER et al)",,
-prediction_map_abundance_help,"# plot_evolution_help
+define_anthropo_help ES
+"
+"map_abundance_help","# map_abundance_help
 
-plot_evolution_help DEFAULT",,"Cette carte répresente les résultats du modèle HyDiaD calibré pour l'espèce sélectionnée, l'année considérée. Il represente l'abondance résulant des contraintes imposées par le changement climatique et les  des pressions anthropiques telles que définies. (RENVOI PUBLICATION DE BARBER et al)",,
-prediction_plot_abundance_help,"# prediction_plot_abundance_help
+map_abundance_help DEFAULT","# map_abundance_help
 
-prediction_plot_abundance_help DEFAULT",,"Les abondances sont simulées annuellement par le modèle HyDiaD en intégrant la capacité d'accueil imposé par les conditions climatiques, un processus de dispersion des géniteurs (philopatrie et errance entre bassins) et un processus de dynamique de populations (mortalité et relation stock-recrutement) et les mortalités définies pour chaque pays qui s'appliquent avant la reproduction des géniteurs. (RENVOI PUBLICATION DE BARBER et al)",,
-run_simulation_help,"# run_simulation_help
+map_abundance_help ENGLISH","Cette carte répresente les résultats du modèle HydiaD calibré pour l'espèce sélectionnée, l'année considérée. Il represente l'abandance résultant du changement climatique et de la dynamique spatialisée des populations sans de tenir compte des pressions anthropiques qui s'exercent sur les espèces. (RENVOI PUBLICATION DE BARBER et al)","# map_abundance_help
 
-run_simulation_help DEFAULT",,"Exécute la simulation pour l'espèce, le scénario, les niveaux de mortalité dans chaque pays",,
-select_casestudy_help,"# select_casestudy_help
+map_abundance_help PT","# map_abundance_help
+
+map_abundance_help ES"
+"map_geometrie_help","# map_geometrie_help
+
+map_geometrie_help DEFAULT","# map_geometrie_help
+
+map_geometrie_help ENGLISH","Choisir entre les divisions ou les rectangles du CIEM pour représenter les déclarations de captures.
+A noter que les données espagnoles ne sont disponibles qu'aggrégées à l'échelle des divisions. (RENVOI DELIVRABLE DiadAtSea)","# map_geometrie_help
+
+map_geometrie_help PT","# map_geometrie_help
+
+map_geometrie_help ES"
+"plot_evolution_help","# plot_evolution_help
+
+plot_evolution_help DEFAULT","# plot_evolution_help
+
+plot_evolution_help ENGLISH","Ce graphique presente l'évolution de l'indice de favorabilité et les abondances dans le bassin considéré. L'indice de favorabilité est le résultat  pour chaque espèce d'un modèle statitique (boosted regression tree) entre les présences /absences et les caractéristiques de l'environnement dans le bassin et à l'embouchire) en Europe pour le période 1900 -1910. Il renseigne sur la capacité d'accueil maximale par unité de surface de chaque bassin versant imposée par la conditions climatiques.
+Les abondances sont simulées annuellement par le modèle HyDiaD en intégrant la capacité d'accueil imposé par les conditions climatiques, un processus de dispersion des généteurs (philopatrie et errance  entre bassins) et un processus de dynamique de populations (mortalité et relation stock-recrutement). Dans la version actuelle, aucune mortalité anthropique n'est considérée, les résultats présentés doivent donc être considérés comme un potentiel suite au changement climatique. (RENVOI PUBLICATION DE BARBER et al)","# plot_evolution_help
+
+plot_evolution_help PT","# plot_evolution_help
+
+plot_evolution_help ES"
+"prediction_map_abundance_help","# plot_evolution_help
+
+plot_evolution_help DEFAULT","# plot_evolution_help
+
+plot_evolution_help ENGLISH","Cette carte répresente les résultats du modèle HyDiaD calibré pour l'espèce sélectionnée, l'année considérée. Il represente l'abondance résulant des contraintes imposées par le changement climatique et les  des pressions anthropiques telles que définies. (RENVOI PUBLICATION DE BARBER et al)","# plot_evolution_help
+
+plot_evolution_help PT","# plot_evolution_help
+
+plot_evolution_help ES"
+"prediction_plot_abundance_help","# prediction_plot_abundance_help
+
+prediction_plot_abundance_help DEFAULT","# prediction_plot_abundance_help
+
+prediction_plot_abundance_help ENGLISH","Les abondances sont simulées annuellement par le modèle HyDiaD en intégrant la capacité d'accueil imposé par les conditions climatiques, un processus de dispersion des géniteurs (philopatrie et errance entre bassins) et un processus de dynamique de populations (mortalité et relation stock-recrutement) et les mortalités définies pour chaque pays qui s'appliquent avant la reproduction des géniteurs. (RENVOI PUBLICATION DE BARBER et al)","# prediction_plot_abundance_help
+
+prediction_plot_abundance_help PT","# prediction_plot_abundance_help
+
+prediction_plot_abundance_help ES"
+"run_simulation_help","# run_simulation_help
+
+run_simulation_help DEFAULT","# run_simulation_help
+
+run_simulation_help ENGLISH","Exécute la simulation pour l'espèce, le scénario, les niveaux de mortalité dans chaque pays","# run_simulation_help
+
+run_simulation_help PT","# run_simulation_help
+
+run_simulation_help ES"
+"select_casestudy_help","# select_casestudy_help
 
 select_casestudy_help DEFAULT
-",,Sélectionne un cas d'étude parmi les 9 du projet DiadES (RENVOI AU DELIVRABLE 4.2),,
-select_ecosystem_help,"# select_ecosystem_help
+","# select_casestudy_help
 
-select_ecosystem_help DEFAULT",,"Sélectionne, par catégorie et sous-catégorie,  un ou plusieurs service(s) écosystémique(s). (RENVOI AU DELIVRABLE)",,
-show_results_help,"# show_results_help
+select_casestudy_help ENGLISH
+","Sélectionne un cas d'étude parmi les 9 du projet DiadES (RENVOI AU DELIVRABLE 4.2)","# select_casestudy_help
 
-show_results_help DEFAULT",,"extrait les résultats du modèle Hydiad pour le bassin versant, le scénario sélectionné et la date selectionnés",,
-situation_table_help,"# situation_table_help
+select_casestudy_help PT
+","# select_casestudy_help
 
-situation_table_help DEFAULT",,"Presente les évaluations semi-quantitatives des services écosystémiques pour les selections d'espèce, de cas d'étude. Les échelles de valeur ne sont pas comparables entre espèces (A VERIFIER).",,
-species_modal_help,"# species_modal_help
+select_casestudy_help ES
+"
+"select_ecosystem_help","# select_ecosystem_help
 
-species_modal_help DEFAULT",,Parmi les onze espèces de l'arc atlantique étudiées dans le projet DiadES ,,
+select_ecosystem_help DEFAULT","# select_ecosystem_help
+
+select_ecosystem_help ENGLISH","Sélectionne, par catégorie et sous-catégorie,  un ou plusieurs service(s) écosystémique(s). (RENVOI AU DELIVRABLE)","# select_ecosystem_help
+
+select_ecosystem_help PT","# select_ecosystem_help
+
+select_ecosystem_help ES"
+"show_results_help","# show_results_help
+
+show_results_help DEFAULT","# show_results_help
+
+show_results_help ENGLISH","extrait les résultats du modèle Hydiad pour le bassin versant, le scénario sélectionné et la date selectionnés","# show_results_help
+
+show_results_help PT","# show_results_help
+
+show_results_help ES"
+"situation_table_help","# situation_table_help
+
+situation_table_help DEFAULT","# situation_table_help
+
+situation_table_help ENGLISH","Presente les évaluations semi-quantitatives des services écosystémiques pour les selections d'espèce, de cas d'étude. Les échelles de valeur ne sont pas comparables entre espèces (A VERIFIER).","# situation_table_help
+
+situation_table_help PT","# situation_table_help
+
+situation_table_help ES"
+"species_modal_help","# species_modal_help
+
+species_modal_help DEFAULT","# species_modal_help
+
+species_modal_help ENGLISH","Parmi les onze espèces de l'arc atlantique étudiées dans le projet DiadES","# species_modal_help
+
+species_modal_help PT","# species_modal_help
+
+species_modal_help ES"

@@ -1,44 +1,44 @@
-DESCRIPTION,entry,en,fr,es,pt
-Main title for tab one,title-first,Current presence,Présence actuelle,Presencia actual,
-Main title for tab two,title-second,Current ecosystem services,Services écosystémiques actuels,Servicios ecosistémicos actuales,
-Main title for tab three,title-third,Diadromous species distribution and global warming,Distribution des espèces diadromes et réchauffement climatique,Distribución de especies diádromas y calentamiento global,
-Main title for tab four,title-fourth,Diadromous species distribution and global change,Distribution des espèces diadromes et changement global,Distribución de especies diádromas y cambio global,
-"Navigation bar, for tab 1",nav-catch,Current distribution,Distribution actuelle,Distribución actual,
-"Navigation bar, for tab 2",nav-present,Ecosystem services,Services écosystémiques,Servicios ecosistémicos,
-"Navigation bar, for tab 3",nav-climate,Effect of global warming,Effet du réchauffement climatique,Efecto del calentamiento global,
-"Navigation bar, for tab 4",nav-future,Effect of global change,Effet du changement global,Efecto del cambio global,
-Text on top of the language selector (if any),select-language,Choose a language,Choisir une langue,Elija un idioma,Escolha uma língua
-Button on tab 4 for defining anthropogenic mortalities,h3-anthropogenic,Define anthropogenic mortalities,Definir les mortalités anthropiques,Definir la mortalidad antropogénica,Definir mortalidades antropogénicas
-Button to launch the simulation,h3-run-simulation,Run the simulation,Lancer la simulation,Ejecutar la simulación,Executar a simulação
-Button to open the species selector,select-species,Choose a species,Choisir une espèce,Elija una especie,Escolha uma espécie
-Button to open the scenario selector,select-scenario,Choose a scenario,Choisir un scénario,Elija un escenario,Escolha um cenário
-Button to open the date selector,select-daterange,Choose a year,Choisir une année,elija un año,escolha um ano
-Button to open the ecosystem selector,select-ecosystem,Choose an ecosystem service,Choisir un service écosystémique,Elija un servicio del ecosistema,Escolha um serviço ecossistémico
-Button to open the case study selector,select-case_study,Choose a case study,Choisir une étude de cas,Elija un caso práctico,Escolha um estudo de caso
-Title on top of the abundance maps,map-abundance,Abundance in catchments,Abondance dans les bassins versants,Abundancia en el río,Abundância no rio
-Title on top of the evolution of abundance graph,plot-evolution,Evolution of abundance,Évolution de l'abondance,Evolución de la abundancia,Evolução da abundância
-Title on top of the catch and bycatch plot,map-bycatch,Catch at sea and population status in river,Captures en mer et statut des populations en rivière,Captura en el mar y estado de la población en el río,Captura no mar e estado da população no rio
-Select all button,button-unselectall,Undo selection,Retirer la sélection,Deshacer la selección,Desfazer selecção
-Unselect all button,button-selectall,Select all,Choisir tout,Seleccionar todo,Seleccionar todos
-"Variation of the ""selected"" for french",selected,selected,sélectionnée(s),seleccionado,seleccionado
-"Variation of the ""selected"" for french",selecteed,selected,sélectionnée,seleccionado,seleccionado
-"Variation of the ""selected"" for french",selecteeed,selected,sélectionnée(s),seleccionado,seleccionado
-"Variation of the ""selected"" for french",selecteeeed,selected,sélectionnée(s),seleccionado,seleccionado
-"Title for the ""conservation status"" table on page 1",show-conservation-status,Conservation status,Statut de conservation,Estado de conservación,Estado de conservação
-Button to show the result,show-result,Show results,Montrer les résultats,Mostrar resultados,Mostrar resultados
-Selector to switch geometry on tab 1,change-geometry,Change map resolution,Changer la résolution de la carte,Cambiar la resolución del mapa,Mudar a resolução do mapa
-Title for the modal shown at opening,welcome,Welcome on DiadES Atlas!,Bienvenue sur l'Atlas DiadES !,Bem-vindo ao Atlas DiadES!,¡Bienvenido a DiadES Atlas!
-Text for the modal shown at opening,explore,Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to inform the management of your territories in the long term.,Explorez les conséquences du changement climatique sur la distribution des espèces diadromes et des services écosystémiques associés pour informer la gestion de vos territoires sur le long terme,Explorar las consecuencias del cambio climático en la distribución de las especies diádromas y los servicios ecosistémicos asociados para informar la gestión de sus territorios a largo plazo.,Explore as consequências das alterações climáticas na distribuição de espécies diadromas e serviços ecossistémicos associados para informar a gestão dos seus territórios a longo prazo.
-Title for the first legend of the map on tab 1,annual_prevalence,Annual prevalence in catches at sea,Prévalence annuelle des captures en mer,Prevalencia anual en las capturas en el mar,Prevalência anual nas capturas no mar
-Title for the second legend of the map on tab 1,status_in_river_catchments,Population status in catchments after 2010,Statut des populations dans les bassins versants après 2010,Estado de la población en las cuencas después de 2010,Situação da população em bacias hidrográficas após 2010
-"Entry for the ""Missing Data"" color palette",missing,Missing,Données manquantes,Datos que faltan,Dados em falta
-Text for the selector under the table on tab 2,species_display,Species are displayed as,Montrer les espèces en,Las especies se muestran como,As espécies são exibidas como
-Text for the selector under the table on tab 2,rows,Rows,Lignes,Filas,Linhas
-Text for the selector under the table on tab 2,columns,Column,Colonnes,Columnas,Colunas
-Text to display inside the table when there is no data on tab 2,no_data_in_dt,No data for the selection,Pas de données pour cette sélection,No hay datos para la selección,Sem dados para a selecção
-Header for the table on tab 2,fish_name,Species,Espèces,Especies,Espécie
-Header for the table on tab 2,casestudy_name,Case study,Étude de cas,Estudio de caso,Estudo de caso
-Header for the table on tab 2,category,Category,Catégories,Categoría,Categoria
-Header for the table on tab 2,esvalue_code,Ecosystem service valuation,Évaluation des services écosystémiques,Valoración de los servicios del ecosistema,Avaliação de serviços do ecossistema
-Abundance (nb of fish),nit_ggplot,Abundance (nb of fish),Abondance (nb d'individus),nit_ES,nit_PT
-Catchment suitability index,hsi_ggplot,Catchment suitability index,Indice de favorabilité des bassins versants,hsi_ES,hsi_PT
+"DESCRIPTION","entry","en","fr","es","pt"
+"Main title for tab one","title-first","Current presence","Présence actuelle","Presencia actual","title-first"
+"Main title for tab two","title-second","Current ecosystem services","Services écosystémiques actuels","Servicios ecosistémicos actuales","title-second"
+"Main title for tab three","title-third","Diadromous species distribution and global warming","Distribution des espèces diadromes et réchauffement climatique","Distribución de especies diádromas y calentamiento global","title-third"
+"Main title for tab four","title-fourth","Diadromous species distribution and global change","Distribution des espèces diadromes et changement global","Distribución de especies diádromas y cambio global","title-fourth"
+"Navigation bar, for tab 1","nav-catch","Current distribution","Distribution actuelle","Distribución actual","nav-catch"
+"Navigation bar, for tab 2","nav-present","Ecosystem services","Services écosystémiques","Servicios ecosistémicos","nav-present"
+"Navigation bar, for tab 3","nav-climate","Effect of global warming","Effet du réchauffement climatique","Efecto del calentamiento global","nav-climate"
+"Navigation bar, for tab 4","nav-future","Effect of global change","Effet du changement global","Efecto del cambio global","nav-future"
+"Text on top of the language selector (if any)","select-language","Choose a language","Choisir une langue","Elija un idioma","Escolha uma língua"
+"Button on tab 4 for defining anthropogenic mortalities","h3-anthropogenic","Define anthropogenic mortalities","Definir les mortalités anthropiques","Definir la mortalidad antropogénica","Definir mortalidades antropogénicas"
+"Button to launch the simulation","h3-run-simulation","Run the simulation","Lancer la simulation","Ejecutar la simulación","Executar a simulação"
+"Button to open the species selector","select-species","Choose a species","Choisir une espèce","Elija una especie","Escolha uma espécie"
+"Button to open the scenario selector","select-scenario","Choose a scenario","Choisir un scénario","Elija un escenario","Escolha um cenário"
+"Button to open the date selector","select-daterange","Choose a year","Choisir une année","elija un año","escolha um ano"
+"Button to open the ecosystem selector","select-ecosystem","Choose an ecosystem service","Choisir un service écosystémique","Elija un servicio del ecosistema","Escolha um serviço ecossistémico"
+"Button to open the case study selector","select-case_study","Choose a case study","Choisir une étude de cas","Elija un caso práctico","Escolha um estudo de caso"
+"Title on top of the abundance maps","map-abundance","Abundance in catchments","Abondance dans les bassins versants","Abundancia en el río","Abundância no rio"
+"Title on top of the evolution of abundance graph","plot-evolution","Evolution of abundance","Évolution de l'abondance","Evolución de la abundancia","Evolução da abundância"
+"Title on top of the catch and bycatch plot","map-bycatch","Catch at sea and population status in river","Captures en mer et statut des populations en rivière","Captura en el mar y estado de la población en el río","Captura no mar e estado da população no rio"
+"Select all button","button-unselectall","Undo selection","Retirer la sélection","Deshacer la selección","Desfazer selecção"
+"Unselect all button","button-selectall","Select all","Choisir tout","Seleccionar todo","Seleccionar todos"
+"Variation of the ""selected"" for french","selected","selected","sélectionnée(s)","seleccionado","seleccionado"
+"Variation of the ""selected"" for french","selecteed","selected","sélectionnée","seleccionado","seleccionado"
+"Variation of the ""selected"" for french","selecteeed","selected","sélectionnée(s)","seleccionado","seleccionado"
+"Variation of the ""selected"" for french","selecteeeed","selected","sélectionnée(s)","seleccionado","seleccionado"
+"Title for the ""conservation status"" table on page 1","show-conservation-status","Conservation status","Statut de conservation","Estado de conservación","Estado de conservação"
+"Button to show the result","show-result","Show results","Montrer les résultats","Mostrar resultados","Mostrar resultados"
+"Selector to switch geometry on tab 1","change-geometry","Change map resolution","Changer la résolution de la carte","Cambiar la resolución del mapa","Mudar a resolução do mapa"
+"Title for the modal shown at opening","welcome","Welcome on DiadES Atlas!","Bienvenue sur l'Atlas DiadES !","Bem-vindo ao Atlas DiadES!","¡Bienvenido a DiadES Atlas!"
+"Text for the modal shown at opening","explore","Explore the consequences of climate change on the distribution of diadromous species and associated ecosystem services to inform the management of your territories in the long term.","Explorez les conséquences du changement climatique sur la distribution des espèces diadromes et des services écosystémiques associés pour informer la gestion de vos territoires sur le long terme","Explorar las consecuencias del cambio climático en la distribución de las especies diádromas y los servicios ecosistémicos asociados para informar la gestión de sus territorios a largo plazo.","Explore as consequências das alterações climáticas na distribuição de espécies diadromas e serviços ecossistémicos associados para informar a gestão dos seus territórios a longo prazo."
+"Title for the first legend of the map on tab 1","annual_prevalence","Annual prevalence in catches at sea","Prévalence annuelle des captures en mer","Prevalencia anual en las capturas en el mar","Prevalência anual nas capturas no mar"
+"Title for the second legend of the map on tab 1","status_in_river_catchments","Population status in catchments after 2010","Statut des populations dans les bassins versants après 2010","Estado de la población en las cuencas después de 2010","Situação da população em bacias hidrográficas após 2010"
+"Entry for the ""Missing Data"" color palette","missing","Missing","Données manquantes","Datos que faltan","Dados em falta"
+"Text for the selector under the table on tab 2","species_display","Species are displayed as","Montrer les espèces en","Las especies se muestran como","As espécies são exibidas como"
+"Text for the selector under the table on tab 2","rows","Rows","Lignes","Filas","Linhas"
+"Text for the selector under the table on tab 2","columns","Column","Colonnes","Columnas","Colunas"
+"Text to display inside the table when there is no data on tab 2","no_data_in_dt","No data for the selection","Pas de données pour cette sélection","No hay datos para la selección","Sem dados para a selecção"
+"Header for the table on tab 2","fish_name","Species","Espèces","Especies","Espécie"
+"Header for the table on tab 2","casestudy_name","Case study","Étude de cas","Estudio de caso","Estudo de caso"
+"Header for the table on tab 2","category","Category","Catégories","Categoría","Categoria"
+"Header for the table on tab 2","esvalue_code","Ecosystem service valuation","Évaluation des services écosystémiques","Valoración de los servicios del ecosistema","Avaliação de serviços do ecossistema"
+"Abundance (nb of fish)","nit_ggplot","Abundance (nb of fish)","Abondance (nb d'individus)","nit_ES","nit_PT"
+"Catchment suitability index","hsi_ggplot","Catchment suitability index","Indice de favorabilité des bassins versants","hsi_ES","hsi_PT"

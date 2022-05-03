@@ -1,10 +1,10 @@
-entry,en,fr,es,pt
-VU,Vulnerable,Vulnérable,Vulnerable,Vulnerable
-LC,Least Concern,Préoccupation mineure,Least Concern,Least Concern
-CR,Critically Endangered,En danger critique,Critically Endangered,Critically Endangered
-EN,Endangered,En danger,Endangered,Endangered
-DD,Data Deficient,Données insuffisantes,Data Deficient,Data Deficient
-NT,Near Threatened,Quasi menacée,Near Threatened,Near Threatened
-EX,NA,Éteinte,NA,NA
-EW,NA,Éteinte à l’état sauvage,NA,NA
-NE,NA,Non évaluée,NA,NA
+"entry","en","fr","es","pt"
+"VU","Vulnerable","Vulnérable","Vulnerable","Vulnerável"
+"LC","Least Concern","Préoccupation mineure","Preocupacion Menor","Pouco preocupação"
+"CR","Critically Endangered","En danger critique","En Peligro Crítico","Criticamente em perigo"
+"EN","Endangered","En danger","En Peligro","Em perigro"
+"DD","Data Deficient","Données insuffisantes","Datos Insuficientes","Dados deficientes"
+"NT","Near Threatened","Quasi menacée","Casi Amenazado","Quase ameaçado"
+"EX","Extinct","Éteinte","Extinto","Extincto"
+"EW","Extinct in the Wild","Éteinte à l’état sauvage","Extinto en Estado Silvestre","Extinto na natureza"
+"NE","Not Evaluated","Non évaluée","No Clasificado","Não avaliado"
