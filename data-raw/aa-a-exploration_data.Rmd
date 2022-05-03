@@ -60,6 +60,9 @@ For instance.
 
 - `dbGetQuery()` download data in R
   - `filter()` is executed by R in your R session
+- Note that `!!` is a specific to using {dplyr} with SQL there.
+  + This is because the variable after it (e.g. `species_id`) is defined in the R session, but not in the database. Therefore, before sending the SQL query to the database, R has to transform the variable by its real value in R. Otherwise, it will send the word `"species_id"` which does not make sense for the SQL database, instead of the number you wanted to put.
+
 
 ```{r}
 # Create a function

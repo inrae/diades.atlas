@@ -47,41 +47,42 @@ mod_fourth_ui <- function(id) {
           w3_hover_button(
             "Define anthropogenic mortalities" %>% with_i18("h3-anthropogenic"),
             content = container(
-              sliderInput(
-                ns("ie"),
-                "IE",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("uk"),
-                "UK",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("fr"),
-                "FR",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("es"),
-                "ES",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("pt"),
-                "PT",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              )
+              uiOutput(outputId = ns("anthropogenic_mortalities"))
+              # sliderInput(
+              #   ns("ie"),
+              #   with_i18("Ireland", "ireland"),
+              #   min = 0.1,
+              #   max = 2,
+              #   value = 0.2
+              # ),
+              # sliderInput(
+              #   ns("uk"),
+              #   with_i18("United Kingdom", "united-kingdom"),
+              #   min = 0.1,
+              #   max = 2,
+              #   value = 0.2
+              # ),
+              # sliderInput(
+              #   ns("fr"),
+              #   with_i18("France", "france"),
+              #   min = 0.1,
+              #   max = 2,
+              #   value = 0.2
+              # ),
+              # sliderInput(
+              #   ns("es"),
+              #   with_i18("Spain", "spain"),
+              #   min = 0.1,
+              #   max = 2,
+              #   value = 0.2
+              # ),
+              # sliderInput(
+              #   ns("pt"),
+              #   with_i18("Portugal", "portugal"),
+              #   min = 0.1,
+              #   max = 2,
+              #   value = 0.2
+              # )
             ),
             content_style = "width:25em",
             button_id = ns("scenario_hover")
@@ -94,23 +95,14 @@ mod_fourth_ui <- function(id) {
       ),
       w3css::w3_quarter(
         tags$span(
-          w3_hover_button(
-            "Select a date" %>% with_i18("select-daterange"),
-            content = container(
-              sliderInput(
-                ns("date"),
-                NULL,
-                min = 1950,
-                max = 2100,
-                value = 1950, 
-                sep = ""
-              )
-            ),
-            button_id = ns("date_hover")
+          w3css::w3_actionButton(
+            ns("display"),
+            "Run the simulation" %>% with_i18("h3-run-simulation"),
+            class = "w3-border"
           ),
           w3_help_button(
-            "Select a date range",
-            "choose_a_daterange_help"
+            "Launch the simulation",
+            "run_simulation_help"
           )
         )
       ),
@@ -119,16 +111,27 @@ mod_fourth_ui <- function(id) {
       ),
       container(
         w3css::w3_col(
+          w3css::w3_quarter(
           tags$span(
-            w3css::w3_actionButton(
-              ns("display"),
-              "Run the simulation" %>% with_i18("h3-run-simulation"),
-              class = "w3-border"
+            w3_hover_button(
+              "Select a date" %>% with_i18("select-daterange-simu"),
+              content = container(
+                sliderInput(
+                  ns("date"),
+                  NULL,
+                  min = 1950,
+                  max = 2100,
+                  value = 1950, 
+                  sep = ""
+                )
+              ),
+              button_id = ns("date_hover")
             ),
             w3_help_button(
-              "Launch the simulation",
-              "run_simulation_help"
+              "Select a date range",
+              "choose_a_daterange_simu_help"
             )
+          )
           )
         ),
         w3css::w3_half(
@@ -174,6 +177,23 @@ mod_fourth_server <- function(id, r = r) {
       r = loco
     )
 
+    # uiOutput(outputId = ns("anthropogenic_mortalities"))
+    output$anthropogenic_mortalities <- renderUI({
+      tagList(
+        with_i18("2001-2050", "yearsimubegin"),
+        multi_sliders(
+          ns,
+          countries = c("france", "united-kingdom"),
+          prefix = "yearsimubegin"),
+        with_i18("2051-2100", "yearsimuend"),
+        multi_sliders(
+          ns,
+          countries = c("france", "united-kingdom"),
+          prefix = "yearsimuend")
+      )
+    })
+
+    
     output$map <- renderPlot({
       input$display
       ggplot(map_data("france"), aes(long, lat, group = group)) +

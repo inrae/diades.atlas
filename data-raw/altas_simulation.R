@@ -13,7 +13,7 @@ source('preparation_atlas_simulation.R')
 # ---------------------------------------------------------------------- #
 ## HyDiaD parameter ----
 
-HyDiaDParameter  %>% 
+hydiad_parameter  %>% 
   print()
 
 
@@ -21,9 +21,9 @@ HyDiaDParameter  %>%
 # build from sliders in interface 
 # here fake data
 anthropogenic_mortality = 
-  expand_grid(data_hsi_Nmax %>% 
+  expand_grid(data_hsi_nmax %>% 
                 distinct(year),
-              data_hsi_Nmax %>% 
+              data_hsi_nmax %>% 
                 distinct(country)) %>% 
   mutate( h1 = 0, h2 = 0) %>% 
   mutate(h1 = ifelse(between(year, 2001, 2050) & country == 'France', 
@@ -37,7 +37,7 @@ anthropogenic_mortality =
 #   geom_path()
 
 
-catchment_surface <- data_hsi_Nmax %>% 
+catchment_surface <- data_hsi_nmax %>% 
   distinct(basin_name) %>%
   arrange(basin_name) %>% 
   inner_join(data_catchment %>%  select(basin_name, surface_area),
@@ -47,8 +47,8 @@ catchment_surface <- data_hsi_Nmax %>%
 # run simulation ----
 selected_latin_name = "Alosa alosa"
 
-runSimulation = function(selected_latin_name, HyDiaDParameter, anthropogenic_mortality,
-                         catchment_surface, data_hsi_Nmax, data_ni0,  outletDistance, verbose = FALSE) {
+runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
+                         catchment_surface, data_hsi_nmax, data_ni0,  outlet_distance, verbose = FALSE) {
   if (verbose) tic()
   
   # --------------------------------------------------------------------------------------- #
@@ -57,21 +57,21 @@ runSimulation = function(selected_latin_name, HyDiaDParameter, anthropogenic_mor
   # ---------------------------------------------------------------------- #
   # Local variables ----
   ## ordered list of basin s----
-  basins <- data_hsi_Nmax %>% 
+  basins <- data_hsi_nmax %>% 
     distinct(basin_name) %>%
     arrange(basin_name) %>% 
     pull(basin_name)
   
   ## list of models ----
-  models <- data_hsi_Nmax %>% 
+  models <- data_hsi_nmax %>% 
     distinct(climatic_model_code) %>%
     arrange(climatic_model_code) %>% 
     pull(climatic_model_code)
   
   ## HyDiaD parameters for the selected species ----
-  parameter <- HyDiaDParameter %>% 
+  parameter <- hydiad_parameter %>% 
     filter(latin_name == selected_latin_name )
-  results[['param']][['HyDiaDParameter']] <- parameter
+  results[['param']][['hydiad_parameter']] <- parameter
   
   ##  cohorts in  spawner run (number and weights) ----
   nbCohorts <-  parameter$nbCohorts
@@ -84,7 +84,7 @@ runSimulation = function(selected_latin_name, HyDiaDParameter, anthropogenic_mor
   burnin <- 10
   
   ## first year of simulation ----
-  firstYear = min(data_hsi_Nmax$year, na.rm = TRUE)
+  firstYear = min(data_hsi_nmax$year, na.rm = TRUE)
   
   # ---------------------------------------------------------------------- #
   # Local matrices ----
@@ -92,7 +92,7 @@ runSimulation = function(selected_latin_name, HyDiaDParameter, anthropogenic_mor
   spawnersTo_50 <-  parameter$lambda * parameter$Dmax * catchment_surface$surface_area
   
   ## update Nmax according to anthropogenic mortality eh1 = exp(-h1) ----
-  Nit <- data_hsi_Nmax %>% 
+  Nit <- data_hsi_nmax %>% 
     filter(latin_name == selected_latin_name) %>% 
     mutate(phase = 'simul') %>% 
     # update maximal abundance (Nmax) with anthropogenic mortality (h1)
@@ -205,7 +205,7 @@ runSimulation = function(selected_latin_name, HyDiaDParameter, anthropogenic_mor
   ## matrix of survival proportion between catchments among emigrants  ----
   # row: arrival basin
   # colum: departure basin
-  results[["other"]] [['survivingProportion']]  <- outletDistance %>% 
+  results[["other"]] [['survivingProportion']]  <- outlet_distance %>% 
     # filter basins
     filter(departure %in% basins,
            arrival %in% basins) %>% 
@@ -329,8 +329,8 @@ runSimulation = function(selected_latin_name, HyDiaDParameter, anthropogenic_mor
 # =======================================================================================================
 # run simulation ----
 tic()
-results <- runSimulation(selected_latin_name, HyDiaDParameter, anthropogenic_mortality,
-                         catchment_surface, data_hsi_Nmax, data_ni0, outletDistance, verbose = FALSE)
+results <- runSimulation(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
+                         catchment_surface, data_hsi_nmax, data_ni0, outlet_distance, verbose = FALSE)
 toc()
 
 
@@ -376,7 +376,7 @@ basin = 'Mondego'
 #   geom_ribbon(aes(ymin = min, ymax = max), alpha = .5)  +
 #   geom_line(aes(y=rolling_mean), col ='red')
 # 
-# referenceResults %>% 
+# reference_results %>% 
 #   filter(latin_name == selected_latin_name) %>% 
 #   group_by(basin_name, year) %>% 
 #   summarise(min = min(nit),
@@ -402,7 +402,7 @@ basin = 'Mondego'
 
 nit_feature(Nit_list) %>% 
   mutate(source = 'simul') %>% 
-  bind_rows(referenceResults %>% 
+  bind_rows(reference_results %>% 
               filter(latin_name == selected_latin_name) %>% 
               group_by(basin_name, year) %>% 
               summarise(min = min(nit),
@@ -424,7 +424,7 @@ nit_feature(Nit_list) %>%
 HyDiaDResults_AAlosa <- read_rds("/home/patrick/Documents/AA/CC_et_migrateur/hybrid_model/HyDiaD_R/data_output/HyDiaDResults_AAlosa_rcp85.RDS")
 
 ## verif param: ok ----
-results[['param']][['HyDiaDParameter']] 
+results[['param']][['hydiad_parameter']] 
 HyDiaDResults_AAlosa[[1]][[1]][['ParmSet']][1:15] %>% as_tibble()
 
 ## verif HSI: ok ----
@@ -463,7 +463,7 @@ results[['model']][['cnrmcm5']]$spawnersTo[1:5,1:20]
 HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Bit"]][1:5,1:20]
 
 # from values from the database: discrenpency ----
-refRes <- referenceResults %>%  filter(climatic_model_code == 'cnrmcm5',
+refRes <- reference_results %>%  filter(climatic_model_code == 'cnrmcm5',
                                        latin_name == selected_latin_name) %>%
   arrange(basin_name, year) %>% 
   pivot_wider(id_cols = basin_name, names_from = year, values_from = nit) %>% 
