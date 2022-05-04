@@ -9,7 +9,6 @@
 #' @export
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
-#' @importFrom zeallot %<-%
 #' 
 run_app <- function(
   onStart = NULL,

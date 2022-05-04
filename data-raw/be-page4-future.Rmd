@@ -57,6 +57,9 @@ data_simulation[["data_ni0"]]
 - Use anthropogenic mortality from slider on the Shiny interface
 
 ```{r}
+input <- list()
+datasets <- generate_datasets(con = conn_eurodiad)
+countri
 # # build from sliders in interface 
 # expand grid
 anthropogenic_mortality <- full_join(data_hsi_nmax %>% 
