@@ -7,6 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @importFrom DT DTOutput
 mod_fourth_ui <- function(id) {
   ns <- NS(id)
   tagList(
@@ -48,17 +49,19 @@ mod_fourth_ui <- function(id) {
             "Define anthropogenic mortalities" %>% with_i18("h3-anthropogenic"),
             content = container(
               tagList(
+                h4("editable"),
+                # DTOutput(ns("x1")),
                 # uiOutput(ns("mortalities")),
                 h4(with_i18("2001-2050", "yearsimubegin")),
                 multi_sliders(
                   ns,
-                  countries = c("all", golem::get_golem_options('countries_mortalities_list')),
+                  countries = golem::get_golem_options('countries_mortalities_list'),
                   prefix = "yearsimubegin"),
                 hr(),
                 h4(with_i18("2051-2100", "yearsimuend")),
                 multi_sliders(
                   ns,
-                  countries = c("all", golem::get_golem_options('countries_mortalities_list')),
+                  countries = golem::get_golem_options('countries_mortalities_list'),
                   prefix = "yearsimuend")
               )
             ),
@@ -113,6 +116,7 @@ mod_fourth_ui <- function(id) {
           )
         ),
         w3css::w3_half(
+          DTOutput(ns("mortalities")),
           h4(
             with_i18("Abundance in river basins", "map-abundance"),
             w3_help_button(
@@ -141,13 +145,19 @@ mod_fourth_ui <- function(id) {
 #'
 #' @noRd
 #' @import maps
+#' @importFrom DT renderDT
 #' @importFrom utils getFromNamespace
 mod_fourth_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
     loco <- reactiveValues(
-      species = NULL
+      species = NULL,
+      mortalities = data.frame(
+        country = golem::get_golem_options('countries_mortalities_list'),
+        yearsimubegin = 0.1,
+        yearsimuend = 0.1
+      )
     )
     
     mod_species_server(
@@ -155,18 +165,53 @@ mod_fourth_server <- function(id, r = r) {
       r = loco
     )
     
+    # DTOutput(ns("mortalities"))
+    # Client side processing
+    options(DT.options = list(pageLength = 10))
+    output$mortalities <- renderDT({
+      loco$mortalities %>% 
+        setNames(
+          c(
+            get_translation_entry(entry = 'country', lg = r$lg),
+            get_translation_entry(entry = 'yearsimubegin', lg = r$lg),
+            get_translation_entry(entry = 'yearsimuend', lg = r$lg)
+          )
+        )
+      },
+      rownames = FALSE,
+      selection = 'none', 
+      editable = list(target = "cell", disable = list(columns = c(0)))
+    )
+    
+    # Get new inputs
+    # edit a cell
+    observeEvent(input$mortalities_cell_edit, {
+      # browser()
+      # Index comes from JS that start from zero on columns
+      # And rownames = FALSE, need to add 1 to 'col'
+      mortalities_cell_edit <- input$mortalities_cell_edit
+      mortalities_cell_edit[,'col'] <- mortalities_cell_edit[,'col'] + 1
+      data_edited <- DT::editData(loco$mortalities, mortalities_cell_edit, 'mortalities')
+      loco$mortalities <- data_edited
+    })
+
     output$map <- renderPlot({
       input$display
-      ggplot(map_data("france"), aes(long, lat, group = group)) +
-        geom_polygon() +
-        geom_polygon(
-          data = map_data("france") %>%
-            dplyr::filter(region %in% sample(
-              unique(map_data("france")$region),
-              3
-            )),
-          aes(fill = region)
-        ) +
+      the_data <- loco$mortalities
+      names(the_data) <- c("X1", "X2", "X3")
+      ggplot(the_data) +
+        aes(X2, X3) +
+        geom_point() +
+      # ggplot(map_data("france"), aes(long, lat, group = group)) +
+      #   geom_polygon() +
+      #   geom_polygon(
+      #     data = map_data("france") %>%
+      #       dplyr::filter(region %in% sample(
+      #         unique(map_data("france")$region),
+      #         3
+      #       )),
+      #     aes(fill = region)
+      #   ) +
         # coord_map() +
         theme_classic() +
         guides(

@@ -57,9 +57,27 @@ data_simulation[["data_ni0"]]
 - Use anthropogenic mortality from slider on the Shiny interface
 
 ```{r}
+session <- shiny::MockShinySession$new()
 input <- list()
 datasets <- generate_datasets(con = conn_eurodiad)
-countri
+lang <- "fr"
+
+# Generate all inputs as in the Shiny application
+countries <- c("all", datasets[["countries_mortalities_list"]])
+
+mortalities <- data.frame(
+ X1 = datasets[["countries_mortalities_list"]],
+ X2 = 0.1,
+ X3 = 0.1
+) %>% setNames(
+  c(
+    "Country",
+    get_translation_entry(entry = 'yearsimubegin', lg = 'fr'),
+    get_translation_entry(entry = 'yearsimuend', lg = 'fr')
+  )
+)
+
+
 # # build from sliders in interface 
 # expand grid
 anthropogenic_mortality <- full_join(data_hsi_nmax %>% 
