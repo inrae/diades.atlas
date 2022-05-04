@@ -16,8 +16,9 @@ run_app <- function(
   options = list(), 
   enableBookmarking = NULL,
   species_list = c(),
-  dataCatchment = dataCatchment, 
-  catchment_geom = catchment_geom, 
+  dataCatchment, 
+  catchment_geom, 
+  countries_mortalities_list,
   dataALL = dataALL, 
   ices_geom = ices_geom,
   help_bubble_entries = get_help_bubble_entries()
@@ -34,6 +35,7 @@ run_app <- function(
     ), 
     golem_opts = list(
       species_list = species_list,
+      countries_mortalities_list = countries_mortalities_list,
       dataCatchment = dataCatchment, 
       catchment_geom = catchment_geom, 
       dataALL = dataALL, 

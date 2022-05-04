@@ -19,7 +19,8 @@ c(
   catchment_geom,
   dataALL,
   ices_geom,
-  species_list
+  species_list,
+  countries_mortalities_list
 ) %<-% generate_datasets(
   get_con(
     se
@@ -29,6 +30,7 @@ c(
 # Run the application
 run_app(
   species_list = species_list,
+  countries_mortalities_list = countries_mortalities_list,
   dataCatchment = dataCatchment,
   catchment_geom = catchment_geom,
   dataALL = dataALL,

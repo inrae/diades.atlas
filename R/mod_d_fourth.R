@@ -47,44 +47,22 @@ mod_fourth_ui <- function(id) {
           w3_hover_button(
             "Define anthropogenic mortalities" %>% with_i18("h3-anthropogenic"),
             content = container(
-              uiOutput(outputId = ns("anthropogenic_mortalities"))
-              # sliderInput(
-              #   ns("ie"),
-              #   with_i18("Ireland", "ireland"),
-              #   min = 0.1,
-              #   max = 2,
-              #   value = 0.2
-              # ),
-              # sliderInput(
-              #   ns("uk"),
-              #   with_i18("United Kingdom", "united-kingdom"),
-              #   min = 0.1,
-              #   max = 2,
-              #   value = 0.2
-              # ),
-              # sliderInput(
-              #   ns("fr"),
-              #   with_i18("France", "france"),
-              #   min = 0.1,
-              #   max = 2,
-              #   value = 0.2
-              # ),
-              # sliderInput(
-              #   ns("es"),
-              #   with_i18("Spain", "spain"),
-              #   min = 0.1,
-              #   max = 2,
-              #   value = 0.2
-              # ),
-              # sliderInput(
-              #   ns("pt"),
-              #   with_i18("Portugal", "portugal"),
-              #   min = 0.1,
-              #   max = 2,
-              #   value = 0.2
-              # )
+              tagList(
+                # uiOutput(ns("mortalities")),
+                h4(with_i18("2001-2050", "yearsimubegin")),
+                multi_sliders(
+                  ns,
+                  countries = c("all", golem::get_golem_options('countries_mortalities_list')),
+                  prefix = "yearsimubegin"),
+                hr(),
+                h4(with_i18("2051-2100", "yearsimuend")),
+                multi_sliders(
+                  ns,
+                  countries = c("all", golem::get_golem_options('countries_mortalities_list')),
+                  prefix = "yearsimuend")
+              )
             ),
-            content_style = "width:25em",
+            content_style = "width:25em;overflow: auto;max-height: 500px;",
             button_id = ns("scenario_hover")
           ),
           w3_help_button(
@@ -112,26 +90,26 @@ mod_fourth_ui <- function(id) {
       container(
         w3css::w3_col(
           w3css::w3_quarter(
-          tags$span(
-            w3_hover_button(
-              "Select a date" %>% with_i18("select-daterange-simu"),
-              content = container(
-                sliderInput(
-                  ns("date"),
-                  NULL,
-                  min = 1950,
-                  max = 2100,
-                  value = 1950, 
-                  sep = ""
-                )
+            tags$span(
+              w3_hover_button(
+                "Select a date" %>% with_i18("select-daterange-simu"),
+                content = container(
+                  sliderInput(
+                    ns("date"),
+                    NULL,
+                    min = 1950,
+                    max = 2100,
+                    value = 1950, 
+                    sep = ""
+                  )
+                ),
+                button_id = ns("date_hover")
               ),
-              button_id = ns("date_hover")
-            ),
-            w3_help_button(
-              "Select a date range",
-              "choose_a_daterange_simu_help"
+              w3_help_button(
+                "Select a date range",
+                "choose_a_daterange_simu_help"
+              )
             )
-          )
           )
         ),
         w3css::w3_half(
@@ -167,32 +145,15 @@ mod_fourth_ui <- function(id) {
 mod_fourth_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-
+    
     loco <- reactiveValues(
       species = NULL
     )
-
+    
     mod_species_server(
       "species_ui_1",
       r = loco
     )
-
-    # uiOutput(outputId = ns("anthropogenic_mortalities"))
-    output$anthropogenic_mortalities <- renderUI({
-      tagList(
-        with_i18("2001-2050", "yearsimubegin"),
-        multi_sliders(
-          ns,
-          countries = c("france", "united-kingdom"),
-          prefix = "yearsimubegin"),
-        with_i18("2051-2100", "yearsimuend"),
-        multi_sliders(
-          ns,
-          countries = c("france", "united-kingdom"),
-          prefix = "yearsimuend")
-      )
-    })
-
     
     output$map <- renderPlot({
       input$display
@@ -212,7 +173,7 @@ mod_fourth_server <- function(id, r = r) {
           fill = "none"
         )
     })
-
+    
     output$prediction <- renderPlot({
       input$display
       p1 <- shinipsum::random_ggplot(type = "line")
@@ -221,7 +182,7 @@ mod_fourth_server <- function(id, r = r) {
         p1, p2
       )
     })
-
+    
     observeEvent(input$scenario, {
       golem::invoke_js(
         "changeinnerhtmlwithid",
@@ -231,7 +192,7 @@ mod_fourth_server <- function(id, r = r) {
         )
       )
     })
-
+    
     observeEvent(input$date, {
       golem::invoke_js(
         "changeinnerhtmlwithid",

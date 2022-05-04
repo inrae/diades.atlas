@@ -9,8 +9,9 @@ run_app(
   options = list(),
   enableBookmarking = NULL,
   species_list = c(),
-  dataCatchment = dataCatchment,
-  catchment_geom = catchment_geom,
+  dataCatchment,
+  catchment_geom,
+  countries_mortalities_list,
   dataALL = dataALL,
   ices_geom = ices_geom,
   help_bubble_entries = get_help_bubble_entries()
