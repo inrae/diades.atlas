@@ -471,6 +471,12 @@ bb-page1-catch-bycatch
 <span class="co"># Sys.setenv("POSTGRES_PASS" = "thinkrpassword")</span>
 <span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">load_all</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ Loading diades.atlas</span>
+<span class="co">#&gt; Warning: </span>
+<span class="co">#&gt; ── Conflicts ──────── diades.atlas conflicts ──</span>
+<span class="co">#&gt; x get_bv_geoms() masks diades.atlas::get_bv_geoms()</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Did you accidentally source a file rather than using `load_all()`?</span>
+<span class="co">#&gt; Run `rm(list = c("get_bv_geoms"))` to remove the conflicts.</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="va">session</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/shiny/man/MockShinySession.html">MockShinySession</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> <span class="co">#new.env()</span>
 <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
@@ -498,20 +504,21 @@ Liste des espèces
   session <span class="op">=</span> <span class="va">session</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 11 × 5</span>
-<span class="co">#&gt;    species_id latin_name   english_name local_name</span>
-<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     </span>
-<span class="co">#&gt;  1          4 Acipenser s… European st… ASturio   </span>
-<span class="co">#&gt;  2          6 Alosa alosa  Allis shad   AAlosa    </span>
-<span class="co">#&gt;  3          8 Alosa fallax Twaite shad  AFallax   </span>
-<span class="co">#&gt;  4         13 Anguilla an… European eel AAnguilla </span>
-<span class="co">#&gt;  5         18 Lampetra fl… River lampr… LFluviati…</span>
-<span class="co">#&gt;  6         20 Osmerus epe… European sm… OEperlanus</span>
-<span class="co">#&gt;  7         21 Petromyzon … Sea lamprey  PMarinus  </span>
-<span class="co">#&gt;  8         22 Platichthys… European fl… PFlesus   </span>
-<span class="co">#&gt;  9         25 Salmo salar  Atlantic sa… SSalar    </span>
-<span class="co">#&gt; 10         26 Salmo trutta Sea trout    STrutta   </span>
-<span class="co">#&gt; 11         19 Chelon rama… Thinlip gre… LRamada   </span>
-<span class="co">#&gt; # … with 1 more variable: active &lt;lgl&gt;</span></code></pre>
+<span class="co">#&gt;    species_id latin_name           english_name</span>
+<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;                &lt;chr&gt;       </span>
+<span class="co">#&gt;  1          4 Acipenser sturio     European st…</span>
+<span class="co">#&gt;  2          6 Alosa alosa          Allis shad  </span>
+<span class="co">#&gt;  3          8 Alosa fallax         Twaite shad </span>
+<span class="co">#&gt;  4         13 Anguilla anguilla    European eel</span>
+<span class="co">#&gt;  5         18 Lampetra fluviatilis River lampr…</span>
+<span class="co">#&gt;  6         20 Osmerus eperlanus    European sm…</span>
+<span class="co">#&gt;  7         21 Petromyzon marinus   Sea lamprey </span>
+<span class="co">#&gt;  8         22 Platichthys flesus   European fl…</span>
+<span class="co">#&gt;  9         25 Salmo salar          Atlantic sa…</span>
+<span class="co">#&gt; 10         26 Salmo trutta         Sea trout   </span>
+<span class="co">#&gt; 11         19 Chelon ramada        Thinlip gre…</span>
+<span class="co">#&gt; # … with 2 more variables: local_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   active &lt;lgl&gt;</span></code></pre>
 </div>
 <div id="conservation-status" class="section level2">
 <h2 class="hasAnchor">
@@ -533,7 +540,7 @@ Conservation status
   <span class="op">)</span>
   <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cat_line.html">cat_line</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="co">#&gt; ── 4 ─────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 4 ──────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -553,7 +560,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 6 ─────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 6 ──────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -573,7 +580,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 8 ─────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 8 ──────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -593,7 +600,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 13 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 13 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -613,7 +620,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 18 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 18 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -633,7 +640,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 20 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 20 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -653,7 +660,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 21 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 21 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -673,7 +680,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 22 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 22 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -693,7 +700,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 25 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 25 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -713,7 +720,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 26 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 26 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -733,7 +740,7 @@ Conservation status
 <span class="co">#&gt; 4              DD        Data Deficient</span>
 <span class="co">#&gt; 5              EN            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 19 ────────────────────────────────────────────</span>
+<span class="co">#&gt; ── 19 ─────────────────────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name simplified_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa        A. alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa        A. alosa</span>
@@ -822,7 +829,7 @@ Tmap code
     <span class="va">session</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; ── generate_datasets ─────────────────────────────</span>
+<span class="co">#&gt; ── generate_datasets ──────────────────────────</span>
 <span class="co"># options("golem.app.prod" = FALSE)</span>
 <span class="fu"><a href="../reference/launch_mongo.html">launch_mongo</a></span><span class="op">(</span>session <span class="op">=</span> <span class="va">session</span><span class="op">)</span>
 <span class="co"># NOTE: the species are passed with the latin name in the foreground.</span>
