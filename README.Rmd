@@ -170,7 +170,7 @@ all_vignettes <- c(
   "translation")
 
 for (vignette_name in all_vignettes) {
-  # vignette_name <- "aa-data-exploration-and-preparation"
+  # vignette_name <- all_vignettes[6]
   vignette_file <- paste0(vignette_name, ".Rmd")
   
   rmarkdown::render(

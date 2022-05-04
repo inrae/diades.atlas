@@ -1,7 +1,7 @@
 #' Get data ready for simulations on page 4
 #'
 #' @param conn_eurodiad Connection to database
-#' @importFrom dplyr tbl sql inner_join select mutate arrange filter
+#' @importFrom dplyr tbl sql inner_join select mutate arrange filter distinct
 #'
 #' @return list of tables necessary for simulations
 #' @export
@@ -91,6 +91,13 @@ WHERE  climatic_scenario = 'rcp85'"
     mutate(Nmax = hsi * Dmax * surface_area) %>%
     select(-c(surface_area, Dmax))
   
+  catchment_surface <- data_hsi_nmax %>% 
+    distinct(basin_name) %>%
+    arrange(basin_name) %>% 
+    inner_join(data_catchment %>%  
+                 select(basin_name, surface_area),
+               by = 'basin_name')
+  
   # Return ----
   res <- list(
     data_catchment = data_catchment,
@@ -98,6 +105,7 @@ WHERE  climatic_scenario = 'rcp85'"
     hydiad_parameter = hydiad_parameter,
     data_hsi_nmax = data_hsi_nmax,
     reference_results = reference_results,
-    data_ni0 = data_ni0
+    data_ni0 = data_ni0,
+    catchment_surface = catchment_surface
   )
 }

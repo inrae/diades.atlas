@@ -32,7 +32,7 @@ mod_fourth_ui <- function(id) {
             content = w3css::w3_radioButton(
               ns("scenario"),
               "Scenario",
-              choices = c("RCP 8.5", "The other one")
+              choices = c("RCP 8.5", "RCP 4.5")
             ),
             content_style = "width:25em",
             button_id = ns("scenario_hover")

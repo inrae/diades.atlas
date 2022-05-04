@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(diades.atlas)
+# library(diades.atlas)
+pkgload::load_all(here::here())
 library(dplyr)
 library(leaflet)
 library(ggplot2)
@@ -50,11 +51,12 @@ data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
 data_hsi_nmax
 data_simulation[["reference_results"]]
 data_simulation[["data_ni0"]]
+catchment_surface <- data_simulation[["catchment_surface"]]
 ```
 
 ## Prepare data frame of simulation
 
-- Use anthropogenic mortality from slider on the Shiny interface
+- Use anthropogenic mortality from the Shiny interface
 
 ```{r}
 session <- shiny::MockShinySession$new()
@@ -66,36 +68,69 @@ lang <- "fr"
 countries <- c("all", datasets[["countries_mortalities_list"]])
 
 mortalities <- data.frame(
- X1 = datasets[["countries_mortalities_list"]],
- X2 = 0.1,
- X3 = 0.1
-) %>% setNames(
-  c(
-    "Country",
-    get_translation_entry(entry = 'yearsimubegin', lg = 'fr'),
-    get_translation_entry(entry = 'yearsimuend', lg = 'fr')
-  )
-)
+        # country = golem::get_golem_options('countries_mortalities_list'),
+        country = datasets[["countries_mortalities_list"]],
+        yearsimubegin = 0.1,
+        yearsimuend = 0.5
+      )
 
+mortalities
 
 # # build from sliders in interface 
-# expand grid
+# expand grid using full_join
 anthropogenic_mortality <- full_join(data_hsi_nmax %>% 
             distinct(year) %>% 
             mutate(by = 1),
           data_hsi_nmax %>% 
             distinct(country) %>% 
             mutate(by = 1), by = "by") %>% 
+  select(-by) %>% 
     mutate(h2 = 0) %>% 
+  collect() %>% 
+  # Join with table of mortalities
+  left_join(mortalities, by = "country") %>% 
   mutate(
     h1 = case_when(
-      between(year, 2001, 2050) & country == 'France' ~ -log(.5),
-      between(year, 2051, 2100) & country == 'France' ~ -log(.75),
-      TRUE ~ 0
+      # between(year, 2001, 2050) & country == 'France' ~ -log(.5),
+      between(year, 2001, 2050) ~ yearsimubegin, #-log(.5),
+      # between(year, 2051, 2100) & country == 'France' ~ -log(.75),
+      between(year, 2051, 2100) ~ yearsimuend, #-log(.75),
+      TRUE ~ 0 # before 2001
     ))
 
+selected_latin_name = "Alosa alosa"
+
+# TODO - In Shiny only - 
+# Use https://shiny.rstudio.com/articles/progress.html
+shiny::withProgress(message = 'Making Simu', value = 0, 
+             session = session, {
+# browser()
+results <- runSimulation(
+  selected_latin_name, 
+  data_simulation[["hydiad_parameter"]], # 11 rows
+  # Smaller for example
+  anthropogenic_mortality %>% filter(year <= 1955), # 1800 rows
+  data_simulation[["catchment_surface"]], # 134 rows
+  data_simulation[["data_hsi_nmax"]], # 663300 rows
+  data_simulation[["data_ni0"]], # 4422 rows
+  data_simulation[["outlet_distance"]], # 18225 rows
+  verbose = TRUE
+)
+})
+
+# Les 5 premières lignes des sous-listes
+results %>% purrr::map(~purrr::map(.x, head))
 ```
 
+### Graphs
+
+```{r}
+# graphics ----
+Nit_list <- results[['model']] %>% 
+  lapply(function(x) x$Nit)  
+
+# TODO
+```
 
 
 ### Stop connection

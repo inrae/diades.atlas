@@ -36,12 +36,12 @@ anthropogenic_mortality =
 #   ggplot(aes(x = year, y = exp(-h1))) +
 #   geom_path()
 
-
-catchment_surface <- data_hsi_nmax %>% 
-  distinct(basin_name) %>%
-  arrange(basin_name) %>% 
-  inner_join(data_catchment %>%  select(basin_name, surface_area),
-             by = 'basin_name')
+#=> In get_data_simulation()
+# catchment_surface <- data_hsi_nmax %>% 
+#   distinct(basin_name) %>%
+#   arrange(basin_name) %>% 
+#   inner_join(data_catchment %>%  select(basin_name, surface_area),
+#              by = 'basin_name')
 
 # =========================================================================================
 # run simulation ----

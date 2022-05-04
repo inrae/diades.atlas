@@ -33,7 +33,7 @@ mod_third_ui <- function(id) {
               "Scenario",
               choices = c(
                 "RCP 8.5" = "rcp85",
-                "The other one" = "other"
+                "RCP 4.5" = "rcp45"
               )
             ),
             content_style = "width:25em",
