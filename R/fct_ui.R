@@ -87,8 +87,13 @@ w3_hover_button <- function(button_text = "Hover Over Me!",
                             button_class = NULL,
                             content_style = NULL,
                             border = TRUE) {
+  # $(paste0("#", button_id)).trigger("shown")
   class <- if (border) "w3-dropdown-hover w3-border" else "w3-dropdown-hover"
   tags$div(
+    onmouseover = paste0(
+      '$("#', button_id, '").trigger("show");',
+      '$("#', button_id, '").trigger("shown")'), 
+    #"alert('coucou')",
     class = paste(class, button_class),
     tags$button(
       class = "w3-button",

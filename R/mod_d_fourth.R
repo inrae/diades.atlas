@@ -52,6 +52,7 @@ mod_fourth_ui <- function(id) {
                 h4("editable"),
                 # DTOutput(ns("x1")),
                 # uiOutput(ns("mortalities")),
+                DTOutput(ns("mortalities")),
                 h4(with_i18("2001-2050", "yearsimubegin")),
                 multi_sliders(
                   ns,
@@ -116,7 +117,6 @@ mod_fourth_ui <- function(id) {
           )
         ),
         w3css::w3_half(
-          DTOutput(ns("mortalities")),
           h4(
             with_i18("Abundance in river basins", "map-abundance"),
             w3_help_button(
