@@ -28,7 +28,7 @@ multi_sliders <- function(ns, countries, prefix = "period1") {
 
 #' Run simulation
 #'
-#' @param selected_latin_name 
+#' @param selected_latin_name Species latin name
 #' @param hydiad_parameter 
 #' @param anthropogenic_mortality 
 #' @param catchment_surface 
@@ -39,7 +39,10 @@ multi_sliders <- function(ns, countries, prefix = "period1") {
 #' 
 #' @importFrom tidyr pivot_wider expand_grid
 #' @importFrom tibble column_to_rownames
+#' @importFrom utils txtProgressBar setTxtProgressBar
+#' @importFrom methods as
 #' @import Matrix
+#' @noRd
 runSimulation <- function(selected_latin_name, 
                           hydiad_parameter, 
                           anthropogenic_mortality,
@@ -329,6 +332,8 @@ compute_nmax_eh1 <- function(model, extendedNit) {
 #' @param results 
 #' @param generationtime 
 #' @param nbCohorts 
+#' 
+#' @importFrom tibble rownames_to_column
 #'
 #' @noRd
 computeEffectiveForModel <- function(model,

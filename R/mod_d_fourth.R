@@ -49,21 +49,12 @@ mod_fourth_ui <- function(id) {
             "Define anthropogenic mortalities" %>% with_i18("h3-anthropogenic"),
             content = container(
               tagList(
-                h4("editable"),
-                # DTOutput(ns("x1")),
-                # uiOutput(ns("mortalities")),
-                DTOutput(ns("mortalities")),
-                h4(with_i18("2001-2050", "yearsimubegin")),
-                multi_sliders(
-                  ns,
-                  countries = golem::get_golem_options('countries_mortalities_list'),
-                  prefix = "yearsimubegin"),
-                hr(),
-                h4(with_i18("2051-2100", "yearsimuend")),
-                multi_sliders(
-                  ns,
-                  countries = golem::get_golem_options('countries_mortalities_list'),
-                  prefix = "yearsimuend")
+                helpText(HTML(
+                  "<ul>
+                    <li>Double click on a cell to edit</li>
+                    <li>Press Esc/Ech or click here to accept your value</li>
+                   </ul>")),
+                DTOutput(ns("mortalities"))
               )
             ),
             content_style = "width:25em;overflow: auto;max-height: 500px;",
@@ -155,8 +146,8 @@ mod_fourth_server <- function(id, r = r) {
       species = NULL,
       mortalities = data.frame(
         country = golem::get_golem_options('countries_mortalities_list'),
-        yearsimubegin = 0.1,
-        yearsimuend = 0.1
+        yearsimubegin = rep(0.1, length(golem::get_golem_options('countries_mortalities_list'))),
+        yearsimuend = rep(0.1, length(golem::get_golem_options('countries_mortalities_list')))
       )
     )
     
@@ -169,7 +160,9 @@ mod_fourth_server <- function(id, r = r) {
     # Client side processing
     options(DT.options = list(pageLength = 10))
     output$mortalities <- renderDT({
-      loco$mortalities %>% 
+      cat_where(whereami::whereami())
+
+      table_mort <- loco$mortalities %>% 
         setNames(
           c(
             get_translation_entry(entry = 'country', lg = r$lg),
@@ -177,7 +170,13 @@ mod_fourth_server <- function(id, r = r) {
             get_translation_entry(entry = 'yearsimuend', lg = r$lg)
           )
         )
+      
+      table_mort
       },
+      options = list(
+        pageLength = length(golem::get_golem_options('countries_mortalities_list')),
+        dom = 't'
+      ),
       rownames = FALSE,
       selection = 'none', 
       editable = list(target = "cell", disable = list(columns = c(0)))

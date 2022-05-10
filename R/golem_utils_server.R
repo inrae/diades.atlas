@@ -62,3 +62,14 @@ drop_nulls <- function(x){
 rv <- shiny::reactiveValues
 rvtl <- shiny::reactiveValuesToList
 
+#' Add a message to tell where you are
+#' @noRd
+cat_where <- function(where){
+  place = basename(where[length(where)])
+  fun = deparse(sys.calls()[[sys.nframe() - 1]]) 
+  cli::cat_rule(
+    glue::glue(
+      "Running {fun} at {place}"
+    )
+  )
+}

@@ -23,5 +23,19 @@ globalVariables(unique(c(
   # translation_help: 
   "contenu_markdown", "en", "es", "fr", "pt",
   # others
-  "diadesatlas.translate", ".", "long", "lat", "group", "region"
+  "diadesatlas.translate", ".", "long", "lat", "group", "region",
+  # compute_nmax_eh1: 
+  "climatic_model_code", "hsi", "Nit", "Nmax_eh1", 
+  # computeEffectiveForModel: 
+  "spawnersTo_50", "V1", 
+  # generate_datasets: 
+  "country", 
+  # get_data_simulation: 
+  "climatic_model_code", "Dmax", "hsi", "latin_name_s", "surface_area", 
+  # mod_fourth_server : <anonymous>: 
+  "X2", "X3", 
+  # runSimulation: 
+  "arrival", "climatic_model_code", "country", "departure",
+  "distance", "latin_name_s", "Nmax", "phase", "proportion",
+  "r_eh2", "surface_area", "survival", "survivingProportion", "withNatalStray"
 )))
