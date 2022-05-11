@@ -60,9 +60,9 @@ library(ggplot2)
 
 Do not forget to set environment variables in .Renviron
 ```{r}
-postgis_host <- Sys.getenv("POSTGIS_HOST")
-postgis_user <- Sys.getenv("POSTGIS_USER")
-postgis_password <- Sys.getenv("POSTGIS_PASSWORD")
+postgis_host <- Sys.getenv("POSTGRES_HOST")
+postgis_user <- Sys.getenv("POSTGRES_USER")
+postgis_password <- Sys.getenv("POSTGRES_PASSWORD")
 
 con <- DBI::dbConnect(
   RPostgres::Postgres(),

@@ -67,19 +67,13 @@ library(tmap)
 library(dbplyr)
 library(dplyr)
 input <- new.env()
-c(
-  dataCatchment,
-  catchment_geom,
-  dataALL,
-  ices_geom,
-  species_list
-) %<-% generate_datasets(
+datasets <- generate_datasets(
   get_con(
     session
   )
 )
 
-species_id <- species_list[species_list$latin_name == "alosa-fallax", "species_id"]
+species_id <- datasets$species_list[datasets$species_list[["latin_name"]] == "alosa-fallax", "species_id"]
 
 scenario <- "rcp85"
 date <- c(1970, 2010)

@@ -1,12 +1,22 @@
 Package: diades.atlas
 Title: The Diades Atlas Shiny App
 Version: 0.2.1
-Authors@R: c(
-    person("Sébastien", "Rochette", , "sebastien@thinkr.fr", role = c("cre", "aut"),
-           comment = c(ORCID = "0000-0002-1565-9313")),
-    person("Colin", "Fay", , "colin@thinkr.fr", role = "aut",
-           comment = c(ORCID = "0000-0001-7343-1846"))
-  )
+Authors@R: 
+    c(person(given = "Sébastien",
+             family = "Rochette",
+             role = c("cre", "aut"),
+             email = "sebastien@thinkr.fr",
+             comment = c(ORCID = "0000-0002-1565-9313")),
+      person(given = "Colin",
+             family = "Fay",
+             role = "aut",
+             email = "colin@thinkr.fr",
+             comment = c(ORCID = "0000-0001-7343-1846")),
+      person(given = "Antoine",
+             family = "Languillaume",
+             role = "aut",
+             email = "antoine@thinkr.fr",
+             comment = c(ORCID = "0000-0001-9843-5632")))
 Description: A Shiny application to explore data.
 License: MIT + file LICENSE
 URL: https://github.com/inrae/diades.atlas
@@ -18,6 +28,7 @@ Imports:
     cli (>= 3.0.1),
     commonmark,
     config (>= 0.3.1),
+    data.table,
     DBI (>= 1.1.1),
     dbplyr,
     dplyr (>= 1.0.7),
@@ -29,7 +40,9 @@ Imports:
     leaflet,
     magrittr (>= 2.0.1),
     maps (>= 3.3.0),
+    Matrix,
     memoise,
+    methods,
     mongolite,
     patchwork,
     purrr (>= 0.3.4),
@@ -40,12 +53,13 @@ Imports:
     shiny (>= 1.6.0),
     shinythemes (>= 1.2.0),
     stats,
+    tibble,
     tidyr,
     tmap (>= 3.3.2),
     tools,
     utils,
     w3css (>= 0.0.0.9002),
-    zeallot (>= 0.1.0)
+    whereami
 Suggests: 
     attempt,
     DiagrammeR (>= 1.0.6.1),

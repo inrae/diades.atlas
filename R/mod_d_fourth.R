@@ -7,6 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @importFrom DT DTOutput
 mod_fourth_ui <- function(id) {
   ns <- NS(id)
   tagList(
@@ -31,7 +32,7 @@ mod_fourth_ui <- function(id) {
             content = w3css::w3_radioButton(
               ns("scenario"),
               "Scenario",
-              choices = c("RCP 8.5", "The other one")
+              choices = c("RCP 8.5", "RCP 4.5")
             ),
             content_style = "width:25em",
             button_id = ns("scenario_hover")
@@ -47,43 +48,16 @@ mod_fourth_ui <- function(id) {
           w3_hover_button(
             "Define anthropogenic mortalities" %>% with_i18("h3-anthropogenic"),
             content = container(
-              sliderInput(
-                ns("ie"),
-                "IE",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("uk"),
-                "UK",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("fr"),
-                "FR",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("es"),
-                "ES",
-                min = 0.1,
-                max = 2,
-                value = 0.2
-              ),
-              sliderInput(
-                ns("pt"),
-                "PT",
-                min = 0.1,
-                max = 2,
-                value = 0.2
+              tagList(
+                helpText(HTML(
+                  "<ul>
+                    <li>Double click on a cell to edit</li>
+                    <li>Press Esc/Ech or click here to accept your value</li>
+                   </ul>")),
+                DTOutput(ns("mortalities"))
               )
             ),
-            content_style = "width:25em",
+            content_style = "width:25em;overflow: auto;max-height: 500px;",
             button_id = ns("scenario_hover")
           ),
           w3_help_button(
@@ -94,23 +68,14 @@ mod_fourth_ui <- function(id) {
       ),
       w3css::w3_quarter(
         tags$span(
-          w3_hover_button(
-            "Select a date" %>% with_i18("select-daterange"),
-            content = container(
-              sliderInput(
-                ns("date"),
-                NULL,
-                min = 1950,
-                max = 2100,
-                value = 1950, 
-                sep = ""
-              )
-            ),
-            button_id = ns("date_hover")
+          w3css::w3_actionButton(
+            ns("display"),
+            "Run the simulation" %>% with_i18("h3-run-simulation"),
+            class = "w3-border"
           ),
           w3_help_button(
-            "Select a date range",
-            "choose_a_daterange_help"
+            "Launch the simulation",
+            "run_simulation_help"
           )
         )
       ),
@@ -119,15 +84,26 @@ mod_fourth_ui <- function(id) {
       ),
       container(
         w3css::w3_col(
-          tags$span(
-            w3css::w3_actionButton(
-              ns("display"),
-              "Run the simulation" %>% with_i18("h3-run-simulation"),
-              class = "w3-border"
-            ),
-            w3_help_button(
-              "Launch the simulation",
-              "run_simulation_help"
+          w3css::w3_quarter(
+            tags$span(
+              w3_hover_button(
+                "Select a date" %>% with_i18("select-daterange-simu"),
+                content = container(
+                  sliderInput(
+                    ns("date"),
+                    NULL,
+                    min = 1950,
+                    max = 2100,
+                    value = 1950, 
+                    sep = ""
+                  )
+                ),
+                button_id = ns("date_hover")
+              ),
+              w3_help_button(
+                "Select a date range",
+                "choose_a_daterange_simu_help"
+              )
             )
           )
         ),
@@ -160,39 +136,88 @@ mod_fourth_ui <- function(id) {
 #'
 #' @noRd
 #' @import maps
+#' @importFrom DT renderDT
 #' @importFrom utils getFromNamespace
 mod_fourth_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-
+    
     loco <- reactiveValues(
-      species = NULL
+      species = NULL,
+      mortalities = data.frame(
+        country = golem::get_golem_options('countries_mortalities_list'),
+        yearsimubegin = rep(0.1, length(golem::get_golem_options('countries_mortalities_list'))),
+        yearsimuend = rep(0.1, length(golem::get_golem_options('countries_mortalities_list')))
+      )
     )
-
+    
     mod_species_server(
       "species_ui_1",
       r = loco
     )
+    
+    # DTOutput(ns("mortalities"))
+    # Client side processing
+    options(DT.options = list(pageLength = 10))
+    output$mortalities <- renderDT({
+      cat_where(whereami::whereami())
+
+      table_mort <- loco$mortalities %>% 
+        setNames(
+          c(
+            get_translation_entry(entry = 'country', lg = r$lg),
+            get_translation_entry(entry = 'yearsimubegin', lg = r$lg),
+            get_translation_entry(entry = 'yearsimuend', lg = r$lg)
+          )
+        )
+      
+      table_mort
+      },
+      options = list(
+        pageLength = length(golem::get_golem_options('countries_mortalities_list')),
+        dom = 't'
+      ),
+      rownames = FALSE,
+      selection = 'none', 
+      editable = list(target = "cell", disable = list(columns = c(0)))
+    )
+    
+    # Get new inputs
+    # edit a cell
+    observeEvent(input$mortalities_cell_edit, {
+      # browser()
+      # Index comes from JS that start from zero on columns
+      # And rownames = FALSE, need to add 1 to 'col'
+      mortalities_cell_edit <- input$mortalities_cell_edit
+      mortalities_cell_edit[,'col'] <- mortalities_cell_edit[,'col'] + 1
+      data_edited <- DT::editData(loco$mortalities, mortalities_cell_edit, 'mortalities')
+      loco$mortalities <- data_edited
+    })
 
     output$map <- renderPlot({
       input$display
-      ggplot(map_data("france"), aes(long, lat, group = group)) +
-        geom_polygon() +
-        geom_polygon(
-          data = map_data("france") %>%
-            dplyr::filter(region %in% sample(
-              unique(map_data("france")$region),
-              3
-            )),
-          aes(fill = region)
-        ) +
+      the_data <- loco$mortalities
+      names(the_data) <- c("X1", "X2", "X3")
+      ggplot(the_data) +
+        aes(X2, X3) +
+        geom_point() +
+      # ggplot(map_data("france"), aes(long, lat, group = group)) +
+      #   geom_polygon() +
+      #   geom_polygon(
+      #     data = map_data("france") %>%
+      #       dplyr::filter(region %in% sample(
+      #         unique(map_data("france")$region),
+      #         3
+      #       )),
+      #     aes(fill = region)
+      #   ) +
         # coord_map() +
         theme_classic() +
         guides(
           fill = "none"
         )
     })
-
+    
     output$prediction <- renderPlot({
       input$display
       p1 <- shinipsum::random_ggplot(type = "line")
@@ -201,7 +226,7 @@ mod_fourth_server <- function(id, r = r) {
         p1, p2
       )
     })
-
+    
     observeEvent(input$scenario, {
       golem::invoke_js(
         "changeinnerhtmlwithid",
@@ -211,7 +236,7 @@ mod_fourth_server <- function(id, r = r) {
         )
       )
     })
-
+    
     observeEvent(input$date, {
       golem::invoke_js(
         "changeinnerhtmlwithid",

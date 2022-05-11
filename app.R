@@ -13,14 +13,8 @@ cli::cat_rule("app.R")
 
 se <- new.env()
 connect(se)
-library(zeallot)
-c(
-  dataCatchment,
-  catchment_geom,
-  dataALL,
-  ices_geom,
-  species_list
-) %<-% generate_datasets(
+
+datasets <- generate_datasets(
   get_con(
     se
   )
@@ -28,10 +22,11 @@ c(
 
 # Run the application
 run_app(
-  species_list = species_list,
-  dataCatchment = dataCatchment,
-  catchment_geom = catchment_geom,
-  dataALL = dataALL,
-  ices_geom = ices_geom,
+  species_list = datasets[["species_list"]],
+  countries_mortalities_list = datasets[["countries_mortalities_list"]],
+  dataCatchment = datasets[["dataCatchment"]],
+  catchment_geom = datasets[["catchment_geom"]],
+  dataALL = datasets[["dataALL"]],
+  ices_geom = datasets[["ices_geom"]],
   help_bubble_entries = get_help_bubble_entries()
 )

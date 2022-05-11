@@ -13,42 +13,12 @@ knitr::opts_chunk$set(
   comment = "#>",
   eval = TRUE # Set to TRUE when data OK for test, but not on GitHub
 )
-# To compile manually (run in the console directly)
-if (FALSE) {
-  vignette_name <- "be-page4-future"
-  vignette_file <- paste0(vignette_name, ".Rmd")
-  
-  rmarkdown::render(
-    input = here::here(file.path("data-raw", vignette_file)),
-    output_format = "rmarkdown::html_vignette",
-    output_options = list(toc = TRUE),
-    output_file = here::here(file.path("vignettes", vignette_file))
-  )
-  
-  # Add header for title
-  lines <- readLines(here::here(file.path("vignettes", vignette_file)))
-  
-  cat(
-    glue::glue('---
-title: ".{vignette_name}."
-output: rmarkdown::html_vignette
-vignette: >
-  %\\VignetteIndexEntry{.{vignette_name}.}
-  %\\VignetteEngine{knitr::rmarkdown}
-  %\\VignetteEncoding{UTF-8}
----
-', .open = ".{", .close = "}."),
-lines,
-sep = "\n", 
-file = here::here(file.path("vignettes", vignette_file))
-  )
-}
+# To compile manually : See README
 ```
 
-```{r setup}
-library(diades.atlas)
-# renv::install("dm")
-# library(dm)
+```{r setup, message=FALSE}
+# library(diades.atlas)
+pkgload::load_all(here::here())
 library(dplyr)
 library(leaflet)
 library(ggplot2)
@@ -59,11 +29,105 @@ library(ggplot2)
 Do not forget to set environment variables in .Renviron
 ```{r}
 # Connect to database
-con <- connect()
+conn_eurodiad <- connect()
 
 # Listtables
-# DBI::dbListTables(con)
-# DBI::dbListObjects(con)
+# sort(DBI::dbListTables(conn_eurodiad))
+# DBI::dbListObjects(conn_eurodiad)
+```
+
+## Prepare Data
+
+Queries from preparation_atlas_simulation.R
+
+```{r}
+data_simulation <- get_data_simulation(conn_eurodiad)
+data_catchment <- data_simulation[["data_catchment"]]
+data_catchment
+data_simulation[["outlet_distance"]]
+hydiad_parameter <- data_simulation[["hydiad_parameter"]]
+hydiad_parameter
+data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
+data_hsi_nmax
+reference_results <- data_simulation[["reference_results"]]
+data_simulation[["data_ni0"]]
+catchment_surface <- data_simulation[["catchment_surface"]]
+```
+
+## Prepare data frame of simulation
+
+- Use anthropogenic mortality from the Shiny interface
+
+```{r}
+session <- shiny::MockShinySession$new()
+input <- list()
+datasets <- generate_datasets(con = conn_eurodiad)
+lang <- "fr"
+
+# Generate all inputs as in the Shiny application
+countries <- c("all", datasets[["countries_mortalities_list"]])
+
+mortalities <- data.frame(
+  # country = golem::get_golem_options('countries_mortalities_list'),
+  country = datasets[["countries_mortalities_list"]],
+  yearsimubegin = 
+    rep(0.1, length(datasets[["countries_mortalities_list"]])),
+  yearsimuend = 
+    rep(0.5, length(datasets[["countries_mortalities_list"]]))
+)
+
+mortalities
+
+# # build from sliders in interface 
+# expand grid using full_join
+anthropogenic_mortality <- expand_anthropogenic_mortality(
+  data_hsi_nmax, mortalities)
+
+selected_latin_name = "Alosa alosa"
+
+# TODO - In Shiny only - 
+# Use https://shiny.rstudio.com/articles/progress.html
+shiny::withProgress(message = 'Making Simu', value = 0, 
+             session = session, {
+# browser()
+results <- runSimulation(
+  selected_latin_name, 
+  data_simulation[["hydiad_parameter"]], # 11 rows
+  # Smaller for example
+  anthropogenic_mortality %>% filter(year <= 1955), # 1800 rows
+  data_simulation[["catchment_surface"]], # 134 rows
+  data_simulation[["data_hsi_nmax"]], # 663300 rows
+  data_simulation[["data_ni0"]], # 4422 rows
+  data_simulation[["outlet_distance"]], # 18225 rows
+  verbose = TRUE
+)
+})
+
+# Les 5 premières lignes des sous-listes
+# results %>% purrr::map(~purrr::map(.x, head))
+```
+
+### Graphs for Nit
+
+```{r, out.width="100%", fig.width=6}
+# graphics ----
+Nit_list <- get_model_nit(results) 
+
+basin <- 'Mondego'
+
+#' Plot Nit predictions
+model_res_filtered <- nit_feature_species_basin(
+  Nit_list = Nit_list,
+  reference_results = reference_results,
+  selected_latin_name = selected_latin_name,
+  basin = basin)
+  
+# same function as for Page 3
+plot_nit(model_res_filtered,
+         selected_year = 2073,
+         lg = "fr",
+         withNitStandardisation = FALSE,
+         with_colour_source = "source")
 
 ```
 
@@ -71,5 +135,5 @@ con <- connect()
 ### Stop connection
 
 ```{r}
-DBI::dbDisconnect(con)
+DBI::dbDisconnect(conn_eurodiad)
 ```

@@ -18,6 +18,15 @@ choose_a_daterange_help ENGLISH","Correspond à la période de simulation du mod
 choose_a_daterange_help PT","# choose_a_daterange_help
 
 choose_a_daterange_help ES"
+"choose_a_daterange_simu_help","# choose_a_daterange_simu_help
+
+choose_a_daterange_simu_help DEFAULT","# choose_a_daterange_simu_help
+
+choose_a_daterange_simu_help ENGLISH","Correspond à la période de simulation du modèle HyDiaD de distributions des espèces diadromes","# choose_a_daterange_simu_help
+
+choose_a_daterange_simu_help PT","# choose_a_daterange_simu_help
+
+choose_a_daterange_simu_help ES"
 "choose_a_scenario_help","# choose_a_scenario_help
 
 choose_a_scenario_help DEFAULT","# choose_a_scenario_help

@@ -251,13 +251,19 @@ generate_datasets <- function(con) {
       species_list$latin_name
     ),
   ]
+  
+  countries_mortalities_list <- 
+    # c("ireland", "france", "united-kingdom", "portugal", "spain")
+  dplyr::tbl(con, "basin") %>% dplyr::count(country) %>% dplyr::pull(country)
+  
   return(
     list(
       dataCatchment = dataCatchment,
       catchment_geom = catchment_geom,
       dataALL = dataALL,
       ices_geom = ices_geom,
-      species_list = species_list
+      species_list = species_list,
+      countries_mortalities_list = countries_mortalities_list
     )
   )
 }

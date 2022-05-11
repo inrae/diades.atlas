@@ -59,8 +59,6 @@ library(tmap)
 library(sf)
 library(DBI)
 
-library(zeallot)
-
 Sys.setenv(
   "GOLEM_CONFIG_ACTIVE" = "dev"
 )
@@ -145,17 +143,12 @@ dataContinent <- get_data_continent_m(
 ```
 
 ```{r}
-c(
-  dataCatchment,
-  catchment_geom,
-  dataALL,
-  ices_geom,
-  species_list
-) %<-% generate_datasets(
+datasets <- generate_datasets(
   get_con(
     session
   )
 )
+
 # options("golem.app.prod" = FALSE)
 launch_mongo(session = session)
 # NOTE: the species are passed with the latin name in the foreground.
@@ -164,10 +157,10 @@ tm_draw(
   species_latin_name = "Salmo trutta",
   spatial_type = "rectangle",
   con = con,
-  dataCatchment = dataCatchment,
-  catchment_geom = catchment_geom,
-  dataALL = dataALL,
-  ices_geom = ices_geom,
+  dataCatchment = datasets$dataCatchment,
+  catchment_geom = datasets$catchment_geom,
+  dataALL = datasets$dataALL,
+  ices_geom = datasets$ices_geom,
   session = session
 )
 
@@ -175,10 +168,10 @@ tm_draw(
   species_latin_name = "Salmo trutta",
   spatial_type = "division",
   con = con,
-  dataCatchment = dataCatchment,
-  catchment_geom = catchment_geom,
-  dataALL = dataALL,
-  ices_geom = ices_geom,
+  dataCatchment = datasets$dataCatchment,
+  catchment_geom = datasets$catchment_geom,
+  dataALL = datasets$dataALL,
+  ices_geom = datasets$ices_geom,
   session = session
 )
 
@@ -186,10 +179,10 @@ tm_draw(
   species_latin_name = "Chelon ramada",
   spatial_type = "rectangle",
   con = con,
-  dataCatchment = dataCatchment,
-  catchment_geom = catchment_geom,
-  dataALL = dataALL,
-  ices_geom = ices_geom,
+  dataCatchment = datasets$dataCatchment,
+  catchment_geom = datasets$catchment_geom,
+  dataALL = datasets$dataALL,
+  ices_geom = datasets$ices_geom,
   session = session
 )
 
@@ -197,10 +190,10 @@ tm_draw(
   species_latin_name = "Chelon ramada",
   spatial_type = "division",
   con = con,
-  dataCatchment = dataCatchment,
-  catchment_geom = catchment_geom,
-  dataALL = dataALL,
-  ices_geom = ices_geom,
+  dataCatchment = datasets$dataCatchment,
+  catchment_geom = datasets$catchment_geom,
+  dataALL = datasets$dataALL,
+  ices_geom = datasets$ices_geom,
   session = session
 )
 ```

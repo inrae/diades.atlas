@@ -36,7 +36,7 @@ gert::git_config_set(
 # Before sending to git external server
 # _deps
 # renv::install("ThinkR-open/attachment")
-# [-] 7 package(s) removed: ggplot2, magrittr, maps, RPostgres, shinythemes, zeallot, dbplyr.
+# install.packages("checkhelper", repos = getOption("repos")["thinkropen"])
 
 attachment::att_amend_desc(
   extra.suggests = c("pkgload", "DiagrammeR",

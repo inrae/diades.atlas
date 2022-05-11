@@ -98,19 +98,118 @@ draw_bv_leaflet <- function(bv_df,
               opacity = 0.6)
 }
 
+#' Plot hsi and nit on the same graph
+#'
+#' @param model_res model outputs
+#' @param selected_year Numeric. selected_year
+#' @param selected_bv Character. Selected BV
+#' @param lg lang
+#' @param withNitStandardisation Logical. Whether to standardise NIT.
+#'
+#' @rdname plot_hsi_nit
+#' 
 #' @import patchwork
-#' @importFrom dplyr filter mutate inner_join between group_by summarise across
+#' @importFrom dplyr filter
 #' @import ggplot2
+#' @export
 plot_hsi_nit <- function(model_res,
                          selected_year,
                          selected_bv,
                          lg,
                          withNitStandardisation = FALSE) {
+  
   model_res_filtered <- model_res %>%
     filter(basin_id == selected_bv) #%>% 
   # mutate(label = factor(paste(latin_name, basin_name, sep = ' in ')))
   
-  hsi <- model_res_filtered  %>%
+  hsi <- plot_hsi(model_res_filtered = model_res_filtered,
+                  selected_year = selected_year,
+                  lg = lg)
+  
+  nit <- plot_nit(model_res_filtered = model_res_filtered,
+                  selected_year = selected_year,
+                  lg = lg,
+                  withNitStandardisation = FALSE,
+                  with_colour_source = NULL)
+  
+  getFromNamespace("/.ggplot", "patchwork")(
+    hsi, nit
+  )
+}
+
+#' Plot NIT only
+#' @rdname plot_hsi_nit
+#' @param model_res_filtered model_res for a specific basin
+#' @param with_colour_source Name of a variable to change colour lines
+#' @importFrom dplyr filter mutate inner_join between group_by summarise across
+#' @import ggplot2
+#' @export
+plot_nit <- function(model_res_filtered,
+                     selected_year,
+                     lg,
+                     withNitStandardisation = FALSE,
+                     with_colour_source = NULL) {
+  
+  if (withNitStandardisation) {
+    model_res_filtered <- model_res_filtered %>% 
+      inner_join(model_res_filtered %>% 
+                   filter(between(year, 1950,1980)) %>% 
+                   group_by(species_id, basin_id) %>% 
+                   summarise(nit_mean_mean = mean(nit_mean),
+                             .groups = 'drop'),
+                 by = c("species_id", "basin_id")) %>% 
+      mutate(across(c("nit_min", "nit_mean", "nit_max", "nit_movingavg"), ~.x/nit_mean_mean))
+  }
+  
+  nit <- ggplot(model_res_filtered) +
+    aes(x = year) 
+  
+  if (is.null(with_colour_source)) {
+    nit <- nit +
+      geom_ribbon(
+        aes(ymin = nit_min, 
+            ymax = nit_max,
+            # fill = label
+        ), alpha = 0.3) +
+      geom_line(
+        aes(y = nit_movingavg,
+            # color = label
+        )
+      )
+  } else {
+    nit <- nit +
+      geom_ribbon(
+        aes(ymin = nit_min, 
+            ymax = nit_max,
+            fill = .data[[with_colour_source]]
+        ), alpha = 0.3) +
+      geom_line(
+        aes(y = nit_movingavg,
+            colour = .data[[with_colour_source]]
+        )
+      ) +
+      scale_colour_viridis_d() +
+      scale_fill_viridis_d()
+  }
+  nit <- nit + 
+    geom_vline(xintercept = selected_year, color = "red") +
+    theme_bw() +
+    theme(legend.title = element_blank()) +
+    # ylab('Abundance (nb of fish)')
+    ylab(get_translation_entry('nit_ggplot', lg))
+  
+  return(nit)
+}
+
+#' Plot NIT only
+#' @param model_res_filtered model_res for a specific basin
+#' @rdname plot_hsi_nit
+#' @import ggplot2
+#' @export
+plot_hsi <- function(model_res_filtered,
+                     selected_year,
+                     lg) {
+  model_res_filtered  %>%
     ggplot(aes(x = year)) +
     geom_ribbon(aes(ymin = hsi_min, 
                     ymax = hsi_max,
@@ -125,45 +224,14 @@ plot_hsi_nit <- function(model_res,
     ylab(get_translation_entry('hsi_ggplot', lg)) +
     theme(legend.title = element_blank()) +
     ylim(0,1)
-  
-  if (withNitStandardisation) {
-    model_res_filtered <- model_res_filtered %>% 
-      inner_join(model_res_filtered %>% 
-                   filter(between(year, 1950,1980)) %>% 
-                   group_by(species_id, basin_id) %>% 
-                   summarise(nit_mean_mean = mean(nit_mean),
-                             .groups = 'drop'),
-                 by = c("species_id", "basin_id")) %>% 
-      mutate(across(c("nit_min", "nit_mean", "nit_max", "nit_movingavg"), ~.x/nit_mean_mean))
-  }
-  
-  nit <- model_res_filtered %>%
-    ggplot(aes(x = year)) +
-    geom_ribbon(aes(ymin = nit_min, 
-                    ymax = nit_max,
-                    # fill = label
-    ),
-    alpha = 0.3) +
-    geom_line(aes(y = nit_movingavg,
-                  # color = label
-    )) +
-    geom_vline(xintercept = selected_year, color = "red") +
-    theme(legend.title = element_blank()) +
-    # ylab('Abundance (nb of fish)')
-    ylab(get_translation_entry('nit_ggplot', lg))
-  
-  getFromNamespace("/.ggplot", "patchwork")(
-    hsi, nit
-  )
 }
-
 
 #' @noRd
 create_ui_summary_html <- function(
-  species, 
-  date, 
-  basin_name, 
-  country
+    species, 
+    date, 
+    basin_name, 
+    country
 ) {
   HTML(
     paste0("<span data-i18n='", low_and_sub(species), "'>", species, "</span>"),
