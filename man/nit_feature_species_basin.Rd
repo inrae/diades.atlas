@@ -17,6 +17,8 @@ nit_feature_species_basin(
 \item{reference_results}{reference_results as issued from [prepare_datasets()]}
 
 \item{selected_latin_name}{Latin species name}
+
+\item{basin}{Name of the basin}
 }
 \value{
 data.frame of Nit results for one species and one basin

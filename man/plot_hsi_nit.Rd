@@ -35,6 +35,8 @@ plot_hsi(model_res_filtered, selected_year, lg)
 
 \item{withNitStandardisation}{Logical. Whether to standardise NIT.}
 
+\item{model_res_filtered}{model_res for a specific basin}
+
 \item{with_colour_source}{Name of a variable to change colour lines}
 }
 \description{
