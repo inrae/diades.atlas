@@ -37,5 +37,7 @@ globalVariables(unique(c(
   # runSimulation: 
   "arrival", "climatic_model_code", "country", "departure",
   "distance", "latin_name_s", "Nmax", "phase", "proportion",
-  "r_eh2", "surface_area", "survival", "survivingProportion", "withNatalStray"
+  "r_eh2", "surface_area", "survival", "survivingProportion", "withNatalStray",
+  # nit_feature_species_basin
+  "nit", "rolling_mean"
 )))

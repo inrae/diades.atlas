@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # To compile manually : See README
 ```
 
-```{r setup}
+```{r setup, message=FALSE}
 # library(diades.atlas)
 pkgload::load_all(here::here())
 library(dplyr)
@@ -49,7 +49,7 @@ hydiad_parameter <- data_simulation[["hydiad_parameter"]]
 hydiad_parameter
 data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
 data_hsi_nmax
-data_simulation[["reference_results"]]
+reference_results <- data_simulation[["reference_results"]]
 data_simulation[["data_ni0"]]
 catchment_surface <- data_simulation[["catchment_surface"]]
 ```
@@ -68,35 +68,20 @@ lang <- "fr"
 countries <- c("all", datasets[["countries_mortalities_list"]])
 
 mortalities <- data.frame(
-        # country = golem::get_golem_options('countries_mortalities_list'),
-        country = datasets[["countries_mortalities_list"]],
-        yearsimubegin = 0.1,
-        yearsimuend = 0.5
-      )
+  # country = golem::get_golem_options('countries_mortalities_list'),
+  country = datasets[["countries_mortalities_list"]],
+  yearsimubegin = 
+    rep(0.1, length(datasets[["countries_mortalities_list"]])),
+  yearsimuend = 
+    rep(0.5, length(datasets[["countries_mortalities_list"]]))
+)
 
 mortalities
 
 # # build from sliders in interface 
 # expand grid using full_join
-anthropogenic_mortality <- full_join(data_hsi_nmax %>% 
-            distinct(year) %>% 
-            mutate(by = 1),
-          data_hsi_nmax %>% 
-            distinct(country) %>% 
-            mutate(by = 1), by = "by") %>% 
-  select(-by) %>% 
-    mutate(h2 = 0) %>% 
-  collect() %>% 
-  # Join with table of mortalities
-  left_join(mortalities, by = "country") %>% 
-  mutate(
-    h1 = case_when(
-      # between(year, 2001, 2050) & country == 'France' ~ -log(.5),
-      between(year, 2001, 2050) ~ yearsimubegin, #-log(.5),
-      # between(year, 2051, 2100) & country == 'France' ~ -log(.75),
-      between(year, 2051, 2100) ~ yearsimuend, #-log(.75),
-      TRUE ~ 0 # before 2001
-    ))
+anthropogenic_mortality <- expand_anthropogenic_mortality(
+  data_hsi_nmax, mortalities)
 
 selected_latin_name = "Alosa alosa"
 
@@ -119,17 +104,31 @@ results <- runSimulation(
 })
 
 # Les 5 premières lignes des sous-listes
-results %>% purrr::map(~purrr::map(.x, head))
+# results %>% purrr::map(~purrr::map(.x, head))
 ```
 
-### Graphs
+### Graphs for Nit
 
-```{r}
+```{r, out.width="100%", fig.width=6}
 # graphics ----
-Nit_list <- results[['model']] %>% 
-  lapply(function(x) x$Nit)  
+Nit_list <- get_model_nit(results) 
 
-# TODO
+basin <- 'Mondego'
+
+#' Plot Nit predictions
+model_res_filtered <- nit_feature_species_basin(
+  Nit_list = Nit_list,
+  reference_results = reference_results,
+  selected_latin_name = selected_latin_name,
+  basin = basin)
+  
+# same function as for Page 3
+plot_nit(model_res_filtered,
+         selected_year = 2073,
+         lg = "fr",
+         withNitStandardisation = FALSE,
+         with_colour_source = "source")
+
 ```
 
 

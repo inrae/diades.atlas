@@ -463,8 +463,10 @@ results[['model']][['cnrmcm5']]$spawnersTo[1:5,1:20]
 HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Bit"]][1:5,1:20]
 
 # from values from the database: discrenpency ----
-refRes <- reference_results %>%  filter(climatic_model_code == 'cnrmcm5',
-                                       latin_name == selected_latin_name) %>%
+refRes <- reference_results %>%  
+  filter(climatic_model_code == 'cnrmcm5',
+         latin_name == selected_latin_name) %>%
+  collect() %>% 
   arrange(basin_name, year) %>% 
   pivot_wider(id_cols = basin_name, names_from = year, values_from = nit) %>% 
   column_to_rownames('basin_name') %>% 

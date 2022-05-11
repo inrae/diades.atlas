@@ -48,6 +48,44 @@ Dans tous les cas, les développeurs devront
 - avoir accès à la base de données PostGis (Voir "Backend requirement" ci-dessous)
 - suivre le contenu de "dev/translation.Rmd" lors de chaque mises à jour.
 
+# Retrieve package and develop
+
+You can get this package and propose modifications of the code.
+
+1. Clone in RStudio
+  + File > New Project > Version Control > Git
+  + Use URL: https://github.com/inrae/diades.atlas
+  
+2. In the RStudio "Git" Pane
+  + Create a "New branch" with your name
+  
+3. Define your credentials for the database
+  + Create a ".Renviron" file with `usethis::edit_r_environ()`
+  + Use the correct names and passwords to fill as below
+  + This file will stay on your computer
+```
+POSTGRES_DBNAME="diades"
+POSTGRES_HOST="host-url"
+POSTGRES_USER="username"
+POSTGRES_PORT=5432
+POSTGRES_PASS="user-password"
+```
+  + Restart RStudio
+  + Verify these variables are correctly read
+```r
+Sys.getenv("POSTGRES_USER")
+```
+
+4. Run `pkgload::load_all()` in the R Console
+  + This loads all existing functions stored in "R/" directory
+  
+5. Open a Rmd in "data-raw/" like "data-raw/be-page4-future.Rmd"
+  + You should be able to run it chunk by chunk
+  + Do not forget to close connection to the database at the end
+
+6. You can test modifications of the code in "R/"
+  + After each modification, run `pkgload::load_all()` before testing in the Rmd
+
 # Exploration of database out of Shiny application
 
 You can use this package without opening the Shiny application.  

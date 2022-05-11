@@ -448,3 +448,127 @@ computeEffective <- function(currentYear,
   
   return(results)
 }
+
+#' Expand anthropogenic mortality
+#'
+#' @param data_hsi_nmax data_hsi_nmax
+#' @param mortalities Table of mortalities
+#' 
+#' @importFrom dplyr distinct mutate full_join select collect left_join
+#' @importFrom dplyr case_when between
+#' 
+#' @return Tibble with anthropogenic mortality for each year
+#' @noRd
+#'
+expand_anthropogenic_mortality <- function(data_hsi_nmax, mortalities) {
+  full_join(data_hsi_nmax %>% 
+              distinct(year) %>% 
+              mutate(by = 1),
+            data_hsi_nmax %>% 
+              distinct(country) %>% 
+              mutate(by = 1), by = "by") %>% 
+    select(-by) %>% 
+    mutate(h2 = 0) %>% 
+    collect() %>% 
+    # Join with table of mortalities
+    left_join(mortalities, by = "country") %>% 
+    mutate(
+      h1 = case_when(
+        # between(year, 2001, 2050) & country == 'France' ~ -log(.5),
+        between(year, 2001, 2050) ~ yearsimubegin, #-log(.5),
+        # between(year, 2051, 2100) & country == 'France' ~ -log(.75),
+        between(year, 2051, 2100) ~ yearsimuend, #-log(.75),
+        TRUE ~ 0 # before 2001
+      ))
+}
+
+#' Get Nit results from model results
+#' @param results List of results
+#' @noRd
+get_model_nit <- function(results) {
+  Nit_list <- results[['model']] %>% 
+    lapply(function(x) x[["Nit"]])  
+  return(Nit_list)
+}
+
+#' Calculate NIT feature
+#'
+#' @param data_list List of Nit outputs only
+#' 
+#' @importFrom dplyr as_tibble mutate inner_join group_by
+#' @importFrom tidyr pivot_longer
+#' @importFrom purrr reduce
+#' @importFrom data.table frollmean
+#' 
+#' @return A tibble
+#' @export
+#'
+nit_feature <- function(data_list) {
+  res <- data_list %>% 
+    reduce(pmin) %>%  
+    as_tibble(rownames = 'basin_name') %>% 
+    pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'min') %>% 
+    mutate(year = as.integer(year)) %>% 
+    inner_join(
+      data_list %>% 
+        reduce(pmax) %>%  
+        as_tibble(rownames = 'basin_name') %>% 
+        pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'max') %>% 
+        mutate(year = as.integer(year)),
+      by = c('basin_name', 'year')) %>% 
+    inner_join(
+      data_list %>% 
+        simplify2array() %>% 
+        apply(c(1,2), mean) %>%  
+        as_tibble(rownames = 'basin_name') %>% 
+        pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'mean') %>% 
+        mutate(year = as.integer(year)),
+      by = c('basin_name', 'year')) %>% 
+    group_by(basin_name) %>% 
+    mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')) %>% 
+    ungroup()
+  return(res)
+}
+
+#' Get nit reference and predictions for one species and one basin
+#' 
+#' @param Nit_list Nit_list as issued from [get_model_nit()]
+#' @param reference_results reference_results as issued from [prepare_datasets()]
+#' @param selected_latin_name Latin species name
+#' @param basin Name of the basin
+#' 
+#' @importFrom dplyr mutate bind_rows filter group_by summarise
+#' @importFrom dplyr ungroup
+#' @importFrom data.table frollmean
+#' @return data.frame of Nit results for one species and one basin
+#' @export
+nit_feature_species_basin <- function(Nit_list,
+                                      reference_results,
+                                      selected_latin_name,
+                                      basin) {
+  nit_feature(Nit_list) %>% 
+    mutate(source = 'simul') %>% 
+    bind_rows(
+      # reference for this species
+      reference_results %>% 
+        filter(latin_name == selected_latin_name) %>% 
+        group_by(basin_name, year) %>% 
+        summarise(min = min(nit),
+                  max = max(nit),
+                  mean = mean(nit), .groups = 'drop') %>% 
+        collect() %>% 
+        group_by(basin_name) %>% 
+        mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')) %>% 
+        mutate(source = 'reference') %>% 
+        ungroup()
+      ) %>%
+    suppressWarnings() %>% 
+    filter(basin_name == basin,
+           year >= 1951) %>% 
+    rename(
+      nit_min = min,
+      nit_max = max,
+      nit_mean = mean,
+      nit_movingavg = rolling_mean
+    )
+}

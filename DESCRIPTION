@@ -28,6 +28,7 @@ Imports:
     cli (>= 3.0.1),
     commonmark,
     config (>= 0.3.1),
+    data.table,
     DBI (>= 1.1.1),
     dbplyr,
     dplyr (>= 1.0.7),
