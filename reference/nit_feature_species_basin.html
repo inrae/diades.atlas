@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — generate_datasets • diades.atlas</title>
+<title>Get nit reference and predictions for one species and one basin — nit_feature_species_basin • diades.atlas</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
-<meta property="og:title" content="Title — generate_datasets" />
-<meta property="og:description" content="Title" />
+<meta property="og:title" content="Get nit reference and predictions for one species and one basin — nit_feature_species_basin" />
+<meta property="og:description" content="Get nit reference and predictions for one species and one basin" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -164,29 +164,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
-    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/utils_helpers.R'><code>R/utils_helpers.R</code></a></small>
-    <div class="hidden name"><code>generate_datasets.Rd</code></div>
+    <h1>Get nit reference and predictions for one species and one basin</h1>
+    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/mod_d_fourth_fct.R'><code>R/mod_d_fourth_fct.R</code></a></small>
+    <div class="hidden name"><code>nit_feature_species_basin.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Title</p>
+    <p>Get nit reference and predictions for one species and one basin</p>
     </div>
 
-    <pre class="usage"><span class='fu'>generate_datasets</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>nit_feature_species_basin</span><span class='op'>(</span>
+  <span class='va'>Nit_list</span>,
+  <span class='va'>reference_results</span>,
+  <span class='va'>selected_latin_name</span>,
+  <span class='va'>basin</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>con</th>
-      <td><p>The DB connection object</p></td>
+      <th>Nit_list</th>
+      <td><p>Nit_list as issued from [get_model_nit()]</p></td>
+    </tr>
+    <tr>
+      <th>reference_results</th>
+      <td><p>reference_results as issued from [prepare_datasets()]</p></td>
+    </tr>
+    <tr>
+      <th>selected_latin_name</th>
+      <td><p>Latin species name</p></td>
+    </tr>
+    <tr>
+      <th>basin</th>
+      <td><p>Name of the basin</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of data.frame</p>
+    <p>data.frame of Nit results for one species and one basin</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

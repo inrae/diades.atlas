@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — generate_datasets • diades.atlas</title>
+<title>Plot hsi and nit on the same graph — plot_hsi_nit • diades.atlas</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,10 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
-<meta property="og:title" content="Title — generate_datasets" />
-<meta property="og:description" content="Title" />
+<meta property="og:title" content="Plot hsi and nit on the same graph — plot_hsi_nit" />
+<meta property="og:description" content="Plot hsi and nit on the same graph
+Plot NIT only
+Plot NIT only" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -164,29 +166,68 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
-    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/utils_helpers.R'><code>R/utils_helpers.R</code></a></small>
-    <div class="hidden name"><code>generate_datasets.Rd</code></div>
+    <h1>Plot hsi and nit on the same graph</h1>
+    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/mod_c_third_fct_query_and_plot.R'><code>R/mod_c_third_fct_query_and_plot.R</code></a></small>
+    <div class="hidden name"><code>plot_hsi_nit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Title</p>
+    <p>Plot hsi and nit on the same graph</p>
+<p>Plot NIT only</p>
+<p>Plot NIT only</p>
     </div>
 
-    <pre class="usage"><span class='fu'>generate_datasets</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_hsi_nit</span><span class='op'>(</span>
+  <span class='va'>model_res</span>,
+  <span class='va'>selected_year</span>,
+  <span class='va'>selected_bv</span>,
+  <span class='va'>lg</span>,
+  withNitStandardisation <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>plot_nit</span><span class='op'>(</span>
+  <span class='va'>model_res_filtered</span>,
+  <span class='va'>selected_year</span>,
+  <span class='va'>lg</span>,
+  withNitStandardisation <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  with_colour_source <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
+
+<span class='fu'>plot_hsi</span><span class='op'>(</span><span class='va'>model_res_filtered</span>, <span class='va'>selected_year</span>, <span class='va'>lg</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>con</th>
-      <td><p>The DB connection object</p></td>
+      <th>model_res</th>
+      <td><p>model outputs</p></td>
+    </tr>
+    <tr>
+      <th>selected_year</th>
+      <td><p>Numeric. selected_year</p></td>
+    </tr>
+    <tr>
+      <th>selected_bv</th>
+      <td><p>Character. Selected BV</p></td>
+    </tr>
+    <tr>
+      <th>lg</th>
+      <td><p>lang</p></td>
+    </tr>
+    <tr>
+      <th>withNitStandardisation</th>
+      <td><p>Logical. Whether to standardise NIT.</p></td>
+    </tr>
+    <tr>
+      <th>model_res_filtered</th>
+      <td><p>model_res for a specific basin</p></td>
+    </tr>
+    <tr>
+      <th>with_colour_source</th>
+      <td><p>Name of a variable to change colour lines</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A list of data.frame</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

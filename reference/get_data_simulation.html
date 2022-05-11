@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — generate_datasets • diades.atlas</title>
+<title>Get data ready for simulations on page 4 — get_data_simulation • diades.atlas</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
-<meta property="og:title" content="Title — generate_datasets" />
-<meta property="og:description" content="Title" />
+<meta property="og:title" content="Get data ready for simulations on page 4 — get_data_simulation" />
+<meta property="og:description" content="Get data ready for simulations on page 4" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -164,30 +164,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
-    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/utils_helpers.R'><code>R/utils_helpers.R</code></a></small>
-    <div class="hidden name"><code>generate_datasets.Rd</code></div>
+    <h1>Get data ready for simulations on page 4</h1>
+    <small class="dont-index">Source: <a href='https://github.com/inrae/diades.atlas/blob/master/R/get_data_simulation.R'><code>R/get_data_simulation.R</code></a></small>
+    <div class="hidden name"><code>get_data_simulation.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Title</p>
+    <p>Get data ready for simulations on page 4</p>
     </div>
 
-    <pre class="usage"><span class='fu'>generate_datasets</span><span class='op'>(</span><span class='va'>con</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_data_simulation</span><span class='op'>(</span><span class='va'>conn_eurodiad</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>con</th>
-      <td><p>The DB connection object</p></td>
+      <th>conn_eurodiad</th>
+      <td><p>Connection to database</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of data.frame</p>
+    <p>list of tables necessary for simulations</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>data_simulation</span> <span class='op'>&lt;-</span> <span class='fu'>get_data_simulation</span><span class='op'>(</span><span class='va'>conn_eurodiad</span><span class='op'>)</span>
+<span class='va'>data_simulation</span><span class='op'>[[</span><span class='st'>"data_catchment"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>data_simulation</span><span class='op'>[[</span><span class='st'>"outlet_distance"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>data_simulation</span><span class='op'>[[</span><span class='st'>"hydiad_parameter"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>data_simulation</span><span class='op'>[[</span><span class='st'>"data_hsi_nmax"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>data_simulation</span><span class='op'>[[</span><span class='st'>"reference_results"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>data_simulation</span><span class='op'>[[</span><span class='st'>"data_ni0"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
