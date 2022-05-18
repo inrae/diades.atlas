@@ -96,21 +96,24 @@ selected_latin_name = "Alosa alosa"
 
 # TODO - In Shiny only - 
 # Use https://shiny.rstudio.com/articles/progress.html
-shiny::withProgress(message = 'Making Simu', value = 0, 
-             session = session, {
-# browser()
-results <- runSimulation(
-  selected_latin_name, 
-  data_simulation[["hydiad_parameter"]], # 11 rows
-  # Smaller for example
-  anthropogenic_mortality, # 1800 rows
-  data_simulation[["catchment_surface"]], # 134 rows
-  data_simulation[["data_hsi_nmax"]], # 663300 rows
-  data_simulation[["data_ni0"]], # 4422 rows
-  data_simulation[["outlet_distance"]], # 18225 rows
-  verbose = FALSE
-)
-})
+shiny::withProgress(
+  message = 'Making Simu', value = 0, 
+  session = session, {
+
+    results <- runSimulation(
+      selected_latin_name, 
+      data_simulation[["hydiad_parameter"]], # 11 rows
+      # Smaller for example
+      anthropogenic_mortality, # 1800 rows
+      data_simulation[["catchment_surface"]], # 134 rows
+      data_simulation[["data_hsi_nmax"]], # 663300 rows
+      data_simulation[["data_ni0"]], # 4422 rows
+      data_simulation[["outlet_distance"]], # 18225 rows
+      # Add scenario
+      scenario = "rcp85",
+      verbose = FALSE
+    )
+  })
 
 # Les 5 premières lignes des sous-listes
 # results %>% purrr::map(~purrr::map(.x, head))
@@ -122,7 +125,7 @@ results <- runSimulation(
 # graphics ----
 Nit_list <- get_model_nit(results) 
 
-basin <- 'Authie'
+basin <- 'Adour'
 
 #' Plot Nit predictions
 model_res_filtered <- nit_feature_species_basin(
@@ -137,14 +140,6 @@ plot_nit(model_res_filtered,
          lg = "fr",
          withNitStandardisation = FALSE,
          with_colour_source = "source")
-
-model_res_filtered %>% 
-  ggplot(aes(x = year)) + 
-  geom_ribbon(aes(ymin = nit_min, ymax = nit_max, fill = source), alpha = .5) + 
-  geom_line(aes(y = nit_movingavg,
-                colour = source, linetype = source),
-            alpha = 0.8) + 
-  ylab('Nit') 
 
 ```
 

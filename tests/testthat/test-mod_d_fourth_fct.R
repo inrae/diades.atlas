@@ -1,10 +1,15 @@
 # compute_nmax_eh1 ----
 test_that("compute_nmax_eh1 works", {
   # dput(models, file = "tests/testthat/models_dput")
-  # extendedNit_entry_small <- eval(parse(file = "tests/testthat/extendedNit_dput"))
+  if (FALSE) {
+    # To debug tests only
+    extendedNit_entry_small <- eval(parse(file = "tests/testthat/extendedNit_dput"))
+  }
   extendedNit_entry_small <- eval(parse(file = "extendedNit_dput"))
   
-  results_model_small <- compute_nmax_eh1(model = "cnrmcm5", extendedNit = extendedNit_entry_small)
+  results_model_small <- compute_nmax_eh1(model = "cnrmcm5",
+                                          scenario = "rcp85",
+                                          extendedNit = extendedNit_entry_small)
   # Create expected
   # dput(results_model_small, file = "tests/testthat/results_model_small_dput")
   # rms_expected <- eval(parse(file = "tests/testthat/results_model_small_dput"))
@@ -13,6 +18,8 @@ test_that("compute_nmax_eh1 works", {
 })
 
 # runSimulation ----
+# Generate expected dput for the same set 
+# of species and basin in data-raw/altas_simulation.R
 test_that("runSimulation works", {
   
   skip_if_not_connectable(session_globale)
@@ -21,6 +28,7 @@ test_that("runSimulation works", {
   
   # Use case
   selected_latin_name = "Alosa alosa"
+  basin <- 'Adour'
   
   # get_data_simulation - Test inputs ----
   data_simulation <- get_data_simulation(conn_eurodiad)
@@ -147,8 +155,6 @@ test_that("runSimulation works", {
   
   # Get NIT ----
   Nit_list <- get_model_nit(results) 
-  
-  basin <- 'Authie'
   
   # nit_feature ----
   model_nit_outputs <- nit_feature(Nit_list)

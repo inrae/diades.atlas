@@ -29,20 +29,23 @@ multi_sliders <- function(ns, countries, prefix = "period1") {
 #' Run simulation
 #'
 #' @param selected_latin_name Species latin name
-#' @param hydiad_parameter 
-#' @param anthropogenic_mortality 
-#' @param catchment_surface 
-#' @param data_hsi_nmax 
-#' @param data_ni0 
-#' @param outlet_distance 
-#' @param verbose 
+#' @param hydiad_parameter Hydiad model parameters
+#' @param anthropogenic_mortality table of anthropogenic mortalities
+#' @param catchment_surface Surface of basins
+#' @param data_hsi_nmax HSI Nmax values
+#' @param data_ni0 ni0 values
+#' @param outlet_distance distance from outlet
+#' @param scenario Climatic scenario. e.g. "rcp85"
+#' @param verbose Logical.
 #' 
 #' @importFrom tidyr pivot_wider expand_grid
 #' @importFrom tibble column_to_rownames
 #' @importFrom utils txtProgressBar setTxtProgressBar
 #' @importFrom methods as
 #' @import Matrix
-#' @noRd
+#' 
+#' @return List of models outputs
+#' @export
 runSimulation <- function(selected_latin_name, 
                           hydiad_parameter, 
                           anthropogenic_mortality,
@@ -50,6 +53,7 @@ runSimulation <- function(selected_latin_name,
                           data_hsi_nmax, 
                           data_ni0,  
                           outlet_distance, 
+                          scenario = "rcp85",
                           verbose = FALSE) {
   # if (verbose) tic()
   
@@ -163,7 +167,7 @@ runSimulation <- function(selected_latin_name,
   # Create dput for tests
   # dput(head(extendedNit), file = "tests/testthat/extendedNit_dput")
   # 
-  results[["model"]] <- lapply(models, compute_nmax_eh1, extendedNit = extendedNit)
+  results[["model"]] <- lapply(models, compute_nmax_eh1, extendedNit = extendedNit, scenario = scenario)
   names(results[["model"]]) <-  models
   
   # expect_equal(results[["model"]], resultsPM) # OK
@@ -285,16 +289,18 @@ runSimulation <- function(selected_latin_name,
 
 #' Compute Nmax_eh1 matrix and prepare Nit matrix
 #'
-#' @param model model 
-#' @param extendedNit extendedNit
+#' @param model model, e.g. "cnrmcm5"
+#' @param scenario Global warming scenario e.g "rcp85"
+#' @param extendedNit extendedNit data input
 #' 
 #' @noRd
-compute_nmax_eh1 <- function(model, extendedNit) {
+compute_nmax_eh1 <- function(model, scenario, extendedNit) {
   out <- list()
   
   out[['HSI']] <- 
     extendedNit %>% 
-    filter(climatic_model_code == model) %>% 
+    filter(climatic_model_code == model,
+           climatic_scenario == scenario) %>% 
     pivot_wider(id_cols = basin_name,
                 names_from = year,
                 values_from = hsi) %>% 
@@ -304,7 +310,8 @@ compute_nmax_eh1 <- function(model, extendedNit) {
   
   out[['Nmax_eh1']] <- 
     extendedNit %>% 
-    filter(climatic_model_code == model) %>% 
+    filter(climatic_model_code == model,
+           climatic_scenario == scenario) %>% 
     pivot_wider(id_cols = basin_name,
                 names_from = year,
                 values_from = Nmax_eh1) %>% 
@@ -314,7 +321,8 @@ compute_nmax_eh1 <- function(model, extendedNit) {
   
   out[['Nit']] <- 
     extendedNit %>% 
-    filter(climatic_model_code == model) %>% 
+    filter(climatic_model_code == model,
+           climatic_scenario == scenario) %>% 
     pivot_wider(id_cols = basin_name,
                 names_from = year,
                 values_from = Nit) %>% 

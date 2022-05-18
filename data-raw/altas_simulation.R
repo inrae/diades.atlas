@@ -392,7 +392,7 @@ nit_feature_pml = function(data_list){
 }
 
 # basin = 'Mondego'
-basin = 'Authie'
+basin = 'Adour'
 
 # nit_feature_pml(Nit_ref) %>% 
 #   filter(basin_name == basin) %>% 
