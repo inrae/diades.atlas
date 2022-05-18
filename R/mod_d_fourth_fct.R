@@ -29,20 +29,23 @@ multi_sliders <- function(ns, countries, prefix = "period1") {
 #' Run simulation
 #'
 #' @param selected_latin_name Species latin name
-#' @param hydiad_parameter 
-#' @param anthropogenic_mortality 
-#' @param catchment_surface 
-#' @param data_hsi_nmax 
-#' @param data_ni0 
-#' @param outlet_distance 
-#' @param verbose 
+#' @param hydiad_parameter Hydiad model parameters
+#' @param anthropogenic_mortality table of anthropogenic mortalities
+#' @param catchment_surface Surface of basins
+#' @param data_hsi_nmax HSI Nmax values
+#' @param data_ni0 ni0 values
+#' @param outlet_distance distance from outlet
+#' @param scenario Climatic scenario. e.g. "rcp85"
+#' @param verbose Logical.
 #' 
 #' @importFrom tidyr pivot_wider expand_grid
 #' @importFrom tibble column_to_rownames
 #' @importFrom utils txtProgressBar setTxtProgressBar
 #' @importFrom methods as
 #' @import Matrix
-#' @noRd
+#' 
+#' @return List of models outputs
+#' @export
 runSimulation <- function(selected_latin_name, 
                           hydiad_parameter, 
                           anthropogenic_mortality,
@@ -50,6 +53,7 @@ runSimulation <- function(selected_latin_name,
                           data_hsi_nmax, 
                           data_ni0,  
                           outlet_distance, 
+                          scenario = "rcp85",
                           verbose = FALSE) {
   # if (verbose) tic()
   
@@ -75,7 +79,7 @@ runSimulation <- function(selected_latin_name,
   
   ## HyDiaD parameters for the selected species ----
   parameter <- hydiad_parameter %>% 
-    filter(latin_name_s == !!selected_latin_name ) %>% 
+    filter(latin_name == !!selected_latin_name ) %>% 
     collect()
   results[['param']][['hydiad_parameter']] <- parameter
   
@@ -99,10 +103,18 @@ runSimulation <- function(selected_latin_name,
   # Local matrices ----
   ## the spawnerTo that are half active in reproduction (Allee effect) ----
   # spawnersTo_50 <-  parameter$lambda * parameter$Dmax * catchment_surface$surface_area
+  # browser()
+  
   # spawnersTo_50 <-  parameter$lambda * parameter$Dmax * catchment_surface %>% pull(surface_area)
   
-  catchment_spawnersTo_50 <- catchment_surface %>% 
+  catchment_spawnersTo_50 <- catchment_surface %>%
     mutate(spawnersTo_50 = !!parameter$lambda * !!parameter$Dmax * surface_area)
+  
+  # Be sure to be in correct order
+  spawnersTo_50 <- catchment_spawnersTo_50 %>% 
+    collect() %>% 
+    arrange(basin_name) %>% 
+    pull(spawnersTo_50)
   
   # spawnersTo_50 <- catchment_spawnersTo_50 %>% collect() %>% arrange(basin_name) %>% pull(spawnersTo_50)
   
@@ -139,6 +151,7 @@ runSimulation <- function(selected_latin_name,
     bind_rows(anticipation) %>% 
     arrange(basin_id, climatic_model_code, year)
   
+  # expect_equal(extendedNit, extendedNit_PML)
   
   ## list years in simulation ----
   years <- extendedNit %>%  
@@ -150,10 +163,14 @@ runSimulation <- function(selected_latin_name,
   
   # if (verbose) tic()
   # ------------------------------------------------------------------------------- #
-  
-  results[["model"]] <- lapply(models, compute_nmax_eh1, extendedNit = extendedNit)
+
+  # Create dput for tests
+  # dput(head(extendedNit), file = "tests/testthat/extendedNit_dput")
+  # 
+  results[["model"]] <- lapply(models, compute_nmax_eh1, extendedNit = extendedNit, scenario = scenario)
   names(results[["model"]]) <-  models
   
+  # expect_equal(results[["model"]], resultsPM) # OK
   # --------------------------------------------------------------------------------------- #
   ## r * exp(-h2) matrix ----
   
@@ -170,6 +187,8 @@ runSimulation <- function(selected_latin_name,
     arrange(basin_name) %>% 
     column_to_rownames('basin_name') %>% 
     as.matrix() 
+  
+  # expect_equal(eh2, eh2_PML) # OK
   # replace NA  (from the populate and burnin periods) with first-year value
   eh2[, as.character(min(years[["year"]]):(firstYear - 1))] <-  eh2[, as.character(firstYear)]
   # store r_eh2 in results
@@ -211,6 +230,7 @@ runSimulation <- function(selected_latin_name,
     # transform into a sparse matrix to speed up the calculation
     as("sparseMatrix")
   
+  # expect_equal(results[["other"]][['survivingProportion']], survivingProportion_PML) # OK
   #Rq: transpose of Besty's matrix (not sure now)
   
   # if (verbose) toc()
@@ -248,6 +268,8 @@ runSimulation <- function(selected_latin_name,
         incProgress(prog, detail = paste("Doing part", currentYear))
       }
     }
+
+    
     results <- computeEffective(currentYear, 
                                 results = results, 
                                 generationtime = generationtime, 
@@ -256,7 +278,8 @@ runSimulation <- function(selected_latin_name,
                                 parameter = parameter,
                                 cohortWeight = cohortWeight,
                                 models = models,
-                                catchment_spawnersTo_50 = catchment_spawnersTo_50)
+                                # catchment_spawnersTo_50 = catchment_spawnersTo_50,
+                                spawnersTo_50 = spawnersTo_50)
   } 
   cat('\n')
   # if (verbose) toc()
@@ -266,16 +289,18 @@ runSimulation <- function(selected_latin_name,
 
 #' Compute Nmax_eh1 matrix and prepare Nit matrix
 #'
-#' @param model model 
-#' @param extendedNit extendedNit
+#' @param model model, e.g. "cnrmcm5"
+#' @param scenario Global warming scenario e.g "rcp85"
+#' @param extendedNit extendedNit data input
 #' 
 #' @noRd
-compute_nmax_eh1 <- function(model, extendedNit) {
+compute_nmax_eh1 <- function(model, scenario, extendedNit) {
   out <- list()
   
   out[['HSI']] <- 
     extendedNit %>% 
-    filter(climatic_model_code == model) %>% 
+    filter(climatic_model_code == model,
+           climatic_scenario == scenario) %>% 
     pivot_wider(id_cols = basin_name,
                 names_from = year,
                 values_from = hsi) %>% 
@@ -285,7 +310,8 @@ compute_nmax_eh1 <- function(model, extendedNit) {
   
   out[['Nmax_eh1']] <- 
     extendedNit %>% 
-    filter(climatic_model_code == model) %>% 
+    filter(climatic_model_code == model,
+           climatic_scenario == scenario) %>% 
     pivot_wider(id_cols = basin_name,
                 names_from = year,
                 values_from = Nmax_eh1) %>% 
@@ -295,7 +321,8 @@ compute_nmax_eh1 <- function(model, extendedNit) {
   
   out[['Nit']] <- 
     extendedNit %>% 
-    filter(climatic_model_code == model) %>% 
+    filter(climatic_model_code == model,
+           climatic_scenario == scenario) %>% 
     pivot_wider(id_cols = basin_name,
                 names_from = year,
                 values_from = Nit) %>% 
@@ -332,6 +359,7 @@ compute_nmax_eh1 <- function(model, extendedNit) {
 #' @param results 
 #' @param generationtime 
 #' @param nbCohorts 
+#' @param spawnersTo_50
 #' 
 #' @importFrom tibble rownames_to_column
 #'
@@ -344,7 +372,8 @@ computeEffectiveForModel <- function(model,
                                      years,
                                      parameter,
                                      cohortWeight,
-                                     catchment_spawnersTo_50) {
+                                     # catchment_spawnersTo_50,
+                                     spawnersTo_50) {
   #cat(model, "\t", currentYear, "\n")
   currentYear_str <- as.character(currentYear)
   
@@ -378,27 +407,27 @@ computeEffectiveForModel <- function(model,
   
   # survival offspring
   if (parameter$withAllee) {
-    # Safe Join Spawners to be sure that basins are in the same order
-    catchment_spawnersTo_50_collect <- catchment_spawnersTo_50 %>% collect()
-    # Keep in order of `spawnersTo`
-    survivalOffsprings <- as.data.frame(spawnersTo) %>% 
-      # get back rownames as column for the join
-      rownames_to_column(var = "basin_name") %>% # count() # 134
-      rename(spawnersTo = V1) %>% 
-      # Join
-      left_join(catchment_spawnersTo_50_collect, by = "basin_name") %>% # %>% count()
-      # Calculate survivalOffsprings with correct basin
-      mutate(
-        survivalOffsprings = parameter$r * 
-          (spawnersTo^2 / (spawnersTo_50^2 + spawnersTo^2)) * spawnersTo) %>% 
-      # Back to matrix for the calculations
-      column_to_rownames(var = "basin_name") %>% 
-      select(survivalOffsprings) %>% 
-      as.matrix() #%>% 
+    # # Safe Join Spawners to be sure that basins are in the same order
+    # catchment_spawnersTo_50_collect <- catchment_spawnersTo_50 %>% collect()
+    # # Keep in order of `spawnersTo`
+    # survivalOffsprings <- as.data.frame(spawnersTo) %>% 
+    #   # get back rownames as column for the join
+    #   rownames_to_column(var = "basin_name") %>% # count() # 134
+    #   rename(spawnersTo = V1) %>% 
+    #   # Join
+    #   left_join(catchment_spawnersTo_50_collect, by = "basin_name") %>% # %>% count()
+    #   # Calculate survivalOffsprings with correct basin
+    #   mutate(
+    #     survivalOffsprings = parameter$r * 
+    #       (spawnersTo^2 / (spawnersTo_50^2 + spawnersTo^2)) * spawnersTo) %>% 
+    #   # Back to matrix for the calculations
+    #   column_to_rownames(var = "basin_name") %>% 
+    #   select(survivalOffsprings) %>% 
+    #   as.matrix() #%>% 
     # head() %>% is()
     
     # calculate the proportion of active spawners
-    # survivalOffsprings <- parameter$r * (spawnersTo^2 / (spawnersTo_50^2 + spawnersTo^2)) * spawnersTo
+    survivalOffsprings <- parameter$r * (spawnersTo^2 / (spawnersTo_50^2 + spawnersTo^2)) * spawnersTo
   } else {
     survivalOffsprings <- parameter$r * spawnersTo 
   }
@@ -417,6 +446,7 @@ computeEffectiveForModel <- function(model,
 #' @param results 
 #' @param generationtime 
 #' @param nbCohorts 
+#' @param spawnersTo_50
 #'
 #' @noRd
 computeEffective <- function(currentYear,
@@ -426,7 +456,8 @@ computeEffective <- function(currentYear,
                              years,
                              parameter,
                              cohortWeight,
-                             catchment_spawnersTo_50,
+                             spawnersTo_50,
+                             # catchment_spawnersTo_50,
                              models) {
   
   # loop over models
@@ -440,7 +471,9 @@ computeEffective <- function(currentYear,
     years = years,
     parameter = parameter,
     cohortWeight = cohortWeight,
-    catchment_spawnersTo_50 = catchment_spawnersTo_50)
+    spawnersTo_50 = spawnersTo_50
+    # catchment_spawnersTo_50 = catchment_spawnersTo_50
+    )
   names(provResults) <- models
   
   # store  the provisional results in results
@@ -551,12 +584,14 @@ nit_feature_species_basin <- function(Nit_list,
     bind_rows(
       # reference for this species
       reference_results %>% 
-        filter(latin_name == selected_latin_name) %>% 
+        filter(latin_name == !!selected_latin_name) %>% 
+        collect() %>% 
         group_by(basin_name, year) %>% 
         summarise(min = min(nit),
                   max = max(nit),
-                  mean = mean(nit), .groups = 'drop') %>% 
-        collect() %>% 
+                  mean = mean(nit),
+                  .groups = 'drop') %>% 
+        # collect() %>% 
         group_by(basin_name) %>% 
         mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')) %>% 
         mutate(source = 'reference') %>% 

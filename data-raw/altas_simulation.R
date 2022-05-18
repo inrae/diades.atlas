@@ -1,13 +1,14 @@
+# ==== Run this to create the dput for unit tests ====
 library(tictoc)
 library(purrr)
-library(Rfast)
+# library(Rfast)
 library(Matrix)
 library(data.table)
-library(tidyverse)
+# library(tidyverse)
 
 rm(list = ls())
 
-source('preparation_atlas_simulation.R')
+source('data-raw/preparation_atlas_simulation.R')
 
 # data upload ----
 # ---------------------------------------------------------------------- #
@@ -22,8 +23,10 @@ hydiad_parameter  %>%
 # here fake data
 anthropogenic_mortality = 
   expand_grid(data_hsi_nmax %>% 
+                collect() %>% 
                 distinct(year),
               data_hsi_nmax %>% 
+                collect() %>% 
                 distinct(country)) %>% 
   mutate( h1 = 0, h2 = 0) %>% 
   mutate(h1 = ifelse(between(year, 2001, 2050) & country == 'France', 
@@ -31,23 +34,26 @@ anthropogenic_mortality =
          h1 = ifelse(between(year, 2051, 2100) & country == 'France', 
                      -log(.75), h1))
 
+dput(anthropogenic_mortality, file = "tests/testthat/anthropogenic_mortality_dput")
+
 # anthropogenic_mortality %>% 
 #   filter(country == 'France') %>% 
 #   ggplot(aes(x = year, y = exp(-h1))) +
 #   geom_path()
 
 #=> In get_data_simulation()
-# catchment_surface <- data_hsi_nmax %>% 
-#   distinct(basin_name) %>%
-#   arrange(basin_name) %>% 
-#   inner_join(data_catchment %>%  select(basin_name, surface_area),
-#              by = 'basin_name')
+catchment_surface <- data_hsi_nmax %>%
+  distinct(basin_name) %>%
+  arrange(basin_name) %>%
+  inner_join(data_catchment %>%  select(basin_name, surface_area),
+             by = 'basin_name')
+dput(catchment_surface, file = "tests/testthat/catchment_surface_dput")
 
 # =========================================================================================
 # run simulation ----
 selected_latin_name = "Alosa alosa"
 
-runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
+runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
                          catchment_surface, data_hsi_nmax, data_ni0,  outlet_distance, verbose = FALSE) {
   if (verbose) tic()
   
@@ -58,19 +64,23 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   # Local variables ----
   ## ordered list of basin s----
   basins <- data_hsi_nmax %>% 
+    collect() %>% 
     distinct(basin_name) %>%
     arrange(basin_name) %>% 
     pull(basin_name)
   
   ## list of models ----
   models <- data_hsi_nmax %>% 
+    collect() %>% 
     distinct(climatic_model_code) %>%
     arrange(climatic_model_code) %>% 
     pull(climatic_model_code)
   
   ## HyDiaD parameters for the selected species ----
   parameter <- hydiad_parameter %>% 
+    collect() %>% 
     filter(latin_name == selected_latin_name )
+    # filter(latin_name_s == selected_latin_name )
   results[['param']][['hydiad_parameter']] <- parameter
   
   ##  cohorts in  spawner run (number and weights) ----
@@ -85,6 +95,7 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   
   ## first year of simulation ----
   firstYear = min(data_hsi_nmax$year, na.rm = TRUE)
+  # data_hsi_nmax %>% collect() %>% pull(year) %>% min(., na.rm = TRUE)
   
   # ---------------------------------------------------------------------- #
   # Local matrices ----
@@ -93,6 +104,7 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   
   ## update Nmax according to anthropogenic mortality eh1 = exp(-h1) ----
   Nit <- data_hsi_nmax %>% 
+    collect() %>% 
     filter(latin_name == selected_latin_name) %>% 
     mutate(phase = 'simul') %>% 
     # update maximal abundance (Nmax) with anthropogenic mortality (h1)
@@ -104,7 +116,9 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   
   # anticipate simulation to initialise model and to burn-in run 
   anticipation <-  
-    expand_grid( data_ni0 %>% filter(latin_name == selected_latin_name) %>%  
+    expand_grid( data_ni0 %>% 
+                   collect() %>% 
+                   filter(latin_name == selected_latin_name) %>%  
                    select(-c(year) ),
                  tibble(year = seq(firstYear - burnin - generationtime, firstYear - 1), 
                         phase = c(rep('initial', generationtime), rep('burnin', burnin)))) %>% 
@@ -112,10 +126,14 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
     mutate(Nmax_eh1 = Nmax ,
            Nit =  ifelse(phase == 'initial', Nmax, 0))
   
-  extendedNit <- Nit %>% 
+  extendedNit_PML <- extendedNit <- Nit %>% 
     bind_rows(anticipation) %>% 
     arrange(basin_id, climatic_model_code, year)
   
+  # extendedNit %>% 
+  #   filter(basin_name == "Aa", year == 1951) %>% 
+  #   View()
+  # 
   
   ## list years in simulation ----
   years <- extendedNit %>%  
@@ -128,7 +146,7 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   if (verbose) tic()
   # ------------------------------------------------------------------------------- #
   ## compute Nmax_eh1 matrix and prepare Nit matrix  ----
-  results[["model"]] <- lapply(models, function(model) {
+  resultsPM <- results[["model"]] <- lapply(models, function(model) {
     out = list()
     
     out[['HSI']] <- 
@@ -185,7 +203,7 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   ## r * exp(-h2) matrix ----
   
   # compute exp(-h2) 
-  eh2 <-  extendedNit %>% distinct(year, basin_name, country) %>% 
+  eh2_PML <- eh2 <-  extendedNit %>% distinct(year, basin_name, country) %>% 
     left_join(anthropogenic_mortality ,
               by = c('country', 'year')) %>% 
     select(-c(country, h1)) %>% 
@@ -205,7 +223,8 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   ## matrix of survival proportion between catchments among emigrants  ----
   # row: arrival basin
   # colum: departure basin
-  results[["other"]] [['survivingProportion']]  <- outlet_distance %>% 
+  survivingProportion_PML <- results[["other"]] [['survivingProportion']]  <- outlet_distance %>% 
+    collect() %>% 
     # filter basins
     filter(departure %in% basins,
            arrival %in% basins) %>% 
@@ -240,7 +259,7 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   
   # for testing: resultsModel <- results[['model']][[1]]
   # compute effective for 1 model ----
-  computeEffectiveForModel = function(model, currentYear, results, generationtime, nbCohorts){
+  computeEffectiveForModel_PML = function(model, currentYear, results, generationtime, nbCohorts){
     #cat(model, "\t", currentYear, "\n")
     currentYear_str = as.character(currentYear)
     
@@ -289,11 +308,11 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   }
 
   # compute effective for all models ----
-  computeEffective = function(currentYear, results, generationtime, nbCohorts) {
+  computeEffective_PML = function(currentYear, results, generationtime, nbCohorts) {
     
     # loop over models
     provResults <-  lapply(names(results[['model']]),
-                           computeEffectiveForModel, currentYear, results,  generationtime, nbCohorts)
+                           computeEffectiveForModel_PML, currentYear, results,  generationtime, nbCohorts)
     names(provResults) <- models
     
     # store  the provisional results in results
@@ -316,10 +335,13 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
   # run simulation over years 
   if (verbose) tic()
   for (currentYear  in yearsToRun) {
+    # currentYear <- yearsToRun[1]
     ## print a progress bar to the console
     if (verbose) setTxtProgressBar(progbar, currentYear)
-    results <- computeEffective(currentYear, results, generationtime, nbCohorts)
+    results <- computeEffective_PML(currentYear, results, generationtime, nbCohorts)
   } 
+  
+  # dput(results, file = "tests/testthat/results_pml_dput")
   cat('\n')
   if (verbose) toc()
   
@@ -329,11 +351,13 @@ runSimulation = function(selected_latin_name, hydiad_parameter, anthropogenic_mo
 # =======================================================================================================
 # run simulation ----
 tic()
-results <- runSimulation(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
+results <- runSimulation_pml(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
                          catchment_surface, data_hsi_nmax, data_ni0, outlet_distance, verbose = FALSE)
 toc()
 
-
+dput(results, file = "tests/testthat/results_pml_dput")
+utils::zip("tests/testthat/results_pml_dput", zipfile = "tests/testthat/results_pml_dput.zip")
+file.remove("tests/testthat/results_pml_dput")
 # ================================================================== #
 # graphics ----
 Nit_list <- results[['model']] %>% 
@@ -346,7 +370,7 @@ Nit_list <- results[['model']] %>%
 
 
 
-nit_feature = function(data_list){
+nit_feature_pml = function(data_list){
   return( data_list %>% reduce(pmin) %>%  
             as_tibble(rownames = 'basin_name') %>% 
             pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'min') %>% 
@@ -367,9 +391,10 @@ nit_feature = function(data_list){
             mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')))
 }
 
-basin = 'Mondego'
+# basin = 'Mondego'
+basin = 'Adour'
 
-# nit_feature(Nit_ref) %>% 
+# nit_feature_pml(Nit_ref) %>% 
 #   filter(basin_name == basin) %>% 
 #   print(n = Inf) %>% 
 #   ggplot(aes(x=year)) +
@@ -392,17 +417,20 @@ basin = 'Mondego'
 #   geom_line(aes(y=rolling_mean), col ='red')
 # 
 # 
-# nit_feature(Nit_list) %>% 
+# nit_feature_pml(Nit_list) %>% 
 #   filter(basin_name == basin) %>% 
 #   print(n = Inf) %>% 
 #   ggplot(aes(x=year)) +
 #   geom_ribbon(aes(ymin = min, ymax = max), alpha = .5)  +
 #   geom_line(aes(y=rolling_mean), col ='red')
 
+model_nit_outputs <- nit_feature_pml(Nit_list)
+dput(model_nit_outputs, file = "tests/testthat/model_nit_outputs_dput")
 
-nit_feature(Nit_list) %>% 
+model_res_filtered_pml <- model_nit_outputs %>% 
   mutate(source = 'simul') %>% 
   bind_rows(reference_results %>% 
+              collect() %>% 
               filter(latin_name == selected_latin_name) %>% 
               group_by(basin_name, year) %>% 
               summarise(min = min(nit),
@@ -413,10 +441,15 @@ nit_feature(Nit_list) %>%
               mutate(source = 'reference')) %>% 
   suppressWarnings() %>% 
   filter(basin_name == basin,
-         year >= 1951) %>% 
+         year >= 1951) 
+
+dput(model_res_filtered_pml, file = "tests/testthat/model_res_filtered_dput")
+
+model_res_filtered_pml %>% 
   ggplot(aes(x = year)) + 
   geom_ribbon(aes(ymin = min, ymax = max, fill = source), alpha = .5) + 
-  geom_line(aes(y = rolling_mean, col = source)) + 
+  geom_line(aes(y = rolling_mean, colour = source, linetype = source),
+            alpha = 0.9) + 
   ylab('Nit') 
 
 #=================================================================================
