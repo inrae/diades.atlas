@@ -31,7 +31,8 @@ globalVariables(unique(c(
   # generate_datasets: 
   "country", 
   # get_data_simulation: 
-  "climatic_model_code", "Dmax", "hsi", "latin_name_s", "surface_area", 
+  "climatic_model_code", "Dmax", "hsi",
+  "latin_name_s", "surface_area", "Lname_s",
   # mod_fourth_server : <anonymous>: 
   "X2", "X3", 
   # runSimulation: 

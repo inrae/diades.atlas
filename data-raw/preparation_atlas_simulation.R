@@ -1,7 +1,7 @@
 library(DBI)
 
 library(tictoc)
-library(tidyverse)
+# library(tidyverse)
 
 # rm(list = ls())
 connection_sql = TRUE
@@ -9,12 +9,12 @@ connection_sql = TRUE
 
 # connection to the data base
 if (connection_sql)
-  conn_eurodiad <- dbConnect(RPostgres::Postgres(), dbname = 'eurodiad',
-                             host = 'citerne.bordeaux.irstea.priv',
-                             port = 5432, 
-                             user = 'patrick.lambert',
-                             password = rstudioapi::askForPassword("Database password"))
-
+  # conn_eurodiad <- dbConnect(RPostgres::Postgres(), dbname = 'eurodiad',
+  #                            host = 'citerne.bordeaux.irstea.priv',
+  #                            port = 5432, 
+  #                            user = 'patrick.lambert',
+  #                            password = rstudioapi::askForPassword("Database password"))
+  conn_eurodiad <- connect()
 
 # data upload ----
 
@@ -25,14 +25,15 @@ if (connection_sql) {
 INNER JOIN diadesatlas.basin_outlet bo USING (basin_id);" ) %>%
     tibble()
   
-  write_rds(data_catchment, './data_input/data_catchment.rds')
+  
+  # write_rds(data_catchment, './data_input/data_catchment.rds')
 } else {
   data_catchment <- read_rds('./data_input/data_catchment.rds')
 }
 # ---------------------------------------------------------------------- #
 ## Distances between catchment ----
 if ( connection_sql) {
-  outletDistance = dbGetQuery(conn_eurodiad,"SELECT
+  outlet_distance = dbGetQuery(conn_eurodiad,"SELECT
 	b.basin_name AS departure,
 	od.departure AS departure_id,
 	b2.basin_name AS arrival,
@@ -47,22 +48,23 @@ INNER JOIN diadesatlas.basin b2 ON
 ORDER BY departure, distance ;") %>% 
    tibble() 
   
-  write_rds(outletDistance, "./data_input/outletDistance.rds")
+  # write_rds(outlet_distance, "./data_input/outletDistance.rds")
 } else {
-  outletDistance <- read_rds( "./data_input/outletDistance.rds")
+  outlet_distance <- read_rds( "./data_input/outletDistance.rds")
 }
 
 # ---------------------------------------------------------------------- #
 # HyDiaD parameters ----
 if (connection_sql) {
-  HyDiaDParameter <-  dbGetQuery(conn_eurodiad, "
+  hydiad_parameter <-  dbGetQuery(conn_eurodiad, "
                                  SELECT s.latin_name, s.local_name AS \"Lname\", h.* FROM diadesatlas.hydiadparameter h
 INNER JOIN diadesatlas.species s USING (species_id);") %>%
-    tibble() %>% 
-    write_rds("./data_input/HyDiaDParameter.rds")
+    tibble() 
+  
+  # hydiad_parameter %>% write_rds("./data_input/HyDiaDParameter.rds")
 
 } else {
-  HyDiaDParameter <- read_rds("./data_input/HyDiaDParameter.rds")
+  hydiad_parameter <- read_rds("./data_input/HyDiaDParameter.rds")
 }
 
 
@@ -76,21 +78,21 @@ INNER JOIN diadesatlas.basin b USING (basin_id)
 INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
 WHERE year > 0 AND climatic_scenario = 'rcp85'"
 
-  data_hsi_Nmax <- dbGetQuery(conn_eurodiad, query) %>%
+  data_hsi_nmax <- dbGetQuery(conn_eurodiad, query) %>%
     tibble() %>%
     # compute the maximum abundance (#) according to hsi,
     #   maximal density (Dmax) , catchment area (ccm_area)
-    inner_join(HyDiaDParameter %>%
+    inner_join(hydiad_parameter %>%
                  select(latin_name, Dmax),
                by = 'latin_name') %>%
     mutate(Nmax = hsi * Dmax * surface_area) %>%
     select(-c(surface_area, Dmax))
 
-  write_rds(data_hsi_Nmax, './data_input/data_hsi_Nmax.rds')
+  # write_rds(data_hsi_nmax, './data_input/data_hsi_Nmax.rds')
 
   rm(query)
 } else {
-  data_hsi_Nmax <- read_rds('./data_input/data_hsi_Nmax.rds')
+  data_hsi_nmax <- read_rds('./data_input/data_hsi_Nmax.rds')
 }
 
 
@@ -98,7 +100,7 @@ WHERE year > 0 AND climatic_scenario = 'rcp85'"
 
 # reference results
 if (connection_sql) {
-  referenceResults <- dbGetQuery(conn_eurodiad, 
+  reference_results <- dbGetQuery(conn_eurodiad, 
                                  "SELECT s.latin_name, basin_id, basin_name, year, climatic_scenario, climatic_model_code, nit  FROM diadesatlas.hybrid_model_result hmr
 INNER JOIN diadesatlas.species s USING (species_id)
 INNER JOIN diadesatlas.basin b USING (basin_id)
@@ -107,9 +109,9 @@ WHERE year > 0 AND climatic_scenario = 'rcp85'
 ORDER BY latin_name, basin_id, climatic_model_code") %>%
     tibble()
   
-  write_rds(referenceResults, './data_input/referenceResults.rds')
+  # write_rds(reference_results, './data_input/referenceResults.rds')
 } else {
-  referenceResults <- read_rds('./data_input/referenceResults.rds')
+  reference_results <- read_rds('./data_input/referenceResults.rds')
 }
 
 
@@ -123,13 +125,13 @@ WHERE  climatic_scenario = 'rcp85'
 AND year = 0
 ORDER BY latin_name, basin_id, climatic_model_code") %>%
     tibble() %>% 
-    inner_join(HyDiaDParameter %>%
+    inner_join(hydiad_parameter %>%
                  select(latin_name, Dmax),
                by = 'latin_name') %>%
     mutate(Nmax = hsi * Dmax * surface_area) %>%
     select(-c(surface_area, Dmax))
 
-  write_rds(data_ni0, './data_input/data_ni0.rds')
+  # write_rds(data_ni0, './data_input/data_ni0.rds')
 } else {
   data_ni0 <- read_rds('./data_input/data_ni0.rds')
 }

@@ -65,7 +65,7 @@ datasets <- generate_datasets(con = conn_eurodiad)
 lang <- "fr"
 
 # Generate all inputs as in the Shiny application
-countries <- c("all", datasets[["countries_mortalities_list"]])
+countries <- datasets[["countries_mortalities_list"]]
 
 mortalities <- data.frame(
   # country = golem::get_golem_options('countries_mortalities_list'),
@@ -94,7 +94,7 @@ results <- runSimulation(
   selected_latin_name, 
   data_simulation[["hydiad_parameter"]], # 11 rows
   # Smaller for example
-  anthropogenic_mortality %>% filter(year <= 1955), # 1800 rows
+  anthropogenic_mortality, # 1800 rows
   data_simulation[["catchment_surface"]], # 134 rows
   data_simulation[["data_hsi_nmax"]], # 663300 rows
   data_simulation[["data_ni0"]], # 4422 rows
