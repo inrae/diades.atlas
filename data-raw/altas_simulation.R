@@ -341,7 +341,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
     results <- computeEffective_PML(currentYear, results, generationtime, nbCohorts)
   } 
   
-  dput(results, file = "tests/testthat/results_PML_dput")
+  # dput(results, file = "tests/testthat/results_pml_dput")
   cat('\n')
   if (verbose) toc()
   
@@ -370,7 +370,7 @@ Nit_list <- results[['model']] %>%
 
 
 
-nit_feature = function(data_list){
+nit_feature_pml = function(data_list){
   return( data_list %>% reduce(pmin) %>%  
             as_tibble(rownames = 'basin_name') %>% 
             pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'min') %>% 
@@ -391,9 +391,10 @@ nit_feature = function(data_list){
             mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')))
 }
 
-basin = 'Mondego'
+# basin = 'Mondego'
+basin = 'Authie'
 
-# nit_feature(Nit_ref) %>% 
+# nit_feature_pml(Nit_ref) %>% 
 #   filter(basin_name == basin) %>% 
 #   print(n = Inf) %>% 
 #   ggplot(aes(x=year)) +
@@ -416,17 +417,20 @@ basin = 'Mondego'
 #   geom_line(aes(y=rolling_mean), col ='red')
 # 
 # 
-# nit_feature(Nit_list) %>% 
+# nit_feature_pml(Nit_list) %>% 
 #   filter(basin_name == basin) %>% 
 #   print(n = Inf) %>% 
 #   ggplot(aes(x=year)) +
 #   geom_ribbon(aes(ymin = min, ymax = max), alpha = .5)  +
 #   geom_line(aes(y=rolling_mean), col ='red')
 
+model_nit_outputs <- nit_feature_pml(Nit_list)
+dput(model_nit_outputs, file = "tests/testthat/model_nit_outputs_dput")
 
-nit_feature(Nit_list) %>% 
+model_res_filtered_pml <- model_nit_outputs %>% 
   mutate(source = 'simul') %>% 
   bind_rows(reference_results %>% 
+              collect() %>% 
               filter(latin_name == selected_latin_name) %>% 
               group_by(basin_name, year) %>% 
               summarise(min = min(nit),
@@ -437,10 +441,15 @@ nit_feature(Nit_list) %>%
               mutate(source = 'reference')) %>% 
   suppressWarnings() %>% 
   filter(basin_name == basin,
-         year >= 1951) %>% 
+         year >= 1951) 
+
+dput(model_res_filtered_pml, file = "tests/testthat/model_res_filtered_dput")
+
+model_res_filtered_pml %>% 
   ggplot(aes(x = year)) + 
   geom_ribbon(aes(ymin = min, ymax = max, fill = source), alpha = .5) + 
-  geom_line(aes(y = rolling_mean, col = source)) + 
+  geom_line(aes(y = rolling_mean, colour = source, linetype = source),
+            alpha = 0.9) + 
   ylab('Nit') 
 
 #=================================================================================

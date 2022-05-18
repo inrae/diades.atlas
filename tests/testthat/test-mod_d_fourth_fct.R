@@ -130,7 +130,7 @@ test_that("runSimulation works", {
   )
   
   if (FALSE) {
-    # for  debug tests only
+    # for debug tests only
     utils::unzip(zipfile = "tests/testthat/results_pml_dput.zip")
     resultsPML <- eval(parse(file = "tests/testthat/results_pml_dput"))
     file.remove("tests/testthat/results_pml_dput")
@@ -144,6 +144,57 @@ test_that("runSimulation works", {
   expect_equal(results[["param"]][["hydiad_parameter"]], 
                resultsPML[["param"]][["hydiad_parameter"]])
   expect_equal(results, resultsPML)
+  
+  # Get NIT ----
+  Nit_list <- get_model_nit(results) 
+  
+  basin <- 'Authie'
+  
+  # nit_feature ----
+  model_nit_outputs <- nit_feature(Nit_list)
+  if (FALSE) {
+    # for debug tests only
+    mno_expected <- eval(parse(file = "tests/testthat/model_nit_outputs_dput")) %>% 
+      ungroup()
+  }
+  mno_expected <- eval(parse(file = "model_nit_outputs_dput")) %>% 
+    ungroup()
+  expect_equal(model_nit_outputs, mno_expected)
+  
+  # nit_feature_species_basin ----
+  model_res_filtered <- nit_feature_species_basin(
+    Nit_list = Nit_list,
+    reference_results = reference_results,
+    selected_latin_name = selected_latin_name,
+    basin = basin)
+  
+  mrf_object <- model_res_filtered %>% 
+    arrange(basin_name, year)
+  
+  if (FALSE) {
+    # for debug test only
+    mrf_expected <- eval(parse(file = "tests/testthat/model_res_filtered_dput")) %>% 
+      rename(
+        nit_min = min,
+        nit_max = max,
+        nit_mean = mean,
+        nit_movingavg = rolling_mean
+      ) %>% 
+      arrange(basin_name, year) %>% 
+      ungroup()
+  }
+  mrf_expected <- eval(parse(file = "model_res_filtered_dput")) %>% 
+    rename(
+      nit_min = min,
+      nit_max = max,
+      nit_mean = mean,
+      nit_movingavg = rolling_mean
+    ) %>% 
+    arrange(basin_name, year) %>% 
+    ungroup()
+
+  expect_equivalent(mrf_object, mrf_expected)
+  # waldo::compare(mrf_object, mrf_expected)
 })
 
 # slugify ----

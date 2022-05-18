@@ -185,7 +185,8 @@ plot_nit <- function(model_res_filtered,
         ), alpha = 0.3) +
       geom_line(
         aes(y = nit_movingavg,
-            colour = .data[[with_colour_source]]
+            colour = .data[[with_colour_source]],
+            linetype = .data[[with_colour_source]]
         )
       ) +
       scale_colour_viridis_d() +

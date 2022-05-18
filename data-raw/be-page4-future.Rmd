@@ -67,13 +67,22 @@ lang <- "fr"
 # Generate all inputs as in the Shiny application
 countries <- datasets[["countries_mortalities_list"]]
 
-mortalities <- data.frame(
+mortalities <- tibble::tibble(
   # country = golem::get_golem_options('countries_mortalities_list'),
   country = datasets[["countries_mortalities_list"]],
   yearsimubegin = 
-    rep(0.1, length(datasets[["countries_mortalities_list"]])),
+    case_when(
+      country == "France" ~ -log(.5),
+      # country == "France" ~ -5,
+      TRUE ~ 0
+    ),
+  # rep(-log(.5), length(datasets[["countries_mortalities_list"]])),
   yearsimuend = 
-    rep(0.5, length(datasets[["countries_mortalities_list"]]))
+    case_when(
+      country == "France" ~ -log(.75),
+      TRUE ~ 0
+    )
+  # rep(-log(.75), length(datasets[["countries_mortalities_list"]]))
 )
 
 mortalities
@@ -99,7 +108,7 @@ results <- runSimulation(
   data_simulation[["data_hsi_nmax"]], # 663300 rows
   data_simulation[["data_ni0"]], # 4422 rows
   data_simulation[["outlet_distance"]], # 18225 rows
-  verbose = TRUE
+  verbose = FALSE
 )
 })
 
@@ -113,7 +122,7 @@ results <- runSimulation(
 # graphics ----
 Nit_list <- get_model_nit(results) 
 
-basin <- 'Mondego'
+basin <- 'Authie'
 
 #' Plot Nit predictions
 model_res_filtered <- nit_feature_species_basin(
@@ -128,6 +137,14 @@ plot_nit(model_res_filtered,
          lg = "fr",
          withNitStandardisation = FALSE,
          with_colour_source = "source")
+
+model_res_filtered %>% 
+  ggplot(aes(x = year)) + 
+  geom_ribbon(aes(ymin = nit_min, ymax = nit_max, fill = source), alpha = .5) + 
+  geom_line(aes(y = nit_movingavg,
+                colour = source, linetype = source),
+            alpha = 0.8) + 
+  ylab('Nit') 
 
 ```
 

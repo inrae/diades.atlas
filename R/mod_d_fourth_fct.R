@@ -576,12 +576,14 @@ nit_feature_species_basin <- function(Nit_list,
     bind_rows(
       # reference for this species
       reference_results %>% 
-        filter(latin_name == selected_latin_name) %>% 
+        filter(latin_name == !!selected_latin_name) %>% 
+        collect() %>% 
         group_by(basin_name, year) %>% 
         summarise(min = min(nit),
                   max = max(nit),
-                  mean = mean(nit), .groups = 'drop') %>% 
-        collect() %>% 
+                  mean = mean(nit),
+                  .groups = 'drop') %>% 
+        # collect() %>% 
         group_by(basin_name) %>% 
         mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')) %>% 
         mutate(source = 'reference') %>% 
