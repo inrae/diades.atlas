@@ -154,6 +154,8 @@ mod_third_server <- function(id, r = r) {
           )
           return(NULL)
         }
+        
+        # Same as mod_d_fourth ----
         loco$bv_df <- get_bv_geoms(
           unique(loco$model_res$basin_id),
           lg = r$lg,
@@ -177,6 +179,15 @@ mod_third_server <- function(id, r = r) {
           year = input$date
         )
         
+        loco$ui_summary <- create_ui_summary_html(
+          species = loco$species,
+          date = input$date,
+          basin_name = loco$selected_bv_name$basin_name,
+          country = loco$selected_bv_name$country
+        )
+        
+        # end of same ----
+        
         loco$plot <- plot_hsi_nit(
           model_res = loco$model_res,
           selected_year = input$date,
@@ -184,12 +195,7 @@ mod_third_server <- function(id, r = r) {
           lg = r$lg,
           withNitStandardisation = FALSE
         )
-        loco$ui_summary <- create_ui_summary_html(
-          species = loco$species,
-          date = input$date,
-          basin_name = loco$selected_bv_name$basin_name,
-          country = loco$selected_bv_name$country
-        )
+
         
       }
     )

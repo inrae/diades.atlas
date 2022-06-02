@@ -118,6 +118,7 @@ mod_fourth_ui <- function(id) {
               "prediction_map_abundance_help"
             )
           ),
+          uiOutput(ns("selection_map")),
           leafletOutput(ns("plot"), height = 600)
         ),
         w3css::w3_half(
@@ -128,6 +129,7 @@ mod_fourth_ui <- function(id) {
               "prediction_plot_abundance_help"
             )
           ),
+          uiOutput(ns("selection_plot")),
           plotOutput(ns("prediction"))
         )
       )
@@ -155,7 +157,9 @@ mod_fourth_server <- function(id, r = r) {
       data_simulation = get_data_simulation(conn_eurodiad),
       results = NULL,
       model_res_filtered = NULL,
-      trigger_graphs = 0
+      trigger_graphs = 0,
+      selected_bv_id = NULL,
+      bind_event = 0
     )
     
     mod_species_server(
@@ -203,6 +207,8 @@ mod_fourth_server <- function(id, r = r) {
     
     # Run simulations ----
     observeEvent(input$launch_simu, {
+      cli::cat_rule("observeEvent(input$launch_simu")
+      
       golem::invoke_js("disable", paste0("#", ns("launch_simu")))
       # loco$data_simulation
       # countries <- golem::get_golem_options('countries_mortalities_list')
@@ -237,7 +243,9 @@ mod_fourth_server <- function(id, r = r) {
       loco$model_res_filtered <- nit_feature_species(
         Nit_list = Nit_list,
         reference_results = loco$data_simulation[["reference_results"]],
-        selected_latin_name = loco$species)
+        selected_latin_name = loco$species) %>% 
+        left_join(loco$data_simulation[["data_catchment"]] %>% collect(),
+                  by = "basin_name")
       
       if (!is.null(loco$model_res_filtered)) {
         loco$trigger_graphs <- loco$trigger_graphs + 1
@@ -246,60 +254,130 @@ mod_fourth_server <- function(id, r = r) {
     }, ignoreInit = TRUE)
     
     # Show results ----
-    observeEvent(list(loco$trigger_graphs, r$lg), {
+    observeEvent(list(loco$trigger_graphs, input$date), {
       req(loco$model_res_filtered)
+      cli::cat_rule("observeEvent(list(loco$trigger_graphs)")
       
-      # loco$ui_summary <- create_ui_summary_html(
-      #   species = loco$species,
-      #   date = input$date,
-      #   basin_name = loco$selected_bv_name$basin_name,
-      #   country = loco$selected_bv_name$country
-      # )
+      model_res <- loco$model_res_filtered %>% 
+        filter(source == "simul")
       
-      output$plot <- renderLeaflet({
-
-        req(loco$model_res_filtered)
-        loco$bind_event <- rnorm(10000)
-        
-        model_res <- loco$model_res_filtered %>% 
-          filter(source == "simul") %>% 
-          left_join(loco$data_simulation[["data_catchment"]] %>% collect(),
-                    by = "basin_name")
-        
-        loco$bv_df <- get_bv_geoms(
+      # Same as mod_c_third ----
+      if (nrow(model_res) == 0) {
+        shiny::showNotification(
+          h1("No result for this species"),
+          type = "error",
+          duration = NULL
+        )
+        return(NULL)
+      }
+      
+      # Get selection on BV 
+      loco$bv_df <- get_bv_geoms(
+        unique(model_res$basin_id),
+        lg = r$lg,
+        session
+      )
+      if (is.null(loco$selected_bv_id)) {
+        loco$selected_bv_id <- sample(
           unique(model_res$basin_id),
-          lg = r$lg,
-          session
+          1
         )
-        
-        draw_bv_leaflet(
-          bv_df = loco$bv_df,
-          model_res = model_res,
-          year = input$date
-        )
-
-      })
-    }, ignoreInit = TRUE)
-    
-    observeEvent(list(loco$trigger_graphs, r$lg), {
-      # req(loco$trigger_graphs)
-      req(loco$model_res_filtered)
+      }
+      loco$selected_bv_name <- tbl(get_con(session), "basin") %>%
+        filter(basin_id == !!loco$selected_bv_id) %>%
+        mutate(basin_name = diadesatlas.translate(basin_name, !!r$lg)) %>%
+        collect()
       
-      basin <- 'Adour'
+      # Create leaflet
+      loco$leaflet <- draw_bv_leaflet(
+        bv_df = loco$bv_df,
+        model_res = model_res,
+        year = input$date
+      )
       
-      # Plot Nit predictions
-      model_res_filtered <- loco$model_res_filtered %>% 
-        filter(basin_name == basin)
-      
-      output$prediction <- renderPlot({
-        # same function as for Page 3
-        plot_nit(model_res_filtered,
-                 selected_year = input$date,
+      # Get predictions for one BV
+      loco$prediction <- loco$model_res_filtered %>% 
+        filter(basin_id == loco$selected_bv_id) %>% 
+        plot_nit(selected_year = input$date,
                  lg = r$lg,
                  withNitStandardisation = FALSE,
                  with_colour_source = "source")
-      })
+      
+      # Create information
+      loco$ui_summary <- create_ui_summary_html(
+        species = loco$species,
+        date = input$date,
+        basin_name = loco$selected_bv_name$basin_name,
+        country = loco$selected_bv_name$country
+      )
+      # end of same ----
+      
     }, ignoreInit = TRUE)
+    
+
+    
+    # If click on the map or change lang
+    observeEvent(list(input$plot_shape_click, r$lg), {
+      # req(loco$trigger_graphs)
+      req(loco$model_res_filtered)
+      cli::cat_rule("observeEvent(list(input$plot_shape_click, r$lg)")
+      
+      loco$selected_bv_id <- input$plot_shape_click$id
+      loco$selected_bv_name <- tbl(get_con(session), "basin") %>%
+        filter(basin_id == !!input$plot_shape_click$id) %>%
+        mutate(basin_name = diadesatlas.translate(basin_name, !!r$lg)) %>%
+        collect()
+      
+      # Update Nit predictions
+      loco$prediction <- loco$model_res_filtered %>% 
+        filter(basin_id == loco$selected_bv_id) %>% 
+        plot_nit(selected_year = input$date,
+                 lg = r$lg,
+                 withNitStandardisation = FALSE,
+                 with_colour_source = "source")
+      
+      # Update information
+      loco$ui_summary <- create_ui_summary_html(
+        species = loco$species,
+        date = input$date,
+        basin_name = loco$selected_bv_name$basin_name,
+        country = loco$selected_bv_name$country
+      )
+      
+    }, ignoreInit = TRUE)
+    
+    # Show summary ====
+    output$selection_map <- renderUI({
+      golem::invoke_js("localize", TRUE)
+      req(loco$ui_summary)
+    })   
+    output$selection_plot <- renderUI({
+      golem::invoke_js("localize", TRUE)
+      req(loco$ui_summary)
+    })
+    
+    # Leaflet ====
+    # Same as mod_c_third ----
+    output$plot <- renderLeaflet({
+      cli::cat_rule("output$plot <- renderLeaflet")
+      loco$bind_event <- rnorm(10000)
+      loco$leaflet
+    })
+    
+    observeEvent(loco$bind_event,
+                 {
+                   req(loco$bind_event)
+                   cli::cat_rule("bind_event")
+                   golem::invoke_js("bindleaflettab3", list(id = ns("plot"), ns = loco$bind_event))
+                 },
+                 ignoreInit = TRUE
+    )
+    # end of same ----
+    
+    # Predictions ----
+    output$prediction <- renderPlot({
+      loco$prediction
+    })
     
     # UI dropdown menus ----
     observeEvent(input$scenario, {
