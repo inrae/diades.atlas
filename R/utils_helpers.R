@@ -208,8 +208,7 @@ generate_datasets <- function(con) {
   catchment_geom <- sf::st_read(
     con,
     query =   "SELECT * FROM diadesatlas.v_basin vb"
-  ) %>%
-    rmapshaper::ms_simplify()
+  )
   
   dataALL <- DBI::dbGetQuery(
     con,
