@@ -1,3 +1,6 @@
+# Create dput when new database arise from 
+# source(here::here("data-raw/altas_simulation.R"))
+
 # compute_nmax_eh1 ----
 test_that("compute_nmax_eh1 works", {
   # dput(models, file = "tests/testthat/models_dput")

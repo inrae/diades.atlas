@@ -194,6 +194,15 @@ Stop it at the end of your development process
 
     docker kill mongo
 
+# Dev - Data update requires update unit test expected outputs
+
+If the database is updated, model outputs may change. It may be
+necessary to run simulation before unit tests.
+
+``` r
+source(here::here("data-raw/altas_simulation.R"))
+```
+
 # Dev - update and include vignettes in the package
 
 Vignettes are compiled manually by developers. Raw vignettes are stored

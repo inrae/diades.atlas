@@ -54,7 +54,7 @@ dput(catchment_surface, file = "tests/testthat/catchment_surface_dput")
 selected_latin_name = "Alosa alosa"
 
 runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
-                         catchment_surface, data_hsi_nmax, data_ni0,  outlet_distance, verbose = FALSE) {
+                             catchment_surface, data_hsi_nmax, data_ni0,  outlet_distance, verbose = FALSE) {
   if (verbose) tic()
   
   # --------------------------------------------------------------------------------------- #
@@ -80,7 +80,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   parameter <- hydiad_parameter %>% 
     collect() %>% 
     filter(latin_name == selected_latin_name )
-    # filter(latin_name_s == selected_latin_name )
+  # filter(latin_name_s == selected_latin_name )
   results[['param']][['hydiad_parameter']] <- parameter
   
   ##  cohorts in  spawner run (number and weights) ----
@@ -284,7 +284,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
     immigrants <- results[['other']][['survivingProportion']] %*% emigrants %>% 
       as.matrix()
     #immigrants <- mat.mult(results[['other']][['survivingProportion']], emigrants)
-
+    
     resultsModel$immigrants[, currentYear_str] <- immigrants
     
     # sum of homers and strayers surviving after anthropogenic mortality
@@ -306,7 +306,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
     resultsModel$Nit[, currentYear_str] <- do.call(pmin, list(survivalOffsprings, maxN))
     return(resultsModel)
   }
-
+  
   # compute effective for all models ----
   computeEffective_PML = function(currentYear, results, generationtime, nbCohorts) {
     
@@ -352,7 +352,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
 # run simulation ----
 tic()
 results <- runSimulation_pml(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
-                         catchment_surface, data_hsi_nmax, data_ni0, outlet_distance, verbose = FALSE)
+                             catchment_surface, data_hsi_nmax, data_ni0, outlet_distance, verbose = FALSE)
 toc()
 
 dput(results, file = "tests/testthat/results_pml_dput")
@@ -454,55 +454,57 @@ model_res_filtered_pml %>%
 
 #=================================================================================
 # verification ----
-HyDiaDResults_AAlosa <- read_rds("/home/patrick/Documents/AA/CC_et_migrateur/hybrid_model/HyDiaD_R/data_output/HyDiaDResults_AAlosa_rcp85.RDS")
-
-## verif param: ok ----
-results[['param']][['hydiad_parameter']] 
-HyDiaDResults_AAlosa[[1]][[1]][['ParmSet']][1:15] %>% as_tibble()
-
-## verif HSI: ok ----
-results[['model']][['cnrmcm5']]$HSI['Aa',1:20]
-HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["HSI"]]['Aa',1:20]
-
-## verif Nit: ok ----
-results[['model']][['cnrmcm5']]$Nit[1:5,1:20]
-HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Nit"]][1:5,1:20]
-
-## verif Nmax: ok ----
-results[['model']][['cnrmcm5']]$Nmax[1:5,1:20]
-HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Min1"]][1:5,1:20]
-
-## verif r_eh2: ok ----
-results[["other"]] [['r_eh2']]['Aa',1:20]
-
-## verif Nit: ok ----
-results[['model']][['cnrmcm5']]$Nit[1:5,1:20]
-HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Nit"]][1:5,1:20]
-
-## verif emigrants: Ok ----
-results[['model']][['cnrmcm5']]$emigrants[1:5, 1:20]
-HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Njy"]][1:5,1:20]
-
-## verif survival matrix: ok ----
-results[["other"]] [['survivingProportion']][1:10, 1:10]
-t(HyDiaDResults_AAlosa[[1]][[1]][["ParmSet"]][['DispMatrix']][1:10, 1:10])
-
-## verif immigrants: OK ----
-results[['model']][['cnrmcm5']]$immigrants[1:5, 1:20]
-HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["DNjy"]][1:5,1:20]
-
-## verif spawnersTo: PB ----
-results[['model']][['cnrmcm5']]$spawnersTo[1:5,1:20]
-HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Bit"]][1:5,1:20]
-
-# from values from the database: discrenpency ----
-refRes <- reference_results %>%  
-  filter(climatic_model_code == 'cnrmcm5',
-         latin_name == selected_latin_name) %>%
-  collect() %>% 
-  arrange(basin_name, year) %>% 
-  pivot_wider(id_cols = basin_name, names_from = year, values_from = nit) %>% 
-  column_to_rownames('basin_name') %>% 
-  as.matrix()
-refRes[1:5,1:5]
-
+verifications <- FALSE
+if (verifications) {
+  HyDiaDResults_AAlosa <- read_rds("/home/patrick/Documents/AA/CC_et_migrateur/hybrid_model/HyDiaD_R/data_output/HyDiaDResults_AAlosa_rcp85.RDS")
+  
+  ## verif param: ok ----
+  results[['param']][['hydiad_parameter']] 
+  HyDiaDResults_AAlosa[[1]][[1]][['ParmSet']][1:15] %>% as_tibble()
+  
+  ## verif HSI: ok ----
+  results[['model']][['cnrmcm5']]$HSI['Aa',1:20]
+  HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["HSI"]]['Aa',1:20]
+  
+  ## verif Nit: ok ----
+  results[['model']][['cnrmcm5']]$Nit[1:5,1:20]
+  HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Nit"]][1:5,1:20]
+  
+  ## verif Nmax: ok ----
+  results[['model']][['cnrmcm5']]$Nmax[1:5,1:20]
+  HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Min1"]][1:5,1:20]
+  
+  ## verif r_eh2: ok ----
+  results[["other"]] [['r_eh2']]['Aa',1:20]
+  
+  ## verif Nit: ok ----
+  results[['model']][['cnrmcm5']]$Nit[1:5,1:20]
+  HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Nit"]][1:5,1:20]
+  
+  ## verif emigrants: Ok ----
+  results[['model']][['cnrmcm5']]$emigrants[1:5, 1:20]
+  HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Njy"]][1:5,1:20]
+  
+  ## verif survival matrix: ok ----
+  results[["other"]] [['survivingProportion']][1:10, 1:10]
+  t(HyDiaDResults_AAlosa[[1]][[1]][["ParmSet"]][['DispMatrix']][1:10, 1:10])
+  
+  ## verif immigrants: OK ----
+  results[['model']][['cnrmcm5']]$immigrants[1:5, 1:20]
+  HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["DNjy"]][1:5,1:20]
+  
+  ## verif spawnersTo: PB ----
+  results[['model']][['cnrmcm5']]$spawnersTo[1:5,1:20]
+  HyDiaDResults_AAlosa[[1]][[1]][["Ann_Enviro_cn"]][["Bit"]][1:5,1:20]
+  
+  # from values from the database: discrenpency ----
+  refRes <- reference_results %>%  
+    filter(climatic_model_code == 'cnrmcm5',
+           latin_name == selected_latin_name) %>%
+    collect() %>% 
+    arrange(basin_name, year) %>% 
+    pivot_wider(id_cols = basin_name, names_from = year, values_from = nit) %>% 
+    column_to_rownames('basin_name') %>% 
+    as.matrix()
+  refRes[1:5,1:5]
+}
