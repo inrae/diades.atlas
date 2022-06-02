@@ -16,7 +16,7 @@ remotes::install_github('inrae/diades.atlas')
 ```
 
 ## Packages
-```{r}
+```{r, message=FALSE}
 library(dplyr)
 library(DBI)
 library(ggplot2)
@@ -59,9 +59,9 @@ However, at some point, some of your {tidyverse} operations can not be realised 
 For instance. 
 
 - `dbGetQuery()` download data in R
-  - `filter()` is executed by R in your R session
+- `filter()` is executed by R in your R session
 - Note that `!!` is a specific to using {dplyr} with SQL there.
-  + This is because the variable after it (e.g. `species_id`) is defined in the R session, but not in the database. Therefore, before sending the SQL query to the database, R has to transform the variable by its real value in R. Otherwise, it will send the word `"species_id"` which does not make sense for the SQL database, instead of the number you wanted to put.
++ This is because the variable after it (e.g. `species_id`) is defined in the R session, but not in the database. Therefore, before sending the SQL query to the database, R has to transform the variable by its real value in R. Otherwise, it will send the word `"species_id"` which does not make sense for the SQL database, instead of the number you wanted to put.
 
 
 ```{r}
@@ -75,13 +75,16 @@ get_data_dbi <- function(conn_eurodiad, species_id, scenario) {
 }
 
 # Use it
-get_data_dbi(conn_eurodiad,
-             species_id = c(6),
-             scenario = 'rcp85')
+get_data_dbi(
+  conn_eurodiad,
+  species_id = c(6),
+  scenario = 'rcp85'
+) %>% 
+  head()
 ```
 
 - `tbl()` only connects to the table, only a glimpse of the data is presented
-  - `filter()` is run by the SQL database
+- `filter()` is run by the SQL database
 
 ```{r}
 get_data_tbl <- function(conn_eurodiad, species_id, scenario) {
@@ -137,6 +140,36 @@ get_data_tbl_query_collect(conn_eurodiad,
   filter(basin_id == 1) %>% 
   ggplot(aes(x = year)) +
   geom_line(aes(y = hsi))
+```
+
+## Reprex invalid ices_geom
+
+Two polygons of ices_geom have invalid geometries.
+
+```{r}
+ices_geom <- st_read(
+  conn_eurodiad,
+  query = "SELECT * FROM diadesatlas.v_ices_geom;"
+) %>%
+  st_transform("+proj=wintri") #%>%
+# rmapshaper::ms_simplify()
+```
+
+
+```{r}
+invalid_pols <- ices_geom %>% 
+  filter(!st_is_valid(.))
+
+nrow(invalid_pols)
+```
+
+This makes the interactive map fails.
+
+```{r, error=TRUE}
+map_invalid <- tm_shape(invalid_pols)+
+  tm_sf()
+
+tmap_leaflet(map_invalid)
 ```
 
 

@@ -45,7 +45,7 @@ vignette: >
 }
 ```
 
-```{r setup}
+```{r, setup}
 # Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
 # Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
 pkgload::load_all(here::here())
