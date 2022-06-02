@@ -312,12 +312,19 @@ See vignette “00-exploration-of-data”</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>docker kill mongo</span></code></pre></div>
 </div>
 </div>
+<div id="dev---data-update-requires-update-unit-test-expected-outputs" class="section level1">
+<h1 class="hasAnchor">
+<a href="#dev---data-update-requires-update-unit-test-expected-outputs" class="anchor"></a>Dev - Data update requires update unit test expected outputs</h1>
+<p>If the database is updated, model outputs may change. It may be necessary to run simulation before unit tests.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw/altas_simulation.R"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</div>
 <div id="dev---update-and-include-vignettes-in-the-package" class="section level1">
 <h1 class="hasAnchor">
 <a href="#dev---update-and-include-vignettes-in-the-package" class="anchor"></a>Dev - update and include vignettes in the package</h1>
 <p>Vignettes are compiled manually by developers. Raw vignettes are stored in “data-raw”. Instructions to compile them are in the vignette itself.</p>
 <p>However, they can all be prepared from this script:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"dev"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span>,
