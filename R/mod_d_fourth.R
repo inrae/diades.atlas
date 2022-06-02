@@ -154,7 +154,7 @@ mod_fourth_server <- function(id, r = r) {
         yearsimubegin = rep(0.1, length(golem::get_golem_options('countries_mortalities_list'))),
         yearsimuend = rep(0.1, length(golem::get_golem_options('countries_mortalities_list')))
       ),
-      data_simulation = get_data_simulation(conn_eurodiad),
+      data_simulation = get_data_simulation(get_con(session)),
       results = NULL,
       model_res_filtered = NULL,
       trigger_graphs = 0,
@@ -218,8 +218,15 @@ mod_fourth_server <- function(id, r = r) {
         loco$data_simulation[["data_hsi_nmax"]], loco$mortalities)
       # spc <- golem::get_golem_options("species_list")
       
-      # browser()
+      showModal(
+        modalDialog(
+          tagList(
+            tags$h2("Your simulation will be ready in a few seconds") %>% with_i18("wait_simu")
+          ),
+          easyClose = TRUE, size = 'm')
+      )
       
+      # modal()
       # runSimulation ----
       shiny::withProgress(
         message = 'Run Simulation', value = 0, 
@@ -242,7 +249,8 @@ mod_fourth_server <- function(id, r = r) {
       
       loco$model_res_filtered <- nit_feature_species(
         Nit_list = Nit_list,
-        reference_results = loco$data_simulation[["reference_results"]],
+        reference_results = loco$data_simulation[["reference_results"]] %>% 
+          filter(climatic_scenario == !!input$scenario),
         selected_latin_name = loco$species) %>% 
         left_join(loco$data_simulation[["data_catchment"]] %>% collect(),
                   by = "basin_name")
@@ -250,11 +258,14 @@ mod_fourth_server <- function(id, r = r) {
       if (!is.null(loco$model_res_filtered)) {
         loco$trigger_graphs <- loco$trigger_graphs + 1
       }
+      
+      removeModal()
+      
       golem::invoke_js("reable", paste0("#", ns("launch_simu")))
     }, ignoreInit = TRUE)
     
     # Show results ----
-    observeEvent(list(loco$trigger_graphs, input$date), {
+    observeEvent(list(loco$trigger_graphs, input$date, r$lg), {
       req(loco$model_res_filtered)
       cli::cat_rule("observeEvent(list(loco$trigger_graphs)")
       
@@ -317,7 +328,7 @@ mod_fourth_server <- function(id, r = r) {
 
     
     # If click on the map or change lang
-    observeEvent(list(input$plot_shape_click, r$lg), {
+    observeEvent(list(input$plot_shape_click), {
       # req(loco$trigger_graphs)
       req(loco$model_res_filtered)
       cli::cat_rule("observeEvent(list(input$plot_shape_click, r$lg)")
@@ -349,7 +360,13 @@ mod_fourth_server <- function(id, r = r) {
     # Show summary ====
     output$selection_map <- renderUI({
       golem::invoke_js("localize", TRUE)
-      req(loco$ui_summary)
+      if (is.null(loco$ui_summary)) {
+        # HTML("Please launch a simulation")
+        HTML("<b><span data-i18n='launch_simu_please'>Please Launch Simulation</span></b>")
+      } else {
+        loco$ui_summary
+      }
+      # req(loco$ui_summary)
     })   
     output$selection_plot <- renderUI({
       golem::invoke_js("localize", TRUE)

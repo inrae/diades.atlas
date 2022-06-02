@@ -88,6 +88,8 @@ mortalities <- tibble::tibble(
 
 mortalities
 
+scenario <- "rcp85"
+
 # # build from sliders in interface 
 # expand grid using full_join
 anthropogenic_mortality <- expand_anthropogenic_mortality(
@@ -111,10 +113,13 @@ shiny::withProgress(
       data_simulation[["data_ni0"]], # 4422 rows
       data_simulation[["outlet_distance"]], # 18225 rows
       # Add scenario
-      scenario = "rcp85",
+      scenario = scenario,
       verbose = FALSE
     )
   })
+
+# [1] "cnrmcm5"    "csiromk360"
+# [3] "noresm1me" 
 
 # Les 5 premières lignes des sous-listes
 # results %>% purrr::map(~purrr::map(.x, head))
@@ -131,7 +136,8 @@ basin <- 'Garonne'
 # Plot Nit predictions
 model_res_filtered <- nit_feature_species(
   Nit_list = Nit_list,
-  reference_results = reference_results,
+  reference_results = reference_results %>%
+    filter(climatic_scenario == scenario),
   selected_latin_name = selected_latin_name)
   
 # same function as for Page 3

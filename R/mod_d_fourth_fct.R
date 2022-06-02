@@ -67,6 +67,12 @@ runSimulation <- function(selected_latin_name,
   results = list()
   
   # ---------------------------------------------------------------------- #
+  # Filter on climatic scenario where needed
+  data_hsi_nmax <- data_hsi_nmax %>% 
+    filter(climatic_scenario == scenario)
+  data_ni0 <- data_ni0 %>% 
+    filter(climatic_scenario == scenario)
+  
   # Local variables ----
   ## ordered list of basin s----
   basins <- data_hsi_nmax %>% 

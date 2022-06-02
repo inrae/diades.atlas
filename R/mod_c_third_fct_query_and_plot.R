@@ -190,8 +190,8 @@ plot_nit <- function(model_res_filtered,
             linetype = .data[[with_colour_source]]
         )
       ) +
-      scale_colour_viridis_d() +
-      scale_fill_viridis_d()
+      scale_colour_brewer(type = "qual", palette = "Set2") +
+      scale_fill_brewer(type = "qual", palette = "Set2")
   }
   nit <- nit + 
     geom_vline(xintercept = selected_year, color = "red") +

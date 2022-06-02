@@ -66,11 +66,11 @@ mod_species_ui <- function(id, multiple = FALSE) {
         ),
         content_style = "width:25em",
         button_id = ns("species_hover")
-      ),
-      w3_help_button(
-        "Select a species",
-        "species_modal_help"
-      )
+      )#,
+      # w3_help_button(
+      #   "Select a species",
+      #   "species_modal_help"
+      # )
     )
   )
 }
