@@ -132,13 +132,13 @@ mod_third_server <- function(id, r = r) {
     observeEvent(
       list(input$display, r$lg),
       {
-        if (input$scenario != "rcp85") {
-          shiny::showNotification(
-            h1("Scenario not implemented"),
-            type = "error"
-          )
-          return(NULL)
-        }
+        # if (input$scenario != "rcp85") {
+        #   shiny::showNotification(
+        #     h1("Scenario not implemented"),
+        #     type = "error"
+        #   )
+        #   return(NULL)
+        # }
         spc <- golem::get_golem_options("species_list")
         loco$model_res <- get_hybrid_model(
           species_id = spc[spc$latin_name == loco$species, "species_id"],

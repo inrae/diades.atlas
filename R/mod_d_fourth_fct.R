@@ -56,7 +56,13 @@ runSimulation <- function(selected_latin_name,
                           scenario = "rcp85",
                           verbose = FALSE) {
   # if (verbose) tic()
-  
+  if (verbose) {
+    if (is.null(getDefaultReactiveDomain())) {
+      print("Prepare simulation")
+    } else {
+      incProgress(0, detail = paste("Init simulation"))
+    }
+  }
   # --------------------------------------------------------------------------------------- #
   results = list()
   
@@ -245,13 +251,13 @@ runSimulation <- function(selected_latin_name,
   if (verbose) {
     print(paste(min(yearsToRun), max(yearsToRun), sep = "-"))
     
-    n <- max(yearsToRun) - min(yearsToRun) + 1
+    nyears <- max(yearsToRun) - min(yearsToRun) + 1
     if (is.null(getDefaultReactiveDomain())) {
       progbar <- txtProgressBar(min = min(yearsToRun),
                                 max = max(yearsToRun),
                                 style = 3)
     } else {
-      incProgress(1/n, detail = paste("Doing part", 0))
+      incProgress(1/nyears, detail = paste("Doing year init"))
     }
   }
   
@@ -264,8 +270,8 @@ runSimulation <- function(selected_latin_name,
       if (is.null(getDefaultReactiveDomain())) {
         setTxtProgressBar(progbar, currentYear)
       } else {
-        prog <- (currentYear - min(yearsToRun))/(max(yearsToRun) - min(yearsToRun) + 1)
-        incProgress(prog, detail = paste("Doing part", currentYear))
+        # prog <- (currentYear - min(yearsToRun))/(max(yearsToRun) - min(yearsToRun) + 1)
+        incProgress(1/nyears, detail = paste("Doing year", currentYear))
       }
     }
 

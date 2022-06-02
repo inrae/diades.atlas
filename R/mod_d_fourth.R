@@ -32,7 +32,10 @@ mod_fourth_ui <- function(id) {
             content = w3css::w3_radioButton(
               ns("scenario"),
               "Scenario",
-              choices = c("RCP 8.5", "RCP 4.5")
+              choices = c(
+                "RCP 8.5" = "rcp85",
+                "RCP 4.5" = "rcp45"
+              )
             ),
             content_style = "width:25em",
             button_id = ns("scenario_hover")
@@ -69,7 +72,7 @@ mod_fourth_ui <- function(id) {
       w3css::w3_quarter(
         tags$span(
           w3css::w3_actionButton(
-            ns("display"),
+            ns("launch_simu"),
             "Run the simulation" %>% with_i18("h3-run-simulation"),
             class = "w3-border"
           ),
@@ -148,7 +151,9 @@ mod_fourth_server <- function(id, r = r) {
         country = golem::get_golem_options('countries_mortalities_list'),
         yearsimubegin = rep(0.1, length(golem::get_golem_options('countries_mortalities_list'))),
         yearsimuend = rep(0.1, length(golem::get_golem_options('countries_mortalities_list')))
-      )
+      ),
+      data_simulation = get_data_simulation(conn_eurodiad),
+      results = NULL
     )
     
     mod_species_server(
@@ -156,12 +161,12 @@ mod_fourth_server <- function(id, r = r) {
       r = loco
     )
     
-    # DTOutput(ns("mortalities"))
+    # Mortalities inputs ----
     # Client side processing
     options(DT.options = list(pageLength = 10))
     output$mortalities <- renderDT({
       cat_where(whereami::whereami())
-
+      
       table_mort <- loco$mortalities %>% 
         setNames(
           c(
@@ -172,14 +177,14 @@ mod_fourth_server <- function(id, r = r) {
         )
       
       table_mort
-      },
-      options = list(
-        pageLength = length(golem::get_golem_options('countries_mortalities_list')),
-        dom = 't'
-      ),
-      rownames = FALSE,
-      selection = 'none', 
-      editable = list(target = "cell", disable = list(columns = c(0)))
+    },
+    options = list(
+      pageLength = length(golem::get_golem_options('countries_mortalities_list')),
+      dom = 't'
+    ),
+    rownames = FALSE,
+    selection = 'none', 
+    editable = list(target = "cell", disable = list(columns = c(0)))
     )
     
     # Get new inputs
@@ -193,33 +198,65 @@ mod_fourth_server <- function(id, r = r) {
       data_edited <- DT::editData(loco$mortalities, mortalities_cell_edit, 'mortalities')
       loco$mortalities <- data_edited
     })
-
+    
+    # Run simulations ----
+    observeEvent(input$launch_simu, {
+      # loco$data_simulation
+      # countries <- golem::get_golem_options('countries_mortalities_list')
+      # loco$mortalities
+      # data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
+      anthropogenic_mortality <- expand_anthropogenic_mortality(
+        loco$data_simulation[["data_hsi_nmax"]], loco$mortalities)
+      # spc <- golem::get_golem_options("species_list")
+      
+      # browser()
+      
+      # runSimulation ----
+      shiny::withProgress(
+        message = 'Run Simulation', value = 0, 
+        session = session, {
+          loco$results <- runSimulation(
+            selected_latin_name = loco$species, #selected_latin_name, 
+            scenario = input$scenario,
+            hydiad_parameter = loco$data_simulation[["hydiad_parameter"]], # 11 rows
+            # Smaller for example
+            anthropogenic_mortality = anthropogenic_mortality, #%>% filter(year <= 1955), # 1800 rows
+            catchment_surface = loco$data_simulation[["catchment_surface"]], # 134 rows
+            data_hsi_nmax = loco$data_simulation[["data_hsi_nmax"]], # 663300 rows
+            data_ni0 = loco$data_simulation[["data_ni0"]], # 4422 rows
+            outlet_distance = loco$data_simulation[["outlet_distance"]], # 18225 rows
+            verbose = TRUE
+          )
+        })
+    }, ignoreInit = TRUE)
+    
+    # Show results ----
     output$map <- renderPlot({
-      input$display
+      input$launch_simu
       the_data <- loco$mortalities
       names(the_data) <- c("X1", "X2", "X3")
       ggplot(the_data) +
         aes(X2, X3) +
         geom_point() +
-      # ggplot(map_data("france"), aes(long, lat, group = group)) +
-      #   geom_polygon() +
-      #   geom_polygon(
-      #     data = map_data("france") %>%
-      #       dplyr::filter(region %in% sample(
-      #         unique(map_data("france")$region),
-      #         3
-      #       )),
-      #     aes(fill = region)
-      #   ) +
+        # ggplot(map_data("france"), aes(long, lat, group = group)) +
+        #   geom_polygon() +
+        #   geom_polygon(
+        #     data = map_data("france") %>%
+        #       dplyr::filter(region %in% sample(
+        #         unique(map_data("france")$region),
+        #         3
+        #       )),
+        #     aes(fill = region)
+        #   ) +
         # coord_map() +
-        theme_classic() +
+      theme_classic() +
         guides(
           fill = "none"
         )
     })
     
     output$prediction <- renderPlot({
-      input$display
+      input$launch_simu
       p1 <- shinipsum::random_ggplot(type = "line")
       p2 <- shinipsum::random_ggplot(type = "line")
       getFromNamespace("/.ggplot", "patchwork")(
