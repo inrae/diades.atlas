@@ -95,9 +95,9 @@ mod_fourth_ui <- function(id) {
                   sliderInput(
                     ns("date"),
                     NULL,
-                    min = 1950,
+                    min = 1951,
                     max = 2100,
-                    value = 1950, 
+                    value = 1951, 
                     sep = ""
                   )
                 ),
@@ -118,7 +118,7 @@ mod_fourth_ui <- function(id) {
               "prediction_map_abundance_help"
             )
           ),
-          plotOutput(ns("map"))
+          leafletOutput(ns("plot"), height = 600)
         ),
         w3css::w3_half(
           h4(
@@ -153,7 +153,9 @@ mod_fourth_server <- function(id, r = r) {
         yearsimuend = rep(0.1, length(golem::get_golem_options('countries_mortalities_list')))
       ),
       data_simulation = get_data_simulation(conn_eurodiad),
-      results = NULL
+      results = NULL,
+      model_res_filtered = NULL,
+      trigger_graphs = 0
     )
     
     mod_species_server(
@@ -201,6 +203,7 @@ mod_fourth_server <- function(id, r = r) {
     
     # Run simulations ----
     observeEvent(input$launch_simu, {
+      golem::invoke_js("disable", paste0("#", ns("launch_simu")))
       # loco$data_simulation
       # countries <- golem::get_golem_options('countries_mortalities_list')
       # loco$mortalities
@@ -215,7 +218,7 @@ mod_fourth_server <- function(id, r = r) {
       shiny::withProgress(
         message = 'Run Simulation', value = 0, 
         session = session, {
-          loco$results <- runSimulation(
+          results <- runSimulation(
             selected_latin_name = loco$species, #selected_latin_name, 
             scenario = input$scenario,
             hydiad_parameter = loco$data_simulation[["hydiad_parameter"]], # 11 rows
@@ -228,42 +231,77 @@ mod_fourth_server <- function(id, r = r) {
             verbose = TRUE
           )
         })
+      
+      Nit_list <- get_model_nit(results)
+      
+      loco$model_res_filtered <- nit_feature_species(
+        Nit_list = Nit_list,
+        reference_results = loco$data_simulation[["reference_results"]],
+        selected_latin_name = loco$species)
+      
+      if (!is.null(loco$model_res_filtered)) {
+        loco$trigger_graphs <- loco$trigger_graphs + 1
+      }
+      golem::invoke_js("reable", paste0("#", ns("launch_simu")))
     }, ignoreInit = TRUE)
     
     # Show results ----
-    output$map <- renderPlot({
-      input$launch_simu
-      the_data <- loco$mortalities
-      names(the_data) <- c("X1", "X2", "X3")
-      ggplot(the_data) +
-        aes(X2, X3) +
-        geom_point() +
-        # ggplot(map_data("france"), aes(long, lat, group = group)) +
-        #   geom_polygon() +
-        #   geom_polygon(
-        #     data = map_data("france") %>%
-        #       dplyr::filter(region %in% sample(
-        #         unique(map_data("france")$region),
-        #         3
-        #       )),
-        #     aes(fill = region)
-        #   ) +
-        # coord_map() +
-      theme_classic() +
-        guides(
-          fill = "none"
+    observeEvent(list(loco$trigger_graphs, r$lg), {
+      req(loco$model_res_filtered)
+      
+      # loco$ui_summary <- create_ui_summary_html(
+      #   species = loco$species,
+      #   date = input$date,
+      #   basin_name = loco$selected_bv_name$basin_name,
+      #   country = loco$selected_bv_name$country
+      # )
+      
+      output$plot <- renderLeaflet({
+
+        req(loco$model_res_filtered)
+        loco$bind_event <- rnorm(10000)
+        
+        model_res <- loco$model_res_filtered %>% 
+          filter(source == "simul") %>% 
+          left_join(loco$data_simulation[["data_catchment"]] %>% collect(),
+                    by = "basin_name")
+        
+        loco$bv_df <- get_bv_geoms(
+          unique(model_res$basin_id),
+          lg = r$lg,
+          session
         )
-    })
+        
+        draw_bv_leaflet(
+          bv_df = loco$bv_df,
+          model_res = model_res,
+          year = input$date
+        )
+
+      })
+    }, ignoreInit = TRUE)
     
-    output$prediction <- renderPlot({
-      input$launch_simu
-      p1 <- shinipsum::random_ggplot(type = "line")
-      p2 <- shinipsum::random_ggplot(type = "line")
-      getFromNamespace("/.ggplot", "patchwork")(
-        p1, p2
-      )
-    })
+    observeEvent(list(loco$trigger_graphs, r$lg), {
+      # req(loco$trigger_graphs)
+      req(loco$model_res_filtered)
+      
+      basin <- 'Adour'
+      
+      # Plot Nit predictions
+      model_res_filtered <- loco$model_res_filtered %>% 
+        filter(basin_name == basin)
+      
+      output$prediction <- renderPlot({
+        # same function as for Page 3
+        plot_nit(model_res_filtered,
+                 selected_year = input$date,
+                 lg = r$lg,
+                 withNitStandardisation = FALSE,
+                 with_colour_source = "source")
+      })
+    }, ignoreInit = TRUE)
     
+    # UI dropdown menus ----
     observeEvent(input$scenario, {
       golem::invoke_js(
         "changeinnerhtmlwithid",

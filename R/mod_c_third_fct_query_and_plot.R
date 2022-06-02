@@ -183,6 +183,7 @@ plot_nit <- function(model_res_filtered,
             ymax = nit_max,
             fill = .data[[with_colour_source]]
         ), alpha = 0.3) +
+      geom_vline(xintercept = 2001, colour = "gray", linetype = "dashed") +
       geom_line(
         aes(y = nit_movingavg,
             colour = .data[[with_colour_source]],

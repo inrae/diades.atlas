@@ -60,6 +60,7 @@ catchment_surface <- data_simulation[["catchment_surface"]]
 
 ```{r}
 session <- shiny::MockShinySession$new()
+session$userData$con <- conn_eurodiad
 input <- list()
 datasets <- generate_datasets(con = conn_eurodiad)
 lang <- "fr"
@@ -125,22 +126,45 @@ shiny::withProgress(
 # graphics ----
 Nit_list <- get_model_nit(results) 
 
-basin <- 'Adour'
+basin <- 'Garonne'
 
-#' Plot Nit predictions
-model_res_filtered <- nit_feature_species_basin(
+# Plot Nit predictions
+model_res_filtered <- nit_feature_species(
   Nit_list = Nit_list,
   reference_results = reference_results,
-  selected_latin_name = selected_latin_name,
-  basin = basin)
+  selected_latin_name = selected_latin_name)
   
 # same function as for Page 3
-plot_nit(model_res_filtered,
-         selected_year = 2073,
-         lg = "fr",
-         withNitStandardisation = FALSE,
-         with_colour_source = "source")
+model_res_filtered %>% 
+  filter(basin_name == basin) %>% 
+  # filter(source == "reference") %>% 
+  plot_nit(selected_year = 2073,
+           lg = "fr",
+           withNitStandardisation = FALSE,
+           with_colour_source = "source")
 
+```
+
+## Leaflet
+
+```{r}
+loco <- list()
+loco$model_res <- model_res_filtered %>% 
+  filter(source == "simul") %>% 
+  left_join(data_simulation[["data_catchment"]] %>% collect(),
+            by = "basin_name")
+
+loco$bv_df <- get_bv_geoms(
+  unique(loco$model_res$basin_id),
+  lg = "fr", #r$lg,
+  session
+)
+
+draw_bv_leaflet(
+          bv_df = loco$bv_df,
+          model_res = loco$model_res,
+          year = 2100
+        )
 ```
 
 

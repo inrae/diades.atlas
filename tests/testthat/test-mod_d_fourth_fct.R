@@ -170,12 +170,12 @@ test_that("runSimulation works", {
     ungroup()
   expect_equal(model_nit_outputs, mno_expected)
   
-  # nit_feature_species_basin ----
-  model_res_filtered <- nit_feature_species_basin(
+  # nit_feature_species ----
+  model_res_filtered <- nit_feature_species(
     Nit_list = Nit_list,
     reference_results = reference_results,
-    selected_latin_name = selected_latin_name,
-    basin = basin)
+    selected_latin_name = selected_latin_name) %>% 
+    filter(basin_name == basin)
   
   mrf_object <- model_res_filtered %>% 
     arrange(basin_name, year)

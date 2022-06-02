@@ -569,22 +569,20 @@ nit_feature <- function(data_list) {
   return(res)
 }
 
-#' Get nit reference and predictions for one species and one basin
+#' Get nit reference and predictions for one species and all basins
 #' 
 #' @param Nit_list Nit_list as issued from [get_model_nit()]
 #' @param reference_results reference_results as issued from [prepare_datasets()]
 #' @param selected_latin_name Latin species name
-#' @param basin Name of the basin
 #' 
 #' @importFrom dplyr mutate bind_rows filter group_by summarise
 #' @importFrom dplyr ungroup
 #' @importFrom data.table frollmean
 #' @return data.frame of Nit results for one species and one basin
 #' @export
-nit_feature_species_basin <- function(Nit_list,
+nit_feature_species <- function(Nit_list,
                                       reference_results,
-                                      selected_latin_name,
-                                      basin) {
+                                      selected_latin_name) {
   nit_feature(Nit_list) %>% 
     mutate(source = 'simul') %>% 
     bind_rows(
@@ -604,8 +602,7 @@ nit_feature_species_basin <- function(Nit_list,
         ungroup()
       ) %>%
     suppressWarnings() %>% 
-    filter(basin_name == basin,
-           year >= 1951) %>% 
+    filter(year >= 1951) %>% 
     rename(
       nit_min = min,
       nit_max = max,

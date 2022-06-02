@@ -170,8 +170,7 @@ mod_third_server <- function(id, r = r) {
           filter(basin_id == !!loco$selected_bv_id) %>%
           mutate(basin_name = diadesatlas.translate(basin_name, !!r$lg)) %>%
           collect()
-        
-        
+
         loco$leaflet <- draw_bv_leaflet(
           bv_df = loco$bv_df,
           model_res = loco$model_res,
