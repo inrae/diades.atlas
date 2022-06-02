@@ -183,13 +183,15 @@ plot_nit <- function(model_res_filtered,
             ymax = nit_max,
             fill = .data[[with_colour_source]]
         ), alpha = 0.3) +
+      geom_vline(xintercept = 2001, colour = "gray", linetype = "dashed") +
       geom_line(
         aes(y = nit_movingavg,
-            colour = .data[[with_colour_source]]
+            colour = .data[[with_colour_source]],
+            linetype = .data[[with_colour_source]]
         )
       ) +
-      scale_colour_viridis_d() +
-      scale_fill_viridis_d()
+      scale_colour_brewer(type = "qual", palette = "Set2") +
+      scale_fill_brewer(type = "qual", palette = "Set2")
   }
   nit <- nit + 
     geom_vline(xintercept = selected_year, color = "red") +

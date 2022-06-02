@@ -132,13 +132,13 @@ mod_third_server <- function(id, r = r) {
     observeEvent(
       list(input$display, r$lg),
       {
-        if (input$scenario != "rcp85") {
-          shiny::showNotification(
-            h1("Scenario not implemented"),
-            type = "error"
-          )
-          return(NULL)
-        }
+        # if (input$scenario != "rcp85") {
+        #   shiny::showNotification(
+        #     h1("Scenario not implemented"),
+        #     type = "error"
+        #   )
+        #   return(NULL)
+        # }
         spc <- golem::get_golem_options("species_list")
         loco$model_res <- get_hybrid_model(
           species_id = spc[spc$latin_name == loco$species, "species_id"],
@@ -154,6 +154,8 @@ mod_third_server <- function(id, r = r) {
           )
           return(NULL)
         }
+        
+        # Same as mod_d_fourth ----
         loco$bv_df <- get_bv_geoms(
           unique(loco$model_res$basin_id),
           lg = r$lg,
@@ -170,13 +172,21 @@ mod_third_server <- function(id, r = r) {
           filter(basin_id == !!loco$selected_bv_id) %>%
           mutate(basin_name = diadesatlas.translate(basin_name, !!r$lg)) %>%
           collect()
-        
-        
+
         loco$leaflet <- draw_bv_leaflet(
           bv_df = loco$bv_df,
           model_res = loco$model_res,
           year = input$date
         )
+        
+        loco$ui_summary <- create_ui_summary_html(
+          species = loco$species,
+          date = input$date,
+          basin_name = loco$selected_bv_name$basin_name,
+          country = loco$selected_bv_name$country
+        )
+        
+        # end of same ----
         
         loco$plot <- plot_hsi_nit(
           model_res = loco$model_res,
@@ -185,12 +195,7 @@ mod_third_server <- function(id, r = r) {
           lg = r$lg,
           withNitStandardisation = FALSE
         )
-        loco$ui_summary <- create_ui_summary_html(
-          species = loco$species,
-          date = input$date,
-          basin_name = loco$selected_bv_name$basin_name,
-          country = loco$selected_bv_name$country
-        )
+
         
       }
     )

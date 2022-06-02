@@ -31,13 +31,14 @@ globalVariables(unique(c(
   # generate_datasets: 
   "country", 
   # get_data_simulation: 
-  "climatic_model_code", "Dmax", "hsi", "latin_name_s", "surface_area", 
+  "climatic_model_code", "Dmax", "hsi",
+  "latin_name_s", "surface_area", "Lname_s",
   # mod_fourth_server : <anonymous>: 
   "X2", "X3", 
   # runSimulation: 
   "arrival", "climatic_model_code", "country", "departure",
   "distance", "latin_name_s", "Nmax", "phase", "proportion",
   "r_eh2", "surface_area", "survival", "survivingProportion", "withNatalStray",
-  # nit_feature_species_basin
+  # nit_feature_species
   "nit", "rolling_mean"
 )))

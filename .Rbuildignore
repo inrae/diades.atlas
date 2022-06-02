@@ -26,3 +26,4 @@ renv\_instructions\.Rmd
 ^\.Renviron$
 ^Dockerfile$
 ^\.dockerignore$
+^bdd_connect\.sh$
