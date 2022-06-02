@@ -49,7 +49,7 @@ INNER JOIN diadesatlas.species s USING (species_id)")) %>%
 INNER JOIN diadesatlas.species s USING (species_id)
 INNER JOIN diadesatlas.basin b USING (basin_id)
 INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
-WHERE year > 0 AND climatic_scenario = 'rcp85'"
+WHERE year > 0"# AND climatic_scenario = 'rcp85'"
   
   data_hsi_nmax <- tbl(conn_eurodiad, sql(query)) %>%
     # tibble() %>%
@@ -66,8 +66,10 @@ WHERE year > 0 AND climatic_scenario = 'rcp85'"
 INNER JOIN diadesatlas.species s USING (species_id)
 INNER JOIN diadesatlas.basin b USING (basin_id)
 INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
-WHERE year > 0 AND climatic_scenario = 'rcp85' 
+WHERE year > 0
 ORDER BY latin_name, basin_id, climatic_model_code"
+# WHERE year > 0 AND climatic_scenario = 'rcp85' 
+# ORDER BY latin_name, basin_id, climatic_model_code"
   
   reference_results <- tbl(conn_eurodiad, sql(query))
   
@@ -76,8 +78,8 @@ ORDER BY latin_name, basin_id, climatic_model_code"
   query <- "SELECT s.latin_name, basin_id, basin_name, surface_area_drainage_basin as surface_area, year, climatic_scenario, climatic_model_code, nit, hsi  FROM diadesatlas.hybrid_model_result hmr
 INNER JOIN diadesatlas.species s USING (species_id)
 INNER JOIN diadesatlas.basin b USING (basin_id)
-INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
-WHERE  climatic_scenario = 'rcp85'"
+INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)"
+# WHERE  climatic_scenario = 'rcp85'"
   # AND year = 0
   # ORDER BY latin_name, basin_id, climatic_model_code"
   

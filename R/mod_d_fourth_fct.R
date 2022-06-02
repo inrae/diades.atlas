@@ -56,11 +56,23 @@ runSimulation <- function(selected_latin_name,
                           scenario = "rcp85",
                           verbose = FALSE) {
   # if (verbose) tic()
-  
+  if (verbose) {
+    if (is.null(getDefaultReactiveDomain())) {
+      print("Prepare simulation")
+    } else {
+      incProgress(0, detail = paste("Init simulation"))
+    }
+  }
   # --------------------------------------------------------------------------------------- #
   results = list()
   
   # ---------------------------------------------------------------------- #
+  # Filter on climatic scenario where needed
+  data_hsi_nmax <- data_hsi_nmax %>% 
+    filter(climatic_scenario == scenario)
+  data_ni0 <- data_ni0 %>% 
+    filter(climatic_scenario == scenario)
+  
   # Local variables ----
   ## ordered list of basin s----
   basins <- data_hsi_nmax %>% 
@@ -245,13 +257,13 @@ runSimulation <- function(selected_latin_name,
   if (verbose) {
     print(paste(min(yearsToRun), max(yearsToRun), sep = "-"))
     
-    n <- max(yearsToRun) - min(yearsToRun) + 1
+    nyears <- max(yearsToRun) - min(yearsToRun) + 1
     if (is.null(getDefaultReactiveDomain())) {
       progbar <- txtProgressBar(min = min(yearsToRun),
                                 max = max(yearsToRun),
                                 style = 3)
     } else {
-      incProgress(1/n, detail = paste("Doing part", 0))
+      incProgress(1/nyears, detail = paste("Doing year init"))
     }
   }
   
@@ -264,8 +276,8 @@ runSimulation <- function(selected_latin_name,
       if (is.null(getDefaultReactiveDomain())) {
         setTxtProgressBar(progbar, currentYear)
       } else {
-        prog <- (currentYear - min(yearsToRun))/(max(yearsToRun) - min(yearsToRun) + 1)
-        incProgress(prog, detail = paste("Doing part", currentYear))
+        # prog <- (currentYear - min(yearsToRun))/(max(yearsToRun) - min(yearsToRun) + 1)
+        incProgress(1/nyears, detail = paste("Doing year", currentYear))
       }
     }
 
@@ -563,22 +575,20 @@ nit_feature <- function(data_list) {
   return(res)
 }
 
-#' Get nit reference and predictions for one species and one basin
+#' Get nit reference and predictions for one species and all basins
 #' 
 #' @param Nit_list Nit_list as issued from [get_model_nit()]
 #' @param reference_results reference_results as issued from [prepare_datasets()]
 #' @param selected_latin_name Latin species name
-#' @param basin Name of the basin
 #' 
 #' @importFrom dplyr mutate bind_rows filter group_by summarise
 #' @importFrom dplyr ungroup
 #' @importFrom data.table frollmean
 #' @return data.frame of Nit results for one species and one basin
 #' @export
-nit_feature_species_basin <- function(Nit_list,
+nit_feature_species <- function(Nit_list,
                                       reference_results,
-                                      selected_latin_name,
-                                      basin) {
+                                      selected_latin_name) {
   nit_feature(Nit_list) %>% 
     mutate(source = 'simul') %>% 
     bind_rows(
@@ -598,8 +608,7 @@ nit_feature_species_basin <- function(Nit_list,
         ungroup()
       ) %>%
     suppressWarnings() %>% 
-    filter(basin_name == basin,
-           year >= 1951) %>% 
+    filter(year >= 1951) %>% 
     rename(
       nit_min = min,
       nit_max = max,
