@@ -18,7 +18,7 @@ if (grepl("ubuntu 18.04|debian 8", tolower(utils::osVersion))) {
   # repos <- c("RSPM" = "https://cran.rstudio.com",
              "thinkropen" = "https://thinkr-open.r-universe.dev",
              "CRAN" = "https://cran.rstudio.com")
-} else if (grepl("ubuntu 20.04|debian 9", tolower(utils::osVersion))) {
+} else if (grepl("ubuntu 20.04|debian 9|pop!_os 22.04 lts", tolower(utils::osVersion))) {
   repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
   # repos <- c("RSPM" = "https://cran.rstudio.com",
              "thinkropen" = "https://thinkr-open.r-universe.dev",
@@ -26,6 +26,10 @@ if (grepl("ubuntu 18.04|debian 8", tolower(utils::osVersion))) {
 } else if (grepl("centos", tolower(utils::osVersion))) {
   # Important for MacOS users in particular
   repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/__linux__/centos7/latest",
+             "thinkropen" = "https://thinkr-open.r-universe.dev",
+             "CRAN" = "https://cran.rstudio.com")
+} else if ( grepl("pop!_os 22.04 lts", tolower(utils::osVersion)) ) {
+  repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/latest",
              "thinkropen" = "https://thinkr-open.r-universe.dev",
              "CRAN" = "https://cran.rstudio.com")
 } else {
