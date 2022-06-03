@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="translation_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="translation_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>translation</h1>
@@ -458,7 +458,8 @@ Colin Fay
 <div id="TOC">
 <ul>
 <li>
-<a href="#comment-est-organis%C3%A9e-la-traduction">Comment est organisée la traduction</a>
+<a href="#comment-est-organis%C3%A9e-la-traduction">Comment est organisée la
+traduction</a>
 <ul>
 <li>
 <a href="#pour-le-front-end">Pour le front-end</a>
@@ -483,13 +484,16 @@ Colin Fay
 <a href="#notes-pour-les-d%C3%A9velopeurs">Notes pour les dévelopeurs</a>
 <ul>
 <li>
-<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-lui">Comment créer un nouvel élément “traductible” dans l’UI</a>
+<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-lui">Comment
+créer un nouvel élément “traductible” dans l’UI</a>
 </li>
 <li>
-<a href="#ajouter-une-bulle-daide-traduisible">Ajouter une bulle d’aide traduisible</a>
+<a href="#ajouter-une-bulle-daide-traduisible">Ajouter une bulle d’aide
+traduisible</a>
 </li>
 <li>
-<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-le-server">Comment créer un nouvel élément “traductible” dans le server</a>
+<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-le-server">Comment
+créer un nouvel élément “traductible” dans le server</a>
 </li>
 </ul>
 </li>
@@ -500,7 +504,8 @@ Colin Fay
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>eval <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre>
 </div>
 <p>
-Si c’est nécessaire, se connecter à la base de données en suivant les instructions du Readme.Rmd
+Si c’est nécessaire, se connecter à la base de données en suivant les
+instructions du Readme.Rmd
 </p>
 <div id="cb2" class="sourceCode">
 <pre class="downlit sourceCode r">
@@ -519,7 +524,11 @@ Si c’est nécessaire, se connecter à la base de données en suivant les instr
 Comment est organisée la traduction
 </h2>
 <p>
-<strong>Note importante</strong> : Pensez à être bien vigilant sur l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une langue avec le code <code>es</code>, ce code doit être strictement respecté partout, sinon la traduction ne pourra pas être effectuée correctement dans l’application.
+<strong>Note importante</strong> : Pensez à être bien vigilant sur
+l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une
+langue avec le code <code>es</code>, ce code doit être strictement
+respecté partout, sinon la traduction ne pourra pas être effectuée
+correctement dans l’application.
 </p>
 <div id="pour-le-front-end" class="section level3">
 <h3 class="hasAnchor">
@@ -527,7 +536,9 @@ Comment est organisée la traduction
 Pour le front-end
 </h3>
 <p>
-Pour l’interface utilisateur, l’application combine les fichiers csv contenus dans le dossier <code>inst/</code> et des tables contenues dans la base de données PostGres.
+Pour l’interface utilisateur, l’application combine les fichiers csv
+contenus dans le dossier <code>inst/</code> et des tables contenues dans
+la base de données PostGres.
 </p>
 <p>
 Tous ces fichiers/tables contiennent au moins 5 colonnes:
@@ -555,7 +566,10 @@ Tous ces fichiers/tables contiennent au moins 5 colonnes:
 Lus dans la base de données directement
 </h4>
 <p>
-Si la requête SQL pour récupérer les tables suivantes doit changer, alors ces fonctions sont à mettre à jour dans <code>R/utils_helpers.R</code>. Sinon, il n’y a rien à faire côté R lors d’ajout de traductions dans la base.
+Si la requête SQL pour récupérer les tables suivantes doit changer,
+alors ces fonctions sont à mettre à jour dans
+<code>R/utils_helpers.R</code>. Sinon, il n’y a rien à faire côté R lors
+d’ajout de traductions dans la base.
 </p>
 <ul>
 <li>
@@ -567,11 +581,13 @@ Si la requête SQL pour récupérer les tables suivantes doit changer, alors ces
 <code class="sourceCode R"><span class="fu">translation_abundance_level</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
 </div>
 <p>
-=&gt; Cette fonction est à mettre à jour dans <code>R/utils_helpers.R</code>
+=&gt; Cette fonction est à mettre à jour dans
+<code>R/utils_helpers.R</code>
 </p>
 <ul>
 <li>
-<code>species</code> : contient les traductions pour les éléments de niveau d’abondance.
+<code>species</code> : contient les traductions pour les éléments de
+niveau d’abondance.
 </li>
 </ul>
 <div id="cb4" class="sourceCode">
@@ -579,7 +595,8 @@ Si la requête SQL pour récupérer les tables suivantes doit changer, alors ces
 <code class="sourceCode R"><span class="fu">translation_species</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
 </div>
 <p>
-=&gt; Cette fonction est à mettre à jour dans <code>R/utils_helpers.R</code>
+=&gt; Cette fonction est à mettre à jour dans
+<code>R/utils_helpers.R</code>
 </p>
 <ul>
 <li>
@@ -591,7 +608,8 @@ Si la requête SQL pour récupérer les tables suivantes doit changer, alors ces
 <code class="sourceCode R"><span class="fu">translation_v_ecosystemic_services</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
 </div>
 <p>
-=&gt; Cette fonction est à mettre à jour dans <code>R/utils_helpers.R</code>
+=&gt; Cette fonction est à mettre à jour dans
+<code>R/utils_helpers.R</code>
 </p>
 </div>
 <div id="fichiers-à-compléter-à-la-main" class="section level4">
@@ -601,13 +619,17 @@ Fichiers à compléter à la main
 </h4>
 <ul>
 <li>
-<code>inst/translation_help.csv</code> : contient la traduction pour les bulles d’aide. Les bulles d’aide sont les bulles qui s’affichent lors du passage de la souris sur un élément <code>(?)</code>.
+<code>inst/translation_help.csv</code> : contient la traduction pour les
+bulles d’aide. Les bulles d’aide sont les bulles qui s’affichent lors du
+passage de la souris sur un élément <code>(?)</code>.
 <ul>
 <li>
-Lire le csv avec un séparateur virgule <code>,</code> et avec l’option “Formater les champs entre guillemets comme texte”
+Lire le csv avec un séparateur virgule <code>,</code> et avec l’option
+“Formater les champs entre guillemets comme texte”
 </li>
 <li>
-Le texte dans les cases de langues peut s’écire avec une syntaxe markdown pour mettre en forme le texte
+Le texte dans les cases de langues peut s’écire avec une syntaxe
+markdown pour mettre en forme le texte
 </li>
 <li>
 Enregistrer le csv avec un séparateur virgule <code>,</code>
@@ -615,10 +637,12 @@ Enregistrer le csv avec un séparateur virgule <code>,</code>
 </ul>
 </li>
 <li>
-<code>inst/translation_iucn.csv</code> : contient les traductions des status IUCN.
+<code>inst/translation_iucn.csv</code> : contient les traductions des
+status IUCN.
 <ul>
 <li>
-Lire le csv avec un séparateur virgule <code>,</code> et avec l’option “Formater les champs entre guillemets comme texte”
+Lire le csv avec un séparateur virgule <code>,</code> et avec l’option
+“Formater les champs entre guillemets comme texte”
 </li>
 <li>
 Enregistrer le csv avec un séparateur virgule <code>,</code>
@@ -626,10 +650,12 @@ Enregistrer le csv avec un séparateur virgule <code>,</code>
 </ul>
 </li>
 <li>
-<code>inst/translation.csv</code> : contient tous les autres éléments traduisibles de l’interface utilisateur.
+<code>inst/translation.csv</code> : contient tous les autres éléments
+traduisibles de l’interface utilisateur.
 <ul>
 <li>
-Lire le csv avec un séparateur virgule <code>,</code> et avec l’option “Formater les champs entre guillemets comme texte”
+Lire le csv avec un séparateur virgule <code>,</code> et avec l’option
+“Formater les champs entre guillemets comme texte”
 </li>
 <li>
 Enregistrer le csv avec un séparateur virgule <code>,</code>
@@ -638,7 +664,8 @@ Enregistrer le csv avec un séparateur virgule <code>,</code>
 </li>
 </ul>
 <p>
-Ces fichiers partagent la même structure. Ces derniers doivent posséder a minima:
+Ces fichiers partagent la même structure. Ces derniers doivent posséder
+a minima:
 </p>
 <ul>
 <li>
@@ -657,14 +684,18 @@ Une quatrième colonne nommée ‘es’
 Une cinquième colonne nommée ‘pt’
 </li>
 <li>
-PAS DE COLONNES VIDES SUR LA DROITE, pensez à l’anti-sélectionner au besoin.
+PAS DE COLONNES VIDES SUR LA DROITE, pensez à l’anti-sélectionner au
+besoin.
 </li>
 </ul>
 <p>
-NB: Dans le cas de <code>inst/translation.csv</code>, la première colonne est ‘DESCRIPTION’. Elle comporte une description plus détaillée de la ligne en question.
+NB: Dans le cas de <code>inst/translation.csv</code>, la première
+colonne est ‘DESCRIPTION’. Elle comporte une description plus détaillée
+de la ligne en question.
 </p>
 <p>
-Vous pouvez vérifier l’intégrité du csv à l’aide de la fonction <code><a href="../reference/check_translation_csv.html">check_translation_csv()</a></code>:
+Vous pouvez vérifier l’intégrité du csv à l’aide de la fonction
+<code><a href="../reference/check_translation_csv.html">check_translation_csv()</a></code>:
 </p>
 <div id="cb6" class="sourceCode">
 <pre class="downlit sourceCode r">
@@ -718,7 +749,9 @@ Dans les fichiers manuellement mis à jour:
 </li>
 </ul>
 <p>
-Ajouter une nouvelle colonne à droite dont le titre correspond à l’abbréviation de la nouvelle langue par exemple <code>es</code> pour l’espagnol et compléter chaque entrée avec la traduction.
+Ajouter une nouvelle colonne à droite dont le titre correspond à
+l’abbréviation de la nouvelle langue par exemple <code>es</code> pour
+l’espagnol et compléter chaque entrée avec la traduction.
 </p>
 </div>
 <div id="fonctions-bdd" class="section level3">
@@ -730,22 +763,29 @@ Fonctions bdd
 Ces fonctions sont dans <code>R/utils_helpers.R</code>
 </p>
 <p>
-Les fonctions qui utilisent la traduction dans la bdd sont les suivantes :
+Les fonctions qui utilisent la traduction dans la bdd sont les suivantes
+:
 </p>
 <ul>
 <li>
 <p>
-<code>translation_abundance_level()</code> : il faudra ajouter une partie au SQL type <code>diadesatlas.translate(abundance_level_interpretation_short, ‘es’) AS es</code>
+<code>translation_abundance_level()</code> : il faudra ajouter une
+partie au SQL type
+<code>diadesatlas.translate(abundance_level_interpretation_short, 'es')
+AS es</code>
 </p>
 </li>
 <li>
 <p>
-<code>translation_species()</code> : il faudra ajouter une partie au SQL type <code>diadesatlas.translate(english_name, ‘es’) AS es</code>
+<code>translation_species()</code> : il faudra ajouter une partie au SQL
+type <code>diadesatlas.translate(english_name, 'es') AS es</code>
 </p>
 </li>
 <li>
 <p>
-<code>translation_v_ecosystemic_services()</code> pour chaque sous requête SQL, il faudra ajouter une partie au SQL type <code>diadesatlas.translate(subcategory_name, ‘es’) as es</code>
+<code>translation_v_ecosystemic_services()</code> pour chaque sous
+requête SQL, il faudra ajouter une partie au SQL type
+<code>diadesatlas.translate(subcategory_name, 'es') as es</code>
 </p>
 </li>
 </ul>
@@ -758,15 +798,168 @@ Côté code de l’application
 <ul>
 <li>
 <p>
-Si disponible, ajouter le langage dans <code>get_dt_lg()</code> , à vérifier sur <a href="https://cdn.datatables.net/plug-ins/1.10.11/i18n/" class="uri">https://cdn.datatables.net/plug-ins/1.10.11/i18n/</a>
+Si disponible, ajouter le langage dans <code>get_dt_lg()</code> , à
+vérifier sur
+<a href="https://cdn.datatables.net/plug-ins/1.10.11/i18n/" class="uri">https://cdn.datatables.net/plug-ins/1.10.11/i18n/</a>
 </p>
 </li>
 <li>
 <p>
-Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de langue. Si votre entrée de langue est <code>es</code>, ajouter <code>&lt;option value=“en”&gt;
-  </code></p>
+Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de
+langue. Si votre entrée de langue est <code>es</code>, ajouter
+<code>&lt;option value="en"&gt;001f1ea001f1f8
+Espanol&lt;/option&gt;</code>. Le code unicode s’obtient en utilisant
+l’émoji et <code><a href="https://rdrr.io/pkg/stringi/man/stri_escape_unicode.html">stringi::stri_escape_unicode("🇪🇸")</a></code>.
+</p>
 </li>
 </ul>
+</div>
+</div>
+<div id="notes-pour-les-dévelopeurs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#notes-pour-les-d%C3%A9velopeurs" class="anchor"></a>
+Notes pour les dévelopeurs
+</h2>
+<div id="comment-créer-un-nouvel-élément-traductible-dans-lui" class="section level3">
+<h3 class="hasAnchor">
+<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-lui" class="anchor"></a>
+Comment créer un nouvel élément “traductible” dans l’UI
+</h3>
+<ul>
+<li>
+La traduction est assurée par le module JS <code>i18n</code> et la
+fonction <code>with_i18()</code> dans l’app
+</li>
+</ul>
+<div id="cb9" class="sourceCode">
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">with_i18</span><span class="op">(</span>
+  <span class="st">"Text de base"</span>,
+  <span class="st">"text_de_base"</span>
+<span class="op">)</span></code></pre>
+</div>
+<p>
+Va créer <code>&lt;span data-i18n="text_de_base"&gt;Text de
+base&lt;/span&gt;</code>.
+</p>
+<ul>
+<li>
+L’élément <code>Text de base</code> est affiché si <code>i18n</code>
+plante
+</li>
+<li>
+L’élément <code>data-i18n="text_de_base"</code> correspond à la clé
+d’entrée dans le data.frame de traduction, i.e. la valeur dans la
+colonne entry.
+</li>
+</ul>
+<p>
+Schématiquement, lorsque le JavaScript va traduire la page, il va aller
+chercher pour chaque tag l’entrée <code>data-i18n</code>, en tirer la
+valeur, et aller chercher la traduction correspondante.
+</p>
+<p>
+Par exemple, si nous traduisons en “fr”, la localisation fait (en
+JavaScript) l’action suivante
+</p>
+<div id="cb10" class="sourceCode">
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df_traduction</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">entry</span> <span class="op">==</span> <span class="st">"text_de_base"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">fr</span><span class="op">)</span></code></pre>
+</div>
+</div>
+<div id="ajouter-une-bulle-daide-traduisible" class="section level3">
+<h3 class="hasAnchor">
+<a href="#ajouter-une-bulle-daide-traduisible" class="anchor"></a>
+Ajouter une bulle d’aide traduisible
+</h3>
+<p>
+Sur un bouton
+</p>
+<div id="cb11" class="sourceCode">
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>
+  <span class="fu">w3_hover_button</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>, <span class="co"># bulle pour un bouton</span>
+  <span class="fu">w3_help_button</span><span class="op">(</span>
+    <span class="st">"Select a species"</span>,
+    <span class="st">"species_modal_help"</span> <span class="co"># repertorié dans "entry" </span>
+  <span class="op">)</span>
+<span class="op">)</span></code></pre>
+</div>
+<p>
+Sur un titre
+</p>
+<div id="cb12" class="sourceCode">
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">h4</a></span><span class="op">(</span>
+  <span class="fu">with_i18</span><span class="op">(</span><span class="st">"Catch and bycatch at sea"</span>, <span class="st">"[html]map-bycatch"</span><span class="op">)</span>,
+  <span class="fu">w3_help_button</span><span class="op">(</span>
+    <span class="st">"Select a species"</span>,
+    <span class="st">"catch_bycatch_help"</span>
+  <span class="op">)</span>
+<span class="op">)</span></code></pre>
+</div>
+</div>
+<div id="comment-créer-un-nouvel-élément-traductible-dans-le-server" class="section level3">
+<h3 class="hasAnchor">
+<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-le-server" class="anchor"></a>
+Comment créer un nouvel élément “traductible” dans le server
+</h3>
+<div id="soit-la-traduction-existe-dans-la-base-de-données" class="section level4">
+<h4 class="hasAnchor">
+<a href="#soit-la-traduction-existe-dans-la-base-de-donn%C3%A9es" class="anchor"></a>
+Soit la traduction existe dans la base de données
+</h4>
+<p>
+Si vous êtes dans une chaine d’opérations qui s’effectue dans la base de
+données (avant un <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code>), vous pouvez utiliser la
+fonction <code>diadesatlas.translate()</code> qui est incluse dans la
+base. C’est bien une fonction SQL incluse dans la base PostGIS et non
+pas une fonction R.<br> Dans R, cela se traduit par un
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> de la colonne à traduire comme ceci:
+</p>
+<div id="cb13" class="sourceCode">
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># lg &lt;- 'fr'</span>
+<span class="va">db</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>basin_name <span class="op">=</span> <span class="fu">diadesatlas.translate</span><span class="op">(</span><span class="va">basin_name</span>, <span class="op">!</span><span class="op">!</span><span class="va">lg</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+</div>
+</div>
+<div id="soit-la-traduction-nest-pas-dans-la-base" class="section level4">
+<h4 class="hasAnchor">
+<a href="#soit-la-traduction-nest-pas-dans-la-base" class="anchor"></a>
+Soit la traduction n’est pas dans la base
+</h4>
+<p>
+La traduction doit donc exister dans le csv de traduction.<br> Dans ce
+cas, nous utilisons la fonction R de notre package
+<code>get_translation_entry()</code>
+</p>
+<div id="cb14" class="sourceCode">
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">get_translation_entry</span><span class="op">(</span>entry <span class="op">=</span> <span class="st">'hsi_ggplot'</span>, lg <span class="op">=</span> <span class="st">'fr'</span><span class="op">)</span></code></pre>
+</div>
+<ul>
+<li>
+L’élément <code>entry = 'hsi_ggplot'</code> correspond à la clé d’entrée
+dans le data.frame de traduction, i.e. la valeur dans la colonne entry.
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- code folding -->
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -794,8 +987,5 @@ Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de langue. 
   
 
 
-  
-</div>
-</div>
-</body>
+  </body>
 </html>

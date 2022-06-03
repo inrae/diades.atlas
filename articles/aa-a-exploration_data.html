@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="aa-a-exploration_data_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="aa-a-exploration_data_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>aa-a-exploration_data</h1>
@@ -509,7 +509,8 @@ Packages
 <span class="co"># pkgload::load_all()</span></code></pre>
 </div>
 <p>
-<strong>You can use this package without opening the Shiny application</strong>
+<strong>You can use this package without opening the Shiny
+application</strong>
 </p>
 </div>
 <div id="connect-to-the-database" class="section level2">
@@ -581,7 +582,14 @@ Connect to the database
 Explore data
 </h2>
 <p>
-It is recommended to use <code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> instead of <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery()</a></code> to connect to a table in the database.<br><code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> does not download the table, it only connect to the database and let it run the query. This means that if you run a <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> or a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> after that, the database executes it, not R, which is more efficient.<br> However, at some point, some of your {tidyverse} operations can not be realised or translated in SQL, hence, you need to download the resulting dataset using <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code>. Then you can continue as usual.
+It is recommended to use <code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> instead of
+<code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery()</a></code> to connect to a table in the database.<br><code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> does not download the table, it only connect to the
+database and let it run the query. This means that if you run a
+<code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> or a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> after that, the
+database executes it, not R, which is more efficient.<br> However, at
+some point, some of your {tidyverse} operations can not be realised or
+translated in SQL, hence, you need to download the resulting dataset
+using <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code>. Then you can continue as usual.
 </p>
 <p>
 For instance.
@@ -599,7 +607,12 @@ For instance.
 Note that <code>!!</code> is a specific to using {dplyr} with SQL there.
 <ul>
 <li>
-This is because the variable after it (e.g. <code>species_id</code>) is defined in the R session, but not in the database. Therefore, before sending the SQL query to the database, R has to transform the variable by its real value in R. Otherwise, it will send the word <code>“species_id”</code> which does not make sense for the SQL database, instead of the number you wanted to put.
+This is because the variable after it (e.g. <code>species_id</code>) is
+defined in the R session, but not in the database. Therefore, before
+sending the SQL query to the database, R has to transform the variable
+by its real value in R. Otherwise, it will send the word
+<code>"species_id"</code> which does not make sense for the SQL
+database, instead of the number you wanted to put.
 </li>
 </ul>
 </li>
@@ -1272,7 +1285,8 @@ This is because the variable after it (e.g. <code>species_id</code>) is defined
 ##  [ reached 'max' / getOption("max.print") -- omitted 60242 rows ]</code></pre>
 <ul>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> only connects to the table, only a glimpse of the data is presented
+<code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> only connects to the table, only a glimpse of the
+data is presented
 <ul>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> is run by the SQL database
