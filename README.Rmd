@@ -36,15 +36,25 @@ remotes::install_github('inrae/diades.atlas')
 
 # Translation
 
-Les instructions pour préparer la traduction sont dans "dev/translation.Rmd".  
-Trois modes de traduction cohabitent:
+Toutes les traductions sont stockées dans des fichiers csv dans "inst/". S'il y a des corrections à apporter, des textes existants sur l'app à traduire, seuls ces 3 fichiers sont à modifier: 
 
-- Traductions présentes dans la base de données
-- Traductions à compléter dans des fichiers Markdown sous forme de Pull Request sur le projet
-- Traductions à compléter dans un fichier Google Sheet partagé
++ `inst/translation_help.csv`
++ `inst/translation_iucn.csv`
++ `inst/translation.csv`
+
+Après modifications dans une branche, proposez une Pull Request vers la branche _main_:  
+
+- Sur la page d'acceuil du projet, cliquer sur Pull Request
+- Puis sur "New Pull Request"
+- Dans la partie "Compare Changes", choisir votre branche dans le menu déroulant de droite "compare:"
+- Puis "Create Pull Request", 2 fois.
+- Vous pouvez vérifier dans l'onglet 'Files changed' ce que vous avez modifié.
+
+Une fois la PR acceptée, les modifications devraient apparaître dans l'app au prochain déploiement. Il n'y a rien de puls à faire.
+
+Pour plus d'informations, ou pour les instructions pour préparer l'application à recevoir de nouvelles langues ou zones à traduire, se réferrer au fichier "dev/translation.Rmd".  
 
 Dans tous les cas, les développeurs devront 
-
 - avoir accès à la base de données PostGis (Voir "Backend requirement" ci-dessous)
 - suivre le contenu de "dev/translation.Rmd" lors de chaque mises à jour.
 
@@ -76,14 +86,22 @@ POSTGRES_PASS="user-password"
 Sys.getenv("POSTGRES_USER")
 ```
 
-4. Run `pkgload::load_all()` in the R Console
+4. You may need to install dependencies with the same packages than the developers
+
+```r
+renv::restore()
+```
+
+_{renv} may be tricky with multiple OS. Be kind._
+
+5. Run `pkgload::load_all()` in the R Console
   + This loads all existing functions stored in "R/" directory
   
-5. Open a Rmd in "data-raw/" like "data-raw/be-page4-future.Rmd"
+6. Open a Rmd in "data-raw/" like "data-raw/be-page4-future.Rmd"
   + You should be able to run it chunk by chunk
   + Do not forget to close connection to the database at the end
 
-6. You can test modifications of the code in "R/"
+7. You can test modifications of the code in "R/"
   + After each modification, run `pkgload::load_all()` before testing in the Rmd
 
 # Exploration of database out of Shiny application
@@ -94,6 +112,12 @@ See vignette "00-exploration-of-data"
 # Put in Production
 
 Update Docker for deployment: https://gitlab.irstea.fr/diades/diades.atlas.deploy/
+
+On https://gitlab.irstea.fr/diades/diades.atlas.deploy/, there are also details on how to test the docker-compose locally. At least try to build it locally before release.
+
+```sh
+docker build -t gitlab-registry.irstea.fr/diades/diades.atlas.deploy/app .
+```
 
 # Backend requirement 
 
