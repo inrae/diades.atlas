@@ -5,6 +5,7 @@
 * Remove year zero in tab 3 (#92)
 * Add uncertainty ribbon around predictions (#87)
 * Add gtag (#88)
+* Add userguide as a vignette (#90)
 
 # diades.atlas 0.2.0
 

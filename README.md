@@ -28,35 +28,47 @@ remotes::install_github('inrae/diades.atlas')
 
 # Translation
 
-Toutes les traductions sont stockées dans des fichiers csv dans “inst/”.
-S’il y a des corrections à apporter, des textes existants sur l’app à
-traduire, seuls ces 3 fichiers sont à modifier:
+All translations are stored in csv files in “inst/”. If there are
+corrections to be made, existing texts on the app to be translated, only
+these 3 files have to be modified:
 
 -   `inst/translation_help.csv`
 -   `inst/translation_iucn.csv`
 -   `inst/translation.csv`
 
-Après modifications dans une branche, proposez une Pull Request vers la
-branche *main*:
+After modifications in a branch, propose a Pull Request to the *main*
+branch:
 
--   Sur la page d’acceuil du projet, cliquer sur Pull Request
--   Puis sur “New Pull Request”
--   Dans la partie “Compare Changes”, choisir votre branche dans le menu
-    déroulant de droite “compare:”
--   Puis “Create Pull Request”, 2 fois.
--   Vous pouvez vérifier dans l’onglet ‘Files changed’ ce que vous avez
-    modifié.
+-   On the home page of the project, click on Pull Request
+-   Then on “New Pull Request”.
+-   In the “Compare Changes” section, choose your branch in the right
+    drop-down menu “compare:”.
+-   Then “Create Pull Request”, twice.
+-   You can check in the ‘Files changed’ tab what you have changed.
 
-Une fois la PR acceptée, les modifications devraient apparaître dans
-l’app au prochain déploiement. Il n’y a rien de puls à faire.
+Once the PR is accepted, the changes should appear in the app the next
+time it is deployed. There is nothing to do.
 
-Pour plus d’informations, ou pour les instructions pour préparer
-l’application à recevoir de nouvelles langues ou zones à traduire, se
-réferrer au fichier “dev/translation.Rmd”.
+For more information, or for instructions on how to prepare the
+application for new languages or areas to be translated, refer to the
+“dev/translation.Rmd” file.
 
-Dans tous les cas, les développeurs devront - avoir accès à la base de
-données PostGis (Voir “Backend requirement” ci-dessous) - suivre le
-contenu de “dev/translation.Rmd” lors de chaque mises à jour.
+In all cases, developers will need to - have access to the PostGis
+database (see “Backend requirement” below) - follow the content of
+“dev/translation.Rmd” during each update.
+
+# Userguide
+
+The userguide is included in English in “data-raw/userguide.Rmd”. This
+version is to be included in the vignettes to appear on the
+documentation website. Users can create other translations of this
+userguide.
+
+-   Copy the english Rmd file and change the name of the file
+-   Keep the images, but change the text for your language
+-   User can then knit the document as `pdf_document`.
+-   The translated Rmd file can stay in the “data-raw/” directory and be
+    commit and push to GitHub
 
 # Retrieve package and develop
 
@@ -254,7 +266,8 @@ all_vignettes <- c(
   "bc-page2-present",
   "bd-page3-climate-change",
   "be-page4-future", 
-  "translation")
+  "translation",
+  "userguide")
 
 for (vignette_name in all_vignettes) {
   # vignette_name <- all_vignettes[6]
