@@ -102,7 +102,11 @@ app_ui <- function(request) {
           )
         ),
         footer = htmlTemplate(
-          app_sys("app/www/footer.html")
+          app_sys("app/www/footer.html"),
+          db_version = dplyr::tbl(get_con(sess), "dbversion") %>% dplyr::pull(dbversion_number),
+          # db_version = 1,
+          app_version = try(as.character(desc::desc_get_version()), silent = TRUE)
+          # app_version = 2
         )
       )
     )

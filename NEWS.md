@@ -5,6 +5,7 @@
 * Update instructions for the translation of the application
 * Update Dockerfile for new R version
 * Give instructions on how to use the package out of Shiny
+* Add dbversion and package version in the footer (#112)
 
 # diades.atlas 0.2.1
 
