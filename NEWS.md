@@ -1,3 +1,11 @@
+# diades.atlas 0.3.0
+
+* Add simulations in table 4
+* Add userguide as a vignette (#90)
+* Update instructions for the translation of the application
+* Update Dockerfile for new R version
+* Give instructions on how to use the package out of Shiny
+
 # diades.atlas 0.2.1
 
 * Add title over leaflet in page 3 (#83)
