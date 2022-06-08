@@ -1,3 +1,7 @@
+# diades.atlas 0.3.1
+
+* Fix missing dependencies
+
 # diades.atlas 0.3.0
 
 * Add simulations in table 4
