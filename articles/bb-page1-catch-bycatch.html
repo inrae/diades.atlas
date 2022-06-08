@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">diades.atlas</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -65,7 +65,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -94,6 +94,9 @@
     </li>
     <li>
       <a href="../articles/translation.html">translation</a>
+    </li>
+    <li>
+      <a href="../articles/userguide.html">userguide</a>
     </li>
   </ul>
 </li>
@@ -126,7 +129,7 @@
 
       
 
-      </header><script src="bb-page1-catch-bycatch_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><script src="bb-page1-catch-bycatch_files/header-attrs-2.14/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>bb-page1-catch-bycatch</h1>
@@ -500,22 +503,23 @@ Liste des espèces
   session <span class="op">=</span> <span class="va">session</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 11 × 5</span>
-<span class="co">#&gt;    species_id latin_name          </span>
-<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;               </span>
-<span class="co">#&gt;  1          4 Acipenser sturio    </span>
-<span class="co">#&gt;  2          6 Alosa alosa         </span>
-<span class="co">#&gt;  3          8 Alosa fallax        </span>
-<span class="co">#&gt;  4         13 Anguilla anguilla   </span>
-<span class="co">#&gt;  5         18 Lampetra fluviatilis</span>
-<span class="co">#&gt;  6         20 Osmerus eperlanus   </span>
-<span class="co">#&gt;  7         21 Petromyzon marinus  </span>
-<span class="co">#&gt;  8         22 Platichthys flesus  </span>
-<span class="co">#&gt;  9         25 Salmo salar         </span>
-<span class="co">#&gt; 10         26 Salmo trutta        </span>
-<span class="co">#&gt; 11         19 Chelon ramada       </span>
+<span class="co">#&gt;    species_id latin_name      </span>
+<span class="co">#&gt;         &lt;int&gt; &lt;chr&gt;           </span>
+<span class="co">#&gt;  1          4 Acipenser sturio</span>
+<span class="co">#&gt;  2          6 Alosa alosa     </span>
+<span class="co">#&gt;  3          8 Alosa fallax    </span>
+<span class="co">#&gt;  4         13 Anguilla anguil…</span>
+<span class="co">#&gt;  5         18 Lampetra fluvia…</span>
+<span class="co">#&gt;  6         20 Osmerus eperlan…</span>
+<span class="co">#&gt;  7         21 Petromyzon mari…</span>
+<span class="co">#&gt;  8         22 Platichthys fle…</span>
+<span class="co">#&gt;  9         25 Salmo salar     </span>
+<span class="co">#&gt; 10         26 Salmo trutta    </span>
+<span class="co">#&gt; 11         19 Chelon ramada   </span>
 <span class="co">#&gt; # … with 3 more variables:</span>
 <span class="co">#&gt; #   english_name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   local_name &lt;chr&gt;, active &lt;lgl&gt;</span></code></pre>
+<span class="co">#&gt; #   local_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   active &lt;lgl&gt;</span></code></pre>
 </div>
 <div id="conservation-status" class="section level2">
 <h2 class="hasAnchor">
@@ -537,19 +541,25 @@ Conservation status
   <span class="op">)</span>
   <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cat_line.html">cat_line</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="co">#&gt; ── 4 ───────────────────────────────</span>
+<span class="co">#&gt; ── 4 ─────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -569,19 +579,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 6 ───────────────────────────────</span>
+<span class="co">#&gt; ── 6 ─────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -601,19 +617,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 8 ───────────────────────────────</span>
+<span class="co">#&gt; ── 8 ─────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -633,19 +655,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 13 ──────────────────────────────</span>
+<span class="co">#&gt; ── 13 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -665,19 +693,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 18 ──────────────────────────────</span>
+<span class="co">#&gt; ── 18 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -697,19 +731,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 20 ──────────────────────────────</span>
+<span class="co">#&gt; ── 20 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -729,19 +769,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 21 ──────────────────────────────</span>
+<span class="co">#&gt; ── 21 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -761,19 +807,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 22 ──────────────────────────────</span>
+<span class="co">#&gt; ── 22 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -793,19 +845,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 25 ──────────────────────────────</span>
+<span class="co">#&gt; ── 25 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -825,19 +883,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 26 ──────────────────────────────</span>
+<span class="co">#&gt; ── 26 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -857,19 +921,25 @@ Conservation status
 <span class="co">#&gt; 4        Data Deficient</span>
 <span class="co">#&gt; 5            Endangered</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── 19 ──────────────────────────────</span>
+<span class="co">#&gt; ── 19 ────────────────────────</span>
 <span class="co">#&gt;   species_id  latin_name</span>
 <span class="co">#&gt; 1          6 Alosa alosa</span>
 <span class="co">#&gt; 2          6 Alosa alosa</span>
 <span class="co">#&gt; 3          6 Alosa alosa</span>
 <span class="co">#&gt; 4          6 Alosa alosa</span>
 <span class="co">#&gt; 5          6 Alosa alosa</span>
-<span class="co">#&gt;   simplified_name english_name</span>
-<span class="co">#&gt; 1        A. alosa   Allis shad</span>
-<span class="co">#&gt; 2        A. alosa   Allis shad</span>
-<span class="co">#&gt; 3        A. alosa   Allis shad</span>
-<span class="co">#&gt; 4        A. alosa   Allis shad</span>
-<span class="co">#&gt; 5        A. alosa   Allis shad</span>
+<span class="co">#&gt;   simplified_name</span>
+<span class="co">#&gt; 1        A. alosa</span>
+<span class="co">#&gt; 2        A. alosa</span>
+<span class="co">#&gt; 3        A. alosa</span>
+<span class="co">#&gt; 4        A. alosa</span>
+<span class="co">#&gt; 5        A. alosa</span>
+<span class="co">#&gt;   english_name</span>
+<span class="co">#&gt; 1   Allis shad</span>
+<span class="co">#&gt; 2   Allis shad</span>
+<span class="co">#&gt; 3   Allis shad</span>
+<span class="co">#&gt; 4   Allis shad</span>
+<span class="co">#&gt; 5   Allis shad</span>
 <span class="co">#&gt;   iucn_classification_code</span>
 <span class="co">#&gt; 1              IUCN_Europe</span>
 <span class="co">#&gt; 2                  IUCN_ES</span>
@@ -952,7 +1022,7 @@ Tmap code
     <span class="va">session</span>
   <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; ── generate_datasets ───────────────</span>
+<span class="co">#&gt; ── generate_datasets ─────────</span>
 
 <span class="co"># options("golem.app.prod" = FALSE)</span>
 <span class="fu"><a href="../reference/launch_mongo.html">launch_mongo</a></span><span class="op">(</span>session <span class="op">=</span> <span class="va">session</span><span class="op">)</span>

@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="The Diades Atlas Shiny App">
-<meta property="og:description" content="A Shiny application to explore data.">
+<meta property="og:description" content="A Shiny application to explore DiadES data.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">diades.atlas</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -65,7 +65,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -94,6 +94,9 @@
     </li>
     <li>
       <a href="articles/translation.html">translation</a>
+    </li>
+    <li>
+      <a href="articles/userguide.html">userguide</a>
     </li>
   </ul>
 </li>
@@ -157,33 +160,47 @@
 <div id="translation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#translation" class="anchor"></a>Translation</h1>
-<p>Toutes les traductions sont stockées dans des fichiers csv dans
-“inst/”. S’il y a des corrections à apporter, des textes existants sur
-l’app à traduire, seuls ces 3 fichiers sont à modifier:</p>
+<p>All translations are stored in csv files in “inst/”. If there are
+corrections to be made, existing texts on the app to be translated, only
+these 3 files have to be modified:</p>
 <ul>
 <li><code>inst/translation_help.csv</code></li>
 <li><code>inst/translation_iucn.csv</code></li>
 <li><code>inst/translation.csv</code></li>
 </ul>
-<p>Après modifications dans une branche, proposez une Pull Request vers
-la branche <em>main</em>:</p>
+<p>After modifications in a branch, propose a Pull Request to the
+<em>main</em> branch:</p>
 <ul>
-<li>Sur la page d’acceuil du projet, cliquer sur Pull Request</li>
-<li>Puis sur “New Pull Request”</li>
-<li>Dans la partie “Compare Changes”, choisir votre branche dans le menu
-déroulant de droite “compare:”</li>
-<li>Puis “Create Pull Request”, 2 fois.</li>
-<li>Vous pouvez vérifier dans l’onglet ‘Files changed’ ce que vous avez
-modifié.</li>
+<li>On the home page of the project, click on Pull Request</li>
+<li>Then on “New Pull Request”.</li>
+<li>In the “Compare Changes” section, choose your branch in the right
+drop-down menu “compare:”.</li>
+<li>Then “Create Pull Request”, twice.</li>
+<li>You can check in the ‘Files changed’ tab what you have changed.</li>
 </ul>
-<p>Une fois la PR acceptée, les modifications devraient apparaître dans
-l’app au prochain déploiement. Il n’y a rien de puls à faire.</p>
-<p>Pour plus d’informations, ou pour les instructions pour préparer
-l’application à recevoir de nouvelles langues ou zones à traduire, se
-réferrer au fichier “dev/translation.Rmd”.</p>
-<p>Dans tous les cas, les développeurs devront - avoir accès à la base
-de données PostGis (Voir “Backend requirement” ci-dessous) - suivre le
-contenu de “dev/translation.Rmd” lors de chaque mises à jour.</p>
+<p>Once the PR is accepted, the changes should appear in the app the
+next time it is deployed. There is nothing to do.</p>
+<p>For more information, or for instructions on how to prepare the
+application for new languages or areas to be translated, refer to the
+“dev/translation.Rmd” file.</p>
+<p>In all cases, developers will need to - have access to the PostGis
+database (see “Backend requirement” below) - follow the content of
+“dev/translation.Rmd” during each update.</p>
+</div>
+<div id="userguide" class="section level1">
+<h1 class="hasAnchor">
+<a href="#userguide" class="anchor"></a>Userguide</h1>
+<p>The userguide is included in English in “data-raw/userguide.Rmd”.
+This version is to be included in the vignettes to appear on the
+documentation website. Users can create other translations of this
+userguide.</p>
+<ul>
+<li>Copy the english Rmd file and change the name of the file</li>
+<li>Keep the images, but change the text for your language</li>
+<li>User can then knit the document as <code>pdf_document</code>.</li>
+<li>The translated Rmd file can stay in the “data-raw/” directory and be
+commit and push to GitHub</li>
+</ul>
 </div>
 <div id="retrieve-package-and-develop" class="section level1">
 <h1 class="hasAnchor">
@@ -379,7 +396,8 @@ itself.</p>
   <span class="st">"bc-page2-present"</span>,
   <span class="st">"bd-page3-climate-change"</span>,
   <span class="st">"be-page4-future"</span>, 
-  <span class="st">"translation"</span><span class="op">)</span>
+  <span class="st">"translation"</span>,
+  <span class="st">"userguide"</span><span class="op">)</span>
 
 <span class="kw">for</span> <span class="op">(</span><span class="va">vignette_name</span> <span class="kw">in</span> <span class="va">all_vignettes</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># vignette_name &lt;- all_vignettes[6]</span>
@@ -410,7 +428,15 @@ sep <span class="op">=</span> <span class="st">"\n"</span>,
 file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Add unit tests report</span>
+<span class="co"># remotes::install_github("metrumresearchgroup/covrpage")</span>
+<span class="co"># You may need to run with interactive session.</span>
+<span class="co"># Do not know why...</span>
+<span class="co"># debugonce(covrpage::covrpage)</span>
+<span class="fu">covrpage</span><span class="fu">::</span><span class="fu">covrpage</span><span class="op">(</span>vignette <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span><span class="op">(</span><span class="st">"tests/README.md"</span><span class="op">)</span></code></pre></div>
 </div>
 
   </div>
