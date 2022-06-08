@@ -41,7 +41,7 @@ gert::git_config_set(
 attachment::att_amend_desc(
   extra.suggests = c("pkgload", "DiagrammeR",
                      "DiagrammeRsvg", "dbplyr", "stringi", 
-                     "rlang" # why ?
+                     "rlang", "future", "promises" # why ?
   )
 )
 checkhelper::print_globals()

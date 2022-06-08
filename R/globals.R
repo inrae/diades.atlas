@@ -1,4 +1,6 @@
 globalVariables(unique(c(
+  # app_ui 
+  "dbversion_number",
   # ecosystem_table: 
   "casestudy_id", "casestudy_name", "casestudy_name_tr", "category_id", "category_name", "category_name_tr", "esvalue_code", "fish_name", "latin_name", "subcategory_id", "subcategory_name", "subcategory_name_tr", 
   # generate_datasets: 
