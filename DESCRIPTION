@@ -1,6 +1,6 @@
 Package: diades.atlas
 Title: The Diades Atlas Shiny App
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: 
     c(person(given = "Sébastien",
              family = "Rochette",
@@ -31,6 +31,7 @@ Imports:
     data.table,
     DBI (>= 1.1.1),
     dbplyr,
+    desc,
     dplyr (>= 1.0.7),
     DT (>= 0.19),
     ggplot2 (>= 3.3.5),
@@ -45,6 +46,8 @@ Imports:
     methods,
     mongolite,
     patchwork,
+    pkgload (>= 1.2.2),
+    promises,
     purrr (>= 0.3.4),
     rmapshaper (>= 0.4.5),
     RPostgres (>= 1.3.3),
@@ -64,8 +67,8 @@ Suggests:
     attempt,
     DiagrammeR (>= 1.0.6.1),
     DiagrammeRsvg (>= 0.1),
+    future,
     knitr (>= 1.34),
-    pkgload (>= 1.2.2),
     rlang,
     rmarkdown (>= 2.9),
     stringi,

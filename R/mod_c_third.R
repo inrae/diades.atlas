@@ -132,6 +132,7 @@ mod_third_server <- function(id, r = r) {
     observeEvent(
       list(input$display, r$lg),
       {
+        golem::invoke_js("disable", paste0("#", ns("display")))
         # if (input$scenario != "rcp85") {
         #   shiny::showNotification(
         #     h1("Scenario not implemented"),
@@ -196,7 +197,7 @@ mod_third_server <- function(id, r = r) {
           withNitStandardisation = FALSE
         )
 
-        
+        golem::invoke_js("reable", paste0("#", ns("display")))
       }
     )
     
