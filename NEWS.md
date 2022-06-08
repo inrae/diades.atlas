@@ -1,6 +1,7 @@
 # diades.atlas 0.3.1
 
 * Fix missing dependencies
+* Use `future_promise()` to avoid blocking the app on simulations
 
 # diades.atlas 0.3.0
 
