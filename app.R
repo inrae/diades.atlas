@@ -20,6 +20,12 @@ datasets <- generate_datasets(
   )
 )
 
+# Run future
+cli::cat_line("Start multisession")
+library(promises)
+library(future)
+plan(multisession(workers = min(availableCores()-1, 8)))
+
 # Run the application
 run_app(
   species_list = datasets[["species_list"]],

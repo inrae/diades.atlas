@@ -143,6 +143,7 @@ mod_fourth_ui <- function(id) {
 #' @import maps
 #' @importFrom DT renderDT
 #' @importFrom utils getFromNamespace
+#' @importFrom promises %...>%
 mod_fourth_server <- function(id, r = r) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -159,7 +160,8 @@ mod_fourth_server <- function(id, r = r) {
       model_res_filtered = NULL,
       trigger_graphs = 0,
       selected_bv_id = NULL,
-      bind_event = 0
+      bind_event = 0,
+      rsum = 0
     )
     
     mod_species_server(
@@ -210,13 +212,6 @@ mod_fourth_server <- function(id, r = r) {
       cli::cat_rule("observeEvent(input$launch_simu")
       
       golem::invoke_js("disable", paste0("#", ns("launch_simu")))
-      # loco$data_simulation
-      # countries <- golem::get_golem_options('countries_mortalities_list')
-      # loco$mortalities
-      # data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
-      anthropogenic_mortality <- expand_anthropogenic_mortality(
-        loco$data_simulation[["data_hsi_nmax"]], loco$mortalities)
-      # spc <- golem::get_golem_options("species_list")
       
       showModal(
         modalDialog(
@@ -225,27 +220,71 @@ mod_fourth_server <- function(id, r = r) {
           ),
           easyClose = TRUE, size = 'm')
       )
+      # loco$data_simulation
+      # countries <- golem::get_golem_options('countries_mortalities_list')
+      # loco$mortalities
+      # data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
+      anthropogenic_mortality <- expand_anthropogenic_mortality(
+        loco$data_simulation[["data_hsi_nmax"]], loco$mortalities)
+      # spc <- golem::get_golem_options("species_list")
+      
       
       # modal()
       # runSimulation ----
-      shiny::withProgress(
-        message = 'Run Simulation', value = 0, 
-        session = session, {
-          results <- runSimulation(
-            selected_latin_name = loco$species, #selected_latin_name, 
-            scenario = input$scenario,
-            hydiad_parameter = loco$data_simulation[["hydiad_parameter"]], # 11 rows
+      mypkg <- getwd()
+      species_promise <- loco$species
+      input_promise_scenario <- input$scenario
+
+      shiny::showNotification(tagList(
+        tags$h2("Simulation is running") %>% with_i18("running_simu")
+      ), 
+      type = "warning", 
+      id = ns("running"),
+      duration = NULL)
+      
+      # shiny::withProgress(
+      #   message = 'Run Simulation', value = 0, 
+      #   session = session, {
+          # results <- 
+        promises::future_promise({
+          pkgload::load_all(mypkg, export_all = FALSE, helpers = FALSE, attach_testthat = FALSE)
+          
+          se_promise <- new.env()
+          connect(se_promise)
+          
+          data_simulation <- get_data_simulation(get_con(se_promise))
+          
+          runSimulation(
+            selected_latin_name = species_promise, #selected_latin_name, 
+            scenario = input_promise_scenario,
+            hydiad_parameter = data_simulation[["hydiad_parameter"]], # 11 rows
             # Smaller for example
             anthropogenic_mortality = anthropogenic_mortality, #%>% filter(year <= 1955), # 1800 rows
-            catchment_surface = loco$data_simulation[["catchment_surface"]], # 134 rows
-            data_hsi_nmax = loco$data_simulation[["data_hsi_nmax"]], # 663300 rows
-            data_ni0 = loco$data_simulation[["data_ni0"]], # 4422 rows
-            outlet_distance = loco$data_simulation[["outlet_distance"]], # 18225 rows
+            catchment_surface = data_simulation[["catchment_surface"]], # 134 rows
+            data_hsi_nmax = data_simulation[["data_hsi_nmax"]], # 663300 rows
+            data_ni0 = data_simulation[["data_ni0"]], # 4422 rows
+            outlet_distance = data_simulation[["outlet_distance"]], # 18225 rows
             verbose = TRUE
           )
+        }, seed = TRUE) %...>% (function(result) {
+          # results_promise()
+          loco$results <- result
+          loco$rsum <- rnorm(1, rnorm(1, 10, 100))
+        #   # Code to handle result of expensive code goes here
+        # })
         })
+        message("--- Waiting for promise ---")
+    }, ignoreInit = TRUE) # end of input$launch_simu
+    
+    observeEvent(loco$rsum, {
+      removeNotification(id = ns("running"))
       
-      Nit_list <- get_model_nit(results)
+      # loco$rsum <- 0
+      shiny::showNotification(tagList(
+        tags$h2("Your simulation is ready") %>% with_i18("ready_simu")
+      ), type = "message")
+      
+      Nit_list <- get_model_nit(loco$results)
       
       loco$model_res_filtered <- nit_feature_species(
         Nit_list = Nit_list,
