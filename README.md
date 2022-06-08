@@ -299,4 +299,12 @@ file = here::here(file.path("vignettes", vignette_file))
   )
 }
 file.remove(here::here("data-raw", "translation.Rmd"))
+
+# Add unit tests report
+# remotes::install_github("metrumresearchgroup/covrpage")
+# You may need to run with interactive session.
+# Do not know why...
+# debugonce(covrpage::covrpage)
+covrpage::covrpage(vignette = TRUE)
+file.remove("tests/README.md")
 ```
