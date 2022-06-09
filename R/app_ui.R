@@ -103,7 +103,14 @@ app_ui <- function(request) {
         ),
         footer = htmlTemplate(
           app_sys("app/www/footer.html"),
-          db_version = dplyr::tbl(get_con(sess), "dbversion") %>% dplyr::pull(dbversion_number),
+          # select dbversion_date, dbversion_number from diadesatlas.dbversion order by dbversion_id desc limit 1;
+          db_version = try(
+            dplyr::tbl(get_con(sess), "dbversion") %>% 
+              dplyr::collect() %>% 
+              dplyr::arrange(dplyr::desc(dbversion_id)) %>% 
+              dplyr::slice_head(n = 1) %>% 
+              dplyr::pull(dbversion_number),
+            silent = TRUE),
           # db_version = 1,
           app_version = try(as.character(desc::desc_get_version()), silent = TRUE)
           # app_version = 2
