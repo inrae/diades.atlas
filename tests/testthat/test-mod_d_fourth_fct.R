@@ -1,3 +1,6 @@
+# Create dput when new database arise from 
+# source(here::here("data-raw/altas_simulation.R"))
+
 # compute_nmax_eh1 ----
 test_that("compute_nmax_eh1 works", {
   # dput(models, file = "tests/testthat/models_dput")
@@ -11,8 +14,11 @@ test_that("compute_nmax_eh1 works", {
                                           scenario = "rcp85",
                                           extendedNit = extendedNit_entry_small)
   # Create expected
-  # dput(results_model_small, file = "tests/testthat/results_model_small_dput")
-  # rms_expected <- eval(parse(file = "tests/testthat/results_model_small_dput"))
+  if (FALSE) {
+    # To debug tests only
+    # dput(results_model_small, file = "tests/testthat/results_model_small_dput")
+    rms_expected <- eval(parse(file = "tests/testthat/results_model_small_dput"))
+  }
   rms_expected <- eval(parse(file = "results_model_small_dput"))
   expect_equal(results_model_small, rms_expected)
 })
@@ -53,17 +59,20 @@ test_that("runSimulation works", {
   data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
   expect_false(is.null(data_hsi_nmax))
   expect_equal(ncol(data_hsi_nmax), 9)
-  expect_equal(count(data_hsi_nmax) %>% pull(), 663300)
+  expect_equal(data_hsi_nmax %>% filter(climatic_scenario == "rcp85") %>% count() %>% pull(), 663300)
+  expect_equal(data_hsi_nmax %>% count() %>% pull(), 1326600)
   #' @description reference_results exists
   reference_results <- data_simulation[["reference_results"]]
   expect_false(is.null(reference_results))
   expect_equal(ncol(reference_results), 7)
-  expect_equal(count(reference_results) %>% pull(), 663300)
+  expect_equal(reference_results %>% filter(climatic_scenario == "rcp85") %>% count() %>% pull(), 663300)
+  expect_equal(reference_results %>% count() %>% pull(), 1326600)
   #' @description data_ni0 exists
   data_ni0 <- data_simulation[["data_ni0"]]
   expect_false(is.null(data_ni0))
   expect_equal(ncol(data_ni0), 9)
-  expect_equal(count(data_ni0) %>% pull(), 4422)
+  expect_equal(data_ni0 %>% filter(climatic_scenario == "rcp85") %>% count() %>% pull(), 4422)
+  expect_equal(count(data_ni0) %>% pull(), 8844)
   #' @description catchment_surface exists
   catchment_surface <- data_simulation[["catchment_surface"]]
   expect_false(is.null(catchment_surface))
@@ -93,13 +102,13 @@ test_that("runSimulation works", {
         country == "France" ~ -log(.5),
         TRUE ~ 0
       ),
-      # rep(-log(.5), length(datasets[["countries_mortalities_list"]])),
+    # rep(-log(.5), length(datasets[["countries_mortalities_list"]])),
     yearsimuend = 
       case_when(
         country == "France" ~ -log(.75),
         TRUE ~ 0
       )
-      # rep(-log(.75), length(datasets[["countries_mortalities_list"]]))
+    # rep(-log(.75), length(datasets[["countries_mortalities_list"]]))
   )
   
   # expand_anthropogenic_mortality works ----
@@ -134,7 +143,8 @@ test_that("runSimulation works", {
     data_simulation[["data_hsi_nmax"]], # 663300 rows
     data_simulation[["data_ni0"]], # 4422 rows
     data_simulation[["outlet_distance"]], # 18225 rows
-    verbose = TRUE
+    verbose = TRUE,
+    scenario = "rcp85"
   )
   
   if (FALSE) {
@@ -143,7 +153,7 @@ test_that("runSimulation works", {
     resultsPML <- eval(parse(file = "tests/testthat/results_pml_dput"))
     file.remove("tests/testthat/results_pml_dput")
   }
-
+  
   dirzip <- tempfile()
   utils::unzip(zipfile = "results_pml_dput.zip", exdir = dirzip, junkpaths = TRUE)
   resultsPML <- eval(parse(file = file.path(dirzip, "results_pml_dput")))
@@ -167,12 +177,12 @@ test_that("runSimulation works", {
     ungroup()
   expect_equal(model_nit_outputs, mno_expected)
   
-  # nit_feature_species_basin ----
-  model_res_filtered <- nit_feature_species_basin(
+  # nit_feature_species ----
+  model_res_filtered <- nit_feature_species(
     Nit_list = Nit_list,
     reference_results = reference_results,
-    selected_latin_name = selected_latin_name,
-    basin = basin)
+    selected_latin_name = selected_latin_name) %>% 
+    filter(basin_name == basin)
   
   mrf_object <- model_res_filtered %>% 
     arrange(basin_name, year)
@@ -198,10 +208,27 @@ test_that("runSimulation works", {
     ) %>% 
     arrange(basin_name, year) %>% 
     ungroup()
-
+  
   expect_equivalent(mrf_object, mrf_expected)
   # waldo::compare(mrf_object, mrf_expected)
+
+  # runSimulation with rcp45 works without errors ----
+  expect_error(
+    runSimulation(
+      selected_latin_name, 
+      data_simulation[["hydiad_parameter"]], # 11 rows
+      # Smaller for example
+      anthropogenic_mortality, #%>% filter(year <= 1955), # 1800 rows
+      data_simulation[["catchment_surface"]], # 134 rows
+      data_simulation[["data_hsi_nmax"]], # 663300 rows
+      data_simulation[["data_ni0"]], # 4422 rows
+      data_simulation[["outlet_distance"]], # 18225 rows
+      verbose = TRUE,
+      scenario = "rcp45"
+    ),
+    regexp = NA)
 })
+
 
 # slugify ----
 test_that("slugify works", {

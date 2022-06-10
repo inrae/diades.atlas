@@ -176,3 +176,9 @@ th {
     fill: green;
     stroke: green;
 }
+
+/* shiny modal */
+
+.modal-dialog {
+  margin: 100px auto;
+}
