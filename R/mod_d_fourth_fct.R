@@ -171,6 +171,7 @@ runSimulation <- function(selected_latin_name,
     arrange(year)
   results[['param']][['years']] <- years 
   
+  
   # if (verbose) toc()
   
   # if (verbose) tic()
@@ -214,6 +215,7 @@ runSimulation <- function(selected_latin_name,
     # filter basins
     filter(departure %in% !!basins,
            arrival %in% !!basins) %>% 
+    collect() %>% 
     # Calculate the relative fraction of fish that would return to each according to the kernel function
     mutate(proportion =  exp(-(!!parameter$alpha * distance ^ !!parameter$beta))) %>%  
     # no fish 'accidentally stray' into their natal catchment when NatalStray is FALSE
@@ -229,7 +231,7 @@ runSimulation <- function(selected_latin_name,
     # put 0 for very low survining probality
     mutate(survivingProportion = ifelse(survivingProportion < 1e-10, 0,
                                         survivingProportion)) %>% 
-    collect() %>% 
+    # collect() %>% 
     # pivot wider
     pivot_wider(id_cols = arrival, 
                 names_from = departure, 
