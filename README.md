@@ -28,21 +28,47 @@ remotes::install_github('inrae/diades.atlas')
 
 # Translation
 
-Les instructions pour préparer la traduction sont dans
-“dev/translation.Rmd”.  
-Trois modes de traduction cohabitent:
+All translations are stored in csv files in “inst/”. If there are
+corrections to be made, existing texts on the app to be translated, only
+these 3 files have to be modified:
 
--   Traductions présentes dans la base de données
--   Traductions à compléter dans des fichiers Markdown sous forme de
-    Pull Request sur le projet
--   Traductions à compléter dans un fichier Google Sheet partagé
+-   `inst/translation_help.csv`
+-   `inst/translation_iucn.csv`
+-   `inst/translation.csv`
 
-Dans tous les cas, les développeurs devront
+After modifications in a branch, propose a Pull Request to the *main*
+branch:
 
--   avoir accès à la base de données PostGis (Voir “Backend requirement”
-    ci-dessous)
--   suivre le contenu de “dev/translation.Rmd” lors de chaque mises à
-    jour.
+-   On the home page of the project, click on Pull Request
+-   Then on “New Pull Request”.
+-   In the “Compare Changes” section, choose your branch in the right
+    drop-down menu “compare:”.
+-   Then “Create Pull Request”, twice.
+-   You can check in the ‘Files changed’ tab what you have changed.
+
+Once the PR is accepted, the changes should appear in the app the next
+time it is deployed. There is nothing to do.
+
+For more information, or for instructions on how to prepare the
+application for new languages or areas to be translated, refer to the
+“dev/translation.Rmd” file.
+
+In all cases, developers will need to - have access to the PostGis
+database (see “Backend requirement” below) - follow the content of
+“dev/translation.Rmd” during each update.
+
+# Userguide
+
+The userguide is included in English in “data-raw/userguide.Rmd”. This
+version is to be included in the vignettes to appear on the
+documentation website. Users can create other translations of this
+userguide.
+
+-   Copy the english Rmd file and change the name of the file
+-   Keep the images, but change the text for your language
+-   User can then knit the document as `pdf_document`.
+-   The translated Rmd file can stay in the “data-raw/” directory and be
+    commit and push to GitHub
 
 # Retrieve package and develop
 
@@ -78,16 +104,25 @@ You can get this package and propose modifications of the code.
 Sys.getenv("POSTGRES_USER")
 ```
 
-4.  Run `pkgload::load_all()` in the R Console
+4.  You may need to install dependencies with the same packages than the
+    developers
+
+``` r
+renv::restore()
+```
+
+*{renv} may be tricky with multiple OS. Be kind.*
+
+5.  Run `pkgload::load_all()` in the R Console
 
 -   This loads all existing functions stored in “R/” directory
 
-5.  Open a Rmd in “data-raw/” like “data-raw/be-page4-future.Rmd”
+6.  Open a Rmd in “data-raw/” like “data-raw/be-page4-future.Rmd”
 
 -   You should be able to run it chunk by chunk
 -   Do not forget to close connection to the database at the end
 
-6.  You can test modifications of the code in “R/”
+7.  You can test modifications of the code in “R/”
 
 -   After each modification, run `pkgload::load_all()` before testing in
     the Rmd
@@ -101,6 +136,14 @@ See vignette “00-exploration-of-data”
 
 Update Docker for deployment:
 <https://gitlab.irstea.fr/diades/diades.atlas.deploy/>
+
+On <https://gitlab.irstea.fr/diades/diades.atlas.deploy/>, there are
+also details on how to test the docker-compose locally. At least try to
+build it locally before release.
+
+``` sh
+docker build -t gitlab-registry.irstea.fr/diades/diades.atlas.deploy/app .
+```
 
 # Backend requirement
 
@@ -223,7 +266,8 @@ all_vignettes <- c(
   "bc-page2-present",
   "bd-page3-climate-change",
   "be-page4-future", 
-  "translation")
+  "translation",
+  "userguide")
 
 for (vignette_name in all_vignettes) {
   # vignette_name <- all_vignettes[6]
@@ -255,4 +299,12 @@ file = here::here(file.path("vignettes", vignette_file))
   )
 }
 file.remove(here::here("data-raw", "translation.Rmd"))
+
+# Add unit tests report
+# remotes::install_github("metrumresearchgroup/covrpage")
+# You may need to run with interactive session.
+# Do not know why...
+# debugonce(covrpage::covrpage)
+covrpage::covrpage(vignette = TRUE)
+file.remove("tests/README.md")
 ```

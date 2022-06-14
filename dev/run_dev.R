@@ -37,6 +37,11 @@ datasets <- generate_datasets(
   )
 )
 
+# Run future
+cli::cat_line("Start multisession")
+library(promises)
+library(future)
+plan(multisession)
 
 # Run the application
 run_app(

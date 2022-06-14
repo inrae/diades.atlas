@@ -150,6 +150,8 @@ mod_second_server <- function(id, r = r) {
     observeEvent(
       input$display,
       {
+        golem::invoke_js("disable", paste0("#", ns("display")))
+        
         # req(input$display > 0)
         spec <- golem::get_golem_options("species_list") %>%
           filter(local_name %in% input[["species_ui_1-species"]]) %>%
@@ -164,7 +166,8 @@ mod_second_server <- function(id, r = r) {
           r = r,
           session = session
         )
-      }
+        golem::invoke_js("reable", paste0("#", ns("display")))
+      }, ignoreInit = FALSE
     )
 
     output$tbl <- DT::renderDT(

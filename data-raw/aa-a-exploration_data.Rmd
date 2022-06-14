@@ -139,6 +139,12 @@ get_data_tbl_query_collect(conn_eurodiad,
   geom_line(aes(y = hsi))
 ```
 
+## Get version
+
+```{r}
+tbl(conn_eurodiad, "dbversion") %>% pull(dbversion_number)
+```
+
 
 ## Disconnect from the database
 
