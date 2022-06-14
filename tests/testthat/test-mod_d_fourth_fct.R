@@ -227,6 +227,24 @@ test_that("runSimulation works", {
       scenario = "rcp45"
     ),
     regexp = NA)
+  
+  # Test for Chelon ramada cf. issue #137 ----
+  selected_latin_name <- "Chelon ramada"
+  
+  expect_error(
+    runSimulation(
+      selected_latin_name, 
+      data_simulation[["hydiad_parameter"]],
+      # Smaller for example
+      anthropogenic_mortality, 
+      data_simulation[["catchment_surface"]], 
+      data_simulation[["data_hsi_nmax"]],
+      data_simulation[["data_ni0"]], 
+      data_simulation[["outlet_distance"]], 
+      verbose = TRUE,
+      scenario = "rcp45"
+    ),
+    regexp = NA)
 })
 
 
