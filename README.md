@@ -127,10 +127,12 @@ renv::restore()
 -   After each modification, run `pkgload::load_all()` before testing in
     the Rmd
 
+8.  After each modification, it is necessary to run `devtools::check()`
+
 # Exploration of database out of Shiny application
 
 You can use this package without opening the Shiny application.  
-See vignette “00-exploration-of-data”
+See vignette “data-raw/aa-a-exploration_data.Rmd”
 
 # Put in Production
 

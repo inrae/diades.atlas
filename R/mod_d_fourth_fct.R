@@ -210,19 +210,32 @@ runSimulation <- function(selected_latin_name,
   ## matrix of survival proportion between catchments among emigrants  ----
   # row: arrival basin
   # colum: departure basin
+  # signif(
+  # exp(-(parameter$alpha * (3113.873 ^ parameter$beta))),
+  # digits = 40
+  # )
+  
   results[["other"]][['survivingProportion']]  <- outlet_distance %>% 
     # filter basins
     filter(departure %in% !!basins,
            arrival %in% !!basins) %>% 
+    # filter(departure == "Aa", arrival == "Barbate") %>% 
     # Calculate the relative fraction of fish that would return to each according to the kernel function
-    mutate(proportion =  exp(-(!!parameter$alpha * distance ^ !!parameter$beta))) %>%  
+    # mutate(proportion = exp(-(!!parameter$alpha * (distance ^ !!parameter$beta)))) %>%  
+    mutate(
+      proportion = !!parameter$alpha * (distance ^ !!parameter$beta), 
+      proportion = ifelse(proportion <= 100, exp(-proportion), 0)
+    ) %>%  
     # no fish 'accidentally stray' into their natal catchment when NatalStray is FALSE
     mutate(withNatalStray = !!parameter$withNatalStray, 
            proportion = ifelse(withNatalStray, proportion, 
                                ifelse(departure == arrival, 0, proportion))) %>% 
     # compute the relative proportion
     group_by(departure) %>% 
-    mutate(proportion = proportion / sum(proportion, na.rm = TRUE)) %>% 
+    mutate(proportion = ifelse(
+      sum(proportion, na.rm=TRUE) == 0, 
+      0,
+      proportion / sum(proportion, na.rm = TRUE))) %>% 
     # calculate the survival rate of strayer between departure and arrival
     mutate(survival = exp(-!!parameter$Mdisp * distance),
            survivingProportion = proportion * survival) %>%
