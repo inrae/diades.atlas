@@ -1,224 +1,158 @@
 "entry","contenu_markdown","en","fr","pt","es"
 "catch_bycatch_help","# catch_bycatch_help
 
-catch_bycatch_help DEFAULT","# catch_bycatch_help
+catch_bycatch_help DEFAULT","Data on species occurrence at sea are derived from declarations of targeted or incidental catches by Portuguese, Spanish, French, English and Irish fleets. In the Iberian Peninsula, the location of occurrence at sea is estimated via landing ports. Data for species occurrence in rivers are based on reviews of the scientific literature and expert validation. Sources: DiadAtSea report (marine data); EuroDiad 4.0 (Barber-O'Malley et al., 2022; freshwater data). 
 
-catch_bycatch_help ENGLISH","Les données de présence en mer sont issues des déclarations de captures ciblées ou accessoires des flottilles portugaises, espagnoles, françaises, anglaises et irlandaises. Dans la péninsule ibérique, la localisation des présences en mer est estimée via les ports de débarquements. Les données de présence en rivière reposent sur des revues de la littérature scientifique et sur des validations d'experts. Sources : Rapport DiadAtSea (données maritimes) ; EuroDiad 4.0 (Barber-O'Malley et al, 2022 ; données eau douce).
+Explore the current occurrence of this species in the maritime and continental space. ","Les données de présence en mer sont issues des déclarations de captures ciblées ou accessoires des flottilles portugaises, espagnoles, françaises, anglaises et irlandaises. Dans la péninsule ibérique, la localisation des présences en mer est estimée via les ports de débarquements. Les données de présence en rivière reposent sur des revues de la littérature scientifique et sur des validations d'experts. Sources : Rapport DiadAtSea (données maritimes) ; EuroDiad 4.0 (Barber-O'Malley et al, 2022 ; données eau douce).
 
-Explorez la présence actuelle de l’espèce considérée dans l’espace maritime et l’espace continental. ","# catch_bycatch_help
+Explorez la présence actuelle de l’espèce considérée dans l’espace maritime et l’espace continental. ","Os dados sobre a presença no mar provêm das declarações das capturas alvo ou acessórias de pequenas frotas portuguesas, espanholas, francesas, inglesas e irlandesas. Na Península Ibérica, a localização das presenças no mar é calculada através dos portos de embarque. Os dados sobre a presença em rio baseiam-se em revistas de literatura cientifica e em validações de peritos. Fontes: Rapport DiadAtSea (dados marítimos) ; EuroDiad 4.0 (Barber-O'Malley et al, 2022 ; dados sobre água doce). 
 
-catch_bycatch_help PT","# catch_bycatch_help
+Explore a presença atual da espécie visada no espaço marítimo e no espaço continental. ","Los datos de presencia en el mar proceden de las declaraciones de capturas orientadas o accesorias de las flotillas portuguesas, españolas, francesas, inglesas e irlandesas. En la península ibérica, la localización de las presencias en el mar está estimada a través de los puertos de desembarco. Los datos de presencia en los ríos se basan en revistas de la literatura científica y en validaciones de expertos. Fuentes: Informe DiadAtSea (datos marítimos); EuroDiad 4.0 (Barber-O'Malley et al, 2022; datos agua dulce). 
 
-catch_bycatch_help ES"
+Explore la presencia actual de la especie considerada en el espacio marítimo y en el espacio continental"
 "choose_a_daterange_help","# choose_a_daterange_help
 
-choose_a_daterange_help DEFAULT","# choose_a_daterange_help
+choose_a_daterange_help DEFAULT","Move the slider to select a year between 1951 and 2100 and view the abundance of the species on the map. 
 
-choose_a_daterange_help ENGLISH","Sélectionnez une année, de 1951 à 2100, en déplaçant le curseur, pour visualiser sur la carte les abondances de l’espèce considérée. Cette période est couverte par les simulations du modèle de distribution d'espèces HyDiaD (Barber O'Malley et al, 2022).","# choose_a_daterange_help
+This period is covered by simulations from the HyDiaD species distribution model (Barber O'Malley et al., 2022).","Sélectionnez une année, de 1951 à 2100, en déplaçant le curseur, pour visualiser sur la carte les abondances de l’espèce considérée. Cette période est couverte par les simulations du modèle de distribution d'espèces HyDiaD (Barber O'Malley et al, 2022).","Selecione um ano, de 1951 a 2100, deslocando o cursor, para visualizar no mapa a abundância da espécie em questão. Este período está abrangido pelas simulações do modelo de distribuição de espécies HyDiaD (Barber O'Malley et al, 2022).","Seleccione un año, de 1951 a 2100, desplazando el cursor, para visualizar las abundancias de la especie considerada en el mapa. 
 
-choose_a_daterange_help PT","# choose_a_daterange_help
-
-choose_a_daterange_help ES"
+Este periodo está cubierto por las simulaciones del modelo de distribución de especies HyDiaD (Barber O'Malley et al, 2022)."
 "choose_a_daterange_simu_help","# choose_a_daterange_simu_help
 
-choose_a_daterange_simu_help DEFAULT","# choose_a_daterange_simu_help
+choose_a_daterange_simu_help DEFAULT","Move the slider to select a year between 1951 and 2100 and view the abundance of the species on the map. This period is covered by simulations from the HyDiaD species distribution model (Barber O'Malley et al., 2022).","Sélectionnez une année, de 1951 à 2100, en déplaçant le curseur, pour visualiser sur la carte les abondances de l’espèce considérée. 
 
-choose_a_daterange_simu_help ENGLISH","Sélectionnez une année, de 1951 à 2100, en déplaçant le curseur, pour visualiser sur la carte les abondances de l’espèce considérée. Cette période est couverte par les simulations du modèle de distribution d'espèces HyDiaD (Barber O'Malley et al, 2022).","# choose_a_daterange_simu_help
-
-choose_a_daterange_simu_help PT","# choose_a_daterange_simu_help
-
-choose_a_daterange_simu_help ES"
+Cette période est couverte par les simulations du modèle de distribution d'espèces HyDiaD (Barber O'Malley et al, 2022).","Selecione um ano, de 1951 a 2100, deslocando o cursor, para visualizar no mapa a abundância da espécie em questão. Este período está abrangido pelas simulações do modelo de distribuição de espécies HyDiaD (Barber O'Malley et al, 2022).","Seleccione un año, de 1951 a 2100, desplazando el cursor, para visualizar las abundancias de la especie considerada en el mapa. Este periodo está cubierto por las simulaciones del modelo de distribución de especies HyDiaD (Barber O'Malley et al, 2022)."
 "choose_a_scenario_help","# choose_a_scenario_help
 
-choose_a_scenario_help DEFAULT","# choose_a_scenario_help
-
-choose_a_scenario_help ENGLISH","Deux scénarios décrivant les effets du réchauffement climatique sur les espèces diadromes et leurs habitats sont disponibles : le scénario RCP4.5 (forçage radiatif de +4,5 W/m2) et le scénario RCP8.5 (forçage de +8,5 W/m2). Ces scénarios ont été établis par le GIEC (Groupe d'Experts Intergouvernemental sur l'Évolution du Climat). Plus le forçage radiatif est élevé, plus le système Terre gagne en énergie et se réchauffe.","# choose_a_scenario_help
-
-choose_a_scenario_help PT","# choose_a_scenario_help
-
-choose_a_scenario_help ES"
+choose_a_scenario_help DEFAULT","Two scenarios describing the effects of global warming on diadromous species and their habitats are available: the RCP 4.5 scenario (+4.5 W/m² radiative forcing) and the RCP 8.5 scenario (+8.5 W/m² forcing). These scenarios have been produced by the IPCC (Intergovernmental Panel on Climate Change). The higher the radiative forcing, the more the Earth system gains energy and heats up.","Deux scénarios décrivant les effets du réchauffement climatique sur les espèces diadromes et leurs habitats sont disponibles : le scénario RCP4.5 (forçage radiatif de +4,5 W/m2) et le scénario RCP8.5 (forçage de +8,5 W/m2). Ces scénarios ont été établis par le GIEC (Groupe d'Experts Intergouvernemental sur l'Évolution du Climat). Plus le forçage radiatif est élevé, plus le système Terre gagne en énergie et se réchauffe.","Estão disponíveis dois cenários que descrevem os efeitos do aquecimento climático nas espécies diádromas e os seus habitats: o cenário RCP4.5 (forçamento radioativo de +4,5 W/m2) e o cenário RCP8.5 (forçamento de +8,5 W/m2). Os cenários foram definidos pelo GIEC (Grupo Intergovernamental de Especialistas na Evolução do Clima). Quanto mais elevada for a forçagem radioativa, mais o sistema Terra ganha em energia e aquece.","Dos escenarios que describen los efectos del calentamiento climático en las especies diádromas y sus hábitats están disponibles: el escenario RCP4.5 (forzamiento radiativo de +4,5 W/m2) y el escenario RCP8.5 (forzamiento de +8,5 W/m2). Estos escenarios han sido establecidos por el GIEC (Grupo de Expertos Intergubernamental sobre la Evolución del Clima). Cuanto más alto es el forzamiento radiativo, más el sistema Tierra aumenta en energía y se calienta."
 "conservation_status_help","# conservation_status_help
 
 conservation_status_help DEFAULT
-","# conservation_status_help
+","The IUCN (International Union for Conservation of Nature) Red List system defines nine categories of threat to a species (in decreasing order): Extinct (EX), Extinct in the Wild (EW), Critically Endangered (CR), Endangered (EN), Vulnerable (VU), Near Threatened (NT), Least Concern (LC), Data Deficient (DD), Not Evaluated (NE).  
 
-conservation_status_help ENGLISH
-","Le système de Liste Rouge de l'UICN (Union Internationale pour la Conservation de la Nature) définit neuf degrés décroissants de menace pesant sur une espèce : Éteinte (EX), Éteinte à l'état sauvage (EW), En danger critique (CR), En danger (EN), Vulnérable (VU), Quasi menacée (NT), Préoccuption mineure (LC), Données insuffisantes (DD). 
+Discover the IUCN category of the species. 
+Species may be categorised differently depending on the country. Sources: Portugal, Spain, France, Ireland. 
+","Le système de Liste Rouge de l'UICN (Union Internationale pour la Conservation de la Nature) définit neuf degrés décroissants de menace pesant sur une espèce : Éteinte (EX), Éteinte à l'état sauvage (EW), En danger critique (CR), En danger (EN), Vulnérable (VU), Quasi menacée (NT), Préoccuption mineure (LC), Données insuffisantes (DD), (NE) Non évalué. 
+
 Découvrez la classification UICN de l’espèce considérée. 
-Le classement d'une espèce est susceptible de varier d’un pays à l’autre. Sources : Portugal, Espagne, France, Irlande. ","# conservation_status_help
+Le classement d'une espèce est susceptible de varier d’un pays à l’autre. Sources : Portugal, Espagne, France, Irlande. ","O sistema da Lista Vermelha da UICN (União Internacional para a Conservação da Natureza) define nove categorias decrescentes de ameaças a uma espécie: Extinto (EX), Extinto na natureza (EW), Em perigo crítico (CR), Em perigo (EN), Vulnerável (VU), Quase ameaçado (NT), Pouco Preocupante (LC), Dados Insuficientes (DD).  
 
-conservation_status_help PT
-","# conservation_status_help
+Descubra a classificação UICN da espécie visada. A classificação de uma espécie é suscetível de variar de um país para outro. Fontes: Portugal, Espanha, França, Irlanda. 
+","El sistema de Lista Roja de la UICN (Unión Internacional para la Conservación de la Naturaleza) define nueve niveles decrecientes de amenazas que pesan en una especie: Extinta (EX), Extinta en estado silvestre (EW), En peligro crítico (CR), En peligro (EN), Vulnerable (VU), Casi amenazada (NT), Preocupación menor (LC), Datos insuficientes (DD). 
 
-conservation_status_help ES
+Descubra la clasificación UICN de la especie considerada. La clasificación de una especie puede variar de un país a otro. Fuentes: Portugal, España, Francia, Irlanda. 
 "
 "define_anthropo_help","# define_anthropo_help
 
 define_anthropo_help DEFAULT
-","# define_anthropo_help
+","Anthropogenic mortalities represent the impact of human activities on diadromous species populations.  
 
-define_anthropo_help ENGLISH
+Drag the slider in the gauge to set the mortality rate (from 0.1 to 2), reducing the number of spawners prior to reproduction in each country's watersheds, and explore the consequences of global change at the scale of the watershed or the Atlantic coast. 
 ","Les mortalités anthropiques représentent l'impact des activités humaines sur les populations de poissons migrateurs amphihalins. 
- Faites glissez le curseur dans la jauge pour définir le taux de mortalité (de 0,1 à 2) réduisant le nombre de géniteurs avant la reproduction dans les bassins de chaque pays et explorez les conséquences du changement global à l’échelle d’un bassin versant ou de la façade atlantique. ","# define_anthropo_help
 
-define_anthropo_help PT
-","# define_anthropo_help
+Faites glissez le curseur dans la jauge pour définir le taux de mortalité (de 0,1 à 2) réduisant le nombre de géniteurs avant la reproduction dans les bassins de chaque pays et explorez les conséquences du changement global à l’échelle d’un bassin versant ou de la façade atlantique. ","As mortalidades antrópicas representam o impacto das atividades humanas nas populações de peixes migradores diádromos.  
 
-define_anthropo_help ES
+Faça deslizar o cursor no indicador para definir a taxa de mortalidade (de 0,1 a 2), reduzindo o número de reprodutores antes da reprodução nas bacias de cada país e explore as consequências das alterações globais à escala de uma bacia hidrográfica ou da faixa atlântica. ","Las mortalidades antrópicas representan el impacto de las actividades humanas en las poblaciones de peces diadromos.  
+
+Pase el cursor por el indicador para definir el índice de mortalidad (de 0,1 a 2) reduciendo el número de genitores antes de la reproducción en las cuencas de cada país y explore las consecuencias del cambio global a escala de una cuenca hidrográfica o de la fachada atlántica. 
 "
 "map_abundance_help","# map_abundance_help
 
-map_abundance_help DEFAULT","# map_abundance_help
+map_abundance_help DEFAULT","This map shows the abundance results (NIT) from the HyDiaD model, calibrated for the specific species and year.
 
-map_abundance_help ENGLISH","Cette carte représente les résultats en terme d’abondance du modèle HydiaD calibré pour l'espèce et l'année considérées. Cliquez sur un bassin versant et observez les tendances d’évolution de la favorabilité (HSI) et de l’abondance (NIT) sur les courbes associées. ","# map_abundance_help
+Click on a watershed and observe the trends in suitability and abundance on the associated curves. ","Cette carte représente les résultats en terme d’abondance (NIT) du modèle HydiaD calibré pour l'espèce et l'année considérées. Cliquez sur un bassin versant et observez les tendances d’évolution de la favorabilité et de l’abondance sur les courbes associées. ","Este mapa representa os resultados em termos de abundância  (NIT) do modelo HydiaD calibrado para uma determinada espécie e ano. 
 
-map_abundance_help PT","# map_abundance_help
+Clique na bacia hidrográfica e observe as tendências de evolução da aptidão e da abundância nas curvas associadas.","Este mapa representa los resultados en términos de abundancia (NIT) del modelo HydiaD calibrado para la especie y el año considerados. 
 
-map_abundance_help ES"
+Haga clic en la cuenca hidrográfica y observe las tendencias de evolución de la favorabilidad y de la abundancia en las curvas asociadas. "
 "map_geometrie_help","# map_geometrie_help
 
-map_geometrie_help DEFAULT","# map_geometrie_help
+map_geometrie_help DEFAULT","The map resolution is based on the geographical breakdown of maritime space proposed by ICES. Two display modes are available: “Rectangle” mode (more detailed geographic breakdown) and “Division” mode (aggregated data). Data from sea catches in Spain are only available in “Division” mode. 
 
-map_geometrie_help ENGLISH","La résolution de la carte se base sur les découpages géographiques de l’espace maritime proposés par le CIEM. Deux modes d'affichage sont disponibles : le mode ""Rectangle"" (découpage géographique plus fin) et le mode ""Division"" (données agrégées). Les données issues des captures en mer en Espagne ne sont disponibles que dans le mode ""Division"".
+Explore the results by changing the map resolution. ","La résolution de la carte se base sur les découpages géographiques de l’espace maritime proposés par le CIEM. Deux modes d'affichage sont disponibles : le mode ""Rectangle"" (découpage géographique plus fin) et le mode ""Division"" (données agrégées). Les données issues des captures en mer en Espagne ne sont disponibles que dans le mode ""Division"".
 
-Explorez les résultats en modifiant la résolution de la carte. ","# map_geometrie_help
+Explorez les résultats en modifiant la résolution de la carte. ","A resolução do mapa baseia-se nos cortes geográficos do espaço marítimo propostos pelo CIEM. Estão disponíveis dois modos de visualização: o modo “Retângulo” (corte geográfico mais pormenorizado) e o o modo “Divisão” (dados agrupados). Os dados provenientes das capturas no mar em Espanha apenas estão disponíveis no modo “Divisão”.
 
-map_geometrie_help PT","# map_geometrie_help
+ Explore os resultados alterando a resolução do mapa. ","La resolución del mapa se basa en las divisiones geográficas del espacio marítimo propuestas por el CIEM. Dos modos de visualización están disponibles: el modo «Rectángulo» (división geográfica más más precisa) y el modo «División» (datos agregados). Los datos procedentes de las capturas en mar en España solo están disponibles en el modo «División». 
 
-map_geometrie_help ES"
+Explore los resultados modificando la resolución del mapa. "
 "plot_evolution_help","# plot_evolution_help
 
-plot_evolution_help DEFAULT","# plot_evolution_help
+plot_evolution_help DEFAULT","The first curve describes the evolution of the habitat suitability index in the watershed. The habitat suitability index is calculated using a statistical model calibrated on the basis of the presence/absence of a species and environmental characteristics (from 1900 to 1910). It provides information on the maximum carrying capacity of a watershed, imposed by climate conditions and watershed characteristics.    
 
-plot_evolution_help ENGLISH","La première courbe (HSI) décrit l'évolution de l'indice de favorabilité des habitats dans le bassin versant considéré. L'indice de favorabilité d'un habitat est calculé à partir d'un modèle statistique calibré sur les présences/absences d'une espèce et les caractéristiques de l'environnement (de 1900 à 1910). Il renseigne sur la capacité maximale d’accueil d'un bassin versant, imposée par les conditions climatiques et les caractéristiques du bassin versant.  
+The second curve describes the evolution of species abundance in the watershed. Abundance is calculated by taking into account maximum capacity, philopatry and dispersal, natural mortality, and the stock-recruitment relationship. The model does not take into account anthropogenic mortalities. The results should therefore be considered as a potential outcome that only takes into account the effect of global warming.","La première courbe (HSI) décrit l'évolution de l'indice de favorabilité des habitats dans le bassin versant considéré. L'indice de favorabilité d'un habitat est calculé à partir d'un modèle statistique calibré sur les présences/absences d'une espèce et les caractéristiques de l'environnement (de 1900 à 1910). Il renseigne sur la capacité maximale d’accueil d'un bassin versant, imposée par les conditions climatiques et les caractéristiques du bassin versant.  
 
-La seconde courbe (NIT) décrit l’évolution de l’abondance d’une espèce dans le bassin versant considéré. Le calcul de l’abondance intègre la capacité maximale, le phénomène de philopatrie et d’errance, la mortalité naturelle et la relation stock-recrutement. Le modèle ne prend pas en compte les mortalités anthropiques. Les résultats doivent donc être considérés comme une potentialité ne considérant que l’effet du réchauffement climatique.","# plot_evolution_help
+La seconde courbe (NIT) décrit l’évolution de l’abondance d’une espèce dans le bassin versant considéré. Le calcul de l’abondance intègre la capacité maximale, le phénomène de philopatrie et d’errance, la mortalité naturelle et la relation stock-recrutement. Le modèle ne prend pas en compte les mortalités anthropiques. Les résultats doivent donc être considérés comme une potentialité ne considérant que l’effet du réchauffement climatique.","A primeira curva descreve a evolução do índice de aptidão dos habitats na bacia hidrográfica visada. O índice de aptidão de um habitat é considerado a partir de um modelo estatístico calibrado mediante as presenças/ausências de uma espécie e as características do ambiente (de 1900 a 1910). Ele dá informações sobre a capacidade máxima de acolhimento de uma bacia hidrográfica, determinada pelas condições climáticas e as características da bacia hidrográfica.  
 
-plot_evolution_help PT","# plot_evolution_help
+A segunda curva descreve a evolução da abundância de uma espécie na bacia hidrográfica visada. O cálculo da abundância integra a capacidade máxima, o fenómeno de filopatria e de errância, a mortalidade natural e a relação stock-recrutamento. O modelo não tem em conta as mortalidades antrópicas. Os resultados devem, portanto, ser considerados uma potencialidade que não tem em conta o efeito do aquecimento climático.","La primera curva describe la evolución del índice de favorabilidad de los hábitats en la cuenca hidrográfica considerada. El índice de favorabilidad de un hábitat se calcula a partir de un modelo estadístico calibrado sobre las presencias/ausencias de una especie y las características del medio ambiente (de 1900 a 1910). Informa sobre la capacidad máxima de acogida de una cuenca hidrográfica, impuesta por las condiciones climáticas y las características de la cuenca hidrográfica.  
 
-plot_evolution_help ES"
+La segunda curva describe la evolución de la abundancia de una especie en la cuenca hidrográfica considerada. El cálculo de la abundancia integra la capacidad máxima, el fenómeno de filopatría y de errancia, la mortalidad natural y la relación stock-reclutamiento. El modelo no tiene en cuenta las mortalidades antrópicas. Los resultados deben por lo tanto ser considerados como una potencialidad que solo considera el efecto del calentamiento climático."
 "prediction_map_abundance_help","# plot_evolution_help
 
-plot_evolution_help DEFAULT","# plot_evolution_help
+plot_evolution_help DEFAULT","This map represents the abundance results from the HyDiaD model, calibrated for the species and year. This abundance is the result of constraints imposed by global warming and anthropogenic pressures in each country. 
 
-plot_evolution_help ENGLISH","Cette carte représente les résultats en termes d’abondance du modèle HydiaD calibré pour l'espèce et l'année considérées. Cette abondance résulte des contraintes imposées par le réchauffement climatique et par les pressions anthropiques dans chaque pays. 
-Cliquez sur un bassin versant et observez les tendances d’évolution de la favorabilité (HSI) et de l’abondance (NIT) sur les courbes associées. ","# plot_evolution_help
+Click on a watershed and observe the abundance trends on the associated curve. ","Cette carte représente les résultats en termes d’abondance du modèle HydiaD calibré pour l'espèce et l'année considérées. Cette abondance résulte des contraintes imposées par le réchauffement climatique et par les pressions anthropiques dans chaque pays. 
 
-plot_evolution_help PT","# plot_evolution_help
+Cliquez sur un bassin versant et observez les tendances d’évolution de  l’abondance sur la courbe associée. ","Este mapa representa os resultados em termos de abundância do modelo HydiaD calibrado para uma determinada espécie e ano. Esta abundância resulta das limitações impostas pelo aquecimento climático e pelas pressões antrópicas de cada país. 
 
-plot_evolution_help ES"
+Clique na bacia hidrográfica e observe as tendências de evolução a abundância na curva associada. ","Este mapa representa los resultados en términos de abundancia del modelo HydiaD calibrado para la especie y el año considerados. Esta abundancia es el resultado de las condicionantes impuestas por el calentamiento climático y por las presiones antrópicas en cada país. 
+Haga clic en la cuenca hidrográfica y observe las tendencias de evolución de la abundancia en la curva asociada. "
 "prediction_plot_abundance_help","# prediction_plot_abundance_help
 
-prediction_plot_abundance_help DEFAULT","# prediction_plot_abundance_help
+prediction_plot_abundance_help DEFAULT","The curve describes the evolution of species abundance in the watershed. Abundance is calculated by taking into account maximum capacity, philopatry and dispersal, natural AND anthropogenic mortality, and the stock-recruitment relationship. ","
 
-prediction_plot_abundance_help ENGLISH","La première courbe (HSI) décrit l'évolution de l'indice de favorabilité des habitats dans le bassin versant considéré. L'indice de favorabilité d'un habitat est calculé à partir d'un modèle statistique calibré sur les présences/absences d'une espèce et les caractéristiques de l'environnement (de 1900 à 1910). Il renseigne sur la capacité maximale d’accueil d'un bassin versant, imposée par les conditions climatiques et les caractéristiques du bassin versant.  
-
-La seconde courbe (NIT) décrit l’évolution de l’abondance d’une espèce dans le bassin versant considéré. Le calcul de l’abondance intègre la capacité maximale, le phénomène de philopatrie et d’errance, les mortalités naturelle ET anthropiques, la relation stock-recrutement. ","# prediction_plot_abundance_help
-
-prediction_plot_abundance_help PT","# prediction_plot_abundance_help
-
-prediction_plot_abundance_help ES"
+Cette courbe décrit l’évolution de l’abondance d’une espèce dans le bassin versant considéré. Le calcul de l’abondance intègre la capacité maximale, le phénomène de philopatrie et d’errance, les mortalités naturelle ET anthropiques, la relation stock-recrutement. ","A curva  descreve a evolução da abundância de uma espécie na bacia hidrográfica visada. O cálculo da abundância integra a capacidade máxima, o fenómeno de filopatria e de errância, as mortalidades natural E antrópica, e a relação stock-recrutamento. ","La curva describe la evolución de la abundancia de una especie en la cuenca hidrográfica considerada. El cálculo de la abundancia integra la capacidad máxima, el fenómeno de filopatría y de errancia, la mortalidad natural Y antrópica, la relación stock-reclutamiento. "
 "run_simulation_help","# run_simulation_help
 
-run_simulation_help DEFAULT","# run_simulation_help
-
-run_simulation_help ENGLISH","Lancez la simulation HyDiaD pour l’espèce, le scénario, le taux de mortalité anthropique et l'année choisis dans chaque pays. Les résultats sont produits en temps réel, selon les paramètres choisis. ","# run_simulation_help
-
-run_simulation_help PT","# run_simulation_help
-
-run_simulation_help ES"
+run_simulation_help DEFAULT","Run the HyDiaD simulation for the selected species, scenario, anthropogenic mortality rate and year in each country. 
+The results are produced in real time, according to the chosen parameters. ","Lancez la simulation HyDiaD pour l’espèce, le scénario, le taux de mortalité anthropique et l'année choisis dans chaque pays. 
+Les résultats sont produits en temps réel, selon les paramètres choisis. ","Inicie a simulação HyDiaD para a espécie, o cenário, a taxa de mortalidade antrópica e o ano escolhidos em cada país. Os resultados são produzidos em tempo real, segundo os parâmetros escolhidos. ","Lance la simulación HyDiaD para la especie, el escenario, el índice de mortalidad antrópica y el año, elegios en cada país. Los resultados se producen en tiempo real, según los parámetros elegidos. "
 "select_casestudy_help","# select_casestudy_help
 
 select_casestudy_help DEFAULT
-","# select_casestudy_help
-
-select_casestudy_help ENGLISH
-","Naviguez entre les études de cas disponibles et comparez les services écosystémiques rendus par l’espèce considérée. ","# select_casestudy_help
-
-select_casestudy_help PT
-","# select_casestudy_help
-
-select_casestudy_help ES
+","Browse through the available case studies and compare the ecosystem services provided by the species. ","Naviguez entre les études de cas disponibles et comparez les services écosystémiques rendus par l’espèce considérée. ","Navegue entre os estudos de caso disponíveis e compare os serviços ecossistémicos prestados por cada espécie visada. 
+","Navegue entre los estudios de casos disponibles y compare los servicios ecosistémicos proporcionados por la especie considerada. 
 "
 "select_ecosystem_help","# select_ecosystem_help
 
-select_ecosystem_help DEFAULT","# select_ecosystem_help
+select_ecosystem_help DEFAULT","There are three types of ecosystem services associated with diadromous species: provisioning (protein and other products), regulating (transfer of nutrients between freshwater and marine waters) and cultural (cuisine, art, heritage, recreational fishing, etc.).  
 
-select_ecosystem_help ENGLISH","Les services écosystémiques associés aux poissons migrateurs amphihalins sont de trois types : service écosystémique d'approvisionnement (en protéines et autres produits), de régulation (transfert de nutriments entre eaux douces et eaux marine), et culturel (gastronomie, art, patrimoine, pêche récréative …).  
-Sélectionnez un ou plusieurs types de services écosystémiques pour une vue d'ensemble, ou comparez plus précisément des sous-catégories de services.","# select_ecosystem_help
+Select one or more types of ecosystem services for an overview, or compare more specific sub-categories of services.","Les services écosystémiques associés aux espèces migratrices amphiphiles sont de trois types : service écosystémique d'approvisionnement (en protéines et autres produits), de régulation (transfert de nutriments entre eaux douces et eaux marine), et culturel (gastronomie, art, patrimoine, pêche récréative …).  
 
-select_ecosystem_help PT","# select_ecosystem_help
+Sélectionnez un ou plusieurs types de services écosystémiques pour une vue d'ensemble, ou comparez plus précisément des sous-catégories de services.","Os serviços ecossistémicos associados aos peixes migradores diádromos são de três tipos: serviço ecossistémico de abastecimento (em proteínas e outros produtos), de regulação (transferência de nutrientes entre águas doces e águas marinhas) e cultural (gastronomia, arte, património, pesca recreativa...).  
 
-select_ecosystem_help ES"
+Selecione um ou vários tipos de serviços ecossistémicos para uma visão geral, ou compare mais precisamente sub-categorias de serviços.","Los servicios ecosistémicos asociados a los especies diadromos son de tres tipos: servicio ecosistémico de suministro (de proteínas y demás productos), de regulación (traslado de nutrientes entre aguas dulces y aguas marinas), y cultural (gastronomía, arte, patrimonio, pesca de recreo…).  
+
+Seleccione uno o varios tipos de servicios ecosistémicos para una visión de conjunto, o compare con mayor precisión subcategorías de servicios."
 "show_results_global_warming_help","# show_results_help
 
-show_results_help DEFAULT","# show_results_help
+show_results_help DEFAULT","Observe the effects of global warming on diadromous species and their habitats, according to the parameters selected. 
 
-show_results_help ENGLISH","Observez les effets du réchauffement climatique sur les espèces diadromes et sur leurs habitats, selon les paramètres sélectionnés. Les données sont issues des résultats de simulation du modèle hybride de distribution d’espèce HyDiaD qui intègre un module calculant la favorabilité de l'habitat et un module simulant la dynamique de population et la dispersion d’une espèce donnée. Ce modèle simule l'impact du réchauffement climatique sur la dynamique des populations de poissons migrateurs amphihalins. En revanche, il ne tient pas compte des effets des pressions anthropiques sur ces espèces. Les résultats doivent donc être considérés comme une potentialité ne considérant que l’effet du réchauffement climatique.","# show_results_help
-
-show_results_help PT","# show_results_help
-
-show_results_help ES"
+The data are derived from the simulation results of the HyDiaD hybrid species distribution model, which includes a module for calculating habitat suitability and another module for simulating population dynamics and the dispersal of a given species. This model simulates the impact of global warming on the population dynamics of diadromous species. However, it does not take into account the effects of anthropogenic pressures on these species. The results should therefore be considered as a potential outcome that only takes into account the effect of global warming.","Observez les effets du réchauffement climatique sur les espèces diadromes et sur leurs habitats, selon les paramètres sélectionnés. Les données sont issues des résultats de simulation du modèle hybride de distribution d’espèce HyDiaD qui intègre un module calculant la favorabilité de l'habitat et un module simulant la dynamique de population et la dispersion d’une espèce donnée. Ce modèle simule l'impact du réchauffement climatique sur la dynamique des populations de poissons migrateurs amphihalins. En revanche, il ne tient pas compte des effets des pressions anthropiques sur ces espèces. Les résultats doivent donc être considérés comme une potentialité ne considérant que l’effet du réchauffement climatique.","Observe os efeitos do aquecimento climático nas espécies diádromas e nos seus habitats, segundo os parâmetros selecionados. Os dados provêm de resultados de simulação do modelo híbrido de distribuição de espécies HyDiaD, que integra um módulo que calcula a aptidão do habitat e um módulo que simula a dinâmica da população e a dispersão de uma determinada espécie. Este modelo simula o impacto do aquecimento climático na dinâmica das populações de peixes migradores diádromos. Em contrapartida, não tem em conta os efeitos das pressões antrópicas nas espécies. Os resultados devem, portanto, ser considerados uma potencialidade que não tem em conta o efeito do aquecimento climático.","Observe los efectos del calentamiento climático en las especies diádromas y sus hábitats, según los parámetros seleccionados. Los datos proceden de los resultados de la simulación del modelo híbrido de distribución de la especie HyDiaD que integra un módulo que calcula la favorabilidad del hábitat y un módulo que simula la dinámica de población y la dispersión de una especie dada. Este modelo simula el impacto del calentamiento climático en la dinámica de las poblaciones de peces diadromos. Sin embargo, no tiene en cuenta los efectos de las presiones antrópicas en estas especies. Los resultados deben por lo tanto ser considerados como una potencialidad que solo considera el efecto del calentamiento climático."
 "show_results_ecosystem_services_help","# show_results_help
 
-show_results_help DEFAULT","# show_results_help
-
-show_results_help ENGLISH","Découvrez l’évaluation monétaire des services écosystémiques fournis par les poissons migrateurs amphihalins. Les données sont issues d’enquêtes de terrain et d’analyses économiques. La valeur exprimée d’une catégorie de service correspond au maximum des sous-catégories de ce service pour une espèce donnée dans un cas d’étude particulier. Les limites méthodologiques actuelles ne permettent pas d’agréger les valeurs des services pour plusieurs espèces et plusieurs cas d’étude.  Le classement est le suivant : ? = valeur inconnue ; 0 = absence de service ; € = valeur faible ; €€ = valeur moyenne ; €€€ = valeur forte.","# show_results_help
-
-show_results_help PT","# show_results_help
-
-show_results_help ES"
+show_results_help DEFAULT","Learn about the monetary valuation of ecosystem services provided by diadromous species.","Découvrez l’évaluation monétaire des services écosystémiques fournis par les poissons migrateurs amphihalins. 
+","Descubra a avaliação monetária dos serviços ecossistémicos prestados pelos espécie diádromos.","Descubra la valoración económica de los servicios ecosistémicos proporcionados por los especies diadromos."
 "situation_table_help","# situation_table_help
 
-situation_table_help DEFAULT","# situation_table_help
+situation_table_help DEFAULT","The data are derived from field surveys and economic analyses. The given value of a service category is the maximum value of the subcategories of that service for a given species in a particular study. Current methodological limitations do not allow for the aggregation of service values across multiple species and multiple studies.  
+Classification is as follows: ? = unknown value; 0 = no service; € = low value; €€ = medium value; €€€ = high value."," Les données sont issues d’enquêtes de terrain et d’analyses économiques. La valeur exprimée d’une catégorie de service correspond au maximum des sous-catégories de ce service pour une espèce donnée dans un cas d’étude particulier. Les limites méthodologiques actuelles ne permettent pas d’agréger les valeurs des services pour plusieurs espèces et plusieurs cas d’étude.  
+Le classement est le suivant : ? = valeur inconnue ; 0 = absence de service ; € = valeur faible ; €€ = valeur moyenne ; €€€ = valeur forte.","Os dados são provenientes de inquéritos no terreno e de análises económicas. O valor expresso de uma categoria de serviço corresponde ao máximo de sub-categorias deste serviço para uma dada espécie num estudo de caso particular. Os limites metodológicos atuais não permitem agrupar os valores dos serviços para várias espécies e vários estudos de caso.  
 
-situation_table_help ENGLISH"," Les données sont issues d’enquêtes de terrain et d’analyses économiques. La valeur exprimée d’une catégorie de service correspond au maximum des sous-catégories de ce service pour une espèce donnée dans un cas d’étude particulier. Les limites méthodologiques actuelles ne permettent pas d’agréger les valeurs des services pour plusieurs espèces et plusieurs cas d’étude.  Le classement est le suivant : ? = valeur inconnue ; 0 = absence de service ; € = valeur faible ; €€ = valeur moyenne ; €€€ = valeur forte.","# situation_table_help
-
-situation_table_help PT","# situation_table_help
-
-situation_table_help ES"
+A classificação é a seguinte: ? = valor desconhecido; 0 = ausência de serviço ; € = valor fraco ; €€ = valor médio; €€€ = valor forte.","Los datos proceden de investigaciones de campo y de análisis económicos. El valor expresado de una categoría de servicio corresponde al máximo de subcategorías de este servicio para una especie dada en un caso de estudio particular. Los límites metodológicos actuales no permiten agregar los valores de los servicios para varias especies y varios casos de estudio.  
+La clasificación es la siguiente: ? = valor desconocido; 0 = ausencia de servicio; € = valor bajo; €€ = valor medio; €€€ = valor alto."
 "species_modal_help","# species_modal_help
 
-species_modal_help DEFAULT","# species_modal_help
-
-species_modal_help ENGLISH","Sélectionnez une espèce parmi les 11 espèces de poissons migrateurs amphihalins étudiées dans le projet DiadES sur la façade atlantique. ","# species_modal_help
-
-species_modal_help PT","# species_modal_help
-
-species_modal_help ES"
+species_modal_help DEFAULT","Select a species from the 11 diadromous species studied under the DiadES project on the Atlantic coast. ","Sélectionnez une espèce parmi les 11 espèces migratrices amphihalines étudiées dans le projet DiadES sur la façade atlantique. ","Selecionar uma espécie entre as 11 espécies diádromos estudadas no projeto DiadES na faixa atlântica. ","Seleccionar una especie entre las 11 especies diadromos estudiados en el proyecto DiadES en la fachada atlántica."
 "first_title_help","# first_title_help
 
-first_title_help DEFAULT","# first_title_help
-
-first_title_help EN","Représentation de la distribution des espèces de poissons migrateurs amphihalins sur la façade atlantique, d'après des relevés de 2003 à 2017, ainsi que le statut de conservation de chaque espèce","# first_title_help
-
-first_title_help PT","# first_title_help
-
-first_title_help ES"
+first_title_help DEFAULT","Representation of the distribution of diadromous species on the Atlantic coast, based on surveys from 2003 to 2017, along with the conservation status of each species.","Représentation de la distribution des espèces de poissons migrateurs amphihalins sur la façade atlantique, d'après des relevés de 2003 à 2017, ainsi que le statut de conservation de chaque espèce","Representação da distribuição das espécies diádromos na faixa atlântica, segundo os estudos de 2003 a 2017, e do estatuto de conservação de cada espécie.","Representación de la distribución de las especies diadromos en la fachada atlántica, según las mediciones de 2003 a 2017, junto con el estatuto de conservación de cada especie."
 "second_title_help","# second_title_help
 
-second_title_help DEFAULT","# second_title_help
-
-second_title_help EN","Synthèse des services écosystémiques rendus par les poissons migrateurs amphihalins étudiés dans le projet DiadES.","# second_title_help
-
-second_title_help PT","# second_title_help
-
-second_title_help ES"
+second_title_help DEFAULT","Summary of ecosystem services provided by diadromous species studied under the DiadES project.","Synthèse des services écosystémiques rendus par les espèces migratratices amphihalines étudiées dans le projet DiadES.","Síntese dos serviços ecossistémicos prestados pelos peixes migradores diádromos estudados no projeto DiadES.","Síntesis de los servicios ecosistémicos proporcionados por los especies diadromos estudiados en el proyecto DiadES."
 "third_title_help","# third_title_help
 
-third_title_help DEFAULT","# third_title_help
-
-third_title_help EN","Projection des favorabilités et des abondances de poissons migrateurs amphihalins étudiés dans le projet DiadES en réponse au changement climatique. ","# third_title_help
-
-third_title_help PT","# third_title_help
-
-third_title_help ES"
+third_title_help DEFAULT","Projection of the suitability and abundance of diadromous species studied under the DiadES project in response to climate change. ","Projection des favorabilités et des abondances de espèces migratrices amphihalines étudiées dans le projet DiadES en réponse au changement climatique. ","Projeção dos índices de aptidão e de abundância de espécies diádromas estudados no projeto DiadES, em resposta às alterações climáticas.","Proyección de las favorabilidades y abundancias de especies diadromos estudiados en el proyecto DiadES en respuesta al cambio climático. "
 "fourth_title_help","# fourth_title_help
 
-fourth_title_help DEFAULT","# fourth_title_help
-
-fourth_title_help EN","Projection des effets du changement global (réchauffement climatique et pressions anthropiques) sur les poissons migrateurs amphihalins étudiés dans le projet DiadES.","# fourth_title_help
-
-fourth_title_help PT","# fourth_title_help
-
-fourth_title_help ES"
+fourth_title_help DEFAULT","Projection of the effects of global change (global warming and anthropogenic pressures) on diadromous species studied under the DiadES project.","Projection des effets du changement global (réchauffement climatique et pressions anthropiques) sur les espèces migratrices amphihalines étudiées dans le projet DiadES.","Projeção dos efeitos da alteração global (aquecimento climático e pressões antrópicas) nos espécies diádromas estudados no projeto DiadES.","Proyección de los efectos del cambio global (calentamiento climático y presiones antrópicas) en los especies diadromos estudiados en el proyecto DiadES."
