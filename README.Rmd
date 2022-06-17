@@ -95,6 +95,12 @@ See vignette "00-exploration-of-data"
 To run the Shiny application on your computer, you need to meet the "Backend Requirements" (see the section below).  
 This means, at least, having access to the database: set your database connection information and your credentials as specified in section "PostGIS".
 
+You may need to update your package installation using:
+```{r, eval=FALSE}
+renv::restore()
+```
+
+
 Then you can run in the R Console:
 ```{r, eval=FALSE}
 golem::run_dev()

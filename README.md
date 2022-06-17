@@ -103,6 +103,12 @@ This means, at least, having access to the database: set your database
 connection information and your credentials as specified in section
 “PostGIS”.
 
+You may need to update your package installation using:
+
+``` r
+renv::restore()
+```
+
 Then you can run in the R Console:
 
 ``` r
