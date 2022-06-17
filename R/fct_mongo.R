@@ -21,8 +21,16 @@ launch_mongo <- function(session = getDefaultReactiveDomain()) {
         db = get_golem_config("mongodb"),
         url = URI,
         prefix = "diades"
-    ), error = function(e) stop("MongoDB has not been started or does not exist")
+    # ), error = function(e) stop("MongoDB has not been started or does not exist")
+    ), error = function(e) message("MongoDB has not been started or does not exist")
     )
+    
+    if (is.null(session$userData$mongo_cache)) {
+      session$userData$mongo_cache <- cachem::cache_mem(max_size = 1024 * 1024^2)
+      message("Using local RAM memory for this session")
+    } else {
+      message("Connection to Mongo is successful")
+    }
 
     session$userData$data_ocean_m <- memoise::memoise(
         data_ocean,

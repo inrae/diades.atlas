@@ -7,8 +7,6 @@
 
 [![R build
 status](https://github.com/inrae/diades.atlas/workflows/R-CMD-check-docker-renv/badge.svg)](https://github.com/inrae/diades.atlas/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/inrae/diades.atlas/branch/main/graph/badge.svg)](https://codecov.io/gh/inrae/diades.atlas?branch=main)
 <!-- badges: end -->
 
 A Shiny application to explore data.
@@ -135,7 +133,28 @@ golem::amend_golem_config(
 ```
 
 **If you change these lines to set the real values, be sure to set them
-back with the examples below before commit**
+back with the examples below before commit, to avoid sending your
+credentials on Git.**
+
+Run the script below once, and you’ll be protected of sending your
+credentials accidentally.
+
+``` r
+usethis::use_git_hook(
+      "pre-commit",
+      script = c("#!/bin/bash
+CONFIG=($(git diff --cached --name-only | grep -Ei '^inst/golem-config\\.yml$'))
+
+if [[ ${#CONFIG[@]} == 1 ]]; then
+  echo -e \"You added inst/golem-config.yml. Is that really what you want?\nYou may not want to commit your credentials.\nIf this is really what you want, use 'git commit --no-verify' to override this check.\"
+  exit 1
+fi
+",
+usethis:::render_template("readme-rmd-pre-commit.sh")
+))
+#> ✔ Setting active project to '/mnt/Data/ThinkR/Gitlab_Forge/ThinkR/Missions/diades.atlas'
+#> ✔ Leaving '.git/hooks/pre-commit' unchanged
+```
 
 ### Environment variables
 
@@ -185,14 +204,18 @@ DBI::dbDisconnect(con)
 
 ## Dev - Mongo
 
-To run the Shiny application locally, you need a Mongo database. For
-dev, you need to run the following on your machine:
+To run the Shiny application locally in the same conditions as in
+production, it is better to have a Mongo database. For dev, you need to
+run the following on your machine:
 
     docker run --name=mongo --rm -p 2811:27017 -e MONGO_INITDB_ROOT_USERNAME=Colin -e MONGO_INITDB_ROOT_PASSWORD=AsAboveSoBelow789123 mongo:4.0
 
 Stop it at the end of your development process
 
     docker kill mongo
+
+If Mongo database is not available, a local temporary cache will be use
+in the RAM of your machine.
 
 # Dev - Data update requires update unit test expected outputs
 
