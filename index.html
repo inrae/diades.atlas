@@ -280,6 +280,21 @@ testing in the Rmd</li>
 <p>You can use this package without opening the Shiny application.<br>
 See vignette “data-raw/aa-a-exploration_data.Rmd”</p>
 </div>
+<div id="test-the-application-locally" class="section level1">
+<h1 class="hasAnchor">
+<a href="#test-the-application-locally" class="anchor"></a>Test the application locally</h1>
+<p>To run the Shiny application on your computer, you need to meet the
+“Backend Requirements” (see the section below).<br>
+This means, at least, having access to the database: set your database
+connection information and your credentials as specified in section
+“PostGIS”.</p>
+<p>You may need to update your package installation using:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/restore.html">restore</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Then you can run in the R Console:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/run_dev.html">run_dev</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
 <div id="put-in-production" class="section level1">
 <h1 class="hasAnchor">
 <a href="#put-in-production" class="anchor"></a>Put in Production</h1>
@@ -287,7 +302,7 @@ See vignette “data-raw/aa-a-exploration_data.Rmd”</p>
 <p>On <a href="https://gitlab.irstea.fr/diades/diades.atlas.deploy/" class="uri">https://gitlab.irstea.fr/diades/diades.atlas.deploy/</a>,
 there are also details on how to test the docker-compose locally. At
 least try to build it locally before release.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> gitlab-registry.irstea.fr/diades/diades.atlas.deploy/app .</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> gitlab-registry.irstea.fr/diades/diades.atlas.deploy/app .</span></code></pre></div>
 </div>
 <div id="backend-requirement" class="section level1">
 <h1 class="hasAnchor">
@@ -304,7 +319,7 @@ some golem config parameters and environment variables.</p>
 <a href="#golem-config-parameters" class="anchor"></a>golem config parameters</h3>
 <p>Those are stored in <code>inst/golem-config.yml</code> and can be
 modified as such:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># database name</span>
 <span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
   <span class="st">"POSTGRES_DBNAME"</span>,
@@ -321,7 +336,23 @@ modified as such:</p>
   <span class="st">"5432"</span> <span class="co"># Changer ici le port</span>
 <span class="op">)</span></code></pre></div>
 <p><strong>If you change these lines to set the real values, be sure to
-set them back with the examples below before commit</strong></p>
+set them back with the examples below before commit, to avoid sending
+your credentials on Git.</strong></p>
+<p>Run the script below once, and you’ll be protected of sending your
+credentials accidentally.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git_hook.html">use_git_hook</a></span><span class="op">(</span>
+      <span class="st">"pre-commit"</span>,
+      script <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#!/bin/bash
+CONFIG=($(git diff --cached --name-only | grep -Ei '^inst/golem-config\\.yml$'))
+
+if [[ ${#CONFIG[@]} == 1 ]]; then
+  echo -e \"You added inst/golem-config.yml. Is that really what you want?\nYou may not want to commit your credentials.\nIf this is really what you want, use 'git commit --no-verify' to override this check.\"
+  exit 1
+fi
+"</span>,
+<span class="fu">usethis</span><span class="fu">:::</span><span class="fu">render_template</span><span class="op">(</span><span class="st">"readme-rmd-pre-commit.sh"</span><span class="op">)</span>
+<span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="environment-variables" class="section level3">
 <h3 class="hasAnchor">
@@ -331,10 +362,10 @@ versioned</strong> with the app.</p>
 <p>To avoid setting those environment variables every time you want to
 run the app, they should be saved in a local .Renviron file. To define
 one for your own copy of the project run this command:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html">edit_r_environ</a></span><span class="op">(</span>scope <span class="op">=</span> <span class="st">"project"</span><span class="op">)</span></code></pre></div>
 <p>and add the following lines</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># database username with Read access</span>
 <span class="va">POSTGRES_USER</span><span class="op">=</span><span class="va">diadesatlas_owner</span> <span class="co"># Changer ici le username</span>
 <span class="co"># database password for the user</span>
@@ -353,7 +384,7 @@ ThinkR’s forge (restricted access): Section “Pull and Use”.</p>
 <a href="#checks" class="anchor"></a>Checks</h3>
 <p>Verify connexion to database works<br><em>Whether you are connected to the development or the production
 database, this should work correctly</em></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">load_all</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
@@ -366,11 +397,14 @@ database, this should work correctly</em></p>
 <div id="dev---mongo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dev---mongo" class="anchor"></a>Dev - Mongo</h2>
-<p>To run the Shiny application locally, you need a Mongo database. For
-dev, you need to run the following on your machine:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>docker run <span class="sc">--</span>name<span class="ot">=</span>mongo <span class="sc">--</span>rm <span class="sc">-</span>p <span class="dv">2811</span><span class="sc">:</span><span class="dv">27017</span> <span class="sc">-</span>e MONGO_INITDB_ROOT_USERNAME<span class="ot">=</span>Colin <span class="sc">-</span>e MONGO_INITDB_ROOT_PASSWORD<span class="ot">=</span>AsAboveSoBelow789123 mongo<span class="sc">:</span><span class="fl">4.0</span></span></code></pre></div>
+<p>To run the Shiny application locally in the same conditions as in
+production, it is better to have a Mongo database. For dev, you need to
+run the following on your machine:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>docker run <span class="sc">--</span>name<span class="ot">=</span>mongo <span class="sc">--</span>rm <span class="sc">-</span>p <span class="dv">2811</span><span class="sc">:</span><span class="dv">27017</span> <span class="sc">-</span>e MONGO_INITDB_ROOT_USERNAME<span class="ot">=</span>Colin <span class="sc">-</span>e MONGO_INITDB_ROOT_PASSWORD<span class="ot">=</span>AsAboveSoBelow789123 mongo<span class="sc">:</span><span class="fl">4.0</span></span></code></pre></div>
 <p>Stop it at the end of your development process</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>docker kill mongo</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>docker kill mongo</span></code></pre></div>
+<p>If Mongo database is not available, a local temporary cache will be
+use in the RAM of your machine.</p>
 </div>
 </div>
 <div id="dev---data-update-requires-update-unit-test-expected-outputs" class="section level1">
@@ -378,7 +412,7 @@ dev, you need to run the following on your machine:</p>
 <a href="#dev---data-update-requires-update-unit-test-expected-outputs" class="anchor"></a>Dev - Data update requires update unit test expected outputs</h1>
 <p>If the database is updated, model outputs may change. It may be
 necessary to run simulation before unit tests.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw/altas_simulation.R"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="dev---update-and-include-vignettes-in-the-package" class="section level1">
@@ -388,7 +422,7 @@ necessary to run simulation before unit tests.</p>
 stored in “data-raw”. Instructions to compile them are in the vignette
 itself.</p>
 <p>However, they can all be prepared from this script:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"dev"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span>,
@@ -476,7 +510,6 @@ file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/inrae/diades.atlas/actions"><img src="https://github.com/inrae/diades.atlas/workflows/R-CMD-check-docker-renv/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/inrae/diades.atlas?branch=main"><img src="https://codecov.io/gh/inrae/diades.atlas/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
