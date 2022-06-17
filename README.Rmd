@@ -120,6 +120,23 @@ _{renv} may be tricky with multiple OS. Be kind._
 You can use this package without opening the Shiny application.  
 See vignette "data-raw/aa-a-exploration_data.Rmd"
 
+# Test the application locally
+
+To run the Shiny application on your computer, you need to meet the "Backend Requirements" (see the section below).  
+This means, at least, having access to the database: set your database connection information and your credentials as specified in section "PostGIS".
+
+You may need to update your package installation using:
+```{r, eval=FALSE}
+renv::restore()
+```
+
+
+Then you can run in the R Console:
+```{r, eval=FALSE}
+golem::run_dev()
+```
+
+
 # Put in Production
 
 Update Docker for deployment: https://gitlab.irstea.fr/diades/diades.atlas.deploy/
@@ -163,7 +180,7 @@ golem::amend_golem_config(
 **If you change these lines to set the real values, be sure to set them back with the examples below before commit, to avoid sending your credentials on Git.**
 
 Run the script below once, and you'll be protected of sending your credentials accidentally.
-```{r}
+```{r, eval=FALSE}
 usethis::use_git_hook(
       "pre-commit",
       script = c("#!/bin/bash

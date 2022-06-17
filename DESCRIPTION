@@ -25,6 +25,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     bank,
+    cachem,
     cli (>= 3.0.1),
     commonmark,
     config (>= 0.3.1),

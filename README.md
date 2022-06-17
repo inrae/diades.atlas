@@ -132,6 +132,26 @@ renv::restore()
 You can use this package without opening the Shiny application.  
 See vignette “data-raw/aa-a-exploration_data.Rmd”
 
+# Test the application locally
+
+To run the Shiny application on your computer, you need to meet the
+“Backend Requirements” (see the section below).  
+This means, at least, having access to the database: set your database
+connection information and your credentials as specified in section
+“PostGIS”.
+
+You may need to update your package installation using:
+
+``` r
+renv::restore()
+```
+
+Then you can run in the R Console:
+
+``` r
+golem::run_dev()
+```
+
 # Put in Production
 
 Update Docker for deployment:
@@ -197,8 +217,6 @@ fi
 ",
 usethis:::render_template("readme-rmd-pre-commit.sh")
 ))
-#> ✔ Setting active project to '/mnt/Data/ThinkR/Gitlab_Forge/ThinkR/Missions/diades.atlas'
-#> ✔ Leaving '.git/hooks/pre-commit' unchanged
 ```
 
 ### Environment variables
