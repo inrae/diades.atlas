@@ -95,6 +95,20 @@ Sys.getenv("POSTGRES_USER")
 You can use this package without opening the Shiny application.  
 See vignette “00-exploration-of-data”
 
+# Test the application locally
+
+To run the Shiny application on your computer, you need to meet the
+“Backend Requirements” (see the section below).  
+This means, at least, having access to the database: set your database
+connection information and your credentials as specified in section
+“PostGIS”.
+
+Then you can run in the R Console:
+
+``` r
+golem::run_dev()
+```
+
 # Put in Production
 
 Update Docker for deployment:
