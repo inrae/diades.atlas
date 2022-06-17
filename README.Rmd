@@ -127,7 +127,7 @@ golem::amend_golem_config(
 **If you change these lines to set the real values, be sure to set them back with the examples below before commit, to avoid sending your credentials on Git.**
 
 Run the script below once, and you'll be protected of sending your credentials accidentally.
-```{r}
+```{r, eval=FALSE}
 usethis::use_git_hook(
       "pre-commit",
       script = c("#!/bin/bash

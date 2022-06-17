@@ -152,8 +152,6 @@ fi
 ",
 usethis:::render_template("readme-rmd-pre-commit.sh")
 ))
-#> ✔ Setting active project to '/mnt/Data/ThinkR/Gitlab_Forge/ThinkR/Missions/diades.atlas'
-#> ✔ Leaving '.git/hooks/pre-commit' unchanged
 ```
 
 ### Environment variables
