@@ -73,14 +73,14 @@ mortalities <- tibble::tibble(
   country = datasets[["countries_mortalities_list"]],
   yearsimubegin = 
     case_when(
-      country == "France" ~ -log(1),
+      country == "France" ~ -log(.5),
       # country == "France" ~ -5,
       TRUE ~ 0
     ),
   # rep(-log(.5), length(datasets[["countries_mortalities_list"]])),
   yearsimuend = 
     case_when(
-      country == "France" ~ -log(1),
+      country == "France" ~ -log(.75),
       TRUE ~ 0
     )
   # rep(-log(.75), length(datasets[["countries_mortalities_list"]]))
@@ -95,13 +95,13 @@ scenario <- "rcp85"
 anthropogenic_mortality <- expand_anthropogenic_mortality(
   data_hsi_nmax, mortalities)
 
-selected_latin_name = "Chelon ramada"
+selected_latin_name <- "Alosa alosa"
+# selected_latin_name <- "Chelon ramada"
+
 # debugonce(runSimulation)
-# TODO - In Shiny only - 
-# Use https://shiny.rstudio.com/articles/progress.html
-shiny::withProgress(
-  message = 'Making Simu', value = 0, 
-  session = session, {
+# shiny::withProgress(
+#   message = 'Making Simu', value = 0, 
+#   session = session, {
 
     results <- runSimulation(
       selected_latin_name, 
@@ -116,7 +116,7 @@ shiny::withProgress(
       scenario = scenario,
       verbose = FALSE
     )
-  })
+  # })
 
 # [1] "cnrmcm5"    "csiromk360"
 # [3] "noresm1me" 
