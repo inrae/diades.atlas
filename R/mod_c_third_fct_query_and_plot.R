@@ -184,6 +184,7 @@ plot_nit <- function(model_res_filtered,
             fill = .data[[with_colour_source]]
         ), alpha = 0.3) +
       geom_vline(xintercept = 2001, colour = "gray", linetype = "dashed") +
+      geom_vline(xintercept = 2051, colour = "gray", linetype = "dashed") +
       geom_line(
         aes(y = nit_movingavg,
             colour = .data[[with_colour_source]],
@@ -222,6 +223,8 @@ plot_hsi <- function(model_res_filtered,
                   # color = label
     )) +
     geom_vline(xintercept = selected_year, color = "red") +
+    geom_vline(xintercept = 2001, colour = "gray", linetype = "dashed") +
+    geom_vline(xintercept = 2051, colour = "gray", linetype = "dashed") +
     # ylab('Catchment suitability index') +
     ylab(get_translation_entry('hsi_ggplot', lg)) +
     theme(legend.title = element_blank()) +
