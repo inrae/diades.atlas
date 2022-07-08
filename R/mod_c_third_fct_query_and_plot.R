@@ -36,6 +36,7 @@ get_hybrid_model <- function(species_id,
       basin_name = diadesatlas.translate(basin_name, !!lg)#,
       # species_name = diadesatlas.translate(english_name, !!lg)
     ) %>% 
+    mutate(source = 'reference') %>% 
     collect()
 }
 
@@ -105,6 +106,7 @@ draw_bv_leaflet <- function(bv_df,
 #' @param selected_bv Character. Selected BV
 #' @param lg lang
 #' @param withNitStandardisation Logical. Whether to standardise NIT.
+#' @param with_colour_source Name of a variable to change colour lines
 #'
 #' @rdname plot_hsi_nit
 #' 
@@ -116,7 +118,8 @@ plot_hsi_nit <- function(model_res,
                          selected_year,
                          selected_bv,
                          lg,
-                         withNitStandardisation = FALSE) {
+                         withNitStandardisation = FALSE,
+                         with_colour_source = NULL) {
   
   model_res_filtered <- model_res %>%
     filter(basin_id == selected_bv) #%>% 
@@ -130,7 +133,7 @@ plot_hsi_nit <- function(model_res,
                   selected_year = selected_year,
                   lg = lg,
                   withNitStandardisation = FALSE,
-                  with_colour_source = NULL)
+                  with_colour_source = "source")
   
   getFromNamespace("/.ggplot", "patchwork")(
     hsi, nit
@@ -183,7 +186,6 @@ plot_nit <- function(model_res_filtered,
             ymax = nit_max,
             fill = .data[[with_colour_source]]
         ), alpha = 0.3) +
-      geom_vline(xintercept = 2001, colour = "gray", linetype = "dashed") +
       geom_line(
         aes(y = nit_movingavg,
             colour = .data[[with_colour_source]],
@@ -194,6 +196,8 @@ plot_nit <- function(model_res_filtered,
       scale_fill_brewer(type = "qual", palette = "Set2")
   }
   nit <- nit + 
+    geom_vline(xintercept = 2001, colour = "gray", linetype = "dashed") +
+    geom_vline(xintercept = 2051, colour = "gray", linetype = "dashed") +
     geom_vline(xintercept = selected_year, color = "red") +
     theme_bw() +
     theme(legend.title = element_blank()) +

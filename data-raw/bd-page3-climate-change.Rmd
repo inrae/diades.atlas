@@ -17,17 +17,17 @@ knitr::opts_chunk$set(
 if (FALSE) {
   vignette_name <- "bd-page3-climate-change"
   vignette_file <- paste0(vignette_name, ".Rmd")
-
+  
   rmarkdown::render(
     input = here::here(file.path("data-raw", vignette_file)),
     output_format = "rmarkdown::html_vignette",
     output_options = list(toc = TRUE),
     output_file = here::here(file.path("vignettes", vignette_file))
   )
-
+  
   # Add header for title
   lines <- readLines(here::here(file.path("vignettes", vignette_file)))
-
+  
   cat(
     glue::glue('---
 title: ".{vignette_name}."
@@ -38,9 +38,9 @@ vignette: >
   %\\VignetteEncoding{UTF-8}
 ---
 ', .open = ".{", .close = "}."),
-    lines,
-    sep = "\n",
-    file = here::here(file.path("vignettes", vignette_file))
+lines,
+sep = "\n",
+file = here::here(file.path("vignettes", vignette_file))
   )
 }
 ```
@@ -116,7 +116,7 @@ get_bv_geoms <- function(bv_ids,
     collect()
   
   res %>%
-  left_join(basin, by = "basin_id")
+    left_join(basin, by = "basin_id")
 }
 
 bv_df <- get_bv_geoms(
@@ -131,6 +131,20 @@ year <- 1951
 
 selected_bv <- 385
 selected_year <- 2002
+model_res %>% 
+  filter(basin_id == selected_bv) %>% 
+  plot_nit(selected_year = selected_year,
+           lg = "fr",
+           withNitStandardisation = FALSE,
+           with_colour_source = 'source')
+
+model_res %>% 
+  filter(basin_id == selected_bv) %>% 
+  plot_hsi_nit(selected_year,
+               selected_bv,
+               lg = "fr",
+               withNitStandardisation = FALSE, 
+               with_colour_source = 'source')
 
 
 # Plot leaflet
@@ -157,7 +171,7 @@ server <- function(input,
   output$plot <- leaflet::renderLeaflet({
     draw_bv_leaflet(bv_df, model_res, 1976)
   })
-
+  
   observeEvent(input$plot_shape_click, { # update the location selectInput on map clicks
     print(input$plot_shape_click)
   })

@@ -15,8 +15,8 @@ golem::detach_all_attached()
 golem::document_and_reload()
 
 # Set environment variable for postgis db
-Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
-Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
+# Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
+# Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
 
 # En dev, effacer la base Mongo pour éviter de voir les problèmes de graph rester !!!
 withr::with_envvar(
