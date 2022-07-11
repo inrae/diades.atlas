@@ -177,10 +177,10 @@ test_that("runSimulation works", {
     ungroup()
   expect_equal(model_nit_outputs, mno_expected)
   
-  # nit_feature_species ----
+  # nit_feature_species ---- only for the simulated climatic_scenario
   model_res_filtered <- nit_feature_species(
     Nit_list = Nit_list,
-    reference_results = reference_results,
+    reference_results = reference_results %>% filter(climatic_scenario == "rcp85"),
     selected_latin_name = selected_latin_name) %>% 
     filter(basin_name == basin)
   
