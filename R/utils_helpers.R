@@ -209,7 +209,8 @@ generate_datasets <- function(con) {
     con,
     query =   "SELECT * FROM diadesatlas.v_basin vb"
   ) %>%
-    rmapshaper::ms_simplify()
+    mutate(geom = st_make_valid(geom))
+    # rmapshaper::ms_simplify(keep = .05)
   
   dataALL <- DBI::dbGetQuery(
     con,
