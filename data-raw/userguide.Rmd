@@ -24,7 +24,7 @@ classoption: a4paper
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Welcome on DiadES Atlas
+## Welcome to DiadES Atlas
 
 This is the home page of the Shiny application.
 

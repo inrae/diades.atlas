@@ -21,7 +21,7 @@ app_ui <- function(request) {
         welcomemodal = modal(
           inputId = "welcome",
           title = tagList(
-            tags$h2("Welcome on DiadES Atlas!") %>% with_i18("welcome")
+            tags$h2("Welcome to DiadES Atlas!") %>% with_i18("welcome")
           ),
           body = tagList(
             tags$div(
