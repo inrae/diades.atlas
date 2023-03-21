@@ -7,42 +7,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+Exploration of outputs in page 1 of the atlas.
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   eval = TRUE # Set to TRUE when data OK for test, but not on GitHub
 )
-# To compile manually (run in the console directly)
-if (FALSE) {
-  vignette_name <- "bb-page1-catch-bycatch"
-  vignette_file <- paste0(vignette_name, ".Rmd")
 
-  rmarkdown::render(
-    input = here::here(file.path("data-raw", vignette_file)),
-    output_format = "rmarkdown::html_vignette",
-    output_options = list(toc = TRUE),
-    output_file = here::here(file.path("vignettes", vignette_file))
-  )
-
-  # Add header for title
-  lines <- readLines(here::here(file.path("vignettes", vignette_file)))
-
-  cat(
-    glue::glue('---
-title: ".{vignette_name}."
-output: rmarkdown::html_vignette
-vignette: >
-  %\\VignetteIndexEntry{.{vignette_name}.}
-  %\\VignetteEngine{knitr::rmarkdown}
-  %\\VignetteEncoding{UTF-8}
----
-', .open = ".{", .close = "}."),
-    lines,
-    sep = "\n",
-    file = here::here(file.path("vignettes", vignette_file))
-  )
-}
 ```
 
 ```{r setup}
@@ -91,57 +64,6 @@ for (i in species$species_id) {
 ```
 ## Tmap code 
 
-
-```{r, eval=FALSE}
-dataCatchment <- dbReadTable(
-  con,
-  "v_abundance"
-) %>%
-  inner_join(
-    tribble(
-      ~abundance_level_id, ~abundance_interpretation,
-      1, "Not recorded in the period",
-      2, "Occasional vagrants",
-      3, "Functional populations",
-      4, "Abundant functional populations"
-    ) %>%
-      mutate(abundance_interpretation = factor(abundance_interpretation,
-        levels = .$abundance_interpretation
-      )),
-    by = "abundance_level_id"
-  )
-
-catchment_geom <- st_read(  
-  con,
-  query =   "SELECT * FROM diadesatlas.v_basin vb"
-) %>%
-  rmapshaper::ms_simplify() %>%
-  st_transform("+proj=wintri")
-
-dataALL <- dbGetQuery(
-  con,
-  "SELECT * from diadesatlas.v_species_ices_occurence vsio "
-) %>%
-  # tibble() %>%
-  mutate(nb_occurence = as.integer(nb_occurence))
-
-ices_geom <- st_read(
-  con,
-  query = "SELECT * FROM diadesatlas.v_ices_geom;"
-) %>%
-  # st_transform("+proj=eqearth +wktext") %>%
-  st_transform("+proj=wintri") %>%
-  rmapshaper::ms_simplify()
-
-dataContinent <- get_data_continent_m(
-  session = session
-)(
-  catchment_geom,
-  dataCatchment,
-  "Salmo trutta"
-)
-```
-
 ```{r}
 datasets <- generate_datasets(
   get_con(
@@ -186,7 +108,7 @@ tm_draw(
   session = session
 )
 
-tm_draw(
+tm1 <- tm_draw(
   species_latin_name = "Chelon ramada",
   spatial_type = "division",
   con = con,
@@ -196,6 +118,8 @@ tm_draw(
   ices_geom = datasets$ices_geom,
   session = session
 )
+tm1
+# tmap_leaflet(tm1)
 ```
 
 ## Disconnect db

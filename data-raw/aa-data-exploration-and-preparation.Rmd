@@ -7,42 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+This vignette explores the tables in the database and ensures that R has access to the tables.
+It also transforms the data in json.
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   eval = TRUE # Set to TRUE when data OK for test, but not on GitHub
 )
-# To compile manually (run in the console directly)
-if (FALSE) {
-  vignette_name <- "aa-data-exploration-and-preparation"
-  vignette_file <- paste0(vignette_name, ".Rmd")
 
-  rmarkdown::render(
-    input = here::here(file.path("data-raw", vignette_file)),
-    output_format = "rmarkdown::html_vignette",
-    output_options = list(toc = TRUE),
-    output_file = here::here(file.path("vignettes", vignette_file))
-  )
-
-  # Add header for title
-  lines <- readLines(here::here(file.path("vignettes", vignette_file)))
-
-  cat(
-    glue::glue('---
-title: ".{vignette_name}."
-output: rmarkdown::html_vignette
-vignette: >
-  %\\VignetteIndexEntry{.{vignette_name}.}
-  %\\VignetteEngine{knitr::rmarkdown}
-  %\\VignetteEncoding{UTF-8}
----
-', .open = ".{", .close = "}."),
-    lines,
-    sep = "\n",
-    file = here::here(file.path("vignettes", vignette_file))
-  )
-}
 ```
 
 ```{r setup}
@@ -106,7 +80,7 @@ my_dm
 # services new
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "es_diades")) %>% collect()
 # geometry of all basin
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_outlet")) %>% collect()
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_location")) %>% collect()
 # Model results over the years
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "hybrid_model_result")) %>% collect()
 # Abundance of species in a given basin ove the years
@@ -177,39 +151,6 @@ species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% coll
 species %>%
   filter(species_id %in% ecosystems$species_id) %>%
   jsonlite::write_json(here::here("inst/species.json"))
-```
-
-### Prepare and test leaflet map
-```{r, eval=FALSE}
-# set query and reproject to EPSG:4326 for GeoJSON creation
-# (the real query is more involved with a bounding box etc)
-qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom FROM diadesatlas.basin_outlet"
-
-# i then read as an sf object
-pols <- sf::st_read(con, query = qry, geom = "geom")
-
-# and convert to GeoJSON
-pols.js <- geojsonio::geojson_json(pols)
-# pols %>% geojson::as.geojson() %>% geojson::geo_write("plop.json")
-
-# options(readr.default_locale=readr::locale(tz="Europe/Berlin"))
-# df60 <- get_eurostat_geospatial(resolution = 60)
-#
-# CE.sf <- df60 %>%
-#   dplyr::filter(LEVL_CODE == 2 & CNTR_CODE %in% c("AT","CZ","DE","HU","PL","SK")) %>%
-#   dplyr::select(NUTS_ID)
-
-plot(pols)
-
-pols %>%
-  ggplot() +
-  geom_sf(color = "black", size = 0.4)
-
-# CE = sf::as_Spatial(pols)
-
-leaflet() %>%
-  addProviderTiles("CartoDB.Positron") %>%
-  addPolygons(data = pols, color = "green")
 ```
 
 

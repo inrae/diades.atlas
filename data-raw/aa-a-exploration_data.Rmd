@@ -7,6 +7,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+TUTORIAL: The aims of this vignette is to learn how to request tables with dplyr package.
+
 ## Installation
 
 Install the present package and use its core functions
