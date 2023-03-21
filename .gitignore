@@ -19,3 +19,4 @@ data-raw/translation.Rmd
 dev/translation.html
 dev/data-docker/
 bdd_connect.sh
+/data-raw/*.html

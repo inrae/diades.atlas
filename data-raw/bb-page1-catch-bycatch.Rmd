@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 # Sys.setenv("POSTGRES_USER" = "diadesatlas_owner")
 # Sys.setenv("POSTGRES_PASS" = "thinkrpassword")
-pkgload::load_all(here::here())
+pkgload::load_all(here::here()) # simulate installation and give access to objects in the package
 library(dplyr)
 session <- shiny::MockShinySession$new() #new.env()
 connect(session)
@@ -40,17 +40,15 @@ Sys.setenv(
 # Liste des espèces 
 
 ```{r}
-get_active_species(
+species <- get_active_species(
   session = session
 )
+species
 ```
 
 ## Conservation status
 
 ```{r}
-species <- get_active_species(
-  session = session
-)
 for (i in species$species_id) {
   cli::cat_rule(i)
   print(
@@ -118,7 +116,7 @@ tm1 <- tm_draw(
   ices_geom = datasets$ices_geom,
   session = session
 )
-tm1
+diades.atlas::tm_frontiers +tm1
 # tmap_leaflet(tm1)
 ```
 
