@@ -224,8 +224,8 @@ generate_datasets <- function(con) {
     query = "SELECT * FROM diadesatlas.v_ices_geom;"
   ) %>%
     # sf::st_transform("+proj=eqearth +wktext") %>%
-    sf::st_transform("+proj=wintri") %>%
-    rmapshaper::ms_simplify()
+    sf::st_transform("+proj=wintri") # %>%
+    # rmapshaper::ms_simplify()
   
   species_order <- c(
     "Alosa alosa",
