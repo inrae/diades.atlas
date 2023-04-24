@@ -17,7 +17,7 @@
 "Button to open the case study selector","select-case_study","Select a case study","Choisir une étude de cas","Elija un caso práctico","Escolha um estudo de caso"
 "Title on top of the abundance maps","map-abundance","Abundance in catchments","Abondance dans les bassins versants","Abundancia en el río","Abundância no rio"
 "Title on top of the evolution of abundance graph","plot-evolution","Evolution of abundance","Évolution de l'abondance","Evolución de la abundancia","Evolução da abundância"
-"Title on top of the catch and bycatch plot","map-bycatch","Catch at sea and population status in river","Captures en mer et statut des populations en rivière","Captura en el mar y estado de la población en el río","Captura no mar e estado da população no rio"
+"Title on top of the catch and bycatch plot","map-bycatch","Catch at sea by Portuguese, Spanish, French, British and Irish fleets – Population status in river","Captures en mer par les flottes portugaise, espagnole, française, britannique et irlandaise - Statut des populations en rivière","Captura en el mar de las flotas portuguesa, española, francesa, británica e irlandesa – Estado de la población en el río","Captura no mar pelas frotas portuguesa, espanhola, francesa, britânica e irlandesa - Estado da população no rio"
 "Select all button","button-unselectall","Undo selection","Retirer la sélection","Deshacer la selección","Desfazer selecção"
 "Unselect all button","button-selectall","Select all","Choisir tout","Seleccionar todo","Seleccionar todos"
 "Variation of the ""selected"" for french","selected","selected","sélectionnée(s)","seleccionado","seleccionado"
