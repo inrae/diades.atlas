@@ -44,7 +44,8 @@ tm_ocean <- function(dataOcean,
         "[7, 9]",
         "[10, 12]",
         "[13, 15]"
-      )
+      ),
+      popup.vars = c("prevalence" = "nb_occurence")
     )
 }
 
