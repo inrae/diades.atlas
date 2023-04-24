@@ -24,12 +24,13 @@ bbox <- st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = st_crs(4
 world_map_crs <- "+proj=wintri"
 
 frontiers <- frontiers %>% 
-  st_transform(world_map_crs)  %>%
-  rmapshaper::ms_simplify()
+  st_transform(world_map_crs) %>% 
+  st_make_valid()
+  # rmapshaper::ms_simplify()
 
 usethis::use_data(frontiers, overwrite = TRUE)
 
-tm_frontiers <- tm_shape(frontiers) +
+S <- tm_shape(frontiers, bbox = bbox) +
   tm_polygons(alpha = 1, col = 'grey90')
 
 usethis::use_data(tm_frontiers, overwrite = TRUE)
