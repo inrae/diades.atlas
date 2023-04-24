@@ -50,7 +50,6 @@ Imports:
     pkgload (>= 1.2.2),
     promises,
     purrr (>= 0.3.4),
-    rmapshaper (>= 0.4.5),
     RPostgres (>= 1.3.3),
     sf (>= 1.0.2),
     shinipsum (>= 0.1.0),

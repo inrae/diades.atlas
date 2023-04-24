@@ -208,8 +208,9 @@ generate_datasets <- function(con) {
   catchment_geom <- sf::st_read(
     con,
     query =   "SELECT * FROM diadesatlas.v_basin vb"
-  ) %>%
-    rmapshaper::ms_simplify()
+  ) #%>%
+    #mutate(geom = st_make_valid(geom))
+    # rmapshaper::ms_simplify(keep = .05)
   
   dataALL <- DBI::dbGetQuery(
     con,
@@ -223,8 +224,8 @@ generate_datasets <- function(con) {
     query = "SELECT * FROM diadesatlas.v_ices_geom;"
   ) %>%
     # sf::st_transform("+proj=eqearth +wktext") %>%
-    sf::st_transform("+proj=wintri") %>%
-    rmapshaper::ms_simplify()
+    sf::st_transform("+proj=wintri") # %>%
+    # rmapshaper::ms_simplify()
   
   species_order <- c(
     "Alosa alosa",
