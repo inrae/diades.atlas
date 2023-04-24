@@ -26,6 +26,7 @@ library(diades.atlas)
 library(dplyr)
 library(leaflet)
 library(ggplot2)
+library(sf)
 ```
 
 ## Data exploration
@@ -34,23 +35,12 @@ library(ggplot2)
 
 Do not forget to set environment variables in .Renviron
 ```{r}
-postgis_host <- Sys.getenv("POSTGRES_HOST")
-postgis_user <- Sys.getenv("POSTGRES_USER")
-postgis_password <- Sys.getenv("POSTGRES_PASSWORD")
+session <- shiny::MockShinySession$new() #new.env()
+connect(session)
+con <- get_con(session)
+```
 
-con <- DBI::dbConnect(
-  RPostgres::Postgres(),
-  host = Sys.getenv("POSTGRES_HOST", diades.atlas:::get_golem_config("POSTGRES_HOST")),
-  dbname = Sys.getenv("POSTGRES_DBNAME", diades.atlas:::get_golem_config("POSTGRES_DBNAME")),
-  port = Sys.getenv("POSTGRES_PORT", diades.atlas:::get_golem_config("POSTGRES_PORT")),
-  user = Sys.getenv("POSTGRES_USER", "diadesatlas_r"),
-  password = Sys.getenv("POSTGRES_PASS", "diadesPassword"),
-  options = "-c search_path=diadesatlas"
-)
-# Listtables
-# DBI::dbListTables(con)
-# DBI::dbListObjects(con)
-
+```{r, eval=FALSE}
 # Get the names of all the tables in the schema
 all_schemas <- DBI::dbGetQuery(con, "SELECT table_name FROM information_schema.tables WHERE table_schema='diadesatlas'")
 all_schemas
@@ -64,21 +54,13 @@ casestudy <- tbl(con, dbplyr::in_schema("diadesatlas", "casestudy"))
 casestudy
 ```
 
-### Create connection
-
-```{r, eval=FALSE}
-my_dm <- dm_from_src(con, schema = "diadesatlas", learn_keys = TRUE)
-my_dm
-```
-
 ### Function to collect data
 ```{r, eval=FALSE}
 # empty
 # dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices51")) %>% collect()
 # services ?
 # dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "cices")) %>% collect()
-# services new
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "es_diades")) %>% collect()
+
 # geometry of all basin
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_location")) %>% collect()
 # Model results over the years
@@ -105,23 +87,40 @@ dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
 ### Prepare json files
 Create all json data used on the home page of the app
 ```{r, eval=FALSE}
-# List of case studies
-casestudy <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% collect()
-# List of the corresponding basins
-casestudy_basin <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
-# Put them two together
-cstd <- full_join(casestudy, casestudy_basin) %>% filter(publishable)
+# # List of case studies
+# casestudy <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% collect()
+# # List of the corresponding basins
+# casestudy_basin <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
+# # Put them two together
+# cstd <- full_join(casestudy, casestudy_basin) %>% filter(publishable) %>%  collect()
 
-# Get the features for drawing the polygons on the map
-qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom, basin_id as basin_id FROM diadesatlas.basin_outlet"
 
-# i then read as an sf object
-pols <- sf::st_read(con, query = qry, geom = "geom") %>%
-  filter(basin_id %in% casestudy_basin$basin_id) %>%
-  left_join(cstd)
-pols %>%
+casestudy_new <- sf::st_read(con, 
+                             query = "SELECT casestudy_id, casestudy_name, geom FROM diadesatlas.casestudy", geom = "geom") %>% 
+  # fake basin_id to be compatabible with mod_b_second.R
+  mutate(basin_id = 1:n()) %>% 
+  st_transform(crs = 4326)
+
+casestudy_new %>%
   geojson::as.geojson() %>%
   geojson::geo_write(here::here("inst/casestudy.json"))
+
+
+# Get the features for drawing the polygons on the map
+# qry <- "SELECT ST_Transform(diadesatlas.basin_outlet.simplified_geom, 4326) as geom, basin_id as basin_id FROM diadesatlas.basin_outlet"
+
+# qry <- "SELECT diadesatlas.basin_outlet.simplified_geom as geom, basin_id as basin_id FROM diadesatlas.basin_outlet"
+# 
+# pols <- sf::st_read(con, query = qry, geom = "geom") %>% 
+#   st_transform(crs = 4326) 
+# 
+# # i then read as an sf object
+# pols %>%
+#   filter(basin_id %in% casestudy_basin$basin_id) %>%
+#   left_join(cstd)
+# pols %>%
+#   geojson::as.geojson() %>%
+#   geojson::geo_write(here::here("inst/casestudy.json"))
 
 # List of ecosystem services
 ecosystems <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
@@ -151,6 +150,27 @@ species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% coll
 species %>%
   filter(species_id %in% ecosystems$species_id) %>%
   jsonlite::write_json(here::here("inst/species.json"))
+```
+
+### Explore ecosystem services table
+```{r}
+r <- list(lg = 'en')
+datasets <- generate_datasets(con = con)
+.globals <- getFromNamespace('.globals', 'shiny')
+
+# simulate a species_list
+session$options$golem_options$species_list <- datasets$species_list
+.globals$domain <- session
+
+golem::get_golem_options("species_list")
+
+# debugonce(ecosystem_table)
+ecosystem_table(species = "Alosa alosa", 
+                case_study = 5, 
+                ecosystem = '1_4',
+                r = r,
+                session = session) %>% 
+DT::datatable()
 ```
 
 
