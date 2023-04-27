@@ -29,7 +29,7 @@ gert::git_config_set(
   repo = ".", name = "commit.template", 
   value = file.path(".github", "commit.template"))
 
-## Dependencies ----
+## Dependencies TO DO BEFORE EACH COMMIT ----
 ## Add one line by package you want to add as dependency
 # remotes::install_github("miraisolutions/compareWith@feature/46-compare-git")
 
