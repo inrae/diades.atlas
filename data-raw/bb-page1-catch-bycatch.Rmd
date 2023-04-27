@@ -108,7 +108,7 @@ tm_draw(
 
 tm1 <- tm_draw(
   species_latin_name = "Chelon ramada",
-  spatial_type = "division",
+  spatial_type = "rectangle",
   con = con,
   dataCatchment = datasets$dataCatchment,
   catchment_geom = datasets$catchment_geom,
