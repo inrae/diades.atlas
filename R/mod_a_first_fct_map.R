@@ -35,7 +35,7 @@ tm_ocean <- function(dataOcean,
     tm_polygons(
       "prevalence",
       title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
-      palette = "Blues",
+      palette = c("#F7FBFF", "#C6DBEF", "#9ECAE1", "#4292C6", "#08519C", "#08306B"),
       n = 6,
       labels = c(
         "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
@@ -45,7 +45,7 @@ tm_ocean <- function(dataOcean,
         "[10, 12]",
         "[13, 15]"
       ),
-      popup.vars = c("prevalence" = "nb_occurence")
+      popup.vars = c("prevalence: " = "nb_occurence")
     )
 }
 
@@ -72,7 +72,7 @@ tm_catchmment <- function(dataContinent) {
       "abundance_interpretation",
       title = "Status in river catchments (1951-2010)" %>% with_i18("status_in_river_catchments") %>% as.character(),
       # "<span data-i18n='status_in_river_catchments'>Status in river catchments (1951-2010)</span>",
-      palette = "Reds",
+      palette = c("#FEE0D2", "#FCBBA1", "#A50F15", "#67000D"),
       n = 4,
       textNA = "Missing" %>% with_i18("missing") %>% as.character(),
       labels = c(
@@ -80,7 +80,8 @@ tm_catchmment <- function(dataContinent) {
         "Occasional vagrants" %>% with_i18("rare") %>% as.character(),
         "Functional populations" %>% with_i18("common") %>% as.character(),
         "Abundant functional populations" %>% with_i18("abundant") %>% as.character()
-      )
+      ),
+      popup.vars = c("population status: " = "abundance_interpretation")
     )
 }
 
