@@ -26,26 +26,6 @@ mod_first_ui <- function(id) {
           )
         ),
         w3css::w3_quarter(
-          tags$span(
-            w3_hover_button(
-              "Change Map geometry" %>% with_i18("change-geometry"),
-              content = tagList(
-                tags$div(
-                  id = ns("square_or_division"),
-                  w3css::w3_radioButton(
-                    ns("square_or_division"),
-                    NULL,
-                    choices = c("Division" = "division", "Rectangle" = "rectangle")
-                  )
-                )
-              ),
-              content_style = "width:25em"
-            ),
-            w3_help_button(
-              "Change the geometry of the map",
-              "map_geometrie_help"
-            )
-          )
         ),
         w3css::w3_quarter()
       )
@@ -114,7 +94,7 @@ mod_first_server <- function(id, r = r) {
 
       tm_draw(
         species_latin_name = loco$species,
-        spatial_type = input$square_or_division,
+        spatial_type = "rectangle",
         con = con,
         dataCatchment = golem::get_golem_options("dataCatchment"),
         catchment_geom = golem::get_golem_options("catchment_geom"),
