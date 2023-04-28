@@ -7,7 +7,7 @@ library(rworldxtra)
 library(tmap)
 library(sf)
 
-worldMap <- getMap(resolution = "high") %>% st_as_sf()
+worldMap <- getMap(resolution = "low") %>% st_as_sf()
 
 states = c("Portugal", "Spain","France", "United Kingdom", "Ireland", "United Kingdom", "Belgium",
            "Netherlands", "Germany", "Denmark", "Sweden", "Norway", "Poland", "Switzerland","Italy",
