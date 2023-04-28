@@ -154,7 +154,7 @@ tm_draw <- function(species_latin_name,
   # ------------------------------------------ display the map
   tm_graticules() +
     tm_ocean +
-    # tm_frontiers +
+    tm_frontiers +
     tm_catchmment +
     tm_layout(
       main.title.fontface = 3,
