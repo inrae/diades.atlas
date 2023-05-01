@@ -68,10 +68,10 @@ renv::restore()
 
 # Force installation from source of packages that need compilation
 packages <- c(
-  tmap = "3.3.2",
-  lwgeom = "0.2.8",
-  V8 = "3.4.2",
-  testthat = "3.1.0",
+  tmap = "3.3-3",
+  lwgeom = "0.2-11",
+  V8 = "4.3.0",
+  testthat = "3.1.7",
   rgeos = "0.5-5",
   jqr = "1.2.1",
   NULL
