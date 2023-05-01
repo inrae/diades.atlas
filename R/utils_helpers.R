@@ -227,6 +227,12 @@ generate_datasets <- function(con) {
     sf::st_transform("+proj=wintri") # %>%
     # rmapshaper::ms_simplify()
   
+  ices_division <- sf::st_read(
+    con,
+    query = "SELECT area_full AS icesname, simplified_geom FROM diadesatlas.ices_area;"
+  ) %>%
+    sf::st_transform("+proj=wintri") # %>%
+  
   species_order <- c(
     "Alosa alosa",
     "Alosa fallax",
@@ -263,6 +269,7 @@ generate_datasets <- function(con) {
       catchment_geom = catchment_geom,
       dataALL = dataALL,
       ices_geom = ices_geom,
+      ices_division = ices_division, 
       species_list = species_list,
       countries_mortalities_list = countries_mortalities_list
     )

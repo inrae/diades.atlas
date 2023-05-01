@@ -38,6 +38,7 @@ tm_ocean <- function(dataOcean,
       title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
       palette = c("#F7FBFF", "#C6DBEF", "#9ECAE1", "#4292C6", "#08519C", "#08306B"),
       n = 6,
+      border.col = "gray90",
       labels = c(
         "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
         "[1, 3]",
@@ -48,6 +49,13 @@ tm_ocean <- function(dataOcean,
       ),
       popup.vars = c('in division:' = 'division_name', 'prevalence:' = 'nb_occurence')
     )
+}
+
+#' @importFrom tmap tm_shape tm_borders
+#' @noRd
+tm_ices_division <- function(ices_division) {
+  tm_shape(ices_division) +
+    tm_borders(col = 'grey70', lwd = 1)
 }
 
 #' @importFrom dplyr left_join filter
@@ -112,10 +120,16 @@ tm_draw <- function(species_latin_name,
                     catchment_geom,
                     dataALL,
                     ices_geom,
+                    ices_division,
                     session = shiny::getDefaultReactiveDomain()) {
   # =====================================================================================
   # ----------------------------------------- country frontier
-
+  # -----------------------------------------ices division border
+  tm_ices_division <- get_tm_ices_division_m(
+    session = session
+  )(
+    ices_division
+  )
   #--------------------------- data in ocean
   dataOcean <- get_data_ocean_m(
     session = session
@@ -155,6 +169,7 @@ tm_draw <- function(species_latin_name,
   # ------------------------------------------ display the map
   tm_graticules() +
     tm_ocean +
+    tm_ices_division +
     tm_frontiers +
     tm_catchmment +
     tm_layout(
