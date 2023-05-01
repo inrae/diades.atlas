@@ -50,6 +50,10 @@ launch_mongo <- function(session = getDefaultReactiveDomain()) {
         tm_catchmment,
         cache = session$userData$mongo_cache
     )
+    session$userData$tm_ices_division_m <- memoise::memoise(
+      tm_ices_division,
+      cache = session$userData$mongo_cache
+    ) 
 }
 get_data_ocean_m <- function(session = getDefaultReactiveDomain()) {
     session$userData$data_ocean_m
@@ -62,4 +66,7 @@ get_data_continent_m <- function(session = getDefaultReactiveDomain()) {
 }
 get_tm_catchmment_m <- function(session = getDefaultReactiveDomain()) {
     session$userData$tm_catchmment_m
+}
+get_tm_ices_division_m <- function(session = getDefaultReactiveDomain()) {
+  session$userData$tm_ices_division_m
 }

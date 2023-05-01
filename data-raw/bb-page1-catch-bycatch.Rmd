@@ -81,6 +81,7 @@ tm_draw(
   catchment_geom = datasets$catchment_geom,
   dataALL = datasets$dataALL,
   ices_geom = datasets$ices_geom,
+  ices_division = datasets$ices_division,
   session = session
 )
 
@@ -92,6 +93,7 @@ tm_draw(
   catchment_geom = datasets$catchment_geom,
   dataALL = datasets$dataALL,
   ices_geom = datasets$ices_geom,
+  ices_division = datasets$ices_division,
   session = session
 )
 
@@ -103,6 +105,7 @@ tm1 <- tm_draw(
   catchment_geom = datasets$catchment_geom,
   dataALL = datasets$dataALL,
   ices_geom = datasets$ices_geom,
+  ices_division = datasets$ices_division,
   session = session
 )
 tm1 + diades.atlas::tm_frontiers 
