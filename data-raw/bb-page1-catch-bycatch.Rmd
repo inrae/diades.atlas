@@ -53,7 +53,7 @@ for (i in species$species_id) {
   cli::cat_rule(i)
   print(
     get_conservation_status(
-      6,
+      i,
       con
     )
   )
@@ -76,17 +76,6 @@ launch_mongo(session = session)
 tm_draw(
   species_latin_name = "Salmo trutta",
   spatial_type = "rectangle",
-  con = con,
-  dataCatchment = datasets$dataCatchment,
-  catchment_geom = datasets$catchment_geom,
-  dataALL = datasets$dataALL,
-  ices_geom = datasets$ices_geom,
-  session = session
-)
-
-tm_draw(
-  species_latin_name = "Salmo trutta",
-  spatial_type = "division",
   con = con,
   dataCatchment = datasets$dataCatchment,
   catchment_geom = datasets$catchment_geom,

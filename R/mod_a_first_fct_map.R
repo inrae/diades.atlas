@@ -8,6 +8,7 @@ data_ocean <- function(ices_geom,
     filter(ices_type == spatial_type) %>%
     inner_join(
       dataALL %>%
+        select(-c(icesname, division_name)) %>%
         filter(latin_name == species_latin_name),
       by = c("ices_type", "gid")
     ) %>%
@@ -45,7 +46,7 @@ tm_ocean <- function(dataOcean,
         "[10, 12]",
         "[13, 15]"
       ),
-      popup.vars = c("prevalence: " = "nb_occurence")
+      popup.vars = c('in division:' = 'division_name', 'prevalence:' = 'nb_occurence')
     )
 }
 
