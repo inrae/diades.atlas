@@ -100,6 +100,7 @@ mod_first_server <- function(id, r = r) {
         catchment_geom = golem::get_golem_options("catchment_geom"),
         dataALL = golem::get_golem_options("dataALL"),
         ices_geom = golem::get_golem_options("ices_geom"), 
+        ices_division = golem::get_golem_options("ices_division"),
         session = session
       )
     }) 

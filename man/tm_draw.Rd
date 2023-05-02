@@ -14,6 +14,7 @@ tm_draw(
   catchment_geom,
   dataALL,
   ices_geom,
+  ices_division,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -26,7 +27,7 @@ tm_draw(
 
 \item{yearStart, yearEnd}{date used}
 
-\item{dataCatchment, catchment_geom, dataALL, ices_geom}{internal datasets}
+\item{dataCatchment, catchment_geom, dataALL, ices_geom, ices_division}{internal datasets}
 
 \item{session}{The Shiny Session object}
 }
