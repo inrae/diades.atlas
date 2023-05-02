@@ -108,7 +108,7 @@ tm1 <- tm_draw(
   ices_division = datasets$ices_division,
   session = session
 )
-tm1 + diades.atlas::tm_frontiers 
+tm1# + diades.atlas::tm_frontiers 
 # tmap_leaflet(tm1)
 ```
 
