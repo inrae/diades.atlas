@@ -15,6 +15,7 @@ run_app(
   dataALL = dataALL,
   ices_geom = ices_geom,
   ices_division = ices_division,
+  positive_catch_area = positive_catch_area,
   help_bubble_entries = get_help_bubble_entries()
 )
 }
@@ -38,7 +39,9 @@ for more information on bookmarking your app.}
 
 \item{dataCatchment, catchment_geom, }{internal datasets}
 
-\item{dataALL, ices_geom, ices_division, countries_mortalities_list}{internal datasets}
+\item{countries_mortalities_list}{internal datasets}
+
+\item{dataALL, ices_geom, ices_division, positive_catch_area}{internal datasets}
 
 \item{help_bubble_entries}{A character vector corresponding to all
 keys (entries)of help bubbles to be displayed.}

@@ -15,6 +15,7 @@ tm_draw(
   dataALL,
   ices_geom,
   ices_division,
+  positive_catch_area,
   session = shiny::getDefaultReactiveDomain()
 )
 }
@@ -29,7 +30,7 @@ tm_draw(
 
 \item{dataCatchment, catchment_geom}{internal datasets for continental waters}
 
-\item{dataALL, ices_geom, ices_division}{internal datasets for marines water}
+\item{dataALL, ices_geom, ices_division, positive_catch_area}{internal datasets for marines water}
 
 \item{session}{The Shiny Session object}
 }

@@ -21,7 +21,7 @@ globalVariables(unique(c(
   "basin_id", "year", "hsi_min", "hsi_max", "label", "hsi_movingavg",
   "species_id", "nit_mean", "nit_min", "nit_max", "nit_movingavg",
   # tm_draw: 
-  "ices_type", "latin_name", "nb_occurence", "tm_frontiers", "ices_division", "aquamaps_species",
+  "ices_type", "latin_name", "nb_occurence", "tm_frontiers", "ices_division", "aquamaps_species","positive_catch_area",
   # data_ocean: 
   "division_name", "icesname",
   # translation_help: 
