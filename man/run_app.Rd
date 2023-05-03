@@ -36,7 +36,9 @@ for more information on bookmarking your app.}
 
 \item{species_list}{list of species to use in the app}
 
-\item{dataCatchment, catchment_geom, dataALL, ices_geom, ices_division, countries_mortalities_list}{internal datasets}
+\item{dataCatchment, catchment_geom, }{internal datasets}
+
+\item{dataALL, ices_geom, ices_division, countries_mortalities_list}{internal datasets}
 
 \item{help_bubble_entries}{A character vector corresponding to all
 keys (entries)of help bubbles to be displayed.}

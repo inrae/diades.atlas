@@ -2,7 +2,8 @@
 #'
 #' @param species_list list of species to use in the app
 #' @inheritParams shiny::shinyApp
-#' @param dataCatchment,catchment_geom,dataALL,ices_geom,ices_division,countries_mortalities_list  internal datasets
+#' @param dataCatchment,catchment_geom, internal datasets
+#' @param dataALL,ices_geom,ices_division,countries_mortalities_list  internal datasets
 #' @param help_bubble_entries A character vector corresponding to all
 #' keys (entries)of help bubbles to be displayed.
 #' 

@@ -58,6 +58,22 @@ tm_ices_division <- function(ices_division) {
     tm_borders(col = 'grey70', lwd = 1)
 }
 
+
+#' @importFrom tmap tm_shape tm_raster
+#' @noRd
+tm_aquamaps <- function(species_latin_name,
+                        aquamaps_species) {
+  aquamaps_species[[species_latin_name]] %>% 
+    tm_shape(name = 'AquaMaps') +
+    tm_raster('layer',
+              n = 1,
+              alpha = 0.2,
+              palette = 'yellow',
+              # palette = "#f0d97d",
+              legend.show = FALSE)
+}
+
+
 #' @importFrom dplyr left_join filter
 #' @noRd
 data_continent <- function(catchment_geom,
@@ -94,6 +110,7 @@ tm_catchmment <- function(dataContinent) {
     )
 }
 
+
 # Do it once
 bbox <- sf::st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = sf::st_crs(4326))
 
@@ -104,7 +121,8 @@ bbox <- sf::st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = sf::
 #' @param spatial_type Geom to use in the map
 #' @param con The Connection object
 #' @param yearStart,yearEnd date used
-#' @param dataCatchment,catchment_geom,dataALL,ices_geom,ices_division  internal datasets
+#' @param dataCatchment,catchment_geom internal datasets for continental waters
+#' @param dataALL,ices_geom,ices_division  internal datasets for marines water
 #' @param session The Shiny Session object
 #'
 #' @return A tmap object
@@ -153,7 +171,17 @@ tm_draw <- function(species_latin_name,
     yearStart,
     yearEnd
   )
+  
+  
+  # -------------------------------------------------------- aquamaps
+  tm_aquamaps <- get_tm_aquamaps_m(
+    session = session
+  )(
+    species_latin_name,
+    aquamaps_species
+  )
 
+  
   # -------------------------------------------------------- data in catchment
   dataContinent <- get_data_continent_m(
     session = session
@@ -173,6 +201,7 @@ tm_draw <- function(species_latin_name,
     tm_ices_division +
     tm_frontiers +
     tm_catchmment +
+    tm_aquamaps +
     tm_layout(
       main.title.fontface = 3,
       main.title.size = 0.8,
