@@ -56,7 +56,7 @@ tm_ocean <- function(dataOcean,
 #' @noRd
 tm_ices_rectangle <- function(ices_geom) {
   tm_shape(ices_geom) +
-    tm_borders(col = 'grey5', lwd = 1)
+    tm_borders(col = 'grey50', lwd = 1)
 }
 
 #' @importFrom tmap tm_shape tm_borders
