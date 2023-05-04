@@ -152,8 +152,9 @@ mod_fourth_server <- function(id, r = r) {
       species = NULL,
       mortalities = data.frame(
         country = golem::get_golem_options('countries_mortalities_list'),
-        yearsimubegin = rep(0.1, length(golem::get_golem_options('countries_mortalities_list'))),
-        yearsimuend = rep(0.1, length(golem::get_golem_options('countries_mortalities_list')))
+        mortsimperiod1 = rep(0.1, length(golem::get_golem_options('countries_mortalities_list'))),
+        mortsimperiod2 = rep(0.1, length(golem::get_golem_options('countries_mortalities_list'))),
+        mortsimperiod3 = rep(0.1, length(golem::get_golem_options('countries_mortalities_list')))
       ),
       data_simulation = get_data_simulation(get_con(session)),
       results = NULL,
@@ -179,8 +180,9 @@ mod_fourth_server <- function(id, r = r) {
         setNames(
           c(
             get_translation_entry(entry = 'country', lg = r$lg),
-            get_translation_entry(entry = 'yearsimubegin', lg = r$lg),
-            get_translation_entry(entry = 'yearsimuend', lg = r$lg)
+            get_translation_entry(entry = 'mortsimperiod1', lg = r$lg),
+            get_translation_entry(entry = 'mortsimperiod2', lg = r$lg),
+            get_translation_entry(entry = 'mortsimperiod3', lg = r$lg)
           )
         )
       
