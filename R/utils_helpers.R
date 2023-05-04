@@ -259,9 +259,10 @@ generate_datasets <- function(con) {
     ),
   ]
   
-  countries_mortalities_list <- 
+  countries_mortalities_list <-
+    c("Scotland", "Ireland",  "Wales", "England", "France", "Spain", "Portugal")
     # c("ireland", "france", "united-kingdom", "portugal", "spain")
-  dplyr::tbl(con, "basin") %>% dplyr::count(country) %>% dplyr::pull(country)
+  # dplyr::tbl(con, "basin") %>% dplyr::count(country) %>% dplyr::pull(country)
   
   return(
     list(
