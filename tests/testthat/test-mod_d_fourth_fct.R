@@ -99,19 +99,19 @@ test_that("runSimulation works", {
     country = datasets[["countries_mortalities_list"]],
     mortsimperiod1 = 
       case_when(
-        country == "France" ~ -log(.5),
+        country == "France" ~ 0,
         TRUE ~ 0
       ),
     # rep(-log(.5), length(datasets[["countries_mortalities_list"]])),
     mortsimperiod2 = 
       case_when(
-        country == "France" ~ -log(.75),
+        country == "France" ~ -log(.5),
         TRUE ~ 0
       ),
     # rep(-log(.75), length(datasets[["countries_mortalities_list"]]))
     mortsimperiod3 = 
       case_when(
-        country == "France" ~ -log(.25),
+        country == "France" ~ -log(.75),
         TRUE ~ 0
       )
   )
