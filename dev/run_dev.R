@@ -51,5 +51,6 @@ run_app(
   catchment_geom = datasets[["catchment_geom"]],
   dataALL = datasets[["dataALL"]],
   ices_geom = datasets[["ices_geom"]],
+  ices_division = datasets[["ices_division"]],
   help_bubble_entries = get_help_bubble_entries()
 )

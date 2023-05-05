@@ -1,3 +1,7 @@
+# diades.atlas 0.3.2
+
+* Upgrade R version in renv.lock
+
 # diades.atlas 0.3.1
 
 * Fix missing dependencies

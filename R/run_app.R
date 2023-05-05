@@ -2,7 +2,7 @@
 #'
 #' @param species_list list of species to use in the app
 #' @inheritParams shiny::shinyApp
-#' @param dataCatchment,catchment_geom,dataALL,ices_geom,countries_mortalities_list  internal datasets
+#' @param dataCatchment,catchment_geom,dataALL,ices_geom,ices_division,countries_mortalities_list  internal datasets
 #' @param help_bubble_entries A character vector corresponding to all
 #' keys (entries)of help bubbles to be displayed.
 #' 
@@ -20,6 +20,7 @@ run_app <- function(
   countries_mortalities_list,
   dataALL = dataALL, 
   ices_geom = ices_geom,
+  ices_division = ices_division,
   help_bubble_entries = get_help_bubble_entries()
 ) {
   cli::cat_rule("run_app")
@@ -39,6 +40,7 @@ run_app <- function(
       catchment_geom = catchment_geom, 
       dataALL = dataALL, 
       ices_geom = ices_geom,
+      ices_division = ices_division,
       help_bubble_entries = help_bubble_entries
     )
   )
