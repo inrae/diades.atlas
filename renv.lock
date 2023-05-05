@@ -715,20 +715,8 @@
     },
     "curl": {
       "Package": "curl",
-      "Version": "5.0.9000",
-      "Source": "Repository",
-      "Repository": "https://thinkr-open.r-universe.dev",
-      "RemoteUrl": "https://github.com/jeroen/curl",
-      "RemoteRef": "curl",
-      "RemoteSha": "5.0.9000",
-      "RemoteType": "standard",
-      "RemotePkgRef": "curl",
-      "RemoteRepos": "https://thinkr-open.r-universe.dev",
-      "RemotePkgPlatform": "source",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "15a1db5365b100daa608188006933ed2"
+      "Version": "5.0.0",
+      "Source": "Repository"
     },
     "data.table": {
       "Package": "data.table",
