@@ -305,21 +305,19 @@
     "bank": {
       "Package": "bank",
       "Version": "0.0.0.9002",
-      "Source": "Repository",
-      "Repository": "https://thinkr-open.r-universe.dev",
-      "RemoteUrl": "https://github.com/ThinkR-open/bank",
-      "RemoteRef": "bank",
-      "RemoteSha": "0.0.0.9002",
-      "RemoteType": "standard",
-      "RemotePkgRef": "bank",
-      "RemoteRepos": "https://thinkr-open.r-universe.dev",
-      "RemotePkgPlatform": "source",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "bank",
+      "RemoteUsername": "thinkr-open",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c8ba84aaa0b6cc6f009344dbb4c99f0985ebb444",
       "Requirements": [
         "R6",
         "attempt",
         "digest"
       ],
-      "Hash": "c584ed3d1a62657bbac5c729fe31950a"
+      "Hash": "167eba686033f727cbabf9c2715c60d4"
     },
     "base64enc": {
       "Package": "base64enc",
