@@ -37,6 +37,8 @@
 -->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -49,18 +51,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">diades.atlas</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -114,7 +110,7 @@
 </div>
         </li>
         <li>
-  <a href="https://github.com/inrae/diades.atlas/">
+  <a href="https://github.com/inrae/diades.atlas/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -132,100 +128,86 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="diadesatlas" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#diadesatlas" class="anchor"></a>{diades.atlas}</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="diadesatlas">{diades.atlas}<a class="anchor" aria-label="anchor" href="#diadesatlas"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>A Shiny application to explore data.</p>
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
+<div class="section level1">
+<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">'inrae/diades.atlas'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'inrae/diades.atlas'</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="websites-for-validations-" class="section level1">
-<h1 class="hasAnchor">
-<a href="#websites-for-validations-" class="anchor"></a>Websites for validations :</h1>
+<div class="section level1">
+<h1 id="websites-for-validations-">Websites for validations :<a class="anchor" aria-label="anchor" href="#websites-for-validations-"></a>
+</h1>
 <ul>
-<li>Package documentation : <a href="https://inrae.github.io/diades.atlas/" class="uri">https://inrae.github.io/diades.atlas/</a>
+<li>Package documentation : <a href="https://inrae.github.io/diades.atlas/" class="external-link uri">https://inrae.github.io/diades.atlas/</a>
 </li>
-<li>Package documentation (development version) : <a href="https://inrae.github.io/diades.atlas/dev/" class="uri">https://inrae.github.io/diades.atlas/dev/</a>
+<li>Package documentation (development version) : <a href="https://inrae.github.io/diades.atlas/dev/" class="external-link uri">https://inrae.github.io/diades.atlas/dev/</a>
 </li>
-<li>Shiny App : <a href="https://connect.thinkr.fr/diadesatlasui18n/" class="uri">https://connect.thinkr.fr/diadesatlasui18n/</a>
+<li>Shiny App : <a href="https://connect.thinkr.fr/diadesatlasui18n/" class="external-link uri">https://connect.thinkr.fr/diadesatlasui18n/</a>
 </li>
 </ul>
 </div>
-<div id="translation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#translation" class="anchor"></a>Translation</h1>
-<p>All translations are stored in csv files in “inst/”. If there are
-corrections to be made, existing texts on the app to be translated, only
-these 3 files have to be modified:</p>
+<div class="section level1">
+<h1 id="translation">Translation<a class="anchor" aria-label="anchor" href="#translation"></a>
+</h1>
+<p>All translations are stored in csv files in “inst/”. If there are corrections to be made, existing texts on the app to be translated, only these 3 files have to be modified:</p>
 <ul>
 <li><code>inst/translation_help.csv</code></li>
 <li><code>inst/translation_iucn.csv</code></li>
 <li><code>inst/translation.csv</code></li>
 </ul>
-<p>After modifications in a branch, propose a Pull Request to the
-<em>main</em> branch:</p>
+<p>After modifications in a branch, propose a Pull Request to the <em>main</em> branch:</p>
 <ul>
 <li>On the home page of the project, click on Pull Request</li>
 <li>Then on “New Pull Request”.</li>
-<li>In the “Compare Changes” section, choose your branch in the right
-drop-down menu “compare:”.</li>
+<li>In the “Compare Changes” section, choose your branch in the right drop-down menu “compare:”.</li>
 <li>Then “Create Pull Request”, twice.</li>
 <li>You can check in the ‘Files changed’ tab what you have changed.</li>
 </ul>
-<p>Once the PR is accepted, the changes should appear in the app the
-next time it is deployed. There is nothing to do.</p>
-<p>For more information, or for instructions on how to prepare the
-application for new languages or areas to be translated, refer to the
-“dev/translation.Rmd” file.</p>
-<p>In all cases, developers will need to - have access to the PostGis
-database (see “Backend requirement” below) - follow the content of
-“dev/translation.Rmd” during each update.</p>
+<p>Once the PR is accepted, the changes should appear in the app the next time it is deployed. There is nothing to do.</p>
+<p>For more information, or for instructions on how to prepare the application for new languages or areas to be translated, refer to the “dev/translation.Rmd” file.</p>
+<p>In all cases, developers will need to - have access to the PostGis database (see “Backend requirement” below) - follow the content of “dev/translation.Rmd” during each update.</p>
 </div>
-<div id="userguide" class="section level1">
-<h1 class="hasAnchor">
-<a href="#userguide" class="anchor"></a>Userguide</h1>
-<p>The userguide is included in English in “data-raw/userguide.Rmd”.
-This version is to be included in the vignettes to appear on the
-documentation website. Users can create other translations of this
-userguide.</p>
+<div class="section level1">
+<h1 id="userguide">Userguide<a class="anchor" aria-label="anchor" href="#userguide"></a>
+</h1>
+<p>The userguide is included in English in “data-raw/userguide.Rmd”. This version is to be included in the vignettes to appear on the documentation website. Users can create other translations of this userguide.</p>
 <ul>
 <li>Copy the english Rmd file and change the name of the file</li>
 <li>Keep the images, but change the text for your language</li>
 <li>User can then knit the document as <code>pdf_document</code>.</li>
-<li>The translated Rmd file can stay in the “data-raw/” directory and be
-commit and push to GitHub</li>
+<li>The translated Rmd file can stay in the “data-raw/” directory and be commit and push to GitHub</li>
 </ul>
 </div>
-<div id="retrieve-package-and-develop" class="section level1">
-<h1 class="hasAnchor">
-<a href="#retrieve-package-and-develop" class="anchor"></a>Retrieve package and develop</h1>
+<div class="section level1">
+<h1 id="retrieve-package-and-develop">Retrieve package and develop<a class="anchor" aria-label="anchor" href="#retrieve-package-and-develop"></a>
+</h1>
 <p>You can get this package and propose modifications of the code.</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>Clone in RStudio</li>
 </ol>
 <ul>
 <li>File &gt; New Project &gt; Version Control &gt; Git</li>
-<li>Use URL: <a href="https://github.com/inrae/diades.atlas" class="uri">https://github.com/inrae/diades.atlas</a>
+<li>Use URL: <a href="https://github.com/inrae/diades.atlas" class="external-link uri">https://github.com/inrae/diades.atlas</a>
 </li>
 </ul>
-<ol>
+<ol start="2" style="list-style-type: decimal">
 <li>In the RStudio “Git” Pane</li>
 </ol>
 <ul>
 <li>Create a “New branch” with your name</li>
 </ul>
-<ol>
+<ol start="3" style="list-style-type: decimal">
 <li>Define your credentials for the database</li>
 </ol>
 <ul>
-<li>Create a “.Renviron” file with
-<code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code>
+<li>Create a “.Renviron” file with <code><a href="https://usethis.r-lib.org/reference/edit.html" class="external-link">usethis::edit_r_environ()</a></code>
 </li>
 <li>Use the correct names and passwords to fill as below</li>
 <li>This file will stay on your computer</li>
@@ -240,290 +222,269 @@ commit and push to GitHub</li>
 <li>Verify these variables are correctly read</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span><span class="op">)</span></code></pre></div>
-<ol>
-<li>You may need to install dependencies with the same packages than the
-developers</li>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"POSTGRES_USER"</span><span class="op">)</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>You may need to install dependencies with the same packages than the developers</li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/restore.html">restore</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/restore.html" class="external-link">restore</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><em>{renv} may be tricky with multiple OS. Be kind.</em></p>
-<ol>
-<li>Run <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code> in the R Console</li>
+<ol start="5" style="list-style-type: decimal">
+<li>Run <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> in the R Console</li>
 </ol>
 <ul>
 <li>This loads all existing functions stored in “R/” directory</li>
 </ul>
-<ol>
+<ol start="6" style="list-style-type: decimal">
 <li>Open a Rmd in “data-raw/” like “data-raw/be-page4-future.Rmd”</li>
 </ol>
 <ul>
 <li>You should be able to run it chunk by chunk</li>
 <li>Do not forget to close connection to the database at the end</li>
 </ul>
-<ol>
+<ol start="7" style="list-style-type: decimal">
 <li>You can test modifications of the code in “R/”</li>
 </ol>
 <ul>
-<li>After each modification, run <code><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">pkgload::load_all()</a></code> before
-testing in the Rmd</li>
+<li>After each modification, run <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> before testing in the Rmd</li>
 </ul>
-<ol>
-<li>After each modification, it is necessary to run
-<code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code>
+<ol start="8" style="list-style-type: decimal">
+<li>After each modification, it is necessary to run <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code>
 </li>
 </ol>
 </div>
-<div id="exploration-of-database-out-of-shiny-application" class="section level1">
-<h1 class="hasAnchor">
-<a href="#exploration-of-database-out-of-shiny-application" class="anchor"></a>Exploration of database out of Shiny application</h1>
+<div class="section level1">
+<h1 id="exploration-of-database-out-of-shiny-application">Exploration of database out of Shiny application<a class="anchor" aria-label="anchor" href="#exploration-of-database-out-of-shiny-application"></a>
+</h1>
 <p>You can use this package without opening the Shiny application.<br>
 See vignette “data-raw/aa-a-exploration_data.Rmd”</p>
 </div>
-<div id="test-the-application-locally" class="section level1">
-<h1 class="hasAnchor">
-<a href="#test-the-application-locally" class="anchor"></a>Test the application locally</h1>
-<p>To run the Shiny application on your computer, you need to meet the
-“Backend Requirements” (see the section below).<br>
-This means, at least, having access to the database: set your database
-connection information and your credentials as specified in section
-“PostGIS”.</p>
+<div class="section level1">
+<h1 id="test-the-application-locally">Test the application locally<a class="anchor" aria-label="anchor" href="#test-the-application-locally"></a>
+</h1>
+<p>To run the Shiny application on your computer, you need to meet the “Backend Requirements” (see the section below).<br>
+This means, at least, having access to the database: set your database connection information and your credentials as specified in section “PostGIS”.</p>
 <p>You may need to update your package installation using:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/restore.html">restore</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/restore.html" class="external-link">restore</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Then you can run in the R Console:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/run_dev.html">run_dev</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/run_dev.html" class="external-link">run_dev</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="put-in-production" class="section level1">
-<h1 class="hasAnchor">
-<a href="#put-in-production" class="anchor"></a>Put in Production</h1>
-<p>Update Docker for deployment: <a href="https://gitlab.irstea.fr/diades/diades.atlas.deploy/" class="uri">https://gitlab.irstea.fr/diades/diades.atlas.deploy/</a></p>
-<p>On <a href="https://gitlab.irstea.fr/diades/diades.atlas.deploy/" class="uri">https://gitlab.irstea.fr/diades/diades.atlas.deploy/</a>,
-there are also details on how to test the docker-compose locally. At
-least try to build it locally before release.</p>
+<div class="section level1">
+<h1 id="put-in-production">Put in Production<a class="anchor" aria-label="anchor" href="#put-in-production"></a>
+</h1>
+<p>Update Docker for deployment: <a href="https://gitlab.irstea.fr/diades/diades.atlas.deploy/" class="external-link uri">https://gitlab.irstea.fr/diades/diades.atlas.deploy/</a></p>
+<p>On <a href="https://gitlab.irstea.fr/diades/diades.atlas.deploy/" class="external-link uri">https://gitlab.irstea.fr/diades/diades.atlas.deploy/</a>, there are also details on how to test the docker-compose locally. At least try to build it locally before release.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> gitlab-registry.irstea.fr/diades/diades.atlas.deploy/app .</span></code></pre></div>
 </div>
-<div id="backend-requirement" class="section level1">
-<h1 class="hasAnchor">
-<a href="#backend-requirement" class="anchor"></a>Backend requirement</h1>
-<div id="postgis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#postgis" class="anchor"></a>PostGis</h2>
-<p>To update the translations or to run the shiny application locally,
-the PostGis database is required.</p>
-<p>To be able to connect to a PostGis instance the user needs to define
-some golem config parameters and environment variables.</p>
-<div id="golem-config-parameters" class="section level3">
-<h3 class="hasAnchor">
-<a href="#golem-config-parameters" class="anchor"></a>golem config parameters</h3>
-<p>Those are stored in <code>inst/golem-config.yml</code> and can be
-modified as such:</p>
+<div class="section level1">
+<h1 id="backend-requirement">Backend requirement<a class="anchor" aria-label="anchor" href="#backend-requirement"></a>
+</h1>
+<div class="section level2">
+<h2 id="postgis">PostGis<a class="anchor" aria-label="anchor" href="#postgis"></a>
+</h2>
+<p>To update the translations or to run the shiny application locally, the PostGis database is required.</p>
+<p>To be able to connect to a PostGis instance the user needs to define some golem config parameters and environment variables.</p>
+<div class="section level3">
+<h3 id="golem-config-parameters">golem config parameters<a class="anchor" aria-label="anchor" href="#golem-config-parameters"></a>
+</h3>
+<p>Those are stored in <code>inst/golem-config.yml</code> and can be modified as such:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># database name</span>
-<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
-  <span class="st">"POSTGRES_DBNAME"</span>,
-  <span class="st">"diades"</span> <span class="co"># Changer ici le nom de la base de données</span>
-<span class="op">)</span>
-<span class="co"># database host URL</span>
-<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
-  <span class="st">"POSTGRES_HOST"</span>,
-  <span class="st">"localhost"</span>  <span class="co"># Changer ici l'URL de la base</span>
-<span class="op">)</span>
-<span class="co"># database port access</span>
-<span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html">amend_golem_config</a></span><span class="op">(</span>
-  <span class="st">"POSTGRES_PORT"</span>,
-  <span class="st">"5432"</span> <span class="co"># Changer ici le port</span>
-<span class="op">)</span></code></pre></div>
-<p><strong>If you change these lines to set the real values, be sure to
-set them back with the examples below before commit, to avoid sending
-your credentials on Git.</strong></p>
-<p>Run the script below once, and you’ll be protected of sending your
-credentials accidentally.</p>
+<code class="sourceCode R"><span><span class="co"># database name</span></span>
+<span><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html" class="external-link">amend_golem_config</a></span><span class="op">(</span></span>
+<span>  <span class="st">"POSTGRES_DBNAME"</span>,</span>
+<span>  <span class="st">"diades"</span> <span class="co"># Changer ici le nom de la base de données</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># database host URL</span></span>
+<span><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html" class="external-link">amend_golem_config</a></span><span class="op">(</span></span>
+<span>  <span class="st">"POSTGRES_HOST"</span>,</span>
+<span>  <span class="st">"localhost"</span>  <span class="co"># Changer ici l'URL de la base</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># database port access</span></span>
+<span><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/golem/man/amend_golem_config.html" class="external-link">amend_golem_config</a></span><span class="op">(</span></span>
+<span>  <span class="st">"POSTGRES_PORT"</span>,</span>
+<span>  <span class="st">"5432"</span> <span class="co"># Changer ici le port</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><strong>If you change these lines to set the real values, be sure to set them back with the examples below before commit, to avoid sending your credentials on Git.</strong></p>
+<p>Run the script below once, and you’ll be protected of sending your credentials accidentally.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git_hook.html">use_git_hook</a></span><span class="op">(</span>
-      <span class="st">"pre-commit"</span>,
-      script <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#!/bin/bash
-CONFIG=($(git diff --cached --name-only | grep -Ei '^inst/golem-config\\.yml$'))
-
-if [[ ${#CONFIG[@]} == 1 ]]; then
-  echo -e \"You added inst/golem-config.yml. Is that really what you want?\nYou may not want to commit your credentials.\nIf this is really what you want, use 'git commit --no-verify' to override this check.\"
-  exit 1
-fi
-"</span>,
-<span class="fu">usethis</span><span class="fu">:::</span><span class="fu">render_template</span><span class="op">(</span><span class="st">"readme-rmd-pre-commit.sh"</span><span class="op">)</span>
-<span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git_hook.html" class="external-link">use_git_hook</a></span><span class="op">(</span></span>
+<span>      <span class="st">"pre-commit"</span>,</span>
+<span>      script <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#!/bin/bash</span></span>
+<span><span class="st">CONFIG=($(git diff --cached --name-only | grep -Ei '^inst/golem-config\\.yml$'))</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">if [[ ${#CONFIG[@]} == 1 ]]; then</span></span>
+<span><span class="st">  echo -e \"You added inst/golem-config.yml. Is that really what you want?\nYou may not want to commit your credentials.\nIf this is really what you want, use 'git commit --no-verify' to override this check.\"</span></span>
+<span><span class="st">  exit 1</span></span>
+<span><span class="st">fi</span></span>
+<span><span class="st">"</span>,</span>
+<span><span class="fu">usethis</span><span class="fu">:::</span><span class="fu">render_template</span><span class="op">(</span><span class="st">"readme-rmd-pre-commit.sh"</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="environment-variables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#environment-variables" class="anchor"></a>Environment variables</h3>
-<p>The POSTGRES_USER and POSTGRES_PASS <strong>must not be
-versioned</strong> with the app.</p>
-<p>To avoid setting those environment variables every time you want to
-run the app, they should be saved in a local .Renviron file. To define
-one for your own copy of the project run this command:</p>
+<div class="section level3">
+<h3 id="environment-variables">Environment variables<a class="anchor" aria-label="anchor" href="#environment-variables"></a>
+</h3>
+<p>The POSTGRES_USER and POSTGRES_PASS <strong>must not be versioned</strong> with the app.</p>
+<p>To avoid setting those environment variables every time you want to run the app, they should be saved in a local .Renviron file. To define one for your own copy of the project run this command:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html">edit_r_environ</a></span><span class="op">(</span>scope <span class="op">=</span> <span class="st">"project"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html" class="external-link">edit_r_environ</a></span><span class="op">(</span>scope <span class="op">=</span> <span class="st">"project"</span><span class="op">)</span></span></code></pre></div>
 <p>and add the following lines</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># database username with Read access</span>
-<span class="va">POSTGRES_USER</span><span class="op">=</span><span class="va">diadesatlas_owner</span> <span class="co"># Changer ici le username</span>
-<span class="co"># database password for the user</span>
-<span class="va">POSTGRES_PASS</span><span class="op">=</span><span class="va">thinkrpassword</span> <span class="co"># Changer ici le password</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># database username with Read access</span></span>
+<span><span class="va">POSTGRES_USER</span><span class="op">=</span><span class="va">diadesatlas_owner</span> <span class="co"># Changer ici le username</span></span>
+<span><span class="co"># database password for the user</span></span>
+<span><span class="va">POSTGRES_PASS</span><span class="op">=</span><span class="va">thinkrpassword</span> <span class="co"># Changer ici le password</span></span></code></pre></div>
 <p>Again make sure not to track this project .Renviron with git.</p>
 </div>
-<div id="dev---thinkr-postgis-db" class="section level3">
-<h3 class="hasAnchor">
-<a href="#dev---thinkr-postgis-db" class="anchor"></a>Dev - ThinkR PostGis DB</h3>
-<p>If you do not have direct access to the database, a copy can be used
-for development. Please refer to the doc in the {diadesdata} repo on
-ThinkR’s forge (restricted access): Section “Pull and Use”.</p>
+<div class="section level3">
+<h3 id="dev---thinkr-postgis-db">Dev - ThinkR PostGis DB<a class="anchor" aria-label="anchor" href="#dev---thinkr-postgis-db"></a>
+</h3>
+<p>If you do not have direct access to the database, a copy can be used for development. Please refer to the doc in the {diadesdata} repo on ThinkR’s forge (restricted access): Section “Pull and Use”.</p>
 </div>
-<div id="checks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#checks" class="anchor"></a>Checks</h3>
-<p>Verify connexion to database works<br><em>Whether you are connected to the development or the production
-database, this should work correctly</em></p>
+<div class="section level3">
+<h3 id="checks">Checks<a class="anchor" aria-label="anchor" href="#checks"></a>
+</h3>
+<p>Verify connexion to database works<br><em>Whether you are connected to the development or the production database, this should work correctly</em></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">load_all</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
-<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>
-
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span>
-<span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span></span>
+<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html" class="external-link">dbListTables</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span>
+<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-<div id="dev---mongo" class="section level2">
-<h2 class="hasAnchor">
-<a href="#dev---mongo" class="anchor"></a>Dev - Mongo</h2>
-<p>To run the Shiny application locally in the same conditions as in
-production, it is better to have a Mongo database. For dev, you need to
-run the following on your machine:</p>
+<div class="section level2">
+<h2 id="dev---mongo">Dev - Mongo<a class="anchor" aria-label="anchor" href="#dev---mongo"></a>
+</h2>
+<p>To run the Shiny application locally in the same conditions as in production, it is better to have a Mongo database. For dev, you need to run the following on your machine:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>docker run <span class="sc">--</span>name<span class="ot">=</span>mongo <span class="sc">--</span>rm <span class="sc">-</span>p <span class="dv">2811</span><span class="sc">:</span><span class="dv">27017</span> <span class="sc">-</span>e MONGO_INITDB_ROOT_USERNAME<span class="ot">=</span>Colin <span class="sc">-</span>e MONGO_INITDB_ROOT_PASSWORD<span class="ot">=</span>AsAboveSoBelow789123 mongo<span class="sc">:</span><span class="fl">4.0</span></span></code></pre></div>
 <p>Stop it at the end of your development process</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>docker kill mongo</span></code></pre></div>
-<p>If Mongo database is not available, a local temporary cache will be
-use in the RAM of your machine.</p>
+<p>If Mongo database is not available, a local temporary cache will be use in the RAM of your machine.</p>
 </div>
 </div>
-<div id="dev---data-update-requires-update-unit-test-expected-outputs" class="section level1">
-<h1 class="hasAnchor">
-<a href="#dev---data-update-requires-update-unit-test-expected-outputs" class="anchor"></a>Dev - Data update requires update unit test expected outputs</h1>
-<p>If the database is updated, model outputs may change. It may be
-necessary to run simulation before unit tests.</p>
+<div class="section level1">
+<h1 id="dev---data-update-requires-update-unit-test-expected-outputs">Dev - Data update requires update unit test expected outputs<a class="anchor" aria-label="anchor" href="#dev---data-update-requires-update-unit-test-expected-outputs"></a>
+</h1>
+<p>If the database is updated, model outputs may change. It may be necessary to run simulation before unit tests.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw/altas_simulation.R"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw/altas_simulation.R"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="dev---update-and-include-vignettes-in-the-package" class="section level1">
-<h1 class="hasAnchor">
-<a href="#dev---update-and-include-vignettes-in-the-package" class="anchor"></a>Dev - update and include vignettes in the package</h1>
-<p>Vignettes are compiled manually by developers. Raw vignettes are
-stored in “data-raw”. Instructions to compile them are in the vignette
-itself.</p>
+<div class="section level1">
+<h1 id="dev---update-and-include-vignettes-in-the-package">Dev - update and include vignettes in the package<a class="anchor" aria-label="anchor" href="#dev---update-and-include-vignettes-in-the-package"></a>
+</h1>
+<p>Vignettes are compiled manually by developers. Raw vignettes are stored in “data-raw”. Instructions to compile them are in the vignette itself.</p>
 <p>However, they can all be prepared from this script:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"dev"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span>,
-          <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="st">"aa-a-exploration_data"</span>,
-  <span class="st">"aa-data-exploration-and-preparation"</span>,
-  <span class="st">"bb-page1-catch-bycatch"</span>,
-  <span class="st">"bc-page2-present"</span>,
-  <span class="st">"bd-page3-climate-change"</span>,
-  <span class="st">"be-page4-future"</span>, 
-  <span class="st">"translation"</span>,
-  <span class="st">"userguide"</span><span class="op">)</span>
-
-<span class="kw">for</span> <span class="op">(</span><span class="va">vignette_name</span> <span class="kw">in</span> <span class="va">all_vignettes</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># vignette_name &lt;- all_vignettes[6]</span>
-  <span class="va">vignette_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">vignette_name</span>, <span class="st">".Rmd"</span><span class="op">)</span>
-  
-  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>
-    input <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>,
-    output_format <span class="op">=</span> <span class="st">"rmarkdown::html_vignette"</span>,
-    output_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-    output_file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-  
-  <span class="co"># Add header for title</span>
-  <span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-    <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'---
-title: ".{vignette_name}."
-output: rmarkdown::html_vignette
-vignette: &gt;
-  %\\VignetteIndexEntry{.{vignette_name}.}
-  %\\VignetteEngine{knitr::rmarkdown}
-  %\\VignetteEncoding{UTF-8}
----
-'</span>, .open <span class="op">=</span> <span class="st">".{"</span>, .close <span class="op">=</span> <span class="st">"}."</span><span class="op">)</span>,
-<span class="va">lines</span>,
-sep <span class="op">=</span> <span class="st">"\n"</span>, 
-file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Add unit tests report</span>
-<span class="co"># remotes::install_github("metrumresearchgroup/covrpage")</span>
-<span class="co"># You may need to run with interactive session.</span>
-<span class="co"># Do not know why...</span>
-<span class="co"># debugonce(covrpage::covrpage)</span>
-<span class="fu">covrpage</span><span class="fu">::</span><span class="fu">covrpage</span><span class="op">(</span>vignette <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span><span class="op">(</span><span class="st">"tests/README.md"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="st">"never"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"dev"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span>,</span>
+<span>          <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">all_vignettes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"aa-a-exploration_data"</span>,</span>
+<span>  <span class="st">"aa-data-exploration-and-preparation"</span>,</span>
+<span>  <span class="st">"bb-page1-catch-bycatch"</span>,</span>
+<span>  <span class="st">"bc-page2-present"</span>,</span>
+<span>  <span class="st">"bd-page3-climate-change"</span>,</span>
+<span>  <span class="st">"be-page4-future"</span>, </span>
+<span>  <span class="st">"translation"</span>,</span>
+<span>  <span class="st">"userguide"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">vignette_name</span> <span class="kw">in</span> <span class="va">all_vignettes</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># vignette_name &lt;- all_vignettes[6]</span></span>
+<span>  <span class="va">vignette_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">vignette_name</span>, <span class="st">".Rmd"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span></span>
+<span>    input <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    output_format <span class="op">=</span> <span class="st">"rmarkdown::html_vignette"</span>,</span>
+<span>    output_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    output_file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Add header for title</span></span>
+<span>  <span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span></span>
+<span>    <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">'---</span></span>
+<span><span class="st">title: ".{vignette_name}."</span></span>
+<span><span class="st">output: rmarkdown::html_vignette</span></span>
+<span><span class="st">vignette: &gt;</span></span>
+<span><span class="st">  %\\VignetteIndexEntry{.{vignette_name}.}</span></span>
+<span><span class="st">  %\\VignetteEngine{knitr::rmarkdown}</span></span>
+<span><span class="st">  %\\VignetteEncoding{UTF-8}</span></span>
+<span><span class="st">---</span></span>
+<span><span class="st">'</span>, .open <span class="op">=</span> <span class="st">".{"</span>, .close <span class="op">=</span> <span class="st">"}."</span><span class="op">)</span>,</span>
+<span><span class="va">lines</span>,</span>
+<span>sep <span class="op">=</span> <span class="st">"\n"</span>, </span>
+<span>file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="va">vignette_file</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data-raw"</span>, <span class="st">"translation.Rmd"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add unit tests report</span></span>
+<span><span class="co"># remotes::install_github("metrumresearchgroup/covrpage")</span></span>
+<span><span class="co"># You may need to run with interactive session.</span></span>
+<span><span class="co"># Do not know why...</span></span>
+<span><span class="co"># debugonce(covrpage::covrpage)</span></span>
+<span><span class="fu">covrpage</span><span class="fu">::</span><span class="fu">covrpage</span><span class="op">(</span>vignette <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="st">"tests/README.md"</span><span class="op">)</span></span></code></pre></div>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/inrae/diades.atlas/">https://​github.com/​inrae/​diades.atlas/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/inrae/diades.atlas/-/issues">https://​github.com/​inrae/​diades.atlas/​-/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Sébastien Rochette <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-1565-9313" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Colin Fay <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7343-1846" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Antoine Languillaume <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-9843-5632" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/inrae/diades.atlas/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/inrae/diades.atlas/-/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/inrae/diades.atlas/actions"><img src="https://github.com/inrae/diades.atlas/workflows/R-CMD-check-docker-renv/badge.svg" alt="R build status"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing diades.atlas</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Sébastien Rochette <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-1565-9313" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Colin Fay <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7343-1846" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Antoine Languillaume <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-9843-5632" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+
+
+  </div>
 </div>
 
 
       <footer><div class="thinkr">
-  <p>diades.atlas is a  <strong>ThinkR</strong> package. Learn more at <a href="https://rtask.thinkr.fr">rtask.thinkr.fr</a>.</p>
+  <p></p>
+<p>Developed by Sébastien Rochette, Colin Fay, Antoine Languillaume.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by Sébastien Rochette, Colin Fay, Antoine Languillaume.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -532,6 +493,8 @@ file <span class="op">=</span> <span class="fu">here</span><span class="fu">::</
 
   
 
+
+  
 
   </body>
 </html>

@@ -37,6 +37,8 @@
 -->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -49,18 +51,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">diades.atlas</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -114,7 +110,7 @@
 </div>
         </li>
         <li>
-  <a href="https://github.com/inrae/diades.atlas/">
+  <a href="https://github.com/inrae/diades.atlas/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -129,13 +125,13 @@
 
       
 
-      </header><script src="translation_files/header-attrs-2.14/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>translation</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/master/vignettes/translation.Rmd"><code>vignettes/translation.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/inrae/diades.atlas/blob/HEAD/vignettes/translation.Rmd" class="external-link"><code>vignettes/translation.Rmd</code></a></small>
       <div class="hidden name"><code>translation.Rmd</code></div>
 
     </div>
@@ -508,7 +504,7 @@ créer un nouvel élément “traductible” dans le server</a>
 </div>
 <div id="cb1" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>eval <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>eval <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 </div>
 <p>
 Si c’est nécessaire, se connecter à la base de données en suivant les
@@ -516,20 +512,20 @@ instructions du Readme.Rmd
 </p>
 <div id="cb2" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Chargement des packages</span>
-<span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgload/man/load_all.html">load_all</a></span><span class="op">(</span>attach_testthat <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/">here</a></span><span class="op">)</span>
-
-<span class="co"># Connexion à la base si nécessaire</span>
-<span class="va">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Chargement des packages</span></span>
+<span><span class="fu">pkgload</span><span class="fu">::</span><span class="fu"><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span>attach_testthat <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/" class="external-link">here</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Connexion à la base si nécessaire</span></span>
+<span><span class="va">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="comment-est-organisée-la-traduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comment-est-organis%C3%A9e-la-traduction" class="anchor"></a>
+<div class="section level3">
+<h3 id="comment-est-organisée-la-traduction">
 Comment est organisée la traduction
-</h2>
+<a class="anchor" aria-label="anchor" href="#comment-est-organis%C3%A9e-la-traduction"></a>
+</h3>
 <p>
 <strong>Note importante</strong> : Pensez à être bien vigilant sur
 l’harmonisation des code-langues. En d’autres termes, si l’on ajoute une
@@ -537,11 +533,11 @@ langue avec le code <code>es</code>, ce code doit être strictement
 respecté partout, sinon la traduction ne pourra pas être effectuée
 correctement dans l’application.
 </p>
-<div id="pour-le-front-end" class="section level3">
-<h3 class="hasAnchor">
-<a href="#pour-le-front-end" class="anchor"></a>
+<div class="section level4">
+<h4 id="pour-le-front-end">
 Pour le front-end
-</h3>
+<a class="anchor" aria-label="anchor" href="#pour-le-front-end"></a>
+</h4>
 <p>
 Pour l’interface utilisateur, l’application combine les fichiers csv
 contenus dans le dossier <code>inst/</code> et des tables contenues dans
@@ -567,11 +563,11 @@ Tous ces fichiers/tables contiennent au moins 5 colonnes:
 <code>pt</code> : la traduction en portugais
 </li>
 </ul>
-<div id="lus-dans-la-base-de-données-directement" class="section level4">
-<h4 class="hasAnchor">
-<a href="#lus-dans-la-base-de-donn%C3%A9es-directement" class="anchor"></a>
+<div class="section level5">
+<h5 id="lus-dans-la-base-de-données-directement">
 Lus dans la base de données directement
-</h4>
+<a class="anchor" aria-label="anchor" href="#lus-dans-la-base-de-donn%C3%A9es-directement"></a>
+</h5>
 <p>
 Si la requête SQL pour récupérer les tables suivantes doit changer,
 alors ces fonctions sont à mettre à jour dans
@@ -585,7 +581,7 @@ d’ajout de traductions dans la base.
 </ul>
 <div id="cb3" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">translation_abundance_level</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">translation_abundance_level</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></span></code></pre>
 </div>
 <p>
 =&gt; Cette fonction est à mettre à jour dans
@@ -599,7 +595,7 @@ niveau d’abondance.
 </ul>
 <div id="cb4" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">translation_species</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">translation_species</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></span></code></pre>
 </div>
 <p>
 =&gt; Cette fonction est à mettre à jour dans
@@ -612,18 +608,18 @@ niveau d’abondance.
 </ul>
 <div id="cb5" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">translation_v_ecosystemic_services</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">translation_v_ecosystemic_services</span><span class="op">(</span><span class="va">session</span><span class="op">)</span></span></code></pre>
 </div>
 <p>
 =&gt; Cette fonction est à mettre à jour dans
 <code>R/utils_helpers.R</code>
 </p>
 </div>
-<div id="fichiers-à-compléter-à-la-main" class="section level4">
-<h4 class="hasAnchor">
-<a href="#fichiers-%C3%A0-compl%C3%A9ter-%C3%A0-la-main" class="anchor"></a>
+<div class="section level5">
+<h5 id="fichiers-à-compléter-à-la-main">
 Fichiers à compléter à la main
-</h4>
+<a class="anchor" aria-label="anchor" href="#fichiers-%C3%A0-compl%C3%A9ter-%C3%A0-la-main"></a>
+</h5>
 <ul>
 <li>
 <code>inst/translation_help.csv</code> : contient la traduction pour les
@@ -706,35 +702,35 @@ Vous pouvez vérifier l’intégrité du csv à l’aide de la fonction
 </p>
 <div id="cb6" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">translation_help</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_translation_csv.html">check_translation_csv</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">translation_help</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="va">translation_help</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_translation_csv.html">check_translation_csv</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/translation_help.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">translation_help</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="cb7" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">translation_iucn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_translation_csv.html">check_translation_csv</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/translation_iucn.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">translation_iucn</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="va">translation_iucn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_translation_csv.html">check_translation_csv</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/translation_iucn.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">translation_iucn</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="cb8" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">translation</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_translation_csv.html">check_translation_csv</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/translation.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">translation</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="va">translation</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_translation_csv.html">check_translation_csv</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/translation.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">translation</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="ajouter-une-nouvelle-langue" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ajouter-une-nouvelle-langue" class="anchor"></a>
+<div class="section level3">
+<h3 id="ajouter-une-nouvelle-langue">
 Ajouter une nouvelle langue
-</h2>
+<a class="anchor" aria-label="anchor" href="#ajouter-une-nouvelle-langue"></a>
+</h3>
 <p>
 Ajouter une nouvelle langue doit se faire aux emplacements suivants:
 </p>
-<div id="fichiers-à-modifier" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fichiers-%C3%A0-modifier" class="anchor"></a>
+<div class="section level4">
+<h4 id="fichiers-à-modifier">
 Fichiers à modifier
-</h3>
+<a class="anchor" aria-label="anchor" href="#fichiers-%C3%A0-modifier"></a>
+</h4>
 <p>
 Dans les fichiers manuellement mis à jour:
 </p>
@@ -761,11 +757,11 @@ l’abbréviation de la nouvelle langue par exemple <code>es</code> pour
 l’espagnol et compléter chaque entrée avec la traduction.
 </p>
 </div>
-<div id="fonctions-bdd" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fonctions-bdd" class="anchor"></a>
+<div class="section level4">
+<h4 id="fonctions-bdd">
 Fonctions bdd
-</h3>
+<a class="anchor" aria-label="anchor" href="#fonctions-bdd"></a>
+</h4>
 <p>
 Ces fonctions sont dans <code>R/utils_helpers.R</code>
 </p>
@@ -797,17 +793,17 @@ requête SQL, il faudra ajouter une partie au SQL type
 </li>
 </ul>
 </div>
-<div id="côté-code-de-lapplication" class="section level3">
-<h3 class="hasAnchor">
-<a href="#c%C3%B4t%C3%A9-code-de-lapplication" class="anchor"></a>
+<div class="section level4">
+<h4 id="côté-code-de-lapplication">
 Côté code de l’application
-</h3>
+<a class="anchor" aria-label="anchor" href="#c%C3%B4t%C3%A9-code-de-lapplication"></a>
+</h4>
 <ul>
 <li>
 <p>
 Si disponible, ajouter le langage dans <code>get_dt_lg()</code> , à
 vérifier sur
-<a href="https://cdn.datatables.net/plug-ins/1.10.11/i18n/" class="uri">https://cdn.datatables.net/plug-ins/1.10.11/i18n/</a>
+<a href="https://cdn.datatables.net/plug-ins/1.10.11/i18n/" class="external-link uri">https://cdn.datatables.net/plug-ins/1.10.11/i18n/</a>
 </p>
 </li>
 <li>
@@ -816,22 +812,22 @@ Dans <code>R/app_ui.R</code>, ajouter une entrée pour le sélecteur de
 langue. Si votre entrée de langue est <code>es</code>, ajouter
 <code>&lt;option value="en"&gt;001f1ea001f1f8
 Espanol&lt;/option&gt;</code>. Le code unicode s’obtient en utilisant
-l’émoji et <code><a href="https://rdrr.io/pkg/stringi/man/stri_escape_unicode.html">stringi::stri_escape_unicode("🇪🇸")</a></code>.
+l’émoji et <code>stringi::stri_escape_unicode("🇪🇸")</code>.
 </p>
 </li>
 </ul>
 </div>
 </div>
-<div id="notes-pour-les-dévelopeurs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#notes-pour-les-d%C3%A9velopeurs" class="anchor"></a>
+<div class="section level3">
+<h3 id="notes-pour-les-dévelopeurs">
 Notes pour les dévelopeurs
-</h2>
-<div id="comment-créer-un-nouvel-élément-traductible-dans-lui" class="section level3">
-<h3 class="hasAnchor">
-<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-lui" class="anchor"></a>
-Comment créer un nouvel élément “traductible” dans l’UI
+<a class="anchor" aria-label="anchor" href="#notes-pour-les-d%C3%A9velopeurs"></a>
 </h3>
+<div class="section level4">
+<h4 id="comment-créer-un-nouvel-élément-traductible-dans-lui">
+Comment créer un nouvel élément “traductible” dans l’UI
+<a class="anchor" aria-label="anchor" href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-lui"></a>
+</h4>
 <ul>
 <li>
 La traduction est assurée par le module JS <code>i18n</code> et la
@@ -840,10 +836,10 @@ fonction <code>with_i18()</code> dans l’app
 </ul>
 <div id="cb9" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">with_i18</span><span class="op">(</span>
-  <span class="st">"Text de base"</span>,
-  <span class="st">"text_de_base"</span>
-<span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">with_i18</span><span class="op">(</span></span>
+<span>  <span class="st">"Text de base"</span>,</span>
+<span>  <span class="st">"text_de_base"</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
 <p>
 Va créer <code>&lt;span data-i18n="text_de_base"&gt;Text de
@@ -871,74 +867,74 @@ JavaScript) l’action suivante
 </p>
 <div id="cb10" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df_traduction</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">entry</span> <span class="op">==</span> <span class="st">"text_de_base"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">fr</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="va">df_traduction</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">entry</span> <span class="op">==</span> <span class="st">"text_de_base"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">fr</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
-<div id="ajouter-une-bulle-daide-traduisible" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ajouter-une-bulle-daide-traduisible" class="anchor"></a>
+<div class="section level4">
+<h4 id="ajouter-une-bulle-daide-traduisible">
 Ajouter une bulle d’aide traduisible
-</h3>
+<a class="anchor" aria-label="anchor" href="#ajouter-une-bulle-daide-traduisible"></a>
+</h4>
 <p>
 Sur un bouton
 </p>
 <div id="cb11" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>
-  <span class="fu">w3_hover_button</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>, <span class="co"># bulle pour un bouton</span>
-  <span class="fu">w3_help_button</span><span class="op">(</span>
-    <span class="st">"Select a species"</span>,
-    <span class="st">"species_modal_help"</span> <span class="co"># repertorié dans "entry" </span>
-  <span class="op">)</span>
-<span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>  <span class="fu">w3_hover_button</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>, <span class="co"># bulle pour un bouton</span></span>
+<span>  <span class="fu">w3_help_button</span><span class="op">(</span></span>
+<span>    <span class="st">"Select a species"</span>,</span>
+<span>    <span class="st">"species_modal_help"</span> <span class="co"># repertorié dans "entry" </span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
 <p>
 Sur un titre
 </p>
 <div id="cb12" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">h4</a></span><span class="op">(</span>
-  <span class="fu">with_i18</span><span class="op">(</span><span class="st">"Catch and bycatch at sea"</span>, <span class="st">"[html]map-bycatch"</span><span class="op">)</span>,
-  <span class="fu">w3_help_button</span><span class="op">(</span>
-    <span class="st">"Select a species"</span>,
-    <span class="st">"catch_bycatch_help"</span>
-  <span class="op">)</span>
-<span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h4</a></span><span class="op">(</span></span>
+<span>  <span class="fu">with_i18</span><span class="op">(</span><span class="st">"Catch and bycatch at sea"</span>, <span class="st">"[html]map-bycatch"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">w3_help_button</span><span class="op">(</span></span>
+<span>    <span class="st">"Select a species"</span>,</span>
+<span>    <span class="st">"catch_bycatch_help"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
 </div>
-<div id="comment-créer-un-nouvel-élément-traductible-dans-le-server" class="section level3">
-<h3 class="hasAnchor">
-<a href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-le-server" class="anchor"></a>
+<div class="section level4">
+<h4 id="comment-créer-un-nouvel-élément-traductible-dans-le-server">
 Comment créer un nouvel élément “traductible” dans le server
-</h3>
-<div id="soit-la-traduction-existe-dans-la-base-de-données" class="section level4">
-<h4 class="hasAnchor">
-<a href="#soit-la-traduction-existe-dans-la-base-de-donn%C3%A9es" class="anchor"></a>
-Soit la traduction existe dans la base de données
+<a class="anchor" aria-label="anchor" href="#comment-cr%C3%A9er-un-nouvel-%C3%A9l%C3%A9ment-traductible-dans-le-server"></a>
 </h4>
+<div class="section level5">
+<h5 id="soit-la-traduction-existe-dans-la-base-de-données">
+Soit la traduction existe dans la base de données
+<a class="anchor" aria-label="anchor" href="#soit-la-traduction-existe-dans-la-base-de-donn%C3%A9es"></a>
+</h5>
 <p>
 Si vous êtes dans une chaine d’opérations qui s’effectue dans la base de
-données (avant un <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code>), vous pouvez utiliser la
+données (avant un <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>), vous pouvez utiliser la
 fonction <code>diadesatlas.translate()</code> qui est incluse dans la
 base. C’est bien une fonction SQL incluse dans la base PostGIS et non
 pas une fonction R.<br> Dans R, cela se traduit par un
-<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> de la colonne à traduire comme ceci:
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> de la colonne à traduire comme ceci:
 </p>
 <div id="cb13" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># lg &lt;- 'fr'</span>
-<span class="va">db</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>basin_name <span class="op">=</span> <span class="fu">diadesatlas.translate</span><span class="op">(</span><span class="va">basin_name</span>, <span class="op">!</span><span class="op">!</span><span class="va">lg</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># lg &lt;- 'fr'</span></span>
+<span><span class="va">db</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>basin_name <span class="op">=</span> <span class="fu">diadesatlas.translate</span><span class="op">(</span><span class="va">basin_name</span>, <span class="op">!</span><span class="op">!</span><span class="va">lg</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
-<div id="soit-la-traduction-nest-pas-dans-la-base" class="section level4">
-<h4 class="hasAnchor">
-<a href="#soit-la-traduction-nest-pas-dans-la-base" class="anchor"></a>
+<div class="section level5">
+<h5 id="soit-la-traduction-nest-pas-dans-la-base">
 Soit la traduction n’est pas dans la base
-</h4>
+<a class="anchor" aria-label="anchor" href="#soit-la-traduction-nest-pas-dans-la-base"></a>
+</h5>
 <p>
 La traduction doit donc exister dans le csv de traduction.<br> Dans ce
 cas, nous utilisons la fonction R de notre package
@@ -946,7 +942,7 @@ cas, nous utilisons la fonction R de notre package
 </p>
 <div id="cb14" class="sourceCode">
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">get_translation_entry</span><span class="op">(</span>entry <span class="op">=</span> <span class="st">'hsi_ggplot'</span>, lg <span class="op">=</span> <span class="st">'fr'</span><span class="op">)</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">get_translation_entry</span><span class="op">(</span>entry <span class="op">=</span> <span class="st">'hsi_ggplot'</span>, lg <span class="op">=</span> <span class="st">'fr'</span><span class="op">)</span></span></code></pre>
 </div>
 <ul>
 <li>
@@ -978,13 +974,14 @@ dans le data.frame de traduction, i.e. la valeur dans la colonne entry.
 
 
       <footer><div class="thinkr">
-  <p>diades.atlas is a  <strong>ThinkR</strong> package. Learn more at <a href="https://rtask.thinkr.fr">rtask.thinkr.fr</a>.</p>
+  <p></p>
+<p>Developed by Sébastien Rochette, Colin Fay, Antoine Languillaume.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by Sébastien Rochette, Colin Fay, Antoine Languillaume.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -993,6 +990,8 @@ dans le data.frame de traduction, i.e. la valeur dans la colonne entry.
 
   
 
+
+  
 
   </body>
 </html>
