@@ -4,7 +4,7 @@
     "Repositories": [
       {
         "Name": "RSPM",
-        "URL": "https://packagemanager.rstudio.com/all/__linux__/focal/latest"
+        "URL": "https://packagemanager.rstudio.com/all/latest"
       },
       {
         "Name": "thinkropen",
@@ -38,13 +38,7 @@
       "Package": "DT",
       "Version": "0.27",
       "Source": "Repository",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "DT",
-      "RemoteRef": "DT",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-20.04",
-      "RemoteSha": "0.27",
+      "Repository": "CRAN",
       "Requirements": [
         "crosstalk",
         "htmltools",
@@ -311,21 +305,19 @@
     "bank": {
       "Package": "bank",
       "Version": "0.0.0.9002",
-      "Source": "Repository",
-      "Repository": "https://thinkr-open.r-universe.dev",
-      "RemoteUrl": "https://github.com/ThinkR-open/bank",
-      "RemoteRef": "bank",
-      "RemoteSha": "0.0.0.9002",
-      "RemoteType": "standard",
-      "RemotePkgRef": "bank",
-      "RemoteRepos": "https://thinkr-open.r-universe.dev",
-      "RemotePkgPlatform": "source",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "bank",
+      "RemoteUsername": "thinkr-open",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c8ba84aaa0b6cc6f009344dbb4c99f0985ebb444",
       "Requirements": [
         "R6",
         "attempt",
         "digest"
       ],
-      "Hash": "c584ed3d1a62657bbac5c729fe31950a"
+      "Hash": "167eba686033f727cbabf9c2715c60d4"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -716,7 +708,12 @@
     "curl": {
       "Package": "curl",
       "Version": "5.0.0",
-      "Source": "Repository"
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "e4f97056611e8e6b8b852d13b7400cf1"
     },
     "data.table": {
       "Package": "data.table",
@@ -1451,13 +1448,7 @@
       "Package": "htmlwidgets",
       "Version": "1.6.2",
       "Source": "Repository",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "htmlwidgets",
-      "RemoteRef": "htmlwidgets",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-20.04",
-      "RemoteSha": "1.6.2",
+      "Repository": "CRAN",
       "Requirements": [
         "grDevices",
         "htmltools",
@@ -2581,16 +2572,9 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.21.3",
+      "Version": "2.21",
       "Source": "Repository",
-      "Repository": "https://thinkr-open.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/rmarkdown",
-      "RemoteRef": "rmarkdown",
-      "RemoteSha": "2.21.3",
-      "RemoteType": "standard",
-      "RemotePkgRef": "rmarkdown",
-      "RemoteRepos": "https://thinkr-open.r-universe.dev",
-      "RemotePkgPlatform": "source",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "bslib",
@@ -2608,7 +2592,7 @@
         "xfun",
         "yaml"
       ],
-      "Hash": "8685a583733f94f8ae6e14642b1261f9"
+      "Hash": "493df4ae51e2e984952ea4d5c75786a3"
     },
     "roxygen2": {
       "Package": "roxygen2",
