@@ -265,9 +265,10 @@ generate_datasets <- function(con) {
     ),
   ]
   
-  countries_mortalities_list <- 
+  countries_mortalities_list <-
+    c("Scotland", "Ireland",  "Wales", "England", "France", "Spain", "Portugal")
     # c("ireland", "france", "united-kingdom", "portugal", "spain")
-  dplyr::tbl(con, "basin") %>% dplyr::count(country) %>% dplyr::pull(country)
+  # dplyr::tbl(con, "basin") %>% dplyr::count(country) %>% dplyr::pull(country)
   
   return(
     list(
@@ -275,7 +276,7 @@ generate_datasets <- function(con) {
       catchment_geom = catchment_geom,
       dataALL = dataALL,
       ices_geom = ices_geom,
-      ices_division = ices_division,
+      ices_division = ices_division, 
       species_list = species_list,
       positive_catch_area = positive_catch_area,
       countries_mortalities_list = countries_mortalities_list

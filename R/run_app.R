@@ -24,6 +24,7 @@ run_app <- function(
   ices_geom = ices_geom,
   ices_division = ices_division,
   positive_catch_area = positive_catch_area,
+
   help_bubble_entries = get_help_bubble_entries()
 ) {
   cli::cat_rule("run_app")
