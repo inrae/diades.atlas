@@ -164,11 +164,6 @@ tm_draw <- function(species_latin_name,
                     dataALL,
                     ices_geom,
                     ices_division,
-                    session = shiny::getDefaultReactiveDomain()) {
-  # =====================================================================================
-  # ----------------------------------------- country frontier
-  # -----------------------------------------ices division border
-=======
                     positive_catch_area,
                     session = shiny::getDefaultReactiveDomain()) {
   # =====================================================================================
