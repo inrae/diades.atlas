@@ -25,7 +25,13 @@ mod_first_ui <- function(id) {
             mod_species_ui(ns("species_ui_1"))
           )
         ),
-        w3css::w3_quarter(
+        radioButtons(
+          ns("showaqua"),
+          label = NULL,
+          choices = c(
+            "Hide Aqua" = "hide",
+            "Show Aqua" = "show"
+          )
         ),
         w3css::w3_quarter()
       )
@@ -113,7 +119,15 @@ mod_first_server <- function(id, r = r) {
     #   cache = get_mongo()
     # )
 
-
+    observeEvent(input$showaqua, {
+      if (input$showaqua == "show"){
+        leafletProxy("raster", session) %>%
+          leaflet::showGroup("AquaMaps")
+      } else {
+        leafletProxy("raster", session) %>%
+          leaflet::hideGroup("AquaMaps")
+      }
+    })
 
     observeEvent(loco$species, {
       req(loco$species)
