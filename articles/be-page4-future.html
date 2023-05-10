@@ -4678,14 +4678,14 @@ Use anthropogenic mortality from the Shiny interface
 <span><span class="va">mortalities</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  <span class="co"># country = golem::get_golem_options('countries_mortalities_list'),</span></span>
 <span>  country <span class="op">=</span> <span class="va">datasets</span><span class="op">[[</span><span class="st">"countries_mortalities_list"</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>  yearsimubegin <span class="op">=</span> </span>
+<span>  mortsimperiod1 <span class="op">=</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">country</span> <span class="op">==</span> <span class="st">"France"</span> <span class="op">~</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">.5</span><span class="op">)</span>,</span>
 <span>      <span class="co"># country == "France" ~ -5,</span></span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="fl">0</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>  <span class="co"># rep(-log(.5), length(datasets[["countries_mortalities_list"]])),</span></span>
-<span>  yearsimuend <span class="op">=</span> </span>
+<span>  mortsimperiod2 <span class="op">=</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="va">country</span> <span class="op">==</span> <span class="st">"France"</span> <span class="op">~</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">.75</span><span class="op">)</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="fl">0</span></span>
@@ -4695,7 +4695,7 @@ Use anthropogenic mortality from the Shiny interface
 <span></span>
 <span><span class="va">mortalities</span></span>
 <span><span class="co">#&gt; # A tibble: 13 × 3</span></span>
-<span><span class="co">#&gt;    country     yearsimubegin yearsimuend</span></span>
+<span><span class="co">#&gt;    country     mortsimperiod1 mortsimperiod2</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 Denmark             0           0    </span></span>
 <span><span class="co">#&gt;  2 Portugal            0           0    </span></span>
