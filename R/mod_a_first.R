@@ -101,6 +101,7 @@ mod_first_server <- function(id, r = r) {
         dataALL = golem::get_golem_options("dataALL"),
         ices_geom = golem::get_golem_options("ices_geom"), 
         ices_division = golem::get_golem_options("ices_division"),
+        positive_catch_area = golem::get_golem_options("positive_catch_area"),
         session = session
       )
     }) 
