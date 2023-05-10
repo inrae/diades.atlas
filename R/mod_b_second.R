@@ -106,7 +106,8 @@ mod_second_ui <- function(id) {
         choiceNames = list(
           with_i18("Rows", "rows"),
           with_i18("Columns", "columns")
-        )
+        ),
+        selected = "Columns"
       ) %>% tagAppendAttributes(style = "padding-top:1em")
     )
   )
