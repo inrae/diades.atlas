@@ -73,7 +73,8 @@ datasets <- generate_datasets(
 launch_mongo(session = session)
 # NOTE: the species are passed with the latin name in the foreground.
 # In the front of the app, the user will have to select an english/french name
-tm_draw(
+
+tm1 <- tm_draw(
   species_latin_name = "Salmo trutta",
   spatial_type = "rectangle",
   con = con,
@@ -82,6 +83,22 @@ tm_draw(
   dataALL = datasets$dataALL,
   ices_geom = datasets$ices_geom,
   ices_division = datasets$ices_division,
+  positive_catch_area = datasets$positive_catch_area,
+  session = session
+)
+tmap_leaflet(tm1)
+tm1# + diades.atlas::tm_frontiers 
+
+tm_draw(
+  species_latin_name = "Chelon ramada",
+  spatial_type = "rectangle",
+  con = con,
+  dataCatchment = datasets$dataCatchment,
+  catchment_geom = datasets$catchment_geom,
+  dataALL = datasets$dataALL,
+  ices_geom = datasets$ices_geom,
+  ices_division = datasets$ices_division,
+  positive_catch_area = datasets$positive_catch_area,
   session = session
 )
 
@@ -94,22 +111,10 @@ tm_draw(
   dataALL = datasets$dataALL,
   ices_geom = datasets$ices_geom,
   ices_division = datasets$ices_division,
+    positive_catch_area =datasets$positive_catch_area,
   session = session
 )
 
-tm1 <- tm_draw(
-  species_latin_name = "Chelon ramada",
-  spatial_type = "rectangle",
-  con = con,
-  dataCatchment = datasets$dataCatchment,
-  catchment_geom = datasets$catchment_geom,
-  dataALL = datasets$dataALL,
-  ices_geom = datasets$ices_geom,
-  ices_division = datasets$ices_division,
-  session = session
-)
-tm1# + diades.atlas::tm_frontiers 
-# tmap_leaflet(tm1)
 ```
 
 ## Disconnect db
