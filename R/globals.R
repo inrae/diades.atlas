@@ -17,6 +17,8 @@ globalVariables(unique(c(
   "con", "latin_name", 
   # mod_second_server : <anonymous>: 
   "basin_id", "basin_name",
+  # data_ocean: 
+  "division_name", "icesname",
   # plot_hsi_nit: 
   "basin_id", "year", "hsi_min", "hsi_max", "label", "hsi_movingavg",
   "species_id", "nit_mean", "nit_min", "nit_max", "nit_movingavg",

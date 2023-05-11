@@ -93,3 +93,6 @@ get_data_continent_m <- function(session = getDefaultReactiveDomain()) {
 get_tm_catchmment_m <- function(session = getDefaultReactiveDomain()) {
     session$userData$tm_catchmment_m
 }
+get_tm_ices_division_m <- function(session = getDefaultReactiveDomain()) {
+  session$userData$tm_ices_division_m
+}

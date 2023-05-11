@@ -514,6 +514,7 @@ computeEffective <- function(currentYear,
 #' 
 #' @importFrom dplyr distinct mutate full_join select collect left_join
 #' @importFrom dplyr case_when between
+#' @importFrom tidyr replace_na
 #' 
 #' @return Tibble with anthropogenic mortality for each year
 #' @noRd
@@ -532,12 +533,12 @@ expand_anthropogenic_mortality <- function(data_hsi_nmax, mortalities) {
     left_join(mortalities, by = "country") %>% 
     mutate(
       h1 = case_when(
-        # between(year, 2001, 2050) & country == 'France' ~ -log(.5),
-        between(year, 2001, 2050) ~ yearsimubegin, #-log(.5),
-        # between(year, 2051, 2100) & country == 'France' ~ -log(.75),
-        between(year, 2051, 2100) ~ yearsimuend, #-log(.75),
-        TRUE ~ 0 # before 2001
-      ))
+        between(year, 1951, 2000) ~ mortsimperiod1,
+        between(year, 2001, 2050) ~ mortsimperiod2, 
+        between(year, 2051, 2100) ~ mortsimperiod3, 
+        TRUE ~ 0 
+      )) %>% 
+    mutate(h1 = replace_na(h1, 0))
 }
 
 #' Get Nit results from model results

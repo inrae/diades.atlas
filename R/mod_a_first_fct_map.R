@@ -37,8 +37,8 @@ tm_ocean <- function(dataOcean,
       "prevalence",
       title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
       palette = c("#F7FBFF", "#C6DBEF", "#9ECAE1", "#4292C6", "#08519C", "#08306B"),
-      alpha = .5,
       n = 6,
+      border.col = "gray90",
       labels = c(
         "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
         "[1, 3]",
@@ -51,6 +51,12 @@ tm_ocean <- function(dataOcean,
     )
 }
 
+#' @importFrom tmap tm_shape tm_borders
+#' @noRd
+tm_ices_division <- function(ices_division) {
+  tm_shape(ices_division) +
+    tm_borders(col = 'grey70', lwd = 1.2)
+}
 
 #' @importFrom tmap tm_shape tm_borders
 #' @noRd
@@ -90,7 +96,6 @@ tm_aquamaps <- function(species_latin_name,
               # palette = "#f0d97d",
               legend.show = FALSE)
 }
-
 
 #' @importFrom dplyr left_join filter
 #' @noRd
@@ -139,6 +144,7 @@ bbox <- sf::st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = sf::
 #' @param spatial_type Geom to use in the map
 #' @param con The Connection object
 #' @param yearStart,yearEnd date used
+#' @param dataCatchment,catchment_geom,dataALL,ices_geom,ices_division  internal datasets
 #' @param dataCatchment,catchment_geom internal datasets for continental waters
 #' @param dataALL,ices_geom,ices_division,positive_catch_area  internal datasets for marines water
 #' @param session The Shiny Session object
@@ -168,7 +174,7 @@ tm_draw <- function(species_latin_name,
   )(
     ices_geom
   )
-  
+                      
   tm_ices_division <- get_tm_ices_division_m(
     session = session
   )(

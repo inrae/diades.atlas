@@ -97,18 +97,23 @@ test_that("runSimulation works", {
   mortalities <- tibble::tibble(
     # country = golem::get_golem_options('countries_mortalities_list'),
     country = datasets[["countries_mortalities_list"]],
-    yearsimubegin = 
+    mortsimperiod1 = 
+      case_when(
+        country == "France" ~ 0,
+        TRUE ~ 0
+      ),
+    # rep(-log(.5), length(datasets[["countries_mortalities_list"]])),
+    mortsimperiod2 = 
       case_when(
         country == "France" ~ -log(.5),
         TRUE ~ 0
       ),
-    # rep(-log(.5), length(datasets[["countries_mortalities_list"]])),
-    yearsimuend = 
+    # rep(-log(.75), length(datasets[["countries_mortalities_list"]]))
+    mortsimperiod3 = 
       case_when(
         country == "France" ~ -log(.75),
         TRUE ~ 0
       )
-    # rep(-log(.75), length(datasets[["countries_mortalities_list"]]))
   )
   
   # expand_anthropogenic_mortality works ----
