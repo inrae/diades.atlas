@@ -71,7 +71,7 @@ tm_ices_division <- function(ices_division) {
 tm_positive_catch <-  function(positive_catch_area){
   tm_shape(positive_catch_area,
            name = 'positive catch of at least one species') + 
-    tm_polygons(col = 'grey',
+    tm_polygons(col = 'green',
                 border.col = 'black',
                 alpha = .5,
                lwd = 1.2)
