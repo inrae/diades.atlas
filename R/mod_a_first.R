@@ -25,9 +25,20 @@ mod_first_ui <- function(id) {
             mod_species_ui(ns("species_ui_1"))
           )
         ),
-        w3css::w3_quarter(
-        ),
-        w3css::w3_quarter()
+        actionButton(ns("showaqua"),
+                     label = 'AquaMaps'),
+        actionButton(ns("positive_catch"),
+                     label = 'Positive catch'),
+        
+        # radioButtons(
+        #   ns("showaqua"),
+        #   label = NULL,
+        #   choices = c(
+        #     "Hide AquaMaps" = "hide",
+        #     "Show AquaMaps" = "show"
+        #   )
+        # ),
+        w3css::w3_quarter()  
       )
     ),
     w3css::w3_col(
@@ -45,7 +56,7 @@ mod_first_ui <- function(id) {
             )
           )
         ),
-        tmap::tmapOutput(ns("raster"), width = "90%", height = "750px")
+        leaflet::leafletOutput(ns("raster"), width = "90%", height = "750px")
       ),
       w3css::w3_col(
         class = "s2",
@@ -89,7 +100,7 @@ mod_first_server <- function(id, r = r) {
       r = loco
     )
 
-    output$raster <- tmap::renderTmap({
+    output$raster <- leaflet::renderLeaflet({
       req(loco$species)
 
       tm_draw(
@@ -113,7 +124,35 @@ mod_first_server <- function(id, r = r) {
     #   cache = get_mongo()
     # )
 
-
+    # observeEvent(input$showaqua, {
+    #   if (input$showaqua == "show"){
+    #     leafletProxy("raster", session) %>%
+    #       leaflet::showGroup("AquaMaps")
+    #   } else {
+    #     leafletProxy("raster", session) %>%
+    #       leaflet::hideGroup("AquaMaps")
+    #   }
+    # })
+    
+    observeEvent(input$showaqua, {
+      if (input$showaqua %% 2 == 1){
+        leafletProxy("raster", session) %>%
+          leaflet::showGroup("AquaMaps")
+      } else {
+        leafletProxy("raster", session) %>%
+          leaflet::hideGroup("AquaMaps")
+      }
+    })
+    
+    observeEvent(input$positive_catch, {
+      if (input$positive_catch %% 2 == 1){
+        leafletProxy("raster", session) %>%
+          leaflet::showGroup('positive catch of at least one species')
+      } else {
+        leafletProxy("raster", session) %>%
+          leaflet::hideGroup('positive catch of at least one species')
+      }
+    })
 
     observeEvent(loco$species, {
       req(loco$species)

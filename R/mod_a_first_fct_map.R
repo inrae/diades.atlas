@@ -69,7 +69,7 @@ tm_ices_rectangle <- function(ices_geom) {
 #' @noRd
 tm_ices_division <- function(ices_division) {
   tm_shape(ices_division, bbox = bbox) +
-    tm_borders(col = 'grey10', lwd = 1)
+    tm_borders(col = 'grey10', lwd = 1.2)
 }
 
 #' @importFrom tmap tm_shape tm_polygons
@@ -77,7 +77,7 @@ tm_ices_division <- function(ices_division) {
 tm_positive_catch <-  function(positive_catch_area){
   tm_shape(positive_catch_area,
            name = 'positive catch of at least one species') + 
-    tm_polygons(col = 'grey',
+    tm_polygons(col = 'green',
                 border.col = 'black',
                 alpha = .5,
                lwd = 1.2)
@@ -232,7 +232,7 @@ tm_draw <- function(species_latin_name,
   )(dataContinent)
 
   # ------------------------------------------ display the map
-  tm_graticules() +
+  tm_all <- tm_graticules() +
     tm_ices_rectangle +
     tm_ices_division +
     tm_positive_catch +
@@ -246,5 +246,10 @@ tm_draw <- function(species_latin_name,
       main.title = species_latin_name, # suppress at the end
       # legend.position = c("right", "center"),
       legend.outside = TRUE
-    )
+    ) 
+
+   tm_all %>% 
+      tmap_leaflet()%>%
+      leaflet::hideGroup("AquaMaps") %>%
+      leaflet::hideGroup("positive catch of at least one species")
 }
