@@ -28,11 +28,13 @@ tm_draw(
 
 \item{yearStart, yearEnd}{date used}
 
-\item{dataCatchment, catchment_geom}{internal datasets for continental waters}
+\item{dataCatchment, catchment_geom, dataALL, ices_geom, ices_division}{internal datasets}
 
 \item{dataALL, ices_geom, ices_division, positive_catch_area}{internal datasets for marines water}
 
 \item{session}{The Shiny Session object}
+
+\item{dataCatchment, catchment_geom}{internal datasets for continental waters}
 }
 \value{
 A tmap object
