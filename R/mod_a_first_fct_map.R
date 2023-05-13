@@ -38,6 +38,7 @@ tm_ocean <- function(dataOcean,
       title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
       palette = c("#F7FBFF", "#C6DBEF", "#9ECAE1", "#4292C6", "#08519C", "#08306B"),
       n = 6,
+      alpha = .5,
       border.col = "gray90",
       labels = c(
         "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
