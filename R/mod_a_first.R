@@ -61,6 +61,10 @@ mod_first_ui <- function(id) {
         actionButton(ns("positive_catch"),
                      label = with_i18('Positive catch', 'positive_catch_button'),
                      style = "background-color: #00FF0080"),
+        w3_help_button(
+          "Display positive catch",
+          "display_positive_catch_help"
+        ),
         h4(
           with_i18(
             "Conservation status",
