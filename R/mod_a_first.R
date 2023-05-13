@@ -58,6 +58,10 @@ mod_first_ui <- function(id) {
         #     "Show AquaMaps" = "show"
         #   )
         # ),
+        w3_help_button(
+          "Display AquaMpas",
+          "display_aquamaps_help"
+        ),
         actionButton(ns("positive_catch"),
                      label = with_i18('Positive catch', 'positive_catch_button'),
                      style = "background-color: #00FF0080"),
