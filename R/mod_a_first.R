@@ -25,19 +25,6 @@ mod_first_ui <- function(id) {
             mod_species_ui(ns("species_ui_1"))
           )
         ),
-        actionButton(ns("showaqua"),
-                     label = 'AquaMaps'),
-        actionButton(ns("positive_catch"),
-                     label = 'Positive catch'),
-        
-        # radioButtons(
-        #   ns("showaqua"),
-        #   label = NULL,
-        #   choices = c(
-        #     "Hide AquaMaps" = "hide",
-        #     "Show AquaMaps" = "show"
-        #   )
-        # ),
         w3css::w3_quarter()  
       )
     ),
@@ -60,6 +47,20 @@ mod_first_ui <- function(id) {
       ),
       w3css::w3_col(
         class = "s2",
+        actionButton(ns("showaqua"),
+                     label = 'AquaMaps', 
+                     style = "background-color: #FFFF0080"),
+        # radioButtons(
+        #   ns("showaqua"),
+        #   label = NULL,
+        #   choices = c(
+        #     "Hide AquaMaps" = "hide",
+        #     "Show AquaMaps" = "show"
+        #   )
+        # ),
+        actionButton(ns("positive_catch"),
+                     label = with_i18('Positive catch', 'positive_catch_button'),
+                     style = "background-color: #00FF0080"),
         h4(
           with_i18(
             "Conservation status",
