@@ -17,7 +17,6 @@ source('data-raw/preparation_atlas_simulation.R')
 hydiad_parameter  %>% 
   print()
 
-
 # Anthropogenic mortality ----
 # build from sliders in interface 
 # here fake data
@@ -251,8 +250,6 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   
   #Rq: transpose of Besty's matrix (not sure now)
   
-  if (verbose) toc()
-  
   # for testing: resultsModel <- results[['model']][[1]]
   # compute effective for 1 model ----
   computeEffectiveForModel_PML = function(model, currentYear, results, generationtime, nbCohorts){
@@ -338,7 +335,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   
   # dput(results, file = "tests/testthat/results_pml_dput")
   cat('\n')
-  if (verbose) toc()
+
   
   return(results)
 }
