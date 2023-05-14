@@ -1,5 +1,5 @@
 # ==== Run this to create the dput for unit tests ====
-library(tictoc)
+#library(tictoc)
 library(purrr)
 # library(Rfast)
 library(Matrix)
@@ -55,8 +55,7 @@ selected_latin_name = "Alosa alosa"
 
 runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
                              catchment_surface, data_hsi_nmax, data_ni0,  outlet_distance, verbose = FALSE) {
-  if (verbose) tic()
-  
+
   # --------------------------------------------------------------------------------------- #
   results = list()
   
@@ -141,9 +140,6 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
     arrange(year)
   results[['param']][['years']] <- years 
   
-  if (verbose) toc()
-  
-  if (verbose) tic()
   # ------------------------------------------------------------------------------- #
   ## compute Nmax_eh1 matrix and prepare Nit matrix  ----
   resultsPM <- results[["model"]] <- lapply(models, function(model) {
@@ -333,7 +329,6 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   
   
   # run simulation over years 
-  if (verbose) tic()
   for (currentYear  in yearsToRun) {
     # currentYear <- yearsToRun[1]
     ## print a progress bar to the console
@@ -350,10 +345,10 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
 
 # =======================================================================================================
 # run simulation ----
-tic()
+
 results <- runSimulation_pml(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
                              catchment_surface, data_hsi_nmax, data_ni0, outlet_distance, verbose = FALSE)
-toc()
+
 
 dput(results, file = "tests/testthat/results_pml_dput")
 utils::zip("tests/testthat/results_pml_dput", zipfile = "tests/testthat/results_pml_dput.zip")
