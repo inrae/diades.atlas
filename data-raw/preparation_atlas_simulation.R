@@ -1,10 +1,12 @@
-library(DBI)
+# library(DBI)
+# library(tidyverse)
 
-library(tictoc)
-library(tidyverse)
-
-
-# connection to the data base  conn_eurodiad <- connect()
+pkgload::load_all(here::here()) # simulate installation and give access to objects in the package
+# session <- shiny::MockShinySession$new() #new.env()
+# connect(session)
+# con <- get_con(session)
+# connection to the data base  
+conn_eurodiad <- connect()
 
 # data upload ----
 
@@ -57,7 +59,7 @@ hydiad_parameter <-
       diadesatlas.species s 
         USING (species_id);") %>%
     tibble() 
-}
+
 
 
 # ---------------------------------------------------------------------- #
