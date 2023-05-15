@@ -1,4 +1,4 @@
-# library(DBI)
+library(DBI)
 # library(tidyverse)
 
 pkgload::load_all(here::here()) # simulate installation and give access to objects in the package
