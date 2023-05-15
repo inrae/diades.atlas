@@ -440,7 +440,8 @@ dput(model_res_filtered_pml, file = "tests/testthat/model_res_filtered_dput")
 model_res_filtered_pml %>% 
   ggplot(aes(x = year)) + 
   geom_ribbon(aes(ymin = min, ymax = max, fill = source), alpha = .5) + 
-  geom_line(aes(y = rolling_mean, colour = source, linetype = source),
+  geom_line(data = . %>% filter(!is.na(rolling_mean)), 
+            aes(y = rolling_mean, colour = source, linetype = source),
             alpha = 0.9) + 
   ylab('Nit') 
 
