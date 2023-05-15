@@ -38,6 +38,7 @@ tm_ocean <- function(dataOcean,
       title = paste0(title, "\n(", yearStart, "-", yearEnd, ")"),
       palette = c("#F7FBFF", "#C6DBEF", "#9ECAE1", "#4292C6", "#08519C", "#08306B"),
       n = 6,
+      alpha = .5,
       border.col = "gray90",
       labels = c(
         "Not recorded in the period" %>% with_i18("absent") %>% as.character(),
@@ -144,7 +145,6 @@ bbox <- sf::st_bbox(c(xmin = -17.5, xmax = 19, ymax = 36, ymin = 62), crs = sf::
 #' @param spatial_type Geom to use in the map
 #' @param con The Connection object
 #' @param yearStart,yearEnd date used
-#' @param dataCatchment,catchment_geom,dataALL,ices_geom,ices_division  internal datasets
 #' @param dataCatchment,catchment_geom internal datasets for continental waters
 #' @param dataALL,ices_geom,ices_division,positive_catch_area  internal datasets for marines water
 #' @param session The Shiny Session object
