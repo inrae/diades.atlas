@@ -1,5 +1,5 @@
 # ==== Run this to create the dput for unit tests ====
-library(tictoc)
+#library(tictoc)
 library(purrr)
 # library(Rfast)
 library(Matrix)
@@ -16,7 +16,6 @@ source('data-raw/preparation_atlas_simulation.R')
 
 hydiad_parameter  %>% 
   print()
-
 
 # Anthropogenic mortality ----
 # build from sliders in interface 
@@ -55,8 +54,7 @@ selected_latin_name = "Alosa alosa"
 
 runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
                              catchment_surface, data_hsi_nmax, data_ni0,  outlet_distance, verbose = FALSE) {
-  if (verbose) tic()
-  
+
   # --------------------------------------------------------------------------------------- #
   results = list()
   
@@ -141,9 +139,6 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
     arrange(year)
   results[['param']][['years']] <- years 
   
-  if (verbose) toc()
-  
-  if (verbose) tic()
   # ------------------------------------------------------------------------------- #
   ## compute Nmax_eh1 matrix and prepare Nit matrix  ----
   resultsPM <- results[["model"]] <- lapply(models, function(model) {
@@ -255,8 +250,6 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   
   #Rq: transpose of Besty's matrix (not sure now)
   
-  if (verbose) toc()
-  
   # for testing: resultsModel <- results[['model']][[1]]
   # compute effective for 1 model ----
   computeEffectiveForModel_PML = function(model, currentYear, results, generationtime, nbCohorts){
@@ -333,7 +326,6 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   
   
   # run simulation over years 
-  if (verbose) tic()
   for (currentYear  in yearsToRun) {
     # currentYear <- yearsToRun[1]
     ## print a progress bar to the console
@@ -343,17 +335,17 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   
   # dput(results, file = "tests/testthat/results_pml_dput")
   cat('\n')
-  if (verbose) toc()
+
   
   return(results)
 }
 
 # =======================================================================================================
 # run simulation ----
-tic()
+
 results <- runSimulation_pml(selected_latin_name, hydiad_parameter, anthropogenic_mortality,
                              catchment_surface, data_hsi_nmax, data_ni0, outlet_distance, verbose = FALSE)
-toc()
+
 
 dput(results, file = "tests/testthat/results_pml_dput")
 utils::zip("tests/testthat/results_pml_dput", zipfile = "tests/testthat/results_pml_dput.zip")
@@ -448,7 +440,8 @@ dput(model_res_filtered_pml, file = "tests/testthat/model_res_filtered_dput")
 model_res_filtered_pml %>% 
   ggplot(aes(x = year)) + 
   geom_ribbon(aes(ymin = min, ymax = max, fill = source), alpha = .5) + 
-  geom_line(aes(y = rolling_mean, colour = source, linetype = source),
+  geom_line(data = . %>% filter(!is.na(rolling_mean)), 
+            aes(y = rolling_mean, colour = source, linetype = source),
             alpha = 0.9) + 
   ylab('Nit') 
 
