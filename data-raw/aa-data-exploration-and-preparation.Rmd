@@ -80,8 +80,8 @@ dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>%
 # List of basins id for case_study
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
 # List of ecosystem services
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service_new")) %>% collect()
+# dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
+# dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service_new")) %>% collect()
 # List of species
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
 ```
@@ -126,10 +126,10 @@ casestudy_new %>%
 #   geojson::geo_write(here::here("inst/casestudy.json"))
 
 # List of ecosystem services
-ecosystems <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
-ecosystems %>%
-  filter(presence == 1) %>%
-  jsonlite::write_json(here::here("inst/ecosystems.json"))
+# ecosystems <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
+# ecosystems %>%
+#   filter(presence == 1) %>%
+#   jsonlite::write_json(here::here("inst/ecosystems.json"))
 # Services
 services <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "v_ecosystemic_services")) %>% collect()
 services %>%
@@ -145,14 +145,15 @@ services %>%
   ) %>%
   jsonlite::write_json(here::here("inst/services.json"))
 
-eco_and_services <- full_join(ecosystems, services)
+# eco_and_services <- full_join(ecosystems, services)
 
 # Species
-
-species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
-species %>%
-  filter(species_id %in% ecosystems$species_id) %>%
-  jsonlite::write_json(here::here("inst/species.json"))
+species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% 
+  filter(active == TRUE) %>%
+  collect()
+# species %>%
+#   filter(species_id %in% ecosystems$species_id) %>%
+#   jsonlite::write_json(here::here("inst/species.json"))
 ```
 
 ### Explore ecosystem services table

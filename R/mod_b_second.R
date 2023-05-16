@@ -34,7 +34,7 @@ mod_second_ui <- function(id) {
                 geojsonFeature = glue::glue_collapse(readLines(app_sys("casestudy.json"))),
                 species = glue::glue_collapse(readLines(app_sys("species.json"))),
                 services = glue::glue_collapse(readLines(app_sys("services.json"))),
-                ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json"))),
+                ecosystems = glue::glue_collapse(readLines(app_sys("ecosystems.json"))), # useless?
                 button_id = ns("case_study_hover_button"),
                 basin_shiny_id = ns("basin"),
                 casestudy_shiny_id = ns("case_study")

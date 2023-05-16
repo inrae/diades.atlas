@@ -231,7 +231,13 @@ generate_datasets <- function(con) {
     con,
     query = "SELECT area_full AS icesname, simplified_geom FROM diadesatlas.ices_area;"
   ) %>%
-    sf::st_transform("+proj=wintri") # %>%
+    sf::st_transform("+proj=wintri")
+  
+  positive_catch_area <- sf::st_read(
+    con,
+    query = "SELECT geom FROM diadesatlas.v_positive_catch;"
+  ) %>%
+    sf::st_transform("+proj=wintri")
   
   species_order <- c(
     "Alosa alosa",
@@ -259,9 +265,10 @@ generate_datasets <- function(con) {
     ),
   ]
   
-  countries_mortalities_list <- 
+  countries_mortalities_list <-
+    c("Scotland", "Ireland",  "Wales", "England", "France", "Spain", "Portugal")
     # c("ireland", "france", "united-kingdom", "portugal", "spain")
-  dplyr::tbl(con, "basin") %>% dplyr::count(country) %>% dplyr::pull(country)
+  # dplyr::tbl(con, "basin") %>% dplyr::count(country) %>% dplyr::pull(country)
   
   return(
     list(
@@ -271,6 +278,7 @@ generate_datasets <- function(con) {
       ices_geom = ices_geom,
       ices_division = ices_division, 
       species_list = species_list,
+      positive_catch_area = positive_catch_area,
       countries_mortalities_list = countries_mortalities_list
     )
   )
