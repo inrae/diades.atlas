@@ -33,8 +33,7 @@ FROM
 INNER JOIN diadesatlas.basin b ON
 	(departure = b.basin_id)
 INNER JOIN diadesatlas.basin b2 ON
-	(arrival = b2.basin_id)
-ORDER BY departure, distance"))
+	(arrival = b2.basin_id)"))
   
   # HyDiaD parameters ----
   hydiad_parameter <- tbl(conn_eurodiad, sql("
@@ -66,11 +65,8 @@ WHERE year > 0"# AND climatic_scenario = 'rcp85'"
 INNER JOIN diadesatlas.species s USING (species_id)
 INNER JOIN diadesatlas.basin b USING (basin_id)
 INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
-WHERE year > 0
-ORDER BY latin_name, basin_id, climatic_model_code"
-# WHERE year > 0 AND climatic_scenario = 'rcp85' 
-# ORDER BY latin_name, basin_id, climatic_model_code"
-  
+WHERE year > 0"
+
   reference_results <- tbl(conn_eurodiad, sql(query))
   
   # initial abundance in catchments ----
@@ -88,7 +84,7 @@ INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)"
   
   data_ni0 <- tbl(conn_eurodiad, sql(query)) %>%
     filter(year == 0) %>% 
-    arrange(latin_name, basin_id, climatic_model_code) %>% 
+    # arrange(latin_name, basin_id, climatic_model_code) %>% 
     inner_join(hydiad_parameter %>%
                  select(latin_name, Dmax),
                by = c('latin_name' = "latin_name")) %>%
@@ -97,7 +93,7 @@ INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)"
   
   catchment_surface <- data_hsi_nmax %>% 
     distinct(basin_name) %>%
-    arrange(basin_name) %>% 
+    # arrange(basin_name) %>% 
     inner_join(data_catchment %>%  
                  select(basin_name, surface_area),
                by = 'basin_name')
