@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
 library(diades.atlas)
 # renv::install("dm")
 # library(dm)
+library(geojson)
 library(dplyr)
 library(leaflet)
 library(ggplot2)
@@ -50,7 +51,8 @@ for (i in all_schemas$table_name) {
   print(dplyr::tbl(con, dbplyr::in_schema("diadesatlas", i)))
 }
 
-casestudy <- tbl(con, dbplyr::in_schema("diadesatlas", "casestudy"))
+casestudy <- tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% 
+  filter(publishable == TRUE)
 casestudy
 ```
 
@@ -73,12 +75,13 @@ dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "climatic_model")) %>% collect(
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin")) %>% collect()
 
 # List of basin for case_study
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% collect()
+dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy")) %>% 
+  filter(publishable == TRUE) %>% collect()
 # List of basins id for case_study
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "casestudy_basin")) %>% collect()
 # List of ecosystem services
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
-dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service_new")) %>% collect()
+# dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
+# dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service_new")) %>% collect()
 # List of species
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
 ```
@@ -96,7 +99,7 @@ Create all json data used on the home page of the app
 
 
 casestudy_new <- sf::st_read(con, 
-                             query = "SELECT casestudy_id, casestudy_name, geom FROM diadesatlas.casestudy", geom = "geom") %>% 
+                             query = "SELECT casestudy_id, casestudy_name, geom FROM diadesatlas.casestudy WHERE publishable = TRUE", geom = "geom") %>% 
   # fake basin_id to be compatabible with mod_b_second.R
   mutate(basin_id = 1:n()) %>% 
   st_transform(crs = 4326)
@@ -123,10 +126,10 @@ casestudy_new %>%
 #   geojson::geo_write(here::here("inst/casestudy.json"))
 
 # List of ecosystem services
-ecosystems <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
-ecosystems %>%
-  filter(presence == 1) %>%
-  jsonlite::write_json(here::here("inst/ecosystems.json"))
+# ecosystems <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "ecosystem_service")) %>% collect()
+# ecosystems %>%
+#   filter(presence == 1) %>%
+#   jsonlite::write_json(here::here("inst/ecosystems.json"))
 # Services
 services <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "v_ecosystemic_services")) %>% collect()
 services %>%
@@ -142,14 +145,15 @@ services %>%
   ) %>%
   jsonlite::write_json(here::here("inst/services.json"))
 
-eco_and_services <- full_join(ecosystems, services)
+# eco_and_services <- full_join(ecosystems, services)
 
 # Species
-
-species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% collect()
-species %>%
-  filter(species_id %in% ecosystems$species_id) %>%
-  jsonlite::write_json(here::here("inst/species.json"))
+species <- dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "species")) %>% 
+  filter(active == TRUE) %>%
+  collect()
+# species %>%
+#   filter(species_id %in% ecosystems$species_id) %>%
+#   jsonlite::write_json(here::here("inst/species.json"))
 ```
 
 ### Explore ecosystem services table
