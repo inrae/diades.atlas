@@ -69,37 +69,37 @@ renv::settings$use.cache(TRUE)
 #   renv::settings$use.cache(FALSE)
 # }
 
-if (requireNamespace("prompt", quietly = TRUE)) {
-  cli::cat_rule("[.Rprofile] Setting up prompt")
-  options("continue" = " ")
-  prompt::set_prompt(
-    function(expr, value, ok, visible) {
-      paste0(
-        "📁 ",
-        crayon::blue(
-          crayon::bold(
-            basename(getwd())
-          )
-        ),
-        {
-          if (file.exists(".git")){
-            paste0(
-              " 🔨 ",
-              crayon::green(
-                crayon::bold(
-                  system("git branch --show-current", intern = TRUE)
-                )
-              )
-            )
-          } else {
-            ""
-          }
-        },
-        " > "
-      )
-    }
-  )
-}
+# if (requireNamespace("prompt", quietly = TRUE)) {
+#   cli::cat_rule("[.Rprofile] Setting up prompt")
+#   options("continue" = " ")
+#   prompt::set_prompt(
+#     function(expr, value, ok, visible) {
+#       paste0(
+#         "📁 ",
+#         crayon::blue(
+#           crayon::bold(
+#             basename(getwd())
+#           )
+#         ),
+#         {
+#           if (file.exists(".git")){
+#             paste0(
+#               " 🔨 ",
+#               crayon::green(
+#                 crayon::bold(
+#                   system("git branch --show-current", intern = TRUE)
+#                 )
+#               )
+#             )
+#           } else {
+#             ""
+#           }
+#         },
+#         " > "
+#       )
+#     }
+#   )
+# }
 
 
 
