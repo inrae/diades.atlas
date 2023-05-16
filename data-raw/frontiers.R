@@ -30,7 +30,7 @@ frontiers <- frontiers %>%
 
 usethis::use_data(frontiers, overwrite = TRUE)
 
-S <- tm_shape(frontiers, bbox = bbox) +
+tm_frontiers <- tm_shape(frontiers, bbox = bbox) +
   tm_polygons(alpha = 1, col = 'grey90')
 
 usethis::use_data(tm_frontiers, overwrite = TRUE)

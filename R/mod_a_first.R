@@ -25,9 +25,7 @@ mod_first_ui <- function(id) {
             mod_species_ui(ns("species_ui_1"))
           )
         ),
-        w3css::w3_quarter(
-        ),
-        w3css::w3_quarter()
+        w3css::w3_quarter()  
       )
     ),
     w3css::w3_col(
@@ -45,10 +43,32 @@ mod_first_ui <- function(id) {
             )
           )
         ),
-        tmap::tmapOutput(ns("raster"), width = "90%", height = "750px")
+        leaflet::leafletOutput(ns("raster"), width = "90%", height = "750px")
       ),
       w3css::w3_col(
         class = "s2",
+        actionButton(ns("showaqua"),
+                     label = 'AquaMaps', 
+                     style = "background-color: #FFFF0080"),
+        # radioButtons(
+        #   ns("showaqua"),
+        #   label = NULL,
+        #   choices = c(
+        #     "Hide AquaMaps" = "hide",
+        #     "Show AquaMaps" = "show"
+        #   )
+        # ),
+        w3_help_button(
+          "Display AquaMpas",
+          "display_aquamaps_help"
+        ),
+        actionButton(ns("positive_catch"),
+                     label = with_i18('Positive catch', 'positive_catch_button'),
+                     style = "background-color: #00FF0080"),
+        w3_help_button(
+          "Display positive catch",
+          "display_positive_catch_help"
+        ),
         h4(
           with_i18(
             "Conservation status",
@@ -89,7 +109,7 @@ mod_first_server <- function(id, r = r) {
       r = loco
     )
 
-    output$raster <- tmap::renderTmap({
+    output$raster <- leaflet::renderLeaflet({
       req(loco$species)
 
       tm_draw(
@@ -101,6 +121,7 @@ mod_first_server <- function(id, r = r) {
         dataALL = golem::get_golem_options("dataALL"),
         ices_geom = golem::get_golem_options("ices_geom"), 
         ices_division = golem::get_golem_options("ices_division"),
+        positive_catch_area = golem::get_golem_options("positive_catch_area"),
         session = session
       )
     }) 
@@ -112,7 +133,35 @@ mod_first_server <- function(id, r = r) {
     #   cache = get_mongo()
     # )
 
-
+    # observeEvent(input$showaqua, {
+    #   if (input$showaqua == "show"){
+    #     leafletProxy("raster", session) %>%
+    #       leaflet::showGroup("AquaMaps")
+    #   } else {
+    #     leafletProxy("raster", session) %>%
+    #       leaflet::hideGroup("AquaMaps")
+    #   }
+    # })
+    
+    observeEvent(input$showaqua, {
+      if (input$showaqua %% 2 == 1){
+        leafletProxy("raster", session) %>%
+          leaflet::showGroup("AquaMaps")
+      } else {
+        leafletProxy("raster", session) %>%
+          leaflet::hideGroup("AquaMaps")
+      }
+    })
+    
+    observeEvent(input$positive_catch, {
+      if (input$positive_catch %% 2 == 1){
+        leafletProxy("raster", session) %>%
+          leaflet::showGroup('positive catch of at least one species')
+      } else {
+        leafletProxy("raster", session) %>%
+          leaflet::hideGroup('positive catch of at least one species')
+      }
+    })
 
     observeEvent(loco$species, {
       req(loco$species)
