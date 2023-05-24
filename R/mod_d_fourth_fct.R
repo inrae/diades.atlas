@@ -306,7 +306,7 @@ runSimulation <- function(selected_latin_name,
                                 # catchment_spawnersTo_50 = catchment_spawnersTo_50,
                                 spawnersTo_50 = spawnersTo_50)
   } 
-  cat('\n')
+  if (verbose) cat('\n')
   # if (verbose) toc()
   
   return(results)
