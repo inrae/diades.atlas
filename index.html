@@ -212,11 +212,11 @@
 <li>Use the correct names and passwords to fill as below</li>
 <li>This file will stay on your computer</li>
 </ul>
-<!-- --><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>POSTGRES_DBNAME<span class="ot">=</span><span class="st">"diades"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>POSTGRES_HOST<span class="ot">=</span><span class="st">"host-url"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>POSTGRES_USER<span class="ot">=</span><span class="st">"username"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>POSTGRES_PORT<span class="ot">=</span><span class="dv">5432</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>POSTGRES_PASS<span class="ot">=</span><span class="st">"user-password"</span></span></code></pre></div>
+<!-- --><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>POSTGRES_DBNAME<span class="ot">=</span><span class="st">"diades"</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>POSTGRES_HOST<span class="ot">=</span><span class="st">"host-url"</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>POSTGRES_USER<span class="ot">=</span><span class="st">"username"</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>POSTGRES_PORT<span class="ot">=</span><span class="dv">5432</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>POSTGRES_PASS<span class="ot">=</span><span class="st">"user-password"</span></span></code></pre></div>
 <ul>
 <li>Restart RStudio</li>
 <li>Verify these variables are correctly read</li>
@@ -276,7 +276,7 @@ This means, at least, having access to the database: set your database connectio
 </h1>
 <p>Update Docker for deployment: <a href="https://gitlab.irstea.fr/diades/diades.atlas.deploy/" class="external-link uri">https://gitlab.irstea.fr/diades/diades.atlas.deploy/</a></p>
 <p>On <a href="https://gitlab.irstea.fr/diades/diades.atlas.deploy/" class="external-link uri">https://gitlab.irstea.fr/diades/diades.atlas.deploy/</a>, there are also details on how to test the docker-compose locally. At least try to build it locally before release.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> gitlab-registry.irstea.fr/diades/diades.atlas.deploy/app .</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> gitlab-registry.irstea.fr/diades/diades.atlas.deploy/app .</span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="backend-requirement">Backend requirement<a class="anchor" aria-label="anchor" href="#backend-requirement"></a>
@@ -360,9 +360,9 @@ This means, at least, having access to the database: set your database connectio
 <h2 id="dev---mongo">Dev - Mongo<a class="anchor" aria-label="anchor" href="#dev---mongo"></a>
 </h2>
 <p>To run the Shiny application locally in the same conditions as in production, it is better to have a Mongo database. For dev, you need to run the following on your machine:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>docker run <span class="sc">--</span>name<span class="ot">=</span>mongo <span class="sc">--</span>rm <span class="sc">-</span>p <span class="dv">2811</span><span class="sc">:</span><span class="dv">27017</span> <span class="sc">-</span>e MONGO_INITDB_ROOT_USERNAME<span class="ot">=</span>Colin <span class="sc">-</span>e MONGO_INITDB_ROOT_PASSWORD<span class="ot">=</span>AsAboveSoBelow789123 mongo<span class="sc">:</span><span class="fl">4.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>docker run <span class="sc">--</span>name<span class="ot">=</span>mongo <span class="sc">--</span>rm <span class="sc">-</span>p <span class="dv">2811</span><span class="sc">:</span><span class="dv">27017</span> <span class="sc">-</span>e MONGO_INITDB_ROOT_USERNAME<span class="ot">=</span>Colin <span class="sc">-</span>e MONGO_INITDB_ROOT_PASSWORD<span class="ot">=</span>AsAboveSoBelow789123 mongo<span class="sc">:</span><span class="fl">4.0</span></span></code></pre></div>
 <p>Stop it at the end of your development process</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>docker kill mongo</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>docker kill mongo</span></code></pre></div>
 <p>If Mongo database is not available, a local temporary cache will be use in the RAM of your machine.</p>
 </div>
 </div>
