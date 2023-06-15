@@ -8,40 +8,15 @@ if (file.exists(home_profile)) {
 }
 
 options(renv.config.pak.enabled = TRUE)
-
-# Fix CRAN version
-source("renv/activate.R")
-lock_ <- renv:::lockfile(file = "renv.lock")
-#
-if (grepl("ubuntu 18.04|debian 8", tolower(utils::osVersion))) {
-  repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest",
-  # repos <- c("RSPM" = "https://cran.rstudio.com",
-             "thinkropen" = "https://thinkr-open.r-universe.dev",
-             "CRAN" = "https://cran.rstudio.com")
-} else if (grepl("ubuntu 20.04|debian 9", tolower(utils::osVersion))) {
-  repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-  # repos <- c("RSPM" = "https://cran.rstudio.com",
-             "thinkropen" = "https://thinkr-open.r-universe.dev",
-             "CRAN" = "https://cran.rstudio.com")
-} else if (grepl("centos", tolower(utils::osVersion))) {
-  # Important for MacOS users in particular
-  repos <- c("RSPM" = "https://packagemanager.rstudio.com/all/__linux__/centos7/latest",
-             "thinkropen" = "https://thinkr-open.r-universe.dev",
-             "CRAN" = "https://cran.rstudio.com")
-} else {
-  # Important for MacOS users in particular
-  repos <- c("RSPM" = "https://cran.rstudio.com",
-             "thinkropen" = "https://thinkr-open.r-universe.dev",
-             "CRAN" = "https://cran.rstudio.com")
+if (dir.exists("renv")) {
+  source("renv/activate.R")
 }
 
-lock_$repos(.repos = repos)
-options(repos = repos)
+if (file.exists("~/.Rprofile")) {
+  source("~/.Rprofile")
+}
 
-
-lock_$write(file = "renv.lock")
-rm(lock_)
-rm(repos)
+source("dev/switch_renv_repo.R")
 
 
 renv::activate()

@@ -1,7 +1,8 @@
 FROM rocker/geospatial:4.3.0
 RUN apt-get update && apt-get install -y  gdal-bin git-core libcairo2-dev libcurl4-openssl-dev libgdal-dev libgeos-dev libgeos++-dev libgit2-dev libicu-dev libpng-dev libpq-dev libproj-dev libssl-dev libudunits2-dev libxml2-dev make pandoc pandoc-citeproc zlib1g-dev && rm -rf /var/lib/apt/lists/*
+
 # RUN echo "options(renv.config.pak.enabled = TRUE, repos = c(CRAN = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest'), download.file.method = 'libcurl', Ncpus = 4)" >> /usr/local/lib/R/etc/Rprofile.site
-RUN mkdir -p /usr/local/lib/R/etc
+# RUN mkdir -p /usr/local/lib/R/etc
 RUN echo "options(repos = c(CRAN = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest'), download.file.method = 'libcurl', Ncpus = 4)" >> /usr/local/lib/R/etc/Rprofile.site
 RUN echo "options(warn = 2);Sys.setenv(RENV_PATHS_CACHE='~/cache')" >> $R_HOME/etc/Rprofile.site
 

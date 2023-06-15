@@ -7,10 +7,6 @@
         "URL": "https://packagemanager.rstudio.com/all/latest"
       },
       {
-        "Name": "thinkropen",
-        "URL": "https://thinkr-open.r-universe.dev"
-      },
-      {
         "Name": "CRAN",
         "URL": "https://cran.rstudio.com"
       }
