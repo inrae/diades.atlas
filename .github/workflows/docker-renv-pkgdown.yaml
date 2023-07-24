@@ -24,7 +24,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install universe
-        run: sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
+        run: |
+          sudo apt-get update
+          sudo apt install software-properties-common
+          sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
+          sudo apt-get update
 
       - uses: r-lib/actions/setup-pandoc@v2
 
