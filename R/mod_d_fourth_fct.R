@@ -224,7 +224,7 @@ runSimulation <- function(selected_latin_name,
     # mutate(proportion = exp(-(!!parameter$alpha * (distance ^ !!parameter$beta)))) %>%  
     mutate(
       proportion = !!parameter$alpha * (distance ^ !!parameter$beta), 
-      proportion = ifelse(proportion <= 100, exp(-proportion), 0)
+      proportion = if_else(proportion <= 40, exp(-proportion), 0)
     ) %>%  
     # no fish 'accidentally stray' into their natal catchment when NatalStray is FALSE
     mutate(withNatalStray = !!parameter$withNatalStray, 
@@ -232,15 +232,15 @@ runSimulation <- function(selected_latin_name,
                                ifelse(departure == arrival, 0, proportion))) %>% 
     # compute the relative proportion
     group_by(departure) %>% 
-    mutate(proportion = ifelse(
-      sum(proportion, na.rm=TRUE) == 0, 
-      0,
-      proportion / sum(proportion, na.rm = TRUE))) %>% 
+    mutate(sum_proportion = sum(proportion, na.rm = TRUE), 
+           proportion = if_else(sum_proportion == 0, 
+                               0, 
+                               proportion / sum_proportion)) %>% 
     # calculate the survival rate of strayer between departure and arrival
     mutate(survival = exp(-!!parameter$Mdisp * distance),
            survivingProportion = proportion * survival) %>%
-    # put 0 for very low survining probality
-    mutate(survivingProportion = ifelse(survivingProportion < 1e-10, 0,
+    # put 0 for very low surviving probability
+    mutate(survivingProportion = if_else(survivingProportion < 1e-10, 0,
                                         survivingProportion)) %>% 
     collect() %>% 
     # pivot wider
