@@ -37,12 +37,13 @@ INNER JOIN diadesatlas.basin b2 ON
   
   # HyDiaD parameters ----
   hydiad_parameter <- tbl(conn_eurodiad, sql("
-                                 SELECT s.latin_name AS \"latin_name_s\", s.local_name AS \"Lname_s\", h.* FROM diadesatlas.hydiadparameter h
-INNER JOIN diadesatlas.species s USING (species_id)")) %>% 
+                                 SELECT s.latin_name AS \"latin_name_s\", s.local_name AS \"Lname_s\", h.* 
+                                 FROM diadesatlas.hydiadparameter h
+                                 INNER JOIN diadesatlas.species s USING (species_id)")) %>% 
     rename(latin_name = latin_name_s,
            Lname = Lname_s)
   
-  # HSI  abd Nmax ----
+  # HSI  and Nmax ----
   # a query to load HSI for only 8.5 scenario (which do not change between simulations)
   query <- "SELECT s.latin_name, basin_id, basin_name, country, surface_area_drainage_basin as surface_area, year, climatic_scenario, climatic_model_code, hsi FROM diadesatlas.hybrid_model_result hmr
 INNER JOIN diadesatlas.species s USING (species_id)
@@ -52,13 +53,14 @@ WHERE year > 0"# AND climatic_scenario = 'rcp85'"
   
   data_hsi_nmax <- tbl(conn_eurodiad, sql(query)) %>%
     # tibble() %>%
-    # compute the maximum abundance (#) according to hsi,
-    #   maximal density (Dmax) , catchment area (ccm_area)
+    # compute the maximum abundance of adults (#) according to hsi,
+    #   maximal density of spawners (Dmax) , catchment area, 
+    #   population growth rate in ideal condition (lambda1)
     inner_join(hydiad_parameter %>%
-                 select("latin_name", "Dmax"),
-               by = c('latin_name' = "latin_name")) %>%
-    mutate(Nmax = hsi * Dmax * surface_area) %>%
-    select(-c(surface_area, Dmax))
+                 select("latin_name", "Dmax", "lambda1"),
+               by = join_by(latin_name)) %>%
+    mutate(Nmax = hsi * Dmax * surface_area * lambda1) %>%
+    select(-c(surface_area, Dmax, lambda1))
   
   # reference results ----
   query <- "SELECT s.latin_name, basin_id, basin_name, year, climatic_scenario, climatic_model_code, nit  FROM diadesatlas.hybrid_model_result hmr
