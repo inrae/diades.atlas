@@ -190,7 +190,8 @@ plot_nit <- function(model_res_filtered,
         aes(y = nit_movingavg,
             colour = .data[[with_colour_source]],
             linetype = .data[[with_colour_source]]
-        )
+        ),
+        na.rm = TRUE,
       ) +
       scale_colour_brewer(type = "qual", palette = "Set2") +
       scale_fill_brewer(type = "qual", palette = "Set2")
