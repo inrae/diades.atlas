@@ -252,7 +252,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
   
   # for testing: resultsModel <- results[['model']][[1]]
   # compute effective for 1 model ----
-  computeEffectiveForModel_PML = function(model, currentYear, results, generationtime, nbCohorts){
+  computeEffectiveForOneModel_PML = function(model, currentYear, results, generationtime, nbCohorts){
     #cat(model, "\t", currentYear, "\n")
     currentYear_str = as.character(currentYear)
     
@@ -305,7 +305,7 @@ runSimulation_pml = function(selected_latin_name, hydiad_parameter, anthropogeni
     
     # loop over models
     provResults <-  lapply(names(results[['model']]),
-                           computeEffectiveForModel_PML, currentYear, results,  generationtime, nbCohorts)
+                           computeEffectiveForOneModel_PML, currentYear, results,  generationtime, nbCohorts)
     names(provResults) <- models
     
     # store  the provisional results in results
