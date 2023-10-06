@@ -102,7 +102,7 @@ runSimulation <- function(selected_latin_name,
   nbCohorts <-  parameter$nbCohorts
   cohortWeight <- matrix(rep(1/nbCohorts, nbCohorts), ncol = 1)
   
-  ## generation time : number or years contributing to a spawner run ----
+  ## generation time : number of years contributing to a spawner run ----
   generationtime <- floor(parameter$AgeFirstMat + (nbCohorts / 2))
   
   ## nb of years in the 'burn-in' period (let the model stabilizing after model population) ----
@@ -290,7 +290,6 @@ runSimulation <- function(selected_latin_name,
     results <- computeEffective(currentYear, 
                                 results = results, 
                                 generationtime = generationtime, 
-                                nbCohorts = nbCohorts,
                                 years = years,
                                 parameter = parameter,
                                 cohortWeight = cohortWeight,
@@ -387,16 +386,18 @@ prepare_model_ouputs <- function(model, scenario, extendedNit) {
 
 #' Compute effective for 1 model
 #'
-#' @param model 
-#' @param currentYear 
-#' @param results 
-#' @param generationtime 
-#' @param nbCohorts 
-#' @param spawnersTo_50
+#' @param model the climatic model name
+#' @param currentYear current time step
+#' @param results a list with model outputs
+#' @param generationtime number of years contributing to a spawner run
+#' @param years all years used in the simulation
+#' @param parameters all parameters used in simulation
+#' @param cohortWeight weight of cohorts participating to reproduction 
+#' @param spawnersTo_50 spawner number that results in half of the spawners participating in spawning
 #' 
 #' @importFrom tibble rownames_to_column
 #'
-#' @noRd
+#' @export
 computeEffectiveForOneModel <- function(model,
                                      currentYear,
                                      results,
@@ -414,7 +415,9 @@ computeEffectiveForOneModel <- function(model,
   
   # cohorts contributing to this reproduction
   activeCohorts <- years %>% 
-    filter(between(year, currentYear - generationtime, currentYear - generationtime + nbCohorts - 1)) %>% 
+    filter(between(year, 
+                   currentYear - generationtime, 
+                   currentYear - generationtime + parameter$nbCohorts - 1)) %>% 
     mutate(year = as.character(year)) %>%       
     pull(year)
   
@@ -475,6 +478,7 @@ computeEffectiveForOneModel <- function(model,
   # update result with min of survival offsprings and max abundance (min by row)
   #resultsModel$Nit[, currentYear_str] <- apply(cbind(survivalOffsprings, maxN), 1, min)
   resultsModel$Nit[, currentYear_str] <- do.call(pmin, list(survivalOffsprings, maxN))
+  
   return(resultsModel)
 }
 
@@ -483,14 +487,12 @@ computeEffectiveForOneModel <- function(model,
 #' @param currentYear 
 #' @param results 
 #' @param generationtime 
-#' @param nbCohorts 
 #' @param spawnersTo_50
 #'
 #' @noRd
 computeEffective <- function(currentYear,
                              results,
                              generationtime,
-                             nbCohorts,
                              years,
                              parameter,
                              cohortWeight,
