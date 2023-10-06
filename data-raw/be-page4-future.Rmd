@@ -107,7 +107,7 @@ selected_latin_name <- "Alosa alosa"
 #   message = 'Making Simu', value = 0, 
 #   session = session, {
 
-# debugonce(computeEffectiveForModel)
+# debugonce(computeEffectiveForOneModel)
     results <- runSimulation(
       selected_latin_name = selected_latin_name, 
       hydiad_parameter = data_simulation[["hydiad_parameter"]], # 11 rows
@@ -121,8 +121,6 @@ selected_latin_name <- "Alosa alosa"
     )
   # })
 
-# [1] "cnrmcm5"    "csiromk360"
-# [3] "noresm1me" 
 
 # Les 5 premières lignes des sous-listes
 # results %>% purrr::map(~purrr::map(.x, head))

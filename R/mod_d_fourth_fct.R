@@ -397,7 +397,7 @@ prepare_model_ouputs <- function(model, scenario, extendedNit) {
 #' @importFrom tibble rownames_to_column
 #'
 #' @noRd
-computeEffectiveForModel <- function(model,
+computeEffectiveForOneModel <- function(model,
                                      currentYear,
                                      results,
                                      generationtime,
@@ -500,7 +500,7 @@ computeEffective <- function(currentYear,
   # loop over models
   provResults <-  lapply(
     names(results[['model']]),
-    computeEffectiveForModel, 
+    computeEffectiveForOneModel, 
     currentYear = currentYear, 
     results = results,  
     generationtime = generationtime, 
