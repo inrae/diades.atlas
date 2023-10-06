@@ -17,35 +17,68 @@
 #' data_simulation[["data_ni0"]]
 #' }
 get_data_simulation <- function(conn_eurodiad) {
-  # Catchment features ----
-  data_catchment <- tbl(conn_eurodiad, sql("SELECT basin_id, basin_name, country, surface_area_drainage_basin as surface_area, ccm_area FROM diadesatlas.basin b
-INNER JOIN diadesatlas.basin_outlet bo USING (basin_id)" )) 
   
-  # Distances between catchment ----
-  outlet_distance <- tbl(conn_eurodiad, sql("SELECT
-	b.basin_name AS departure,
-	od.departure AS departure_id,
-	b2.basin_name AS arrival,
-	od.arrival AS arrival_id,
-	od.distance 
-FROM
-	diadesatlas.outlet_distance od
-INNER JOIN diadesatlas.basin b ON
-	(departure = b.basin_id)
-INNER JOIN diadesatlas.basin b2 ON
-	(arrival = b2.basin_id)"))
-  
+  # Catchment features for catchment used in simulation----
+  data_catchment <- tbl(conn_eurodiad, 
+    sql("
+    WITH part1 AS (
+    SELECT
+    	DISTINCT basin_id
+    FROM
+    	diadesatlas.hybrid_model_result hmr 
+    )
+    SELECT
+    	basin_id,
+    	basin_name,
+    	country,
+    	surface_area_drainage_basin AS surface_area
+    	-- ccm_area AS surface_area,
+    FROM
+    	diadesatlas.basin b
+    INNER JOIN diadesatlas.basin_outlet bo
+    		USING (basin_id)
+    INNER JOIN part1
+    		USING (basin_id)")) 
+      
+      # Distances between catchment ----
+      outlet_distance <- tbl(conn_eurodiad, 
+    sql("SELECT
+    	b.basin_name AS departure,
+    	od.departure AS departure_id,
+    	b2.basin_name AS arrival,
+    	od.arrival AS arrival_id,
+    	od.distance 
+    FROM
+    	diadesatlas.outlet_distance od
+    INNER JOIN diadesatlas.basin b ON
+    	(departure = b.basin_id)
+    INNER JOIN diadesatlas.basin b2 ON
+    	(arrival = b2.basin_id)"))
+      
   # HyDiaD parameters ----
-  hydiad_parameter <- tbl(conn_eurodiad, sql("
-                                 SELECT s.latin_name AS \"latin_name_s\", s.local_name AS \"Lname_s\", h.* 
-                                 FROM diadesatlas.hydiadparameter h
-                                 INNER JOIN diadesatlas.species s USING (species_id)")) %>% 
-    rename(latin_name = latin_name_s,
-           Lname = Lname_s)
+  hydiad_parameter <- 
+    tbl(conn_eurodiad, 
+      sql("SELECT 
+        s.latin_name,
+        simplifiedname(s.latin_name) AS short_name,
+        h.* 
+      FROM diadesatlas.hydiadparameter h
+      INNER JOIN diadesatlas.species s USING (species_id)"))
   
   # HSI  and Nmax ----
   # a query to load HSI for only 8.5 scenario (which do not change between simulations)
-  query <- "SELECT s.latin_name, basin_id, basin_name, country, surface_area_drainage_basin as surface_area, year, climatic_scenario, climatic_model_code, hsi 
+  query <- 
+  "SELECT 
+    s.latin_name, 
+    basin_id, 
+    basin_name, 
+    country, 
+    surface_area_drainage_basin AS surface_area,
+    -- ccm_area AS surface_area,
+    year, 
+    climatic_scenario, 
+    climatic_model_code, 
+    hsi 
   FROM diadesatlas.hybrid_model_result hmr
   INNER JOIN diadesatlas.species s USING (species_id)
   INNER JOIN diadesatlas.basin b USING (basin_id)
@@ -53,7 +86,6 @@ INNER JOIN diadesatlas.basin b2 ON
   WHERE year > 0"# AND climatic_scenario = 'rcp85'"
   
   data_hsi_nmax <- tbl(conn_eurodiad, sql(query)) %>%
-    # tibble() %>%
     # compute the maximum abundance of adults (#) according to hsi,
     #   maximal density of spawners (Dmax) , catchment area, 
     #   population growth rate in ideal condition (lambda_1)
@@ -103,19 +135,27 @@ INNER JOIN diadesatlas.basin b2 ON
     select(-pctMedian)
 
   
-  # catchment of the surface
-  catchment_surface <- data_hsi_nmax %>% 
-    distinct(basin_name, surface_area)
-    # arrange(basin_name) 
+  # # catchment of the surface
+  # catchment_surface <- data_hsi_nmax %>% 
+  #   distinct(basin_name, surface_area)
+  #   # arrange(basin_name) 
 
   
   # reference results ----
-  query <- "SELECT s.latin_name, basin_id, basin_name, year, climatic_scenario, climatic_model_code, nit  
+  query <- 
+"SELECT 
+    s.latin_name, 
+    basin_id, 
+    basin_name, 
+    year, 
+    climatic_scenario, 
+    climatic_model_code, 
+    nit  
   FROM diadesatlas.hybrid_model_result hmr
   INNER JOIN diadesatlas.species s USING (species_id)
   INNER JOIN diadesatlas.basin b USING (basin_id)
   INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
-  --WHERE year > 0
+  WHERE year > 0
   "
   
   reference_results <- tbl(conn_eurodiad, sql(query))
@@ -127,7 +167,7 @@ INNER JOIN diadesatlas.basin b2 ON
     hydiad_parameter = hydiad_parameter,
     data_hsi_nmax = data_hsi_nmax,
     reference_results = reference_results,
-    data_ni0 = data_ni0,
-    catchment_surface = catchment_surface
+    data_ni0 = data_ni0
+    # catchment_surface = catchment_surface
   )
 }

@@ -1,8 +1,8 @@
 # Create dput when new database arise from 
 # source(here::here("data-raw/altas_simulation.R"))
 
-# compute_nmax_eh1 ----
-test_that("compute_nmax_eh1 works", {
+# prepare_model_ouputs ----
+test_that("prepare_model_ouputs works", {
   # dput(models, file = "tests/testthat/models_dput")
   if (FALSE) {
     # To debug tests only
@@ -10,7 +10,7 @@ test_that("compute_nmax_eh1 works", {
   }
   extendedNit_entry_small <- eval(parse(file = "extendedNit_dput"))
   
-  results_model_small <- compute_nmax_eh1(model = "cnrmcm5",
+  results_model_small <- prepare_model_ouputs(model = "cnrmcm5",
                                           scenario = "rcp85",
                                           extendedNit = extendedNit_entry_small)
   # Create expected

@@ -30,7 +30,7 @@ globalVariables(unique(c(
   "contenu_markdown", "en", "es", "fr", "pt",
   # others
   "diadesatlas.translate", ".", "long", "lat", "group", "region",
-  # compute_nmax_eh1: 
+  # prepare_model_ouputs: 
   "climatic_model_code", "hsi", "Nit", "Nmax_eh1", 
   # computeEffectiveForModel: 
   "spawnersTo_50", "V1", 

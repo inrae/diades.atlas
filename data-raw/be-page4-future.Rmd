@@ -51,7 +51,7 @@ data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
 data_hsi_nmax
 reference_results <- data_simulation[["reference_results"]]
 data_simulation[["data_ni0"]]
-catchment_surface <- data_simulation[["catchment_surface"]]
+
 ```
 
 ## Prepare data frame of simulation
@@ -90,7 +90,6 @@ mortalities <- tibble::tibble(
       TRUE ~ 0
     )
 )
-
 mortalities
 
 scenario <- "rcp85"
@@ -103,21 +102,20 @@ anthropogenic_mortality <- expand_anthropogenic_mortality(
 selected_latin_name <- "Alosa alosa"
 # selected_latin_name <- "Chelon ramada"
 
-# debugonce(runSimulation)
+
 # shiny::withProgress(
 #   message = 'Making Simu', value = 0, 
 #   session = session, {
 
+# debugonce(computeEffectiveForModel)
     results <- runSimulation(
-      selected_latin_name, 
-      data_simulation[["hydiad_parameter"]], # 11 rows
-      # Smaller for example
-      anthropogenic_mortality, # 1800 rows
-      data_simulation[["catchment_surface"]], # 134 rows
-      data_simulation[["data_hsi_nmax"]], # 663300 rows
-      data_simulation[["data_ni0"]], # 4422 rows
-      data_simulation[["outlet_distance"]], # 18225 rows
-      # Add scenario
+      selected_latin_name = selected_latin_name, 
+      hydiad_parameter = data_simulation[["hydiad_parameter"]], # 11 rows
+      anthropogenic_mortality = anthropogenic_mortality, # 1800 rows
+      catchment_surface = data_simulation[["data_catchment"]], # 134 rows
+      data_hsi_nmax = data_simulation[["data_hsi_nmax"]], # 663300 rows
+      data_ni0 = data_simulation[["data_ni0"]], # 4422 rows
+      outlet_distance = data_simulation[["outlet_distance"]], # 18225 rows
       scenario = scenario,
       verbose = FALSE
     )

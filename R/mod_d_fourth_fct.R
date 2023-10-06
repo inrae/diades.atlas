@@ -67,14 +67,17 @@ runSimulation <- function(selected_latin_name,
   results = list()
   
   # ---------------------------------------------------------------------- #
-  # Filter on climatic scenario where needed
+  # Filter on species and climatic scenario 
   data_hsi_nmax <- data_hsi_nmax %>% 
-    filter(climatic_scenario == scenario)
+    filter(climatic_scenario == scenario,
+          latin_name == !!selected_latin_name)
+  
   data_ni0 <- data_ni0 %>% 
-    filter(climatic_scenario == scenario)
+    filter(climatic_scenario == scenario,
+           latin_name == !!selected_latin_name)
   
   # Local variables ----
-  ## ordered list of basin s----
+  ## ordered list of basins ----
   basins <- data_hsi_nmax %>% 
     distinct(basin_name) %>%
     pull() %>% 
@@ -103,36 +106,27 @@ runSimulation <- function(selected_latin_name,
   generationtime <- floor(parameter$AgeFirstMat + (nbCohorts / 2))
   
   ## nb of years in the 'burn-in' period (let the model stabilizing after model population) ----
+  ## #TODO burnin <- 5 * generationtime
   burnin <- 10
   
   ## first year of simulation ----
   firstYear <- data_hsi_nmax %>% 
     summarise(min = min(year, na.rm = TRUE)) %>% 
     pull()
-  # firstYear <- min(data_hsi_nmax$year, na.rm = TRUE)
-  
+ 
   # ---------------------------------------------------------------------- #
   # Local matrices ----
+  
   ## the spawnerTo that are half active in reproduction (Allee effect) ----
-  # spawnersTo_50 <-  parameter$lambda * parameter$Dmax * catchment_surface$surface_area
-  # browser()
-  
-  # spawnersTo_50 <-  parameter$lambda * parameter$Dmax * catchment_surface %>% pull(surface_area)
-  
-  catchment_spawnersTo_50 <- catchment_surface %>%
-    mutate(spawnersTo_50 = !!parameter$lambda * !!parameter$Dmax * surface_area)
-  
-  # Be sure to be in correct order
-  spawnersTo_50 <- catchment_spawnersTo_50 %>% 
+  spawnersTo_50 <- catchment_surface %>%
+    mutate(spawnersTo_50 = 
+             !!parameter$kappa * !!parameter$Dmax * !!parameter$lambda_1 * surface_area) %>% 
     collect() %>% 
-    arrange(basin_name) %>% 
+    arrange(basin_name) %>% # Be sure to be in correct order
     pull(spawnersTo_50)
-  
-  # spawnersTo_50 <- catchment_spawnersTo_50 %>% collect() %>% arrange(basin_name) %>% pull(spawnersTo_50)
-  
+
   ## update Nmax according to anthropogenic mortality eh1 = exp(-h1) ----
   Nit <- data_hsi_nmax %>% 
-    filter(latin_name == !!selected_latin_name) %>% 
     mutate(phase = 'simul') %>% 
     collect() %>% 
     # update maximal abundance (Nmax) with anthropogenic mortality (h1)
@@ -163,6 +157,14 @@ runSimulation <- function(selected_latin_name,
     bind_rows(anticipation) %>% 
     arrange(basin_id, climatic_model_code, year)
   
+  # add population growth rate depending on HSI
+  #   when hsi = hsi_threshold then r = lambda_extirpation
+  #   when hsi = 1             then r = lambda_1
+  extendedNit <- extendedNit %>% 
+    mutate(r = ((parameter$lambda_1 - parameter$lambda_extirpation) * hsi +
+                  (parameter$lambda_extirpation * 1 - parameter$lambda_1 * parameter$hsi_threshold)) /
+             (1 - parameter$hsi_threshold))
+  
   # expect_equal(extendedNit, extendedNit_PML)
   
   ## list years in simulation ----
@@ -171,21 +173,19 @@ runSimulation <- function(selected_latin_name,
     arrange(year)
   results[['param']][['years']] <- years 
   
-  # if (verbose) toc()
-  
-  # if (verbose) tic()
   # ------------------------------------------------------------------------------- #
 
   # Create dput for tests
   # dput(head(extendedNit), file = "tests/testthat/extendedNit_dput")
   # 
-  results[["model"]] <- lapply(models, compute_nmax_eh1, extendedNit = extendedNit, scenario = scenario)
+  
+  # prepare model outputs
+  results[["model"]] <- lapply(models, prepare_model_ouputs, extendedNit = extendedNit, scenario = scenario)
   names(results[["model"]]) <-  models
   
   # expect_equal(results[["model"]], resultsPM) # OK
   # --------------------------------------------------------------------------------------- #
-  ## r * exp(-h2) matrix ----
-  
+
   # compute exp(-h2) 
   eh2 <-  extendedNit %>% 
     distinct(year, basin_name, country) %>% 
@@ -221,7 +221,6 @@ runSimulation <- function(selected_latin_name,
            arrival %in% !!basins) %>% 
     # filter(departure == "Aa", arrival == "Barbate") %>% 
     # Calculate the relative fraction of fish that would return to each according to the kernel function
-    # mutate(proportion = exp(-(!!parameter$alpha * (distance ^ !!parameter$beta)))) %>%  
     mutate(
       proportion = !!parameter$alpha * (distance ^ !!parameter$beta), 
       proportion = if_else(proportion <= 40, exp(-proportion), 0)
@@ -256,10 +255,7 @@ runSimulation <- function(selected_latin_name,
     as("sparseMatrix")
   
   # expect_equal(results[["other"]][['survivingProportion']], survivingProportion_PML) # OK
-  #Rq: transpose of Besty's matrix (not sure now)
-  
-  # if (verbose) toc()
-  
+
   # for testing: resultsModel <- results[['model']][[1]]
   # years to run simulation 
   yearsToRun <- years %>% filter(phase != 'initial') %>% 
@@ -281,20 +277,16 @@ runSimulation <- function(selected_latin_name,
   }
   
   # run simulation over years 
-  # if (verbose) tic()
   for (currentYear in yearsToRun) {
-    # currentYear <- yearsToRun[1]
     ## print a progress bar to the console
     if (verbose) {
       if (is.null(getDefaultReactiveDomain())) {
         setTxtProgressBar(progbar, currentYear)
       } else {
-        # prog <- (currentYear - min(yearsToRun))/(max(yearsToRun) - min(yearsToRun) + 1)
         incProgress(1/nyears, detail = paste("Doing year", currentYear))
       }
     }
 
-    
     results <- computeEffective(currentYear, 
                                 results = results, 
                                 generationtime = generationtime, 
@@ -303,25 +295,24 @@ runSimulation <- function(selected_latin_name,
                                 parameter = parameter,
                                 cohortWeight = cohortWeight,
                                 models = models,
-                                # catchment_spawnersTo_50 = catchment_spawnersTo_50,
                                 spawnersTo_50 = spawnersTo_50)
   } 
   if (verbose) cat('\n')
-  # if (verbose) toc()
-  
+
   return(results)
 }
 
-#' Compute Nmax_eh1 matrix and prepare Nit matrix
+#' prepare model ouputs as a list of matrices
 #'
 #' @param model model, e.g. "cnrmcm5"
 #' @param scenario Global warming scenario e.g "rcp85"
-#' @param extendedNit extendedNit data input
+#' @param extendedNit extendedNit data input (including Nmax_eh1 and r for all years)
 #' 
 #' @noRd
-compute_nmax_eh1 <- function(model, scenario, extendedNit) {
+prepare_model_ouputs <- function(model, scenario, extendedNit) {
   out <- list()
   
+  # habitat suitability index [catchment, time]
   out[['HSI']] <- 
     extendedNit %>% 
     filter(climatic_model_code == model,
@@ -333,6 +324,7 @@ compute_nmax_eh1 <- function(model, scenario, extendedNit) {
     column_to_rownames('basin_name') %>% 
     as.matrix()
   
+  # maximum adult production after mortality due to habitat degradation [catchment, time]
   out[['Nmax_eh1']] <- 
     extendedNit %>% 
     filter(climatic_model_code == model,
@@ -344,6 +336,19 @@ compute_nmax_eh1 <- function(model, scenario, extendedNit) {
     column_to_rownames('basin_name') %>% 
     as.matrix()
   
+  # population growth rate in each catchment [catchment, time]
+  out[['r']] <- 
+    extendedNit %>% 
+    filter(climatic_model_code == model,
+           climatic_scenario == scenario) %>% 
+    pivot_wider(id_cols = basin_name,
+                names_from = year,
+                values_from = r) %>% 
+    arrange(basin_name) %>% 
+    column_to_rownames('basin_name') %>% 
+    as.matrix()
+  
+  # number of adults [catchment, time]
   out[['Nit']] <- 
     extendedNit %>% 
     filter(climatic_model_code == model,
@@ -353,20 +358,23 @@ compute_nmax_eh1 <- function(model, scenario, extendedNit) {
                 values_from = Nit) %>% 
     arrange(basin_name) %>% 
     column_to_rownames('basin_name') %>% 
-    as.matrix() 
+    as.matrix()
   
+  # number of emigrants from origin [catchment, time]
   out[['emigrants']] <- matrix(
     0, 
     nrow = nrow(out[['Nit']]),
     ncol = ncol(out[['Nit']]), 
     dimnames = list(rownames(out[['Nit']]), colnames(out[['Nit']])))
   
+  #number of immigrants into arrival [catchment, time]
   out[['immigrants']] <- matrix(
     0, 
     nrow = nrow(out[['Nit']]),
     ncol = ncol(out[['Nit']]), 
     dimnames = list(rownames(out[['Nit']]), colnames(out[['Nit']])))
   
+  # number of spawners in catchment [catchment, time]
   out[['spawnersTo']] <- matrix(
     0, 
     nrow = nrow(out[['Nit']]),
@@ -397,7 +405,6 @@ computeEffectiveForModel <- function(model,
                                      years,
                                      parameter,
                                      cohortWeight,
-                                     # catchment_spawnersTo_50,
                                      spawnersTo_50) {
   #cat(model, "\t", currentYear, "\n")
   currentYear_str <- as.character(currentYear)
@@ -452,9 +459,15 @@ computeEffectiveForModel <- function(model,
     # head() %>% is()
     
     # calculate the proportion of active spawners
-    survivalOffsprings <- parameter$r * (spawnersTo^2 / (spawnersTo_50^2 + spawnersTo^2)) * spawnersTo
+    p_active <-  (spawnersTo^parameter$theta / (spawnersTo_50^parameter$theta + spawnersTo^parameter$theta)) 
+    
+    # select r for the current year 
+    r_current <- resultsModel$r[, currentYear_str]
+
+    #calculate the survival adults
+    survivalOffsprings <- r_current * p_active * spawnersTo
   } else {
-    survivalOffsprings <- parameter$r * spawnersTo 
+    survivalOffsprings <- r_current * spawnersTo 
   }
   # max abundance
   maxN <-  resultsModel$Nmax_eh1[, currentYear_str]
@@ -482,7 +495,6 @@ computeEffective <- function(currentYear,
                              parameter,
                              cohortWeight,
                              spawnersTo_50,
-                             # catchment_spawnersTo_50,
                              models) {
   
   # loop over models
@@ -497,7 +509,6 @@ computeEffective <- function(currentYear,
     parameter = parameter,
     cohortWeight = cohortWeight,
     spawnersTo_50 = spawnersTo_50
-    # catchment_spawnersTo_50 = catchment_spawnersTo_50
     )
   names(provResults) <- models
   
