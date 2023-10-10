@@ -15,7 +15,7 @@ get_hybrid_model(
 \arguments{
 \item{species_id, scenario}{internal param for SQL filter}
 
-\item{lg}{Character. Lang to be used.}
+\item{lg}{Character. language of translation}
 
 \item{session}{Shiny session  object}
 

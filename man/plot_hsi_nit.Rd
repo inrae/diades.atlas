@@ -28,11 +28,11 @@ plot_hsi(model_res_filtered, selected_year, lg)
 \arguments{
 \item{model_res}{model outputs}
 
-\item{selected_year}{Numeric. selected_year}
+\item{selected_year}{the year to display the result}
 
 \item{selected_bv}{Character. Selected BV}
 
-\item{lg}{lang}
+\item{lg}{language of translation}
 
 \item{withNitStandardisation}{Logical. Whether to standardise NIT.}
 
