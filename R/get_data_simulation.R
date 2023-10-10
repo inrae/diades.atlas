@@ -31,8 +31,8 @@ get_data_simulation <- function(conn_eurodiad) {
     	basin_id,
     	basin_name,
     	country,
-    	surface_area_drainage_basin AS surface_area
-    	-- ccm_area AS surface_area,
+    	--surface_area_drainage_basin AS surface_area
+      ccm_area AS surface_area
     FROM
     	diadesatlas.basin b
     INNER JOIN diadesatlas.basin_outlet bo
@@ -73,8 +73,8 @@ get_data_simulation <- function(conn_eurodiad) {
     basin_id, 
     basin_name, 
     country, 
-    surface_area_drainage_basin AS surface_area,
-    -- ccm_area AS surface_area,
+    --surface_area_drainage_basin AS surface_area,
+    ccm_area AS surface_area,
     year, 
     climatic_scenario, 
     climatic_model_code, 
@@ -82,6 +82,7 @@ get_data_simulation <- function(conn_eurodiad) {
   FROM diadesatlas.hybrid_model_result hmr
   INNER JOIN diadesatlas.species s USING (species_id)
   INNER JOIN diadesatlas.basin b USING (basin_id)
+  INNER JOIN diadesatlas.basin_outlet bo USING (basin_id)
   INNER JOIN diadesatlas.climatic_model cm USING (climatic_model_id)
   WHERE year > 0"# AND climatic_scenario = 'rcp85'"
   
