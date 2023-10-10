@@ -32,19 +32,24 @@ globalVariables(unique(c(
   "diadesatlas.translate", ".", "long", "lat", "group", "region",
   # prepare_model_ouputs: 
   "climatic_model_code", "hsi", "Nit", "Nmax_eh1", 
-  # computeEffectiveForModel: 
+  # computeEffectiveForOneModel: 
   "spawnersTo_50", "V1", 
   # generate_datasets: 
   "country", 
   # get_data_simulation: 
-  "climatic_model_code", "Dmax", "hsi",
-  "latin_name_s", "surface_area", "Lname_s",
+  "climatic_model_code", "Dmax", "hsi", "lambda_1", "pctMedian",
+  "surface_area", 'end_year', 'firstYearsToPopulate',
   # mod_fourth_server : <anonymous>: 
   "X2", "X3", 
   # runSimulation: 
   "arrival", "climatic_model_code", "country", "departure",
-  "distance", "latin_name_s", "Nmax", "phase", "proportion",
+  "distance", "Nmax", "phase", "proportion",
   "r_eh2", "surface_area", "survival", "survivingProportion", "withNatalStray",
+  "sum_proportion", 
+  # prepare_model_ouputs
+  "r",
+  # compute_effective
+  "nbCohorts",
   # nit_feature_species
   "nit", "rolling_mean"
 )))
