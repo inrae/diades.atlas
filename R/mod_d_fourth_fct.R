@@ -55,7 +55,7 @@ runSimulation <- function(selected_latin_name,
                           outlet_distance, 
                           scenario = "rcp85",
                           verbose = FALSE) {
-  # if (verbose) tic()
+
   if (verbose) {
     if (is.null(getDefaultReactiveDomain())) {
       print("Prepare simulation")
@@ -73,7 +73,7 @@ runSimulation <- function(selected_latin_name,
           latin_name == !!selected_latin_name)
   
   data_ni0 <- data_ni0 %>% 
-    filter(climatic_scenario == scenario,
+    filter(climatic_scenario == !!scenario,
            latin_name == !!selected_latin_name)
   
   # Local variables ----
@@ -102,18 +102,18 @@ runSimulation <- function(selected_latin_name,
   nbCohorts <-  parameter$nbCohorts
   cohortWeight <- matrix(rep(1/nbCohorts, nbCohorts), ncol = 1)
   
-  ## generation time : number of years contributing to a spawner run ----
+  ## generation time : age of the the oldest cohort in a spawning run 
+  ## (or the lag between current year and birth year of the oldest cohort)----
   generationtime <- floor(parameter$AgeFirstMat + (nbCohorts / 2))
   
   ## nb of years in the 'burn-in' period (let the model stabilizing after model population) ----
-  ## #TODO burnin <- 5 * generationtime
-  burnin <- 10
+  burnin <- parameter$numberGenerationForBurnin * generationtime
   
   ## first year of simulation ----
   firstYear <- data_hsi_nmax %>% 
     summarise(min = min(year, na.rm = TRUE)) %>% 
     pull()
- 
+
   # ---------------------------------------------------------------------- #
   # Local matrices ----
   
@@ -138,6 +138,7 @@ runSimulation <- function(selected_latin_name,
            Nit = 0)
   
   # anticipate simulation to initialise model and to burn-in run 
+  # data_hsi_nmax
   anticipation <-  
     tidyr::expand_grid( 
       data_ni0 %>% 
@@ -149,9 +150,9 @@ runSimulation <- function(selected_latin_name,
         phase = c(rep('initial', generationtime), rep('burnin', burnin))
       )
     ) %>% 
-    # initial value (HSI predict with 10-year average of environmental factors)
+    # initial value (Nmax based on HSI median, Nit = a percentage of Nmax
     mutate(Nmax_eh1 = Nmax ,
-           Nit =  ifelse(phase == 'initial', Nmax, 0))
+           Nit =  ifelse(phase == 'initial', Nmax * parameter$pctMedian, 0))
   
   extendedNit <- Nit %>% 
     bind_rows(anticipation) %>% 
@@ -462,7 +463,8 @@ computeEffectiveForOneModel <- function(model,
     # head() %>% is()
     
     # calculate the proportion of active spawners
-    p_active <-  (spawnersTo^parameter$theta / (spawnersTo_50^parameter$theta + spawnersTo^parameter$theta)) 
+    p_active <-  (spawnersTo^parameter$theta /
+                    (spawnersTo_50^parameter$theta + spawnersTo^parameter$theta)) 
     
     # select r for the current year 
     r_current <- resultsModel$r[, currentYear_str]
@@ -556,7 +558,10 @@ expand_anthropogenic_mortality <- function(data_hsi_nmax, mortalities) {
 
 #' Get Nit results from model results
 #' @param results List of results
-#' @noRd
+#' 
+#' @return A list of Nit per model
+#' @export
+
 get_model_nit <- function(results) {
   Nit_list <- results[['model']] %>% 
     lapply(function(x) x[["Nit"]])  
