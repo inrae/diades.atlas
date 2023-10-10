@@ -59,11 +59,11 @@ get_data_simulation <- function(conn_eurodiad) {
   hydiad_parameter <- 
     tbl(conn_eurodiad, 
       sql("SELECT 
-        s.latin_name,
-        simplifiedname(s.latin_name) AS short_name,
+        s.latin_name AS latin_name,
+        diadesatlas.simplifiedname(latin_name) AS short_name,
         h.* 
       FROM diadesatlas.hydiadparameter h
-      INNER JOIN diadesatlas.species s USING (species_id)"))
+      INNER JOIN diadesatlas.species s USING (species_id)")) 
   
   # HSI  and Nmax ----
   # a query to load HSI for only 8.5 scenario (which do not change between simulations)
@@ -119,21 +119,26 @@ get_data_simulation <- function(conn_eurodiad) {
   #   select(-c(surface_area, Dmax, lambda_1))
   #   
 
-  # initial conditions to populate the model
-  # percentage of HSI and Nmax medians
+  # initial conditions to populate the model:  percentage of HSI and Nmax medians
+  
+  start_year <- data_hsi_nmax %>% 
+    summarise(year = min(year,
+              na.rm = TRUE)) %>% 
+    pull(year)
+ 
   data_ni0 <- 
-    data_hsi_nmax %>% 
-    filter(between(year, 1951, 1960)) %>% 
+    data_hsi_nmax %>%
+    inner_join(hydiad_parameter %>%
+                 select("latin_name", 'firstYearsToPopulate'),
+               by = join_by(latin_name)) %>% 
+    mutate(end_year = start_year + firstYearsToPopulate - 1) %>% 
+    filter(between(year, start_year, end_year)) %>% 
     # group by all but year, hsi and Nmax
     group_by(across(-c(year, hsi, Nmax))) %>%  
     summarise(across(c(hsi, Nmax), ~median(.x, na.rm = TRUE)),
              .groups = 'drop') %>% 
-    inner_join(hydiad_parameter %>%  select(latin_name, pctMedian),
-               by = join_by(latin_name)) %>% 
-    mutate(across(c(hsi, Nmax), ~.x * pctMedian)) %>% 
     mutate(year = 0, .before = hsi) %>% 
-    select(-pctMedian)
-
+    select(-c(firstYearsToPopulate, end_year))
   
   # # catchment of the surface
   # catchment_surface <- data_hsi_nmax %>% 
