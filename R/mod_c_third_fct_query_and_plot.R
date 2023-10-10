@@ -4,7 +4,7 @@
 #' 
 #' @param species_id,scenario internal param for SQL filter
 #' @param session Shiny session  object
-#' @param lg Character. Lang to be used.
+#' @param lg Character. language of translation
 #' @param widthWindow Numeric. Moving window for moving average
 #' @importFrom dplyr tbl filter collect mutate
 #'
@@ -40,6 +40,8 @@ get_hybrid_model <- function(species_id,
     collect()
 }
 
+
+#' @param lg language of interface
 #' @importFrom dplyr tbl filter mutate select collect
 #' @noRd
 get_bv_geoms <- function(bv_ids,
@@ -104,7 +106,7 @@ draw_bv_leaflet <- function(bv_df,
 #' @param model_res model outputs
 #' @param selected_year Numeric. selected_year
 #' @param selected_bv Character. Selected BV
-#' @param lg lang
+#' @param lg language of translation
 #' @param withNitStandardisation Logical. Whether to standardise NIT.
 #' @param with_colour_source Name of a variable to change colour lines
 #'
@@ -143,6 +145,8 @@ plot_hsi_nit <- function(model_res,
 #' Plot NIT only
 #' @rdname plot_hsi_nit
 #' @param model_res_filtered model_res for a specific basin
+#' @param selected_year the year to display the result
+#' @param lg language of translation
 #' @param with_colour_source Name of a variable to change colour lines
 #' @importFrom dplyr filter mutate inner_join between group_by summarise across
 #' @import ggplot2
@@ -210,6 +214,8 @@ plot_nit <- function(model_res_filtered,
 
 #' Plot NIT only
 #' @param model_res_filtered model_res for a specific basin
+#' @param selected_year the year to display the result
+#' @param lg language of translation
 #' @rdname plot_hsi_nit
 #' @import ggplot2
 #' @export
