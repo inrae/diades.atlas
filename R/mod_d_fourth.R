@@ -262,7 +262,7 @@ mod_fourth_server <- function(id, r = r) {
             hydiad_parameter = data_simulation[["hydiad_parameter"]], # 11 rows
             # Smaller for example
             anthropogenic_mortality = anthropogenic_mortality, #%>% filter(year <= 1955), # 1800 rows
-            catchment_surface = data_simulation[["catchment_surface"]], # 134 rows
+            catchment_surface = data_simulation[["data_catchment"]], # 134 rows
             data_hsi_nmax = data_simulation[["data_hsi_nmax"]], # 663300 rows
             data_ni0 = data_simulation[["data_ni0"]], # 4422 rows
             outlet_distance = data_simulation[["outlet_distance"]], # 18225 rows
