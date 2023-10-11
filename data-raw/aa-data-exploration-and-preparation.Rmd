@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(diades.atlas)
+# pkgload::load_all(here::here())
 # renv::install("dm")
 # library(dm)
 library(geojson)
@@ -67,7 +68,7 @@ casestudy
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "basin_location")) %>% collect()
 # Model results over the years
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "hybrid_model_result")) %>% collect()
-# Abundance of species in a given basin ove the years
+# Abundance of species in a given basin over the years
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "abundance")) %>% collect()
 # ?
 dplyr::tbl(con, dbplyr::in_schema("diadesatlas", "climatic_model")) %>% collect()
