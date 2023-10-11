@@ -4,10 +4,12 @@
 \alias{nit_feature}
 \title{Calculate NIT feature}
 \usage{
-nit_feature(data_list)
+nit_feature(data_list, n = 10)
 }
 \arguments{
 \item{data_list}{List of Nit outputs only}
+
+\item{n}{integer, rolling window size}
 }
 \value{
 A tibble

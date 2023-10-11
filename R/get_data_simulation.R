@@ -32,16 +32,17 @@ get_data_simulation <- function(conn_eurodiad) {
     	basin_name,
     	country,
     	--surface_area_drainage_basin AS surface_area
-      ccm_area AS surface_area
+      COALESCE(ccm_area, surface_area_drainage_basin) AS surface_area
     FROM
     	diadesatlas.basin b
     INNER JOIN diadesatlas.basin_outlet bo
     		USING (basin_id)
     INNER JOIN part1
-    		USING (basin_id)")) 
+    		USING (basin_id)
+    ORDER BY basin_id")) 
       
-      # Distances between catchment ----
-      outlet_distance <- tbl(conn_eurodiad, 
+   # Distances between catchment ----
+  outlet_distance <- tbl(conn_eurodiad, 
     sql("SELECT
     	b.basin_name AS departure,
     	od.departure AS departure_id,
@@ -53,7 +54,8 @@ get_data_simulation <- function(conn_eurodiad) {
     INNER JOIN diadesatlas.basin b ON
     	(departure = b.basin_id)
     INNER JOIN diadesatlas.basin b2 ON
-    	(arrival = b2.basin_id)"))
+    	(arrival = b2.basin_id)
+    ORDER BY departure_id, arrival_id"))
       
   # HyDiaD parameters ----
   hydiad_parameter <- 
@@ -74,7 +76,7 @@ get_data_simulation <- function(conn_eurodiad) {
     basin_name, 
     country, 
     --surface_area_drainage_basin AS surface_area,
-    ccm_area AS surface_area,
+    COALESCE(ccm_area, surface_area_drainage_basin) AS surface_area,
     year, 
     climatic_scenario, 
     climatic_model_code, 

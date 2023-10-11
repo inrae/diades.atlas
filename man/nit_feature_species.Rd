@@ -4,7 +4,7 @@
 \alias{nit_feature_species}
 \title{Get nit reference and predictions for one species and all basins}
 \usage{
-nit_feature_species(Nit_list, reference_results, selected_latin_name)
+nit_feature_species(Nit_list, reference_results, selected_latin_name, n = 10)
 }
 \arguments{
 \item{Nit_list}{Nit_list as issued from [get_model_nit()]}
@@ -12,6 +12,8 @@ nit_feature_species(Nit_list, reference_results, selected_latin_name)
 \item{reference_results}{reference_results as issued from [prepare_datasets()]}
 
 \item{selected_latin_name}{Latin species name}
+
+\item{n}{integer, rolling window size}
 }
 \value{
 data.frame of Nit results for one species and one basin

@@ -41,15 +41,15 @@ conn_eurodiad <- connect()
 Queries from preparation_atlas_simulation.R
 
 ```{r}
+# debugonce('get_data_simulation')
 data_simulation <- get_data_simulation(conn_eurodiad)
-data_catchment <- data_simulation[["data_catchment"]]
-data_catchment
+data_simulation[["data_catchment"]] %>% 
+  filter(basin_id == 118)
+
 data_simulation[["outlet_distance"]]
-hydiad_parameter <- data_simulation[["hydiad_parameter"]]
-hydiad_parameter
-data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
-data_hsi_nmax
-reference_results <- data_simulation[["reference_results"]]
+data_simulation[["hydiad_parameter"]]
+data_simulation[["data_hsi_nmax"]]
+data_simulation[["reference_results"]]
 data_simulation[["data_ni0"]]
 
 ```
@@ -97,7 +97,7 @@ scenario <- "rcp85"
 # # build from sliders in interface 
 # expand grid using full_join
 anthropogenic_mortality <- expand_anthropogenic_mortality(
-  data_hsi_nmax, mortalities)
+  data_simulation[["data_hsi_nmax"]], mortalities)
 
 selected_latin_name <- "Alosa alosa"
 # selected_latin_name <- "Chelon ramada"
@@ -107,6 +107,7 @@ selected_latin_name <- "Alosa alosa"
 #   message = 'Making Simu', value = 0, 
 #   session = session, {
 
+# pkgload::load_all(here::here())
 # debugonce(computeEffectiveForOneModel)
     results <- runSimulation(
       selected_latin_name = selected_latin_name, 
@@ -117,7 +118,7 @@ selected_latin_name <- "Alosa alosa"
       data_ni0 = data_simulation[["data_ni0"]], # 4422 rows
       outlet_distance = data_simulation[["outlet_distance"]], # 18225 rows
       scenario = scenario,
-      verbose = FALSE
+      verbose = TRUE
     )
   # })
 
@@ -130,20 +131,31 @@ selected_latin_name <- "Alosa alosa"
 
 ```{r, out.width="100%", fig.width=6}
 # graphics ----
+# pkgload::load_all(here::here())
 Nit_list <- get_model_nit(results) 
 
-basin <- 'Garonne'
+results$other$survivingProportion['60', ]
+results$other$eh2['60', ]
+results$model$cnrmcm5$spawnersTo['60', ]
+Nit_list$cnrmcm5['60', ]
+
+basin <- data_simulation[["data_catchment"]] %>% 
+  filter(basin_name == 'Garonne') %>%  
+  collect() %>% 
+  pull(basin_id)
 
 # Plot Nit predictions
+# debugonce('nit_feature_species')
 model_res_filtered <- nit_feature_species(
   Nit_list = Nit_list,
-  reference_results = reference_results %>%
+  reference_results = data_simulation[["reference_results"]] %>%
     filter(climatic_scenario == scenario),
   selected_latin_name = selected_latin_name)
-  
+
+
 # same function as for Page 3
 model_res_filtered %>% 
-  filter(basin_name == basin) %>% 
+  filter(basin_id == basin) %>% 
   # filter(source == "reference") %>% 
   plot_nit(selected_year = 2073,
            lg = "fr",
@@ -159,7 +171,7 @@ loco <- list()
 loco$model_res <- model_res_filtered %>% 
   filter(source == "simul") %>% 
   left_join(data_simulation[["data_catchment"]] %>% collect(),
-            by = "basin_name")
+            by = "basin_id")
 
 loco$bv_df <- get_bv_geoms(
   unique(loco$model_res$basin_id),

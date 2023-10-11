@@ -294,7 +294,7 @@ mod_fourth_server <- function(id, r = r) {
           filter(climatic_scenario == !!input$scenario),
         selected_latin_name = loco$species) %>% 
         left_join(loco$data_simulation[["data_catchment"]] %>% collect(),
-                  by = "basin_name")
+                  by = "basin_id")
       
       if (!is.null(loco$model_res_filtered)) {
         loco$trigger_graphs <- loco$trigger_graphs + 1

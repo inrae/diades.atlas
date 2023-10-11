@@ -77,13 +77,11 @@ runSimulation <- function(selected_latin_name,
            latin_name == !!selected_latin_name)
   
   # Local variables ----
-  ## ordered list of basins ----
-  basins <- data_hsi_nmax %>% 
-    distinct(basin_name) %>%
+  ## ordered list of basins based on basin_id ----
+  basin_ids <- data_hsi_nmax %>% 
+    distinct(basin_id) %>%
     pull() %>% 
     sort()
-  # arrange(basin_name) %>% 
-  # pull(basin_name)
   
   ## list of models ----
   models <- data_hsi_nmax %>% 
@@ -122,7 +120,7 @@ runSimulation <- function(selected_latin_name,
     mutate(spawnersTo_50 = 
              !!parameter$kappa * !!parameter$Dmax * !!parameter$lambda_1 * surface_area) %>% 
     collect() %>% 
-    arrange(basin_name) %>% # Be sure to be in correct order
+    arrange(basin_id) %>% # Be sure to be in correct order
     pull(spawnersTo_50)
 
   ## update Nmax according to anthropogenic mortality eh1 = exp(-h1) ----
@@ -189,16 +187,16 @@ runSimulation <- function(selected_latin_name,
 
   # compute exp(-h2) 
   eh2 <-  extendedNit %>% 
-    distinct(year, basin_name, country) %>% 
+    distinct(year, basin_id, country) %>% 
     left_join(anthropogenic_mortality ,
               by = c('country', 'year')) %>% 
     select(-c(country, h1)) %>% 
     mutate(r_eh2 = exp(-h2)) %>% 
-    pivot_wider(id_cols = basin_name,
+    pivot_wider(id_cols = basin_id,
                 names_from = year,
                 values_from = r_eh2) %>% 
-    arrange(basin_name) %>% 
-    column_to_rownames('basin_name') %>% 
+    arrange(basin_id) %>% 
+    column_to_rownames('basin_id') %>% 
     as.matrix() 
   
   # expect_equal(eh2, eh2_PML) # OK
@@ -209,17 +207,18 @@ runSimulation <- function(selected_latin_name,
   
   # ----------------------------------------------------------------------- #
   ## matrix of survival proportion between catchments among emigrants  ----
-  # row: arrival basin
-  # colum: departure basin
+  # row: arrival basin id
+  # colum: departure basin id
+  # 
   # signif(
   # exp(-(parameter$alpha * (3113.873 ^ parameter$beta))),
   # digits = 40
   # )
   
   results[["other"]][['survivingProportion']]  <- outlet_distance %>% 
-    # filter basins
-    filter(departure %in% !!basins,
-           arrival %in% !!basins) %>% 
+    # filter basin_ids
+    filter(departure_id %in% !!basin_ids,
+           arrival_id %in% !!basin_ids) %>% 
     # filter(departure == "Aa", arrival == "Barbate") %>% 
     # Calculate the relative fraction of fish that would return to each according to the kernel function
     mutate(
@@ -229,9 +228,9 @@ runSimulation <- function(selected_latin_name,
     # no fish 'accidentally stray' into their natal catchment when NatalStray is FALSE
     mutate(withNatalStray = !!parameter$withNatalStray, 
            proportion = ifelse(withNatalStray, proportion, 
-                               ifelse(departure == arrival, 0, proportion))) %>% 
+                               ifelse(departure_id == arrival_id, 0, proportion))) %>% 
     # compute the relative proportion
-    group_by(departure) %>% 
+    group_by(departure_id) %>% 
     mutate(sum_proportion = sum(proportion, na.rm = TRUE), 
            proportion = if_else(sum_proportion == 0, 
                                0, 
@@ -244,14 +243,14 @@ runSimulation <- function(selected_latin_name,
                                         survivingProportion)) %>% 
     collect() %>% 
     # pivot wider
-    pivot_wider(id_cols = arrival, 
-                names_from = departure, 
+    pivot_wider(id_cols = arrival_id, 
+                names_from = departure_id, 
                 values_from = survivingProportion) %>%
     # arrange rows and columns
-    arrange(arrival) %>% 
-    column_to_rownames('arrival') %>% 
-    select(all_of( basins)) %>% 
-    as.matrix() %>% 
+    arrange(arrival_id) %>% 
+    column_to_rownames('arrival_id') %>% 
+    select(all_of( as.character(basin_ids))) %>% 
+    as.matrix(rownames.force = TRUE) %>% 
     # transform into a sparse matrix to speed up the calculation
     as("sparseMatrix")
   
@@ -317,11 +316,11 @@ prepare_model_ouputs <- function(model, scenario, extendedNit) {
     extendedNit %>% 
     filter(climatic_model_code == model,
            climatic_scenario == scenario) %>% 
-    pivot_wider(id_cols = basin_name,
+    pivot_wider(id_cols = basin_id,
                 names_from = year,
                 values_from = hsi) %>% 
-    arrange(basin_name) %>% 
-    column_to_rownames('basin_name') %>% 
+    arrange(basin_id) %>% 
+    column_to_rownames('basin_id') %>% 
     as.matrix()
   
   # maximum adult production after mortality due to habitat degradation [catchment, time]
@@ -329,11 +328,11 @@ prepare_model_ouputs <- function(model, scenario, extendedNit) {
     extendedNit %>% 
     filter(climatic_model_code == model,
            climatic_scenario == scenario) %>% 
-    pivot_wider(id_cols = basin_name,
+    pivot_wider(id_cols = basin_id,
                 names_from = year,
                 values_from = Nmax_eh1) %>% 
-    arrange(basin_name) %>% 
-    column_to_rownames('basin_name') %>% 
+    arrange(basin_id) %>% 
+    column_to_rownames('basin_id') %>% 
     as.matrix()
   
   # population growth rate in each catchment [catchment, time]
@@ -341,11 +340,11 @@ prepare_model_ouputs <- function(model, scenario, extendedNit) {
     extendedNit %>% 
     filter(climatic_model_code == model,
            climatic_scenario == scenario) %>% 
-    pivot_wider(id_cols = basin_name,
+    pivot_wider(id_cols = basin_id,
                 names_from = year,
                 values_from = r) %>% 
-    arrange(basin_name) %>% 
-    column_to_rownames('basin_name') %>% 
+    arrange(basin_id) %>% 
+    column_to_rownames('basin_id') %>% 
     as.matrix()
   
   # number of adults [catchment, time]
@@ -353,11 +352,11 @@ prepare_model_ouputs <- function(model, scenario, extendedNit) {
     extendedNit %>% 
     filter(climatic_model_code == model,
            climatic_scenario == scenario) %>% 
-    pivot_wider(id_cols = basin_name,
+    pivot_wider(id_cols = basin_id,
                 names_from = year,
                 values_from = Nit) %>% 
-    arrange(basin_name) %>% 
-    column_to_rownames('basin_name') %>% 
+    arrange(basin_id) %>% 
+    column_to_rownames('basin_id') %>% 
     as.matrix()
   
   # number of emigrants from origin [catchment, time]
@@ -571,6 +570,7 @@ get_model_nit <- function(results) {
 #' Calculate NIT feature
 #'
 #' @param data_list List of Nit outputs only
+#' @param n integer, rolling window size
 #' 
 #' @importFrom dplyr as_tibble mutate inner_join group_by
 #' @importFrom tidyr pivot_longer
@@ -580,30 +580,31 @@ get_model_nit <- function(results) {
 #' @return A tibble
 #' @export
 #'
-nit_feature <- function(data_list) {
+nit_feature <- function(data_list, n = 10) {
   res <- data_list %>% 
     reduce(pmin) %>%  
-    as_tibble(rownames = 'basin_name') %>% 
-    pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'min') %>% 
+    as_tibble(rownames = 'basin_id') %>% 
+    pivot_longer(cols = -basin_id, names_to = 'year', values_to = 'min') %>% 
     mutate(year = as.integer(year)) %>% 
     inner_join(
       data_list %>% 
         reduce(pmax) %>%  
-        as_tibble(rownames = 'basin_name') %>% 
-        pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'max') %>% 
+        as_tibble(rownames = 'basin_id') %>% 
+        pivot_longer(cols = -basin_id, names_to = 'year', values_to = 'max') %>% 
         mutate(year = as.integer(year)),
-      by = c('basin_name', 'year')) %>% 
+      by = c('basin_id', 'year')) %>% 
     inner_join(
       data_list %>% 
         simplify2array() %>% 
         apply(c(1,2), mean) %>%  
-        as_tibble(rownames = 'basin_name') %>% 
-        pivot_longer(cols = -basin_name, names_to = 'year', values_to = 'mean') %>% 
+        as_tibble(rownames = 'basin_id') %>% 
+        pivot_longer(cols = -basin_id, names_to = 'year', values_to = 'mean') %>% 
         mutate(year = as.integer(year)),
-      by = c('basin_name', 'year')) %>% 
-    group_by(basin_name) %>% 
+      by = c('basin_id', 'year')) %>% 
+    group_by(basin_id) %>% 
     mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')) %>% 
-    ungroup()
+    ungroup() %>% 
+    mutate(basin_id = as.integer(basin_id))
   return(res)
 }
 
@@ -612,6 +613,7 @@ nit_feature <- function(data_list) {
 #' @param Nit_list Nit_list as issued from [get_model_nit()]
 #' @param reference_results reference_results as issued from [prepare_datasets()]
 #' @param selected_latin_name Latin species name
+#' @param n integer, rolling window size
 #' 
 #' @importFrom dplyr mutate bind_rows filter group_by summarise
 #' @importFrom dplyr ungroup
@@ -619,22 +621,23 @@ nit_feature <- function(data_list) {
 #' @return data.frame of Nit results for one species and one basin
 #' @export
 nit_feature_species <- function(Nit_list,
-                                      reference_results,
-                                      selected_latin_name) {
-  nit_feature(Nit_list) %>% 
+                                reference_results,
+                                selected_latin_name,
+                                n = 10) {
+  nit_feature(Nit_list, n = n) %>% 
     mutate(source = 'simul') %>% 
     bind_rows(
       # reference for this species
       reference_results %>% 
         filter(latin_name == !!selected_latin_name) %>% 
         collect() %>% 
-        group_by(basin_name, year) %>% 
+        group_by(basin_id, year) %>% 
         summarise(min = min(nit),
                   max = max(nit),
                   mean = mean(nit),
                   .groups = 'drop') %>% 
         # collect() %>% 
-        group_by(basin_name) %>% 
+        group_by(basin_id) %>% 
         mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')) %>% 
         mutate(source = 'reference') %>% 
         ungroup()
