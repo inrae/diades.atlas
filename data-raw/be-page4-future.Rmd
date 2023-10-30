@@ -48,7 +48,7 @@ data_simulation[["data_catchment"]] %>%
 
 data_simulation[["outlet_distance"]]
 data_simulation[["hydiad_parameter"]]
-data_simulation[["data_hsi_nmax"]]
+data_hsi_nmax <- data_simulation[["data_hsi_nmax"]]
 data_simulation[["reference_results"]]
 data_simulation[["data_ni0"]]
 
@@ -123,6 +123,8 @@ selected_latin_name <- "Alosa alosa"
   # })
 
 
+    
+
 # Les 5 premières lignes des sous-listes
 # results %>% purrr::map(~purrr::map(.x, head))
 ```
@@ -132,12 +134,9 @@ selected_latin_name <- "Alosa alosa"
 ```{r, out.width="100%", fig.width=6}
 # graphics ----
 # pkgload::load_all(here::here())
-Nit_list <- get_model_nit(results) 
+# 
 
-results$other$survivingProportion['60', ]
-results$other$eh2['60', ]
-results$model$cnrmcm5$spawnersTo['60', ]
-Nit_list$cnrmcm5['60', ]
+Nit_list <- get_model_nit(results) 
 
 basin <- data_simulation[["data_catchment"]] %>% 
   filter(basin_name == 'Garonne') %>%  
