@@ -132,7 +132,7 @@ get_data_simulation <- function(conn_eurodiad) {
   data_ni0 <- 
     data_hsi_nmax %>%
     inner_join(hydiad_parameter %>%
-                 select("latin_name", 'firstYearsToPopulate'),
+                 select("latin_name", 'firstYearsToPopulate', 'pctMedian'),
                by = join_by(latin_name)) %>% 
     mutate(end_year = start_year + firstYearsToPopulate - 1) %>% 
     filter(between(year, start_year, end_year)) %>% 
@@ -140,8 +140,9 @@ get_data_simulation <- function(conn_eurodiad) {
     group_by(across(-c(year, hsi, Nmax))) %>%  
     summarise(across(c(hsi, Nmax), ~median(.x, na.rm = TRUE)),
              .groups = 'drop') %>% 
+    mutate(Nmax = Nmax * pctMedian) %>% 
     mutate(year = 0, .before = hsi) %>% 
-    select(-c(firstYearsToPopulate, end_year))
+    select(-c(firstYearsToPopulate, end_year, pctMedian))
   
   # # catchment of the surface
   # catchment_surface <- data_hsi_nmax %>% 
