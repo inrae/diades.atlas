@@ -200,9 +200,13 @@ plot_nit <- function(model_res_filtered,
       scale_colour_brewer(type = "qual", palette = "Set2") +
       scale_fill_brewer(type = "qual", palette = "Set2")
   }
+  # add vertical line correspondinf to anthropegnic mortality period
+  if (max(model_res_filtered$year) >= 2001) {
   nit <- nit + 
     geom_vline(xintercept = 2001, colour = "gray", linetype = "dashed") +
-    geom_vline(xintercept = 2051, colour = "gray", linetype = "dashed") +
+    geom_vline(xintercept = 2051, colour = "gray", linetype = "dashed")
+  }
+  nit <- nit +
     geom_vline(xintercept = selected_year, color = "red") +
     theme_bw() +
     theme(legend.title = element_blank()) +
