@@ -77,12 +77,12 @@ runSimulation <- function(selected_latin_name,
            latin_name == !!selected_latin_name)
   
   # Local variables ----
-  ## ordered list of basins based on basin_id ----
+  ## list of basins ordered by basin_id as numeric ----
   basin_ids <- data_hsi_nmax %>% 
     distinct(basin_id) %>%
     pull() %>% 
     sort()
-  
+
   ## list of models ----
   models <- data_hsi_nmax %>% 
     distinct(climatic_model_code) %>%
@@ -116,12 +116,16 @@ runSimulation <- function(selected_latin_name,
   # Local matrices ----
   
   ## the spawnerTo that are half active in reproduction (Allee effect) ----
+  ## matrix ([n,1]) with basin_id as row names
   spawnersTo_50 <- catchment_surface %>%
     mutate(spawnersTo_50 = 
              !!parameter$kappa * !!parameter$Dmax * !!parameter$lambda_1 * surface_area) %>% 
     collect() %>% 
-    arrange(basin_id) %>% # Be sure to be in correct order
-    pull(spawnersTo_50)
+    arrange(basin_id) %>% # Be sure to be in correct numeric order
+    select(basin_id, spawnersTo_50) %>% 
+    column_to_rownames('basin_id') %>% 
+    as.matrix() 
+  colnames(spawnersTo_50) <- NULL
 
   ## update Nmax according to anthropogenic mortality eh1 = exp(-h1) ----
   Nit <- data_hsi_nmax %>% 
@@ -148,9 +152,9 @@ runSimulation <- function(selected_latin_name,
         phase = c(rep('initial', generationtime), rep('burnin', burnin))
       )
     ) %>% 
-    # initial value (Nmax based on HSI median, Nit = a percentage of Nmax
+    # initial value 
     mutate(Nmax_eh1 = Nmax ,
-           Nit =  ifelse(phase == 'initial', Nmax * parameter$pctMedian, 0))
+           Nit =  ifelse(phase == 'initial', Nmax, 0))
   
   extendedNit <- Nit %>% 
     bind_rows(anticipation) %>% 
@@ -246,11 +250,11 @@ runSimulation <- function(selected_latin_name,
     pivot_wider(id_cols = arrival_id, 
                 names_from = departure_id, 
                 values_from = survivingProportion) %>%
-    # arrange rows and columns
-    arrange(arrival_id) %>% 
+    # arrange rows and columns (in numeric order)
+    arrange(as.integer(arrival_id)) %>% 
     column_to_rownames('arrival_id') %>% 
     select(all_of( as.character(basin_ids))) %>% 
-    as.matrix(rownames.force = TRUE) %>% 
+    as.matrix() %>% 
     # transform into a sparse matrix to speed up the calculation
     as("sparseMatrix")
   
@@ -380,6 +384,12 @@ prepare_model_ouputs <- function(model, scenario, extendedNit) {
     ncol = ncol(out[['Nit']]), 
     dimnames = list(rownames(out[['Nit']]), colnames(out[['Nit']])))
   
+  # proportion of active spawners in catchment [catchment, time]
+  out[['pActive']] <- matrix(
+    0, 
+    nrow = nrow(out[['Nit']]),
+    ncol = ncol(out[['Nit']]), 
+    dimnames = list(rownames(out[['Nit']]), colnames(out[['Nit']])))
   
   return(out)
 }
@@ -462,14 +472,16 @@ computeEffectiveForOneModel <- function(model,
     # head() %>% is()
     
     # calculate the proportion of active spawners
-    p_active <-  (spawnersTo^parameter$theta /
-                    (spawnersTo_50^parameter$theta + spawnersTo^parameter$theta)) 
+    pActive <-  (spawnersTo^parameter$theta /
+                    (spawnersTo_50^parameter$theta + spawnersTo^parameter$theta))
+    colnames(pActive) <- NULL
+    resultsModel$pActive[, currentYear_str] <- pActive
     
     # select r for the current year 
     r_current <- resultsModel$r[, currentYear_str]
 
     #calculate the survival adults
-    survivalOffsprings <- r_current * p_active * spawnersTo
+    survivalOffsprings <- r_current * pActive * spawnersTo
   } else {
     survivalOffsprings <- r_current * spawnersTo 
   }
@@ -478,8 +490,8 @@ computeEffectiveForOneModel <- function(model,
   
   # update result with min of survival offsprings and max abundance (min by row)
   #resultsModel$Nit[, currentYear_str] <- apply(cbind(survivalOffsprings, maxN), 1, min)
-  resultsModel$Nit[, currentYear_str] <- do.call(pmin, list(survivalOffsprings, maxN))
-  
+  # resultsModel$Nit[, currentYear_str] <- do.call(pmin, list(survivalOffsprings, maxN))
+  resultsModel$Nit[, currentYear_str] <- pmin(survivalOffsprings, maxN)
   return(resultsModel)
 }
 
@@ -555,15 +567,19 @@ expand_anthropogenic_mortality <- function(data_hsi_nmax, mortalities) {
     mutate(h1 = replace_na(h1, 0))
 }
 
-#' Get Nit results from model results
+#' Get Nit results from model results (only for the simulation phase, without initial and the burning phases)
 #' @param results List of results
 #' 
 #' @return A list of Nit per model
 #' @export
 
 get_model_nit <- function(results) {
+  years_of_simulation = results$param$years %>% 
+    filter(phase == 'simul') %>%  
+    pull(year) %>%  
+    as.character()
   Nit_list <- results[['model']] %>% 
-    lapply(function(x) x[["Nit"]])  
+    lapply(function(x) x[["Nit"]][,years_of_simulation])  
   return(Nit_list)
 }
 
@@ -638,12 +654,12 @@ nit_feature_species <- function(Nit_list,
                   .groups = 'drop') %>% 
         # collect() %>% 
         group_by(basin_id) %>% 
-        mutate(rolling_mean = frollmean(mean, n = 10, align = 'center')) %>% 
+        mutate(rolling_mean = frollmean(mean, n = n, align = 'center')) %>% 
         mutate(source = 'reference') %>% 
         ungroup()
       ) %>%
     suppressWarnings() %>% 
-    filter(year >= 1951) %>% 
+    # filter(year > min(reference_results$year)) %>% # to limit to simul period
     rename(
       nit_min = min,
       nit_max = max,
