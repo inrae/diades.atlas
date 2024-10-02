@@ -3,8 +3,10 @@ title: "bd-page3-climate-change"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{bd-page3-climate-change}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -73,7 +75,7 @@ datasets <- generate_datasets(
   )
 )
 
-species_id <- datasets$species_list[datasets$species_list[["latin_name"]] == "alosa-fallax", "species_id"]
+species_id <- datasets$species_list[datasets$species_list[["latin_name"]] == "Alosa fallax", "species_id"]
 
 scenario <- "rcp85"
 date <- c(1970, 2010)
@@ -106,7 +108,9 @@ get_bv_geoms <- function(bv_ids,
     get_con(session),
     query = sprintf(
       "select basin_id, verysimplified_geom, ccm_name from basin_outlet where basin_id IN %s",
-      dbplyr::translate_sql(!!bv_ids)
+      dbplyr::translate_sql(
+        con = get_con(session), 
+        !!bv_ids)
     )
   )
   basin <- tbl(get_con(session), "basin") %>%
