@@ -1,3 +1,9 @@
+# diades.atlas 0.3.3
+
+* Upgrade R version in renv.lock
+* Upgrade R package version
+* Fix bad request in page 1
+
 # diades.atlas 0.3.2
 
 * Upgrade R version in renv.lock
