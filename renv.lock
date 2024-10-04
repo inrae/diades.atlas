@@ -4,7 +4,7 @@
     "Repositories": [
       {
         "Name": "RSPM",
-        "URL": "https://cran.rstudio.com"
+        "URL": "https://packagemanager.rstudio.com/all/latest"
       },
       {
         "Name": "CRAN",
@@ -218,9 +218,14 @@
     },
     "attachment": {
       "Package": "attachment",
-      "Version": "0.4.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.4.2.9002",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "attachment",
+      "RemoteUsername": "ThinkR-open",
+      "RemotePkgRef": "ThinkR-open/attachment",
+      "RemoteSha": "fcf96ceb14b6733ef2351e0c01fcb5719f5835a3",
       "Requirements": [
         "R",
         "cli",
@@ -236,7 +241,7 @@
         "withr",
         "yaml"
       ],
-      "Hash": "6fb32c60d80a143293aabd0f2aa80597"
+      "Hash": "099d2c0625ec354e0e4e72f77751f24d"
     },
     "attempt": {
       "Package": "attempt",
@@ -3350,7 +3355,7 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.47",
+      "Version": "0.48",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -3359,7 +3364,7 @@
         "stats",
         "tools"
       ],
-      "Hash": "36ab21660e2d095fef0d83f689e0477c"
+      "Hash": "89e455b87c84e227eb7f60a1b4e5fe1f"
     },
     "xml2": {
       "Package": "xml2",
