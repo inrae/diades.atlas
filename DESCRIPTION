@@ -2,9 +2,11 @@ Package: diades.atlas
 Title: The Diades Atlas Shiny App
 Version: 0.3.3
 Authors@R: c(
-    person("Sébastien", "Rochette", , "sebastien@thinkr.fr", role = c("cre", "aut"),
+    person("Patrick", "Lambert", , "patrick.mh.lambert@inrae.fr", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0003-4367-8498")),
+    person("Sébastien", "Rochette", , "sebastien@thinkr.fr", role = "aut",
            comment = c(ORCID = "0000-0002-1565-9313")),
-    person("Colin", "Fay", , "colin@thinkr.fr", role = "aut",
+    person("Colin", "Fay", , "colin@thinkr.fr", role = c("aut"),
            comment = c(ORCID = "0000-0001-7343-1846")),
     person("Antoine", "Languillaume", , "antoine@thinkr.fr", role = "aut",
            comment = c(ORCID = "0000-0001-9843-5632"))
