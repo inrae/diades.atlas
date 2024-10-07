@@ -1,5 +1,5 @@
 pandoc: 3.1.1
-pkgdown: 2.0.7
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   aa-a-exploration_data: aa-a-exploration_data.html
@@ -11,5 +11,4 @@ articles:
   tests_and_coverage: tests_and_coverage.html
   translation: translation.html
   userguide: userguide.html
-last_built: 2023-07-24T14:57Z
-
+last_built: 2024-10-07T16:59Z

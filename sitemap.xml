@@ -1,129 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/aa-a-exploration_data.html</loc>
-  </url>
-  <url>
-    <loc>/articles/aa-data-exploration-and-preparation.html</loc>
-  </url>
-  <url>
-    <loc>/articles/bb-page1-catch-bycatch.html</loc>
-  </url>
-  <url>
-    <loc>/articles/bc-page2-present.html</loc>
-  </url>
-  <url>
-    <loc>/articles/bd-page3-climate-change.html</loc>
-  </url>
-  <url>
-    <loc>/articles/be-page4-future.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/tests_and_coverage.html</loc>
-  </url>
-  <url>
-    <loc>/articles/translation.html</loc>
-  </url>
-  <url>
-    <loc>/articles/userguide.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/pull_request_template.html</loc>
-  </url>
-  <url>
-    <loc>/reference/World.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aquamaps_species.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_translation_csv.html</loc>
-  </url>
-  <url>
-    <loc>/reference/connect.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ecosystem_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fake_services_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fake_watershed_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/frontiers.html</loc>
-  </url>
-  <url>
-    <loc>/reference/generate_datasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_active_species.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_con.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_conservation_status.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_data_simulation.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_help_bubble_entries.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_hybrid_model.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/launch_mongo.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nit_feature.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nit_feature_species.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_hsi_nit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/runSimulation.html</loc>
-  </url>
-  <url>
-    <loc>/reference/run_app.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tm_draw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tm_frontiers.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/aa-a-exploration_data.html</loc></url>
+<url><loc>/articles/aa-data-exploration-and-preparation.html</loc></url>
+<url><loc>/articles/bb-page1-catch-bycatch.html</loc></url>
+<url><loc>/articles/bc-page2-present.html</loc></url>
+<url><loc>/articles/bd-page3-climate-change.html</loc></url>
+<url><loc>/articles/be-page4-future.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/tests_and_coverage.html</loc></url>
+<url><loc>/articles/translation.html</loc></url>
+<url><loc>/articles/userguide.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/World.html</loc></url>
+<url><loc>/reference/aquamaps_species.html</loc></url>
+<url><loc>/reference/check_translation_csv.html</loc></url>
+<url><loc>/reference/connect.html</loc></url>
+<url><loc>/reference/ecosystem_table.html</loc></url>
+<url><loc>/reference/fake_services_data.html</loc></url>
+<url><loc>/reference/fake_watershed_data.html</loc></url>
+<url><loc>/reference/frontiers.html</loc></url>
+<url><loc>/reference/generate_datasets.html</loc></url>
+<url><loc>/reference/get_active_species.html</loc></url>
+<url><loc>/reference/get_con.html</loc></url>
+<url><loc>/reference/get_conservation_status.html</loc></url>
+<url><loc>/reference/get_data_simulation.html</loc></url>
+<url><loc>/reference/get_help_bubble_entries.html</loc></url>
+<url><loc>/reference/get_hybrid_model.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/launch_mongo.html</loc></url>
+<url><loc>/reference/nit_feature.html</loc></url>
+<url><loc>/reference/nit_feature_species.html</loc></url>
+<url><loc>/reference/pipe.html</loc></url>
+<url><loc>/reference/plot_hsi_nit.html</loc></url>
+<url><loc>/reference/runSimulation.html</loc></url>
+<url><loc>/reference/run_app.html</loc></url>
+<url><loc>/reference/tm_draw.html</loc></url>
+<url><loc>/reference/tm_frontiers.html</loc></url>
 </urlset>
+
