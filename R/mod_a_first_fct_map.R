@@ -119,7 +119,7 @@ tm_catchmment <- function(dataContinent) {
   tm_shape(dataContinent) +
     tm_polygons(
       "abundance_interpretation",
-      title = "Status in river catchments (1951-2010)" %>% with_i18("status_in_river_catchments") %>% as.character(),
+      title = "Status in river catchments" %>% with_i18("status_in_river_catchments") %>% as.character(),
       # "<span data-i18n='status_in_river_catchments'>Status in river catchments (1951-2010)</span>",
       palette = c("#FEE0D2", "#FCBBA1", "#A50F15", "#67000D"),
       n = 4,

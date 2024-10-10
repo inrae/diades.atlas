@@ -50,7 +50,9 @@ get_bv_geoms <- function(bv_ids,
     get_con(session),
     query = sprintf(
       "select basin_id, verysimplified_geom from basin_outlet where basin_id IN %s",
-      dbplyr::translate_sql(!!bv_ids)
+      dbplyr::translate_sql(
+        con = get_con(session), 
+        !!bv_ids)
     )
   )
   basin <- tbl(get_con(session), "basin") %>%
